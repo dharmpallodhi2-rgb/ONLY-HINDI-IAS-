@@ -5,14 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONLY HINDI IAS - Home</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background-color: #fce34d; }
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #fce34d; padding-bottom: 30px; }
         .header { background-color: #1b266d; color: white; padding: 15px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; justify-content: space-between; align-items: center; }
         .header h1 { margin: 0; font-size: 18px; }
-        
-        /* आपकी फोटो (Logo) की सेटिंग */
         .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
         
-        .section-title { padding: 15px; font-size: 12px; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; }
+        /* ✨ बैनर के लिए जादुई एनीमेशन लाइट ✨ */
+        .banner-box {
+            position: relative;
+            margin: 20px 15px;
+            padding: 3px; /* लाइट के लिए बॉर्डर की जगह */
+            background: linear-gradient(90deg, #fff, #ddd, #fff);
+            background-size: 400% 400%;
+            border-radius: 15px;
+            animation: moveGradient 3s linear infinite; /* लाइट घूमने वाला एनीमेशन */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .banner-box img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title { padding: 10px 20px; font-size: 13px; font-weight: bold; color: #555; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
         .menu-item { background-color: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .menu-item span { font-size: 25px; display: block; margin-bottom: 8px; }
@@ -23,9 +48,8 @@
         .more-item p { margin: 5px 0 0; font-size: 10px; font-weight: bold; }
 
         .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid transparent; transition: 0.3s; }
-        .comm-card:active { border-color: #1b266d; background-color: #f0f4ff; }
-        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin: 8px 0 0; }
+        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin-top: 5px; }
         
         a { text-decoration: none; color: inherit; }
     </style>
@@ -35,6 +59,10 @@
     <div class="header">
         <h1>ONLY HINDI IAS</h1>
         <img src="1766115476203(2).jpg" class="profile-logo" alt="Logo">
+    </div>
+
+    <div class="banner-box">
+        <img src="1774704983075.jpg" alt="Mission 968 Banner">
     </div>
 
     <div class="section-title">📚 KGS COURSES</div>
@@ -74,7 +102,6 @@
                 <p>Join Telegram Channel</p>
             </div>
         </a>
-        
         <a href="https://wa.me/917898602672" target="_blank">
             <div class="comm-card">
                 <span style="font-size: 25px;">💬</span>
