@@ -3,108 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONLY HINDI IAS</title>
-    
+    <title>ONLY HINDI IAS - Home</title>
     <style>
-        /* --- पुरानी सेटिंग --- */
-        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; /* सबसे नीचे थोड़ी खाली जगह छोड़ी है ताकि बटन स्क्रीन से न चिपकें */ }
-        .header { background-color: #1b266d; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #fce34d; }
+        .header { background-color: #1b266d; color: white; padding: 15px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; justify-content: space-between; align-items: center; }
         .header h1 { margin: 0; font-size: 18px; }
-        .tele-btn { background-color: #0088cc; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; }
-        .section-heading { font-size: 11px; color: #666; margin-top: 20px; margin-left: 20px; font-weight: bold; }
         
-        /* 2 डिब्बों वाला जाल */
-        .grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 20px; }
-        /* 3 डिब्बों वाला जाल */
-        .grid-box-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 10px 20px; }
+        /* आपकी फोटो (Logo) की सेटिंग */
+        .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
+        
+        .section-title { padding: 15px; font-size: 12px; font-weight: bold; color: #555; display: flex; align-items: center; gap: 5px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
+        .menu-item { background-color: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .menu-item span { font-size: 25px; display: block; margin-bottom: 8px; }
+        .menu-item p { margin: 0; font-size: 12px; font-weight: bold; }
+        
+        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 15px; }
+        .more-item { background-color: white; border-radius: 10px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .more-item p { margin: 5px 0 0; font-size: 10px; font-weight: bold; }
 
-        /* डिब्बों की सामान्य सेटिंग */
-        .card { background-color: white; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .card-name { font-size: 12px; margin-top: 8px; font-weight: bold; }
-        .card-name-small { font-size: 10px; margin-top: 8px; font-weight: bold; }
-
-        /* परछाईं (Shadows) */
-        .shadow-yellow { box-shadow: 0px 4px 12px rgba(255, 200, 0, 0.4); }
-        .shadow-red { box-shadow: 0px 4px 12px rgba(255, 0, 0, 0.2); }
-        .shadow-blue { box-shadow: 0px 4px 12px rgba(0, 0, 255, 0.2); }
-        .shadow-green { box-shadow: 0px 4px 12px rgba(0, 128, 0, 0.2); }
-        .shadow-pink { box-shadow: 0px 4px 12px rgba(255, 105, 180, 0.3); }
-
-        /* --- नई सेटिंग: COMMUNITY बटनों के लिए --- */
-        .community-card {
-            /* linear-gradient का मतलब है दो रंगों को आपस में मिलाना */
-            /* यहाँ हमने सफेद और हल्के पीले रंग को मिलाया है, जिससे बटन बहुत सुंदर और चमकदार (Premium) लगेगा */
-            background: linear-gradient(to bottom right, #ffffff, #ffe34c); 
-            border-radius: 10px; /* कोनों को गोल किया */
-            padding: 15px; /* अंदर जगह दी */
-            display: flex; /* आइकॉन और नाम को सेट करने के लिए */
-            flex-direction: column; /* ऊपर आइकॉन, नीचे नाम */
-            align-items: center; /* दोनों को बीच में किया */
-            box-shadow: 0px 4px 12px rgba(255, 200, 0, 0.5); /* गहरी पीली परछाईं दी */
-        }
-
+        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid transparent; transition: 0.3s; }
+        .comm-card:active { border-color: #1b266d; background-color: #f0f4ff; }
+        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin: 8px 0 0; }
+        
+        a { text-decoration: none; color: inherit; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>ONLY HINDI IAS</h1>
-        <div class="tele-btn">T</div>
+        <img src="1766115476203(2).jpg" class="profile-logo" alt="Logo">
     </div>
 
-    <div class="section-heading">📚 KGS COURSES</div>
-    <div class="grid-box">
-        <div class="card shadow-yellow">
-            <span style="font-size: 24px;">🎓</span>
-            <div class="card-name" style="color: #d4a000;">KGS Batches</div>
+    <div class="section-title">📚 KGS COURSES</div>
+    <div class="menu-grid">
+        <a href="batches.html">
+            <div class="menu-item">
+                <span>🎓</span>
+                <p style="color: #ffaa00;">KGS Batches</p>
+            </div>
+        </a>
+        <div class="menu-item">
+            <span>❤️</span>
+            <p style="color: #d93838;">Favourites</p>
         </div>
-        <div class="card shadow-red">
-            <span style="font-size: 24px;">❤️</span>
-            <div class="card-name" style="color: #d93838;">Favourites</div>
+        <div class="menu-item">
+            <span>⌛</span>
+            <p style="color: #3b5098;">Watch History</p>
         </div>
-        <div class="card shadow-blue">
-            <span style="font-size: 24px;">⏱️</span>
-            <div class="card-name" style="color: #2b5c8f;">Watch History</div>
-        </div>
-        <div class="card shadow-green">
-            <span style="font-size: 24px;">⬇️</span>
-            <div class="card-name" style="color: #28802e;">Downloads</div>
-        </div>
-        <div class="card shadow-yellow">
-            <span style="font-size: 24px;">📝</span>
-            <div class="card-name" style="color: #d4a000;">Test Series</div>
-        </div>
-    </div>
-
-    <div class="section-heading">✨ MORE FEATURES</div>
-    <div class="grid-box-3">
-        <div class="card shadow-pink">
-            <span style="font-size: 18px;">🎖️</span>
-            <div class="card-name-small" style="color: #d93838;">Board Exams</div>
-        </div>
-        <div class="card shadow-blue">
-            <span style="font-size: 18px;">💡</span>
-            <div class="card-name-small" style="color: #2b5c8f;">Gyan Bindhu</div>
-        </div>
-        <div class="card shadow-green">
-            <span style="font-size: 18px;">📖</span>
-            <div class="card-name-small" style="color: #28802e;">NCERT Books</div>
+        <div class="menu-item">
+            <span>⬇️</span>
+            <p style="color: #28802e;">Downloads</p>
         </div>
     </div>
 
-    <div class="section-heading">🤝 COMMUNITY</div>
-    <div class="grid-box">
+    <div class="section-title">✨ MORE FEATURES</div>
+    <div class="more-grid">
+        <div class="more-item">🏅<p style="color: #d93838;">Board Exams</p></div>
+        <div class="more-item">💡<p style="color: #3b5098;">Gyan Bindhu</p></div>
+        <div class="more-item">📖<p style="color: #28802e;">NCERT Books</p></div>
+    </div>
+
+    <div class="section-title">🤝 COMMUNITY</div>
+    <div class="community-grid">
+        <a href="https://t.me/mission968" target="_blank">
+            <div class="comm-card">
+                <span style="font-size: 25px;">✈️</span>
+                <p>Join Telegram Channel</p>
+            </div>
+        </a>
         
-        <div class="community-card">
-            <span style="font-size: 22px;">✈️</span>
-            <div class="card-name" style="color: #1b266d;">Join Telegram Channel</div>
-        </div>
-
-        <div class="community-card">
-            <span style="font-size: 22px;">💬</span>
-            <div class="card-name" style="color: #28802e;">Join WhatsApp Channel</div>
-        </div>
-
+        <a href="https://wa.me/917898602672" target="_blank">
+            <div class="comm-card">
+                <span style="font-size: 25px;">💬</span>
+                <p>Join WhatsApp Channel</p>
+            </div>
+        </a>
     </div>
 
 </body>
