@@ -10,31 +10,46 @@
         .header h1 { margin: 0; font-size: 18px; }
         .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
         
-        /* ✨ बैनर के लिए जादुई एनीमेशन लाइट ✨ */
+        /* 🚨 लाल ब्लिंक करने वाली लाइट वाला बैनर बॉक्स 🚨 */
         .banner-box {
             position: relative;
             margin: 20px 15px;
-            padding: 3px; /* लाइट के लिए बॉर्डर की जगह */
-            background: linear-gradient(90deg, #fff, #ddd, #fff);
-            background-size: 400% 400%;
+            padding: 4px; /* लाइट के लिए बॉर्डर की जगह */
+            background-color: transparent;
             border-radius: 15px;
-            animation: moveGradient 3s linear infinite; /* लाइट घूमने वाला एनीमेशन */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
             overflow: hidden;
+            
+            /* 💡 जादुई एनीमेशन: लाल लाइट (Red Blink & Glow) */
+            border: 2px solid red; /* लाल बॉर्डर */
+            animation: red_blink_glow 1.5s ease-in-out infinite; /* 1.5 सेकंड में एक बार ब्लिंक */
+            
+            /* ग्लो इफ़ेक्ट (Red Glow Effect) */
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
         }
 
-        @keyframes moveGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* 💡 बैनर वाली फोटो (Banner Image) */
         .banner-box img {
             width: 100%;
             display: block;
-            border-radius: 12px;
+            border-radius: 11px; /* फोटो के कोने गोल */
             position: relative;
-            z-index: 2;
+            z-index: 2; /* फोटो को लाइट के ऊपर लाने के लिए */
+        }
+
+        /* 💡 लाल लाइट को ब्लिंक और ग्लो कराने का एनीमेशन (Blink & Glow Animation) */
+        @keyframes red_blink_glow {
+            0% { 
+                border-color: red; 
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
+            }
+            50% { 
+                border-color: rgba(255, 0, 0, 0.1); /* लाइट मध्यम पड़ जाएगी */
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); /* और ज़्यादा चमकेगी */
+            }
+            100% { 
+                border-color: red; 
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
+            }
         }
 
         .section-title { padding: 10px 20px; font-size: 13px; font-weight: bold; color: #555; }
