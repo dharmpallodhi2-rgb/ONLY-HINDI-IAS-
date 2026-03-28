@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectures - ONLY HINDI IAS</title>
+    
+    <style>
+        /* --- पुरानी सेटिंग --- */
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; }
+        .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; }
+        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-right: 15px; }
+        .page-title { font-size: 14px; font-weight: bold; margin: 0; }
+        
+        .toggle-container { display: flex; justify-content: center; padding: 15px; }
+        .toggle-box { background-color: white; border-radius: 20px; display: flex; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .toggle-btn { padding: 8px 25px; font-size: 12px; font-weight: bold; color: #555; }
+        .toggle-btn.active { background-color: #3b5098; color: white; }
+
+        .lecture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
+        .lecture-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0,0,0,0.1); }
+        .thumbnail { height: 90px; background-color: #1b266d; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .play-icon { font-size: 24px; color: #ffaa00; margin-bottom: 5px; } 
+        .lec-number { font-size: 14px; font-weight: bold; }
+        .lec-info { padding: 10px; }
+        .lec-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; line-height: 1.4; }
+        .lec-date { font-size: 9px; color: #888; }
+
+        /* --- यहाँ से पॉप-अप बॉक्स (जादुई बॉक्स) की नई सेटिंग शुरू होती है --- */
+
+        /* 1. स्क्रीन को धुंधला/काला करने वाला पर्दा */
+        .modal-overlay {
+            display: none; /* सबसे जरूरी: शुरुआत में यह बॉक्स छुपा रहेगा (गायब रहेगा) */
+            position: fixed; /* इसे स्क्रीन पर चिपका दिया है */
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* आधा पारदर्शी काला रंग */
+            z-index: 1000; /* यह सेटिंग इसे वेबसाइट की बाकी सभी चीजों के ऊपर रखती है */
+            justify-content: center; /* सफेद बॉक्स को बीच में लाने के लिए */
+            align-items: center;
+        }
+
+        /* 2. बीच का असली सफेद डिब्बा */
+        .modal-box {
+            background-color: white;
+            width: 85%; /* फोन की स्क्रीन का 85% हिस्सा लेगा */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.3); /* गहरी परछाईं */
+        }
+
+        /* 3. बॉक्स का हेडर (जहाँ X का बटन है) */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee; /* नीचे हल्की सी लाइन */
+            padding-bottom: 10px;
+        }
+        .modal-title { font-size: 13px; font-weight: bold; color: #1b266d; }
+        
+        /* 4. बंद करने वाला (X) बटन */
+        .close-btn { 
+            background: #f5f5f5; 
+            border: none; 
+            font-size: 12px; 
+            color: #555; 
+            padding: 5px 10px; 
+            border-radius: 50%; /* गोल बटन */
+            font-weight: bold;
+        }
+
+        /* 5. चारों विकल्पों (YouTube, Player) की सेटिंग */
+        .modal-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f9f9;
+            text-decoration: none; /* लिंक वाली अंडरलाइन हटाने के लिए */
+            color: #333;
+        }
+        .modal-option:last-child { border-bottom: none; } /* आखिरी विकल्प के नीचे लाइन नहीं होगी */
+        .opt-icon { font-size: 22px; margin-right: 15px; } /* इमोजी का साइज */
+        .opt-text { flex-grow: 1; }
+        .opt-main { font-size: 12px; font-weight: bold; margin-bottom: 3px; }
+        .opt-sub { font-size: 10px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="classroom.html" class="back-btn">⬅ Back</a>
+        <h1 class="page-title">History</h1>
+    </div>
+
+    <div class="toggle-container">
+        <div class="toggle-box">
+            <div class="toggle-btn active">▶️ Classes</div>
+            <div class="toggle-btn">📄 Notes</div>
+        </div>
+    </div>
+
+    <div class="lecture-grid">
+        
+        <div class="lecture-card" onclick="openModal()">
+            <div class="thumbnail">
+                <div class="play-icon">▶️</div>
+                <div class="lec-number">LECTURE-01</div>
+            </div>
+            <div class="lec-info">
+                <div class="lec-title">Lec-01 || सिंधु घाटी सभ्यता (Indus Valley)</div>
+                <div class="lec-date">📅 15 May 2026</div>
+            </div>
+        </div>
+
+        <div class="lecture-card" onclick="openModal()">
+            <div class="thumbnail">
+                <div class="play-icon">▶️</div>
+                <div class="lec-number">LECTURE-02</div>
+            </div>
+            <div class="lec-info">
+                <div class="lec-title">Lec-02 || वैदिक काल (Vedic Period)</div>
+                <div class="lec-date">📅 16 May 2026</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="myModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">▶️ Lecture Options</div>
+                <button class="close-btn" onclick="closeModal()">✖</button>
+            </div>
+            
+            <a href="#" class="modal-option">
+                <div class="opt-icon">📺</div>
+                <div class="opt-text">
+                    <div class="opt-main">Watch on YouTube</div>
+                    <div class="opt-sub">Opens in YouTube app</div>
+                </div>
+                <div class="opt-icon" style="font-size: 14px;">↗️</div>
+            </a>
+
+            <a href="player.html" class="modal-option">
+                <div class="opt-icon">📱</div>
+                <div class="opt-text">
+                    <div class="opt-main">Watch on Player</div>
+                    <div class="opt-sub">Built-in video player</div>
+                </div>
+                <div class="opt-icon" style="font-size: 14px;">↗️</div>
+            </a>
+
+            <a href="#" class="modal-option">
+                <div class="opt-icon">📄</div>
+                <div class="opt-text">
+                    <div class="opt-main">View Lecture PDF</div>
+                    <div class="opt-sub">Read notes here</div>
+                </div>
+                <div class="opt-icon" style="font-size: 14px;">↗️</div>
+            </a>
+
+            <a href="#" class="modal-option">
+                <div class="opt-icon">⬇️</div>
+                <div class="opt-text">
+                    <div class="opt-main">Download Lecture PDF</div>
+                    <div class="opt-sub">Save PDF to your device</div>
+                </div>
+                <div class="opt-icon" style="font-size: 14px;">⬇️</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // यह फंक्शन बॉक्स को 'flex' (दिखाने) कर देता है
+        function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        // यह फंक्शन बॉक्स को वापस 'none' (गायब) कर देता है
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
