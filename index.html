@@ -3,75 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Stealth</title>
+    <title>ONLY HINDI IAS - Home</title>
     <style>
-        /* 🎨 डार्क ब्लू और गोल्डन थीम */
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #050a1f; color: white; padding-bottom: 40px; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #fce34d; padding-bottom: 40px; overflow-x: hidden; }
+        .header { background-color: #1b266d; color: white; padding: 15px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .header h1 { margin: 0; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .profile-logo { width: 42px; height: 42px; border-radius: 50%; border: 3px solid #ffaa00; object-fit: cover; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         
-        /* 🔵 Header - Golden Glow */
-        .header { background: #000; color: #ffaa00; padding: 20px; border-bottom: 3px solid #ffaa00; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 30px rgba(255, 170, 0, 0.4); }
-        .header h1 { margin: 0; font-size: 20px; text-shadow: 0 0 10px #ffaa00; }
-        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 3px solid #ffaa00; box-shadow: 0 0 15px #ffaa00; }
+        .banner-box { position: relative; margin: 15px; padding: 3px; border-radius: 12px; overflow: hidden; border: 2px solid red; animation: red_blink_glow 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+        .banner-box img { width: 100%; display: block; border-radius: 9px; }
 
-        /* 🚩 Banner */
-        .banner-box { margin: 25px 15px; border-radius: 20px; overflow: hidden; border: 2px solid red; animation: red_blink 1.5s infinite alternate; }
-        .banner-box img { width: 100%; display: block; border-radius: 18px; }
-        @keyframes red_blink { from { box-shadow: 0 0 5px red; } to { box-shadow: 0 0 20px red; } }
-
-        /* 📺 असली न्यूज़ लाइन एनीमेशन (एकदम सीधी लाइन) 📺 */
-        .news-container { 
-            background: #000; 
-            padding: 10px 0; 
-            border-top: 1px solid #333; 
-            border-bottom: 1px solid #333; 
-            margin-top: -10px;
-            margin-bottom: 25px; 
-            overflow: hidden; /* बाहर का हिस्सा छिपाने के लिए */
-            width: 100%;
+        @keyframes red_blink_glow {
+            0%, 100% { border-color: red; box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); }
+            50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 18px rgba(255, 0, 0, 0.8); }
         }
 
-        .news-scroll {
+        /* 🌈 नया रंग बदलने वाला न्यूज़ एनीमेशन (Gradient Text) 🌈 */
+        .news-container {
+            background-color: white; /* सफेद बैकग्राउंड पर रंगीन टेक्स्ट */
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: -5px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .news-text {
             display: inline-block;
-            white-space: nowrap; /* 👈 यह टेक्स्ट को मुड़ने से रोकता है */
             padding-left: 100%;
-            animation: newsSlide 15s linear infinite;
-        }
-
-        .news-scroll span {
             font-size: 16px;
             font-weight: 800;
-            color: #ff4757; /* लाल/गुलाबी न्यूज़ कलर */
-            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
-            display: inline-block;
+            
+            /* ✅ Gradient (रंग बदलने वाला) जादू ✅ */
+            background-image: linear-gradient(to right, #ff1493, #1e90ff, #fce34d, #ff1493);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            
+            animation: moveNews 15s linear infinite, colorChange 4s linear infinite;
         }
 
-        @keyframes newsSlide {
+        /* दाईं से बाईं ओर खिसकने का एनीमेशन */
+        @keyframes moveNews {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
 
-        /* 🏛️ Subject Cards - Floating Animation */
-        .card-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .cyber-card { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 20px; 
-            padding: 25px 10px; 
-            text-align: center; 
-            animation: card-float 3s ease-in-out infinite;
+        /* रंगों को बदलने का एनीमेशन */
+        @keyframes colorChange {
+            to { background-position: 200% center; }
         }
-        @keyframes card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
-        .cyber-card span { font-size: 35px; display: block; margin-bottom: 10px; }
-        .cyber-card p { margin: 0; font-size: 13px; font-weight: bold; color: #ffaa00; }
+        .section-title { padding: 15px 15px 5px; font-size: 13px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 5px 15px; }
+        .menu-item { background-color: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .menu-item:active { transform: scale(0.95); background: #f9f9f9; }
+        .menu-item span { font-size: 25px; display: block; margin-bottom: 8px; }
+        .menu-item p { margin: 0; font-size: 12px; font-weight: bold; }
 
-        /* Governance Card */
-        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-left: 4px solid #ffaa00; }
-        .gov-card img { width: 80px; height: 80px; border-radius: 12px; margin-right: 15px; border: 1px solid #444; }
-        .btn-glow { background: #ffaa00; color: black; padding: 8px 20px; border-radius: 10px; font-size: 12px; font-weight: 800; text-decoration: none; box-shadow: 0 0 15px #ffaa00; }
+        .gov-medium-section { margin: 10px 15px; background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; align-items: center; padding: 12px; border: 1px solid #eee; }
+        .gov-img-small { width: 85px; height: 85px; border-radius: 12px; object-fit: cover; }
+        .gov-info { padding-left: 18px; flex: 1; }
+        .gov-info h3 { margin: 0; font-size: 15px; color: #1b266d; font-weight: 800; }
+        .gov-btn-small { display: inline-block; margin-top: 10px; background: #28802e; color: white; padding: 8px 20px; border-radius: 25px; font-size: 12px; text-decoration: none; font-weight: bold; text-transform: uppercase; box-shadow: 0 3px 8px rgba(40, 128, 46, 0.3); }
 
-        .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #ffaa00; text-transform: uppercase; letter-spacing: 2px; }
+        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 5px 15px; }
+        .more-item { background-color: white; border-radius: 10px; padding: 12px 5px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-decoration: none; display: block; transition: 0.2s; }
+        .more-item:active { transform: scale(0.95); }
+        .more-item span { font-size: 18px; display: block; margin-bottom: 4px; }
+        .more-item p { margin: 0; font-size: 10px; font-weight: bold; }
+
+        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
+        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration: none; display: block; transition: 0.2s; }
+        .comm-card:active { transform: scale(0.95); }
+        .comm-icon { width: 35px; height: 35px; margin-bottom: 5px; border-radius: 5px; }
+        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin: 0; }
+        
+        a { text-decoration: none; color: inherit; }
     </style>
 </head>
 <body>
@@ -82,32 +93,47 @@
     </div>
 
     <div class="banner-box">
-        <img src="1774704983075.jpg" alt="Banner">
+        <img src="1774704983075.jpg" alt="Mission 968 Banner">
     </div>
 
     <div class="news-container">
-        <div class="news-scroll">
-            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें! &nbsp;&nbsp;&nbsp;&nbsp; 🔥 15 जून से नई बैच शुरू... प्रवेश प्रारंभ! &nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है...</span>
+        <div class="news-text">
+            𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान!
         </div>
     </div>
 
-    <div class="section-title">⚡ CORE MISSIONS</div>
-    <div class="card-container">
-        <a href="batches.html" style="text-decoration:none;"><div class="cyber-card"><span>🎓</span><p>KGS Batches</p></div></a>
-        <div class="cyber-card"><span>❤️</span><p>Favourites</p></div>
-        <div class="cyber-card"><span>⌛</span><p>History</p></div>
-        <div class="cyber-card"><span>⬇️</span><p>Downloads</p></div>
+    <div class="section-title">📚 KGS COURSES</div>
+    <div class="menu-grid">
+        <a href="batches.html"><div class="menu-item"><span>🎓</span><p style="color: #ffaa00;">KGS Batches</p></div></a>
+        <div class="menu-item"><span>❤️</span><p style="color: #d93838;">Favourites</p></div>
+        <div class="menu-item"><span>⌛</span><p style="color: #3b5098;">History</p></div>
+        <div class="menu-item"><span>⬇️</span><p style="color: #28802e;">Downloads</p></div>
     </div>
 
-    <div class="section-title">🏛️ GOVERNANCE (CLASSIFIED)</div>
-    <div class="card-container">
-        <div class="cyber-card gov-card">
-            <img src="IMG_20260319_163412_254.jpg" alt="Gov">
-            <div>
-                <b style="font-size: 14px; color: #fff;">UPSC Paper 2 Dossier</b><br>
-                <a href="governance.pdf" target="_blank" class="btn-glow">📄 OPEN DOSSIER</a>
-            </div>
+    <div class="section-title">🏛️ शासन व्यवस्था (GOVERNANCE)</div>
+    <div class="gov-medium-section">
+        <img src="IMG_20260319_163412_254.jpg" class="gov-img-small" alt="Governance">
+        <div class="gov-info">
+            <h3>UPSC GS Paper 2 Notes</h3>
+            <a href="governance.pdf" target="_blank" class="gov-btn-small">📄 OPEN PDF</a>
         </div>
+    </div>
+
+    <div class="section-title">✨ MORE FEATURES</div>
+    <div class="more-grid">
+        <div class="more-item"><span>🏅</span><p style="color: #d93838;">Board Exams</p></div>
+        <div class="more-item"><span>💡</span><p style="color: #3b5098;">Gyan Bindu</p></div>
+        <a href="https://ncert.nic.in/" target="_blank" class="more-item"><span>📖</span><p style="color: #28802e;">NCERT Books</p></a>
+    </div>
+
+    <div class="section-title">🤝 COMMUNITY</div>
+    <div class="community-grid">
+        <a href="https://t.me/mission968" target="_blank" class="comm-card">
+            <img src="7dbfac257b4714f2d63fd8d4178c7528.jpg" class="comm-icon" alt="Telegram"><p>Telegram</p>
+        </a>
+        <a href="https://wa.me/919685026772" target="_blank" class="comm-card">
+            <img src="398183d05f839d3c448a0053bf11d8bc.jpg" class="comm-icon" alt="WhatsApp"><p>WhatsApp</p>
+        </a>
     </div>
 
 </body>
