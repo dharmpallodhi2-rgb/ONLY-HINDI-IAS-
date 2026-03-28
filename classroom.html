@@ -2,183 +2,100 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom - ONLY HINDI IAS</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; color: white; overflow-x: hidden; }
-        .header { background-color: #000; color: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 50; }
-        .back-btn { background: #333; color: white; padding: 5px 12px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: bold; }
-        .batch-title { font-size: 14px; font-weight: bold; color: #ffaa00; }
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #fdf5d6; }
+        .header { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; gap: 15px; }
+        .back-btn { background: #1b266d; color: white; padding: 5px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; }
         
-        /* 📱 प्रोफेशनल वीडियो प्लेयर डिज़ाइन 📱 */
-        .video-player-container { width: 100%; max-width: 800px; margin: 0 auto; background: black; position: relative; border-radius: 0 0 12px 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .tabs { display: flex; justify-content: space-around; background: white; padding: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .tab-item { padding: 8px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; color: #666; }
+        .tab-active { border-bottom: 3px solid #ffaa00; color: #ffaa00; }
+
+        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .subject-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        .subject-card h3 { margin: 0 0 15px 0; color: #1b266d; font-size: 16px; }
         
-        .main-video { width: 100%; display: block; }
+        .stats { display: flex; gap: 5px; justify-content: center; }
+        .stat-box { background: #fff8e1; border: 1px solid #ffe082; padding: 5px 8px; border-radius: 8px; font-size: 10px; color: #ff9800; cursor: pointer; display: flex; align-items: center; gap: 3px; }
+
+        /* प्रोफेशनल पॉप-अप (Modal) */
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 95%; max-width: 600px; border-radius: 15px; overflow: hidden; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: white; z-index: 110; cursor: pointer; background: rgba(0,0,0,0.5); border-radius: 50%; width: 40px; height: 40px; text-align: center; line-height: 35px; }
         
-        /* कस्टम कंट्रोल्स ओवरले */
-        .video-controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; opacity: 0; transition: opacity 0.3s; z-index: 10; }
-        .video-player-container:hover .video-controls { opacity: 1; }
+        /* वीडियो प्लेयर कंटेनर */
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: black; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .control-btn { background: none; border: none; color: white; cursor: pointer; padding: 0; font-size: 20px; outline: none; display: flex; align-items: center; }
-        .control-btn .material-icons { font-size: 26px; }
-        
-        /* सीक-बार (Timeline) */
-        .progress-container { flex: 1; height: 5px; background: rgba(255,255,255,0.2); border-radius: 5px; cursor: pointer; position: relative; }
-        .progress-bar { height: 100%; background: #ffaa00; border-radius: 5px; width: 0%; position: relative; }
-        .progress-bar::after { content: ''; position: absolute; right: -5px; top: -4px; width: 13px; height: 13px; background: #ffaa00; border-radius: 50%; opacity: 0; transition: opacity 0.2s; }
-        .progress-container:hover .progress-bar::after { opacity: 1; }
-
-        .time-display { font-size: 12px; color: #ccc; min-width: 40px; text-align: center; }
-
-        /* फुलस्क्रीन और अन्य फीचर्स */
-        .right-controls { display: flex; align-items: center; gap: 12px; }
-
-        /* विषय सूची (Subject Cards) - नीचे */
-        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; margin-top: 20px; }
-        .subject-card { background: #2a2a2a; border-radius: 10px; padding: 15px; text-align: center; border: 1px solid #333; transition: 0.2s; }
-        .subject-card:active { background: #333; }
-        .subject-card h3 { margin: 0; color: #ffaa00; font-size: 16px; }
-        .subject-card p { margin: 5px 0 0; color: #ccc; font-size: 11px; }
-
-        /* 📱 मोबाइल के लिए फुलस्क्रीन फिक्स 📱 */
-        :-webkit-full-screen .video-player-container { width: 100% !important; height: 100% !important; border-radius: 0; }
-        :-moz-full-screen .video-player-container { width: 100% !important; height: 100% !important; border-radius: 0; }
-        :-ms-fullscreen .video-player-container { width: 100% !important; height: 100% !important; border-radius: 0; }
-        :fullscreen .video-player-container { width: 100% !important; height: 100% !important; border-radius: 0; }
-
+        .video-info { padding: 15px; text-align: left; background: white; }
+        .video-info h4 { margin: 0; color: #1b266d; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="batches.html" class="back-btn">← Back</a>
-        <span class="batch-title">UPSC IAS Foundation Batch</span>
+        <span style="font-weight: bold; font-size: 14px;">UPSC IAS Foundation Batch</span>
     </div>
 
-    <div class="video-player-container" id="player">
-        <video class="main-video" id="video" playsinline>
-            <source src="demo-video.mp4" type="video/mp4">
-            आपका ब्राउज़र वीडियो को सपोर्ट नहीं करता है।
-        </video>
+    <div class="tabs">
+        <div class="tab-item">📅 Today's Class</div>
+        <div class="tab-item tab-active">📂 Classroom</div>
+        <div class="tab-item">🔔 Updates</div>
+    </div>
+
+    <div class="subject-grid">
+        <div class="subject-card"><h3>History</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box">📄 0 Notes</div></div></div>
+        <div class="subject-card"><h3>Polity</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box) ">📄 0 Notes</div></div></div>
         
-        <div class="video-controls">
-            <button class="control-btn" id="playPause">
-                <span class="material-icons">play_arrow</span>
-            </button>
-            
-            <div class="progress-container" id="progressContainer">
-                <div class="progress-bar" id="progressBar"></div>
+        <div class="subject-card" onclick="openVideo()">
+            <h3>Geography</h3>
+            <div class="stats">
+                <div class="stat-box" style="background: #ffaa00; color: white; border: none;">▶️ 1 Videos</div>
+                <div class="stat-box">📄 1 Notes</div>
             </div>
-            
-            <div class="time-display">
-                <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+        </div>
+
+        <div class="subject-card"><h3>Economics</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box">📄 0 Notes</div></div></div>
+    </div>
+
+    <div id="videoModal" class="modal">
+        <span class="close-btn" onclick="closeVideo()">&times;</span>
+        <div class="modal-content">
+            <div class="video-wrapper">
+                <iframe id="ytVideo" 
+                    src="https://www.youtube.com/embed/pUe3MDJgwxI?rel=0&modestbranding=1&showinfo=0" 
+                    allowfullscreen>
+                </iframe>
             </div>
-            
-            <div class="right-controls">
-                <button class="control-btn" id="volume">
-                    <span class="material-icons">volume_up</span>
-                </button>
-                <button class="control-btn" id="fullscreen">
-                    <span class="material-icons">fullscreen</span>
-                </button>
+            <div class="video-info">
+                <h4>Geography Class 01: भारत की नदियाँ</h4>
+                <p style="font-size: 12px; color: #666; margin-top: 5px;">Enjoy full screen mode by clicking the square icon in video player.</p>
             </div>
         </div>
     </div>
 
-    <div class="section-title" style="padding: 20px 15px 5px; color: #aaa; font-size: 12px; font-weight: bold;">SELECT SUBJECT</div>
-    <div class="subject-grid">
-        <div class="subject-card"><h3>History</h3><p>0 Videos | 0 Notes</p></div>
-        <div class="subject-card"><h3>Polity</h3><p>0 Videos | 0 Notes</p></div>
-        <div class="subject-card" style="border-color: #ffaa00; background: #333;"><h3>Geography</h3><p>1 Video | 1 Notes</p></div>
-        <div class="subject-card"><h3>Economics</h3><p>0 Videos | 0 Notes</p></div>
-    </div>
-
     <script>
-        const player = document.getElementById('player');
-        const video = document.getElementById('video');
-        const playPauseBtn = document.getElementById('playPause');
-        const progressContainer = document.getElementById('progressContainer');
-        const progressBar = document.getElementById('progressBar');
-        const currentTimeEl = document.getElementById('currentTime');
-        const totalTimeEl = document.getElementById('totalTime');
-        const volumeBtn = document.getElementById('volume');
-        const fullscreenBtn = document.getElementById('fullscreen');
-
-        // प्ले/पॉज फंक्शन
-        function togglePlay() {
-            if (video.paused) {
-                video.play();
-                playPauseBtn.innerHTML = '<span class="material-icons">pause</span>';
-            } else {
-                video.pause();
-                playPauseBtn.innerHTML = '<span class="material-icons">play_arrow</span>';
+        function openVideo() {
+            document.getElementById("videoModal").style.display = "flex";
+        }
+        function closeVideo() {
+            var modal = document.getElementById("videoModal");
+            var iframe = document.getElementById("ytVideo");
+            modal.style.display = "none";
+            // वीडियो को बंद करने पर आवाज़ बंद करने के लिए रिफ्रेश
+            var tempSrc = iframe.src;
+            iframe.src = tempSrc;
+        }
+        // बाहर क्लिक करने पर भी बंद हो जाए
+        window.onclick = function(event) {
+            var modal = document.getElementById("videoModal");
+            if (event.target == modal) {
+                closeVideo();
             }
         }
-
-        // प्रोग्रेस बार अपडेट करना
-        function updateProgress() {
-            const percentage = (video.currentTime / video.duration) * 100;
-            progressBar.style.width = `${percentage}%`;
-            
-            // समय अपडेट करना
-            currentTimeEl.innerText = formatTime(video.currentTime);
-            totalTimeEl.innerText = formatTime(video.duration);
-        }
-
-        // समय फॉर्मेट करना (MM:SS)
-        function formatTime(time) {
-            const minutes = Math.floor(time / 60);
-            const seconds = Math.floor(time % 60);
-            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-
-        // सीक-बार पर क्लिक करने पर वीडियो वहां ले जाना
-        function setProgress(e) {
-            const width = this.clientWidth;
-            const clickX = e.offsetX;
-            const duration = video.duration;
-            video.currentTime = (clickX / width) * duration;
-        }
-
-        // 🖥️ फुलस्क्रीन फंक्शन 🖥️
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                if (player.requestFullscreen) {
-                    player.requestFullscreen();
-                } else if (player.mozRequestFullScreen) { /* Firefox */
-                    player.mozRequestFullScreen();
-                } else if (player.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                    player.webkitRequestFullscreen();
-                } else if (player.msRequestFullscreen) { /* IE/Edge */
-                    player.msRequestFullscreen();
-                }
-                fullscreenBtn.innerHTML = '<span class="material-icons">fullscreen_exit</span>';
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-                fullscreenBtn.innerHTML = '<span class="material-icons">fullscreen</span>';
-            }
-        }
-
-        // इवेंट लिस्टनर्स
-        playPauseBtn.addEventListener('click', togglePlay);
-        video.addEventListener('click', togglePlay); // वीडियो पर क्लिक करने पर भी प्ले/पॉज
-        video.addEventListener('timeupdate', updateProgress);
-        progressContainer.addEventListener('click', setProgress);
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-
-        // वॉल्यूम म्यूट/अनम्यूट
-        volumeBtn.addEventListener('click', () => {
-            video.muted = !video.muted;
-            if (video.muted) {
-                volumeBtn.innerHTML = '<span class="material-icons">volume_off</span>';
-            } else {
-                volumeBtn.innerHTML = '<span class="material-icons">volume_up</span>';
-            }
-        });
-
     </script>
 
 </body>
