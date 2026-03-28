@@ -4,83 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPSC Batches - ONLY HINDI IAS</title>
-    
     <style>
-        /* --- पुरानी सेटिंग --- */
         body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; }
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
         .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-right: 20px; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
         .search-container { padding: 20px; }
         .search-box { width: 100%; padding: 12px; border-radius: 20px; border: none; box-sizing: border-box; font-size: 14px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
-
-        /* --- यहाँ से नए डिब्बों की सेटिंग शुरू होती है --- */
-
-        /* 1. सारे डिब्बों को संभालने वाला जाल (Grid) */
-        .batch-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 1 लाइन में 2 डिब्बे आएंगे ताकि फोन में अच्छे दिखें */
-            gap: 15px; /* डिब्बों के बीच की दूरी */
-            padding: 0 20px; /* किनारे से जगह */
-        }
-
-        /* 2. एक अकेले कोर्स डिब्बे (Card) की सेटिंग */
-        .batch-card {
-            background-color: white; /* सफेद रंग */
-            border-radius: 10px; /* गोल किनारे */
-            overflow: hidden; /* यह बहुत जादुई सेटिंग है! इसका मतलब है कि अगर कोई फोटो डिब्बे से बाहर निकलने की कोशिश करे, तो उसे काट दो ताकि कोनों की गोलाई बनी रहे। */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* हल्की सी परछाईं */
-            display: flex; /* अंदर की चीज़ों को सेट करने के लिए */
-            flex-direction: column; /* चीज़ें ऊपर-नीचे (फोटो, फिर नाम, फिर बटन) आएंगी */
-        }
-
-        /* 3. कोर्स की फोटो वाली जगह (अभी हम रंगीन डिब्बा लगा रहे हैं) */
-        .batch-image {
-            height: 90px; /* फोटो की ऊंचाई */
-            background-color: #1b266d; /* गहरा नीला रंग */
-            display: flex;
-            justify-content: center; /* इमोजी को बीच में लाने के लिए */
-            align-items: center;
-            color: white;
-            font-size: 24px;
-        }
-
-        /* 4. फोटो के नीचे जो टेक्स्ट लिखा है, उसके लिए डिब्बा */
-        .batch-content {
-            padding: 10px; /* अंदर जगह */
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1; /* यह डिब्बे को खिंचकर बड़ा कर देता है ताकि बटन हमेशा सबसे नीचे रहे */
-        }
-
-        /* 5. कोर्स का नाम */
-        .batch-title {
-            font-size: 11px; /* अक्षर छोटे रखे हैं */
-            font-weight: bold;
-            color: #333; /* गहरा स्लेटी रंग */
-            line-height: 1.4; /* लाइनों के बीच हल्की सी दूरी */
-            margin-bottom: 5px; /* नीचे 5px की जगह */
-        }
-
-        /* 6. शुरू होने की तारीख */
-        .batch-date {
-            font-size: 9px;
-            color: #888; /* हल्का रंग */
-            margin-bottom: 12px; /* बटन से 12px ऊपर */
-        }
-
-        /* 7. 'Add to Favorites' बटन की सेटिंग */
-        .fav-btn {
-            background-color: white;
-            border: 1px solid #1b266d; /* किनारे पर नीले रंग की आउटलाइन (Border) दी है */
-            color: #1b266d; /* टेक्स्ट का रंग नीला */
-            padding: 6px;
-            border-radius: 15px; /* बटन गोल कर दिया */
-            font-size: 10px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: auto; /* यह जादुई सेटिंग बटन को धकेल कर बिल्कुल नीचे चिपका देती है */
-        }
+        .batch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
+        
+        /* लिंक के लिए सेटिंग */
+        a { text-decoration: none; color: inherit; display: block; }
+        
+        .batch-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); height: 100%; display: flex; flex-direction: column; }
+        .batch-image { height: 90px; background-color: #1b266d; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; }
+        .batch-content { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
+        .batch-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; }
+        .batch-date { font-size: 9px; color: #888; margin-bottom: 12px; }
+        .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 6px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -95,39 +36,25 @@
     </div>
 
     <div class="batch-grid">
-        
-        <div class="batch-card">
-            <div class="batch-image">🏛️ IAS</div> <div class="batch-content">
-                <div class="batch-title">UPSC IAS Foundation Batch (Hindi Medium)</div>
-                <div class="batch-date">Start: 15 May 2026</div>
-                <div class="fav-btn">♡ Add to Favorites</div>
+        <a href="classroom.html">
+            <div class="batch-card">
+                <div class="batch-image">🏛️ IAS</div>
+                <div class="batch-content">
+                    <div class="batch-title">UPSC IAS Foundation Batch (Hindi Medium)</div>
+                    <div class="batch-date">Start: 15 May 2026</div>
+                    <div class="fav-btn">♡ Add to Favorites</div>
+                </div>
             </div>
-        </div>
+        </a>
 
         <div class="batch-card">
-            <div class="batch-image" style="background-color: #d93838;">🧮 CSAT</div> <div class="batch-content">
+            <div class="batch-image" style="background-color: #d93838;">🧮 CSAT</div>
+            <div class="batch-content">
                 <div class="batch-title">CSAT Target Batch For UPSC Prelims</div>
                 <div class="batch-date">Start: 20 May 2026</div>
                 <div class="fav-btn">♡ Add to Favorites</div>
             </div>
         </div>
-
-        <div class="batch-card">
-            <div class="batch-image" style="background-color: #28802e;">📚 NCERT</div> <div class="batch-content">
-                <div class="batch-title">Complete NCERT Basics Batch (Class 6-12)</div>
-                <div class="batch-date">Start: 01 Jun 2026</div>
-                <div class="fav-btn">♡ Add to Favorites</div>
-            </div>
-        </div>
-
-        <div class="batch-card">
-            <div class="batch-image" style="background-color: #ffaa00;">✍️ Mains</div> <div class="batch-content">
-                <div class="batch-title">UPSC Mains Answer Writing Practice</div>
-                <div class="batch-date">Start: 10 Jun 2026</div>
-                <div class="fav-btn">♡ Add to Favorites</div>
-            </div>
-        </div>
-
     </div>
 
 </body>
