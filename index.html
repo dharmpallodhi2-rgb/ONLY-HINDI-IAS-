@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONLY HINDI IAS - Home</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background-color: #fce34d; padding-bottom: 40px; }
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #fce34d; padding-bottom: 40px; overflow-x: hidden; }
         .header { background-color: #1b266d; color: white; padding: 15px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; justify-content: space-between; align-items: center; }
         .header h1 { margin: 0; font-size: 18px; }
         .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
         
-        /* बैनर सेटिंग */
         .banner-box { position: relative; margin: 15px; padding: 3px; border-radius: 12px; overflow: hidden; border: 2px solid red; animation: red_blink_glow 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
         .banner-box img { width: 100%; display: block; border-radius: 9px; }
 
@@ -19,21 +18,32 @@
             50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 18px rgba(255, 0, 0, 0.8); }
         }
 
-        /* 🌸 न्यूज़ वाली हेडलाइन (Moving Headline) 🌸 */
-        .news-headline {
-            background-color: #ff1493; /* गहरा गुलाबी रंग */
+        /* 🌸 नया और पक्का खिसकने वाला न्यूज़ एनीमेशन 🌸 */
+        .news-container {
+            background-color: #ff1493;
             color: white;
-            padding: 8px 0;
-            font-size: 14px;
-            font-weight: bold;
+            padding: 10px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             margin-top: -5px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .news-text {
+            display: inline-block;
+            padding-left: 100%;
+            font-size: 15px;
+            font-weight: bold;
+            animation: moveNews 15s linear infinite; /* 15s मतलब खिसकने की रफ़्तार */
+        }
+
+        @keyframes moveNews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
 
         .section-title { padding: 15px 15px 5px; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; }
-        
-        /* बाकी सेक्शन ग्रिड */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 5px 15px; }
         .menu-item { background-color: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
         .menu-item span { font-size: 22px; display: block; margin-bottom: 5px; }
@@ -47,14 +57,12 @@
 
         .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 5px 15px; }
         .more-item { background-color: white; border-radius: 10px; padding: 10px 5px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-decoration: none; }
-        .more-item span { font-size: 18px; display: block; margin-bottom: 4px; }
         .more-item p { margin: 0; font-size: 9px; font-weight: bold; }
 
         .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px 15px; }
         .comm-card { background-color: white; border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
         .comm-icon { width: 30px; height: 30px; margin-bottom: 5px; border-radius: 4px; }
         .comm-card p { font-size: 11px; font-weight: bold; color: #1b266d; margin: 0; }
-        
         a { text-decoration: none; color: inherit; }
     </style>
 </head>
@@ -69,10 +77,10 @@
         <img src="1774704983075.jpg" alt="Mission 968 Banner">
     </div>
 
-    <div class="news-headline">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-             𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान!
-        </marquee>
+    <div class="news-container">
+        <div class="news-text">
+            𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान!
+        </div>
     </div>
 
     <div class="section-title">📚 KGS COURSES</div>
@@ -96,10 +104,7 @@
     <div class="more-grid">
         <div class="more-item"><span>🏅</span><p style="color: #d93838;">Board Exams</p></div>
         <div class="more-item"><span>💡</span><p style="color: #3b5098;">Gyan Bindu</p></div>
-        <a href="https://ncert.nic.in/" target="_blank" class="more-item">
-            <span>📖</span>
-            <p style="color: #28802e;">NCERT Books</p>
-        </a>
+        <a href="https://ncert.nic.in/" target="_blank" class="more-item"><span>📖</span><p style="color: #28802e;">NCERT Books</p></a>
     </div>
 
     <div class="section-title">🤝 COMMUNITY</div>
