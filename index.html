@@ -10,46 +10,23 @@
         .header h1 { margin: 0; font-size: 18px; }
         .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
         
-        /* 🚨 लाल ब्लिंक करने वाली लाइट वाला बैनर बॉक्स 🚨 */
+        /* लाल ब्लिंक लाइट वाला बैनर बॉक्स */
         .banner-box {
             position: relative;
             margin: 20px 15px;
-            padding: 4px; /* लाइट के लिए बॉर्डर की जगह */
-            background-color: transparent;
+            padding: 4px;
             border-radius: 15px;
             overflow: hidden;
-            
-            /* 💡 जादुई एनीमेशन: लाल लाइट (Red Blink & Glow) */
-            border: 2px solid red; /* लाल बॉर्डर */
-            animation: red_blink_glow 1.5s ease-in-out infinite; /* 1.5 सेकंड में एक बार ब्लिंक */
-            
-            /* ग्लो इफ़ेक्ट (Red Glow Effect) */
+            border: 2px solid red;
+            animation: red_blink_glow 1.5s ease-in-out infinite;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
         }
 
-        /* 💡 बैनर वाली फोटो (Banner Image) */
-        .banner-box img {
-            width: 100%;
-            display: block;
-            border-radius: 11px; /* फोटो के कोने गोल */
-            position: relative;
-            z-index: 2; /* फोटो को लाइट के ऊपर लाने के लिए */
-        }
+        .banner-box img { width: 100%; display: block; border-radius: 11px; position: relative; z-index: 2; }
 
-        /* 💡 लाल लाइट को ब्लिंक और ग्लो कराने का एनीमेशन (Blink & Glow Animation) */
         @keyframes red_blink_glow {
-            0% { 
-                border-color: red; 
-                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
-            }
-            50% { 
-                border-color: rgba(255, 0, 0, 0.1); /* लाइट मध्यम पड़ जाएगी */
-                box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); /* और ज़्यादा चमकेगी */
-            }
-            100% { 
-                border-color: red; 
-                box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); 
-            }
+            0%, 100% { border-color: red; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+            50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
         }
 
         .section-title { padding: 10px 20px; font-size: 13px; font-weight: bold; color: #555; }
@@ -57,14 +34,11 @@
         .menu-item { background-color: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .menu-item span { font-size: 25px; display: block; margin-bottom: 8px; }
         .menu-item p { margin: 0; font-size: 12px; font-weight: bold; }
-        
-        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 15px; }
-        .more-item { background-color: white; border-radius: 10px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .more-item p { margin: 5px 0 0; font-size: 10px; font-weight: bold; }
 
         .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin-top: 5px; }
+        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-decoration: none; }
+        .comm-icon { width: 40px; height: 40px; margin-bottom: 5px; }
+        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin: 0; }
         
         a { text-decoration: none; color: inherit; }
     </style>
@@ -88,40 +62,21 @@
                 <p style="color: #ffaa00;">KGS Batches</p>
             </div>
         </a>
-        <div class="menu-item">
-            <span>❤️</span>
-            <p style="color: #d93838;">Favourites</p>
-        </div>
-        <div class="menu-item">
-            <span>⌛</span>
-            <p style="color: #3b5098;">Watch History</p>
-        </div>
-        <div class="menu-item">
-            <span>⬇️</span>
-            <p style="color: #28802e;">Downloads</p>
-        </div>
-    </div>
-
-    <div class="section-title">✨ MORE FEATURES</div>
-    <div class="more-grid">
-        <div class="more-item">🏅<p style="color: #d93838;">Board Exams</p></div>
-        <div class="more-item">💡<p style="color: #3b5098;">Gyan Bindhu</p></div>
-        <div class="more-item">📖<p style="color: #28802e;">NCERT Books</p></div>
+        <div class="menu-item"><span>❤️</span><p style="color: #d93838;">Favourites</p></div>
+        <div class="menu-item"><span>⌛</span><p style="color: #3b5098;">Watch History</p></div>
+        <div class="menu-item"><span>⬇️</span><p style="color: #28802e;">Downloads</p></div>
     </div>
 
     <div class="section-title">🤝 COMMUNITY</div>
     <div class="community-grid">
-        <a href="https://t.me/mission968" target="_blank">
-            <div class="comm-card">
-                <span style="font-size: 25px;">✈️</span>
-                <p>Join Telegram Channel</p>
-            </div>
+        <a href="https://t.me/mission968" target="_blank" class="comm-card">
+            <img src="7dbfac257b4714f2d63fd8d4178c7528.jpg" class="comm-icon" alt="Telegram">
+            <p>Telegram</p>
         </a>
-        <a href="https://wa.me/917898602672" target="_blank">
-            <div class="comm-card">
-                <span style="font-size: 25px;">💬</span>
-                <p>Join WhatsApp Channel</p>
-            </div>
+        
+        <a href="https://wa.me/919685026772" target="_blank" class="comm-card">
+            <img src="398183d05f839d3c448a0053bf11d8bc.jpg" class="comm-icon" alt="WhatsApp">
+            <p>WhatsApp</p>
         </a>
     </div>
 
