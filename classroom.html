@@ -5,65 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background-color: #fdf5d6; }
-        .header { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; gap: 15px; }
-        .back-btn { background: #1b266d; color: white; padding: 5px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #fdf5d6; padding-bottom: 30px; }
         
-        .tabs { display: flex; justify-content: space-around; background: white; padding: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .tab-item { padding: 8px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; color: #666; }
-        .tab-active { border-bottom: 3px solid #ffaa00; color: #ffaa00; }
-
-        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .subject-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .subject-card h3 { margin: 0; color: #1b266d; font-size: 16px; }
-
-        /* 📱 'Lecture Options' पॉप-अप 📱 */
-        .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
-        .modal-box { background: white; width: 90%; max-width: 400px; border-radius: 20px; overflow: hidden; position: relative; }
-        .modal-header { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        /* Header */
+        .header { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .back-btn { background: #1b266d; color: white; padding: 6px 16px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 13px; border: 1px solid rgba(255,255,255,0.2); }
         
-        .option-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f9f9f9; text-decoration: none; color: inherit; cursor: pointer; }
-        .option-icon { font-size: 24px; width: 40px; }
-        .option-text b { display: block; font-size: 14px; color: #333; }
-        .option-text span { font-size: 11px; color: #888; }
+        /* Tabs */
+        .tabs { display: flex; justify-content: space-around; background: white; padding: 12px; margin-bottom: 20px; border-bottom: 1px solid #eee; }
+        .tab-item { padding: 8px 10px; font-size: 13px; font-weight: bold; color: #777; transition: 0.3s; border-radius: 8px; }
+        .tab-active { color: #ffaa00; background: #fff8e1; border: 1px solid #ffe082; }
 
-        /* 🎬 'Video Player' पॉप-अप 🎬 */
-        #playerModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
-        .player-content { width: 95%; max-width: 700px; background: white; border-radius: 15px; overflow: hidden; position: relative; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: black; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .close-player { position: absolute; top: -45px; right: 0; color: white; font-size: 35px; cursor: pointer; }
+        /* Professional Subject Grid */
+        .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px; }
+        .subject-card { background: white; border-radius: 18px; padding: 20px 10px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #efefef; transition: transform 0.2s; position: relative; overflow: hidden; }
+        .subject-card:active { transform: scale(0.96); background: #fafafa; }
+        
+        /* Icon Style */
+        .sub-icon { font-size: 30px; display: block; margin-bottom: 10px; }
+        .subject-card h3 { margin: 0; color: #1b266d; font-size: 15px; font-weight: 800; }
+        .sub-info { font-size: 10px; color: #888; margin-top: 8px; font-weight: bold; background: #f5f5f5; padding: 4px 8px; border-radius: 10px; display: inline-block; }
+
+        /* 📱 'Lecture Options' पॉप-अप (Modal) 📱 */
+        .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal-box { background: white; width: 88%; max-width: 380px; border-radius: 25px; overflow: hidden; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .modal-header { padding: 18px 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+        .modal-header b { font-size: 16px; color: #1b266d; }
+        
+        .option-item { display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f9f9f9; text-decoration: none; color: inherit; transition: 0.2s; }
+        .option-item:active { background: #f0f4ff; }
+        .opt-icon { font-size: 22px; margin-right: 15px; width: 30px; text-align: center; }
+        .opt-text b { display: block; font-size: 14px; color: #333; }
+        .opt-text span { font-size: 11px; color: #999; }
+
+        /* 🎬 'Video Player' पॉप-अप (सफेद बॉर्डर) 🎬 */
+        #playerModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
+        .player-content { width: 92%; max-width: 650px; background: white; border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .close-player { position: absolute; top: -50px; right: 0; color: white; font-size: 40px; cursor: pointer; padding: 10px; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="batches.html" class="back-btn">← Back</a>
-        <span style="font-weight: bold;">UPSC IAS Foundation Batch</span>
+        <span style="font-weight: bold; font-size: 14px;">UPSC IAS Foundation Batch</span>
     </div>
 
-    <div class="tabs"><div class="tab-item">📅 Today's Class</div><div class="tab-item tab-active">📂 Classroom</div><div class="tab-item">🔔 Updates</div></div>
+    <div class="tabs">
+        <div class="tab-item">📅 Today's Class</div>
+        <div class="tab-item tab-active">📂 Classroom</div>
+        <div class="tab-item">🔔 Updates</div>
+    </div>
 
     <div class="subject-grid">
-        <div class="subject-card" onclick="openOptions()"><h3>Geography</h3><p style="font-size: 10px; color: #ff9800;">1 Video | 1 Note</p></div>
-        <div class="subject-card"><h3>History</h3></div>
+        <div class="subject-card" onclick="openOptions()">
+            <span class="sub-icon">🌍</span>
+            <h3>Geography</h3>
+            <div class="sub-info">▶️ 1 Video | 📄 1 Note</div>
+        </div>
+
+        <div class="subject-card">
+            <span class="sub-icon">📜</span>
+            <h3>History</h3>
+            <div class="sub-info">0 Videos | 0 Notes</div>
+        </div>
+
+        <div class="subject-card">
+            <span class="sub-icon">⚖️</span>
+            <h3>Polity</h3>
+            <div class="sub-info">0 Videos | 0 Notes</div>
+        </div>
+
+        <div class="subject-card">
+            <span class="sub-icon">📊</span>
+            <h3>Economics</h3>
+            <div class="sub-info">0 Videos | 0 Notes</div>
+        </div>
     </div>
 
     <div id="optionsModal" class="modal-overlay" onclick="closeAll()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="modal-header"><b>▶️ Lecture Options</b><span onclick="closeAll()" style="cursor:pointer; font-size: 20px;">&times;</span></div>
+            <div class="modal-header">
+                <b>▶️ Lecture Options</b>
+                <span onclick="closeAll()" style="cursor:pointer; font-size: 25px; color:#999;">&times;</span>
+            </div>
+            
             <div class="option-list">
                 <a href="https://youtu.be/pUe3MDJgwxI" target="_blank" class="option-item">
-                    <div class="option-icon">📺</div>
-                    <div class="option-text"><b>Watch on YouTube</b><span>YouTube ऐप में देखें</span></div>
+                    <div class="opt-icon">📺</div>
+                    <div class="opt-text"><b>Watch on YouTube</b><span>यूट्यूब ऐप में वीडियो देखें</span></div>
                 </a>
+
                 <div class="option-item" onclick="openPlayer()">
-                    <div class="option-icon">📱</div>
-                    <div class="option-text"><b>Watch on Player</b><span>इन-बिल्ट प्लेयर में देखें</span></div>
+                    <div class="opt-icon">📱</div>
+                    <div class="opt-text"><b>Watch on Player</b><span>वेबसाइट के प्लेयर में देखें</span></div>
                 </div>
+
                 <a href="governance.pdf" target="_blank" class="option-item">
-                    <div class="option-icon">📄</div>
-                    <div class="option-text"><b>View Lecture PDF</b><span>नोट्स पढ़ें</span></div>
+                    <div class="opt-icon">📄</div>
+                    <div class="opt-text"><b>View Lecture PDF</b><span>क्लास नोट्स पढ़ें</span></div>
                 </a>
             </div>
         </div>
@@ -72,33 +116,35 @@
     <div id="playerModal" onclick="closeAll()">
         <div class="player-content" onclick="event.stopPropagation()">
             <span class="close-player" onclick="closeAll()">&times;</span>
-            <div class="video-wrapper">
+            <div class="video-container">
                 <iframe id="mainVideo" src="" allowfullscreen></iframe>
             </div>
-            <div style="padding: 15px;">
-                <b style="color: #1b266d;">Geography Class 01</b>
-                <p style="font-size: 11px; color: #666; margin: 5px 0 0;">फुल स्क्रीन के लिए प्लेयर के चौकोर आइकॉन पर क्लिक करें।</p>
+            <div style="padding: 18px;">
+                <b style="color: #1b266d; font-size: 16px;">Geography Class 01</b>
+                <p style="font-size: 12px; color: #777; margin-top: 5px;">फुल स्क्रीन मोड के लिए वीडियो के अंदर 'Square' आइकॉन दबाएं।</p>
             </div>
         </div>
     </div>
 
     <script>
+        // Options Pop-up खोलो
         function openOptions() {
             document.getElementById("optionsModal").style.display = "flex";
         }
 
+        // Player Pop-up खोलो
         function openPlayer() {
-            // Options बंद करें और Player खोलें
             document.getElementById("optionsModal").style.display = "none";
             document.getElementById("playerModal").style.display = "flex";
-            // YouTube Embed लिंक सेट करें (ताकि वीडियो लोड हो)
-            document.getElementById("mainVideo").src = "https://www.youtube.com/embed/pUe3MDJgwxI?autoplay=1&rel=0";
+            // YouTube Embed Link with Fullscreen enabled
+            document.getElementById("mainVideo").src = "https://www.youtube.com/embed/pUe3MDJgwxI?autoplay=1&rel=0&modestbranding=1";
         }
 
+        // सब बंद करो
         function closeAll() {
             document.getElementById("optionsModal").style.display = "none";
             document.getElementById("playerModal").style.display = "none";
-            document.getElementById("mainVideo").src = ""; // वीडियो बंद करें
+            document.getElementById("mainVideo").src = ""; // Video stop करने के लिए
         }
     </script>
 
