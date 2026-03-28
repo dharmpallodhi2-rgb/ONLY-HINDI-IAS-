@@ -4,28 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ONLY HINDI IAS - Stealth</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* 🎨 डार्क ब्लू और गोल्डन खतरनाक थीम 🎨 */
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #050a1f; color: white; padding-bottom: 40px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        /* 🎨 डार्क ब्लू और गोल्डन थीम */
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #050a1f; color: white; padding-bottom: 40px; overflow-x: hidden; }
         
-        /* 🔵 Header - Curve & Glow */
+        /* 🔵 Header - Golden Glow */
         .header { background: #000; color: #ffaa00; padding: 20px; border-bottom: 3px solid #ffaa00; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 30px rgba(255, 170, 0, 0.4); }
-        .header h1 { margin: 0; font-size: 20px; text-shadow: 0 0 10px #ffaa00; letter-spacing: 2px; }
-        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 3px solid #ffaa00; box-shadow: 0 0 15px #ffaa00; animation: logo-float 2s ease-in-out infinite alternate; }
-        @keyframes logo-float { to { transform: translateY(5px); } }
+        .header h1 { margin: 0; font-size: 20px; text-shadow: 0 0 10px #ffaa00; }
+        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 3px solid #ffaa00; box-shadow: 0 0 15px #ffaa00; }
 
-        /* 🚩 Banner - Glowing Border */
-        .banner-box { position: relative; margin: 25px 15px; padding: 2px; border-radius: 20px; overflow: hidden; background: linear-gradient(90deg, #ff0000, #ffaa00, #ff0000); background-size: 200% 200%; animation: moveGradient 3s linear infinite; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
+        /* 🚩 Banner */
+        .banner-box { margin: 25px 15px; border-radius: 20px; overflow: hidden; border: 2px solid red; animation: red_blink 1.5s infinite alternate; }
         .banner-box img { width: 100%; display: block; border-radius: 18px; }
-        @keyframes moveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+        @keyframes red_blink { from { box-shadow: 0 0 5px red; } to { box-shadow: 0 0 20px red; } }
 
-        /* 🌈 Single Line रंगीन एनीमेशन न्यूज़ 🌈 */
-        .news-container { background: #000; padding: 12px 0; border-top: 2px solid #333; border-bottom: 2px solid #333; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .news-text { display: inline-block; padding-left: 100%; font-size: 16px; font-weight: 800; color: #ff4757; text-shadow: 0 0 10px #ff4757; animation: moveNews 18s linear infinite; }
-        @keyframes moveNews { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        /* 📺 असली न्यूज़ लाइन एनीमेशन (एकदम सीधी लाइन) 📺 */
+        .news-container { 
+            background: #000; 
+            padding: 10px 0; 
+            border-top: 1px solid #333; 
+            border-bottom: 1px solid #333; 
+            margin-top: -10px;
+            margin-bottom: 25px; 
+            overflow: hidden; /* बाहर का हिस्सा छिपाने के लिए */
+            width: 100%;
+        }
 
-        /* 🏛️ Subject Cards - Fade-in Floating Glass Look */
+        .news-scroll {
+            display: inline-block;
+            white-space: nowrap; /* 👈 यह टेक्स्ट को मुड़ने से रोकता है */
+            padding-left: 100%;
+            animation: newsSlide 15s linear infinite;
+        }
+
+        .news-scroll span {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ff4757; /* लाल/गुलाबी न्यूज़ कलर */
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+            display: inline-block;
+        }
+
+        @keyframes newsSlide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* 🏛️ Subject Cards - Floating Animation */
         .card-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .cyber-card { 
             background: rgba(255, 255, 255, 0.05); 
@@ -34,43 +59,19 @@
             border-radius: 20px; 
             padding: 25px 10px; 
             text-align: center; 
-            transition: 0.3s;
-            position: relative;
-            animation: card-appear 1s ease forwards, card-float 3s ease-in-out infinite;
-            opacity: 0;
-            overflow: hidden;
+            animation: card-float 3s ease-in-out infinite;
         }
-        
-        /* entry and floating animation */
-        @keyframes card-appear { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+        @keyframes card-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
-        .cyber-card:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.1); border-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); }
-        .cyber-card span { font-size: 35px; display: block; margin-bottom: 12px; filter: drop-shadow(0 0 5px white); }
-        .cyber-card p { margin: 0; font-size: 14px; font-weight: bold; color: #aaa; text-transform: uppercase; }
-
-        /* 🌊 RIPPLE EFFECT CSS 🌊 */
-        .ripple { position: absolute; background: rgba(255, 255, 255, 0.3); transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%; animation: ripple-animation 0.6s linear; }
-        @keyframes ripple-animation { from { width: 0px; height: 0px; opacity: 0.5; } to { width: 500px; height: 500px; opacity: 0; } }
+        .cyber-card span { font-size: 35px; display: block; margin-bottom: 10px; }
+        .cyber-card p { margin: 0; font-size: 13px; font-weight: bold; color: #ffaa00; }
 
         /* Governance Card */
-        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-left: 5px solid #ffaa00; animation-delay: 0.5s; background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0)); }
-        .gov-card img { width: 85px; height: 85px; border-radius: 15px; margin-right: 18px; border: 1px solid #444; }
-        .btn-glow { background: #ffaa00; color: black; padding: 10px 25px; border-radius: 10px; font-size: 13px; display: inline-block; margin-top: 10px; font-weight: 800; text-transform: uppercase; box-shadow: 0 0 15px #ffaa00; animation: btn-blink 1s ease-in-out infinite; }
-        @keyframes btn-blink { 50% { box-shadow: 0 0 25px #ffaa00; } }
+        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-left: 4px solid #ffaa00; }
+        .gov-card img { width: 80px; height: 80px; border-radius: 12px; margin-right: 15px; border: 1px solid #444; }
+        .btn-glow { background: #ffaa00; color: black; padding: 8px 20px; border-radius: 10px; font-size: 12px; font-weight: 800; text-decoration: none; box-shadow: 0 0 15px #ffaa00; }
 
-        .section-title { padding: 30px 20px 10px; font-size: 13px; font-weight: bold; color: #ffaa00; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 5px #ffaa00; }
-
-        /* 🛡️ More Features - Original Colors for Logos */
-        .more-item { animation-delay: 0.7s; }
-        .more-item p { color: #fff; font-size: 11px; }
-
-        /* 🤝 NETWORKS - Original Icons */
-        .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .comm-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 15px; padding: 15px; text-align: center; animation: card-appear 1s ease forwards; opacity: 0; animation-delay: 0.9s; }
-        .comm-card img { width: 35px; height: 35px; margin-bottom: 5px; }
-        
-        a { text-decoration: none; color: inherit; display: block; }
+        .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #ffaa00; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -81,71 +82,33 @@
     </div>
 
     <div class="banner-box">
-        <img src="1774704983075.jpg" alt="Stealth Banner">
+        <img src="1774704983075.jpg" alt="Banner">
     </div>
 
     <div class="news-container">
-        <div class="news-text">
-            𝐈𝐀𝐒 ऑफिसर ट्रेनिंग: 15 जून से नई बैच शुरू... प्रवेश प्रारंभ! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें!
+        <div class="news-scroll">
+            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें! &nbsp;&nbsp;&nbsp;&nbsp; 🔥 15 जून से नई बैच शुरू... प्रवेश प्रारंभ! &nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है...</span>
         </div>
     </div>
 
     <div class="section-title">⚡ CORE MISSIONS</div>
     <div class="card-container">
-        <a href="batches.html" class="cyber-card ripple-btn" style="animation-delay: 0.1s;">
-            <span>🎓</span>
-            <p style="color: #ffaa00;">KGS Batches</p>
-        </a>
-        <div class="cyber-card ripple-btn" style="animation-delay: 0.2s;"><span>❤️</span><p>Favourites</p></div>
-        <div class="cyber-card ripple-btn" style="animation-delay: 0.3s;"><span>⌛</span><p>History</p></div>
-        <div class="cyber-card ripple-btn" style="animation-delay: 0.4s;"><span>⬇️</span><p>Downloads</p></div>
+        <a href="batches.html" style="text-decoration:none;"><div class="cyber-card"><span>🎓</span><p>KGS Batches</p></div></a>
+        <div class="cyber-card"><span>❤️</span><p>Favourites</p></div>
+        <div class="cyber-card"><span>⌛</span><p>History</p></div>
+        <div class="cyber-card"><span>⬇️</span><p>Downloads</p></div>
     </div>
 
     <div class="section-title">🏛️ GOVERNANCE (CLASSIFIED)</div>
     <div class="card-container">
-        <div class="cyber-card gov-card ripple-btn">
+        <div class="cyber-card gov-card">
             <img src="IMG_20260319_163412_254.jpg" alt="Gov">
             <div>
-                <b style="font-size: 15px; color: #fff;">UPSC Paper 2 Classified Dossier</b><br>
+                <b style="font-size: 14px; color: #fff;">UPSC Paper 2 Dossier</b><br>
                 <a href="governance.pdf" target="_blank" class="btn-glow">📄 OPEN DOSSIER</a>
             </div>
         </div>
     </div>
-
-    <div class="section-title">🛡️ SECONDARY TOOLS</div>
-    <div class="card-container" style="grid-template-columns: 1fr 1fr 1fr;">
-        <div class="cyber-card more-item ripple-btn" style="padding: 10px;"><span>🏅</span><p>Board</p></div>
-        <div class="cyber-card more-item ripple-btn" style="padding: 10px;"><span>💡</span><p>Gyan Bindu</p></div>
-        <a href="https://ncert.nic.in/" target="_blank" class="cyber-card more-item ripple-btn" style="padding: 10px;">
-            <span>📖</span>
-            <p style="color: #00f2fe; font-size: 9px;">NCERT Books</p>
-        </a>
-    </div>
-
-    <div class="section-title">🤝 NETWORKS</div>
-    <div class="comm-grid">
-        <a href="https://t.me/mission968" target="_blank" class="comm-card ripple-btn">
-            <img src="7dbfac257b4714f2d63fd8d4178c7528.jpg" alt="Telegram"><p style="font-size: 12px; margin: 0; color: #aaa;">Telegram</p>
-        </a>
-        <a href="https://wa.me/919685026772" target="_blank" class="comm-card ripple-btn">
-            <img src="398183d05f839d3c448a0053bf11d8bc.jpg" alt="WhatsApp"><p style="font-size: 12px; margin: 0; color: #aaa;">WhatsApp</p>
-        </a>
-    </div>
-
-    <script>
-        document.querySelectorAll('.ripple-btn').forEach(button => {
-            button.addEventListener('click', function (e) {
-                let x = e.clientX - e.target.getBoundingClientRect().left;
-                let y = e.clientY - e.target.getBoundingClientRect().top;
-                let ripples = document.createElement('span');
-                ripples.style.left = x + 'px';
-                ripples.style.top = y + 'px';
-                ripples.classList.add('ripple');
-                this.appendChild(ripples);
-                setTimeout(() => { ripples.remove() }, 600);
-            });
-        });
-    </script>
 
 </body>
 </html>
