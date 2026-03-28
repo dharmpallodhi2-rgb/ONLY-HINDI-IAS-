@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player - ONLY HINDI IAS</title>
+    
+    <style>
+        /* पूरी स्क्रीन और ऊपर की पट्टी की पुरानी सेटिंग */
+        body { margin: 0; padding: 0; background-color: #000000; font-family: Arial, sans-serif; color: white; display: flex; flex-direction: column; height: 100vh; }
+        .top-header { display: flex; align-items: center; padding: 15px; background-color: rgba(0,0,0,0.5); width: 100%; box-sizing: border-box; }
+        .back-icon { color: white; text-decoration: none; font-size: 18px; margin-right: 15px; }
+        .video-title-top { font-size: 12px; font-weight: bold; flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* वीडियो चलने वाली जगह की सेटिंग */
+        .video-player-area { flex-grow: 1; display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100%; }
+        
+        /* नीचे के पैनल की पुरानी सेटिंग */
+        .bottom-panel { background-color: #111827; padding: 15px; border-top-left-radius: 15px; border-top-right-radius: 15px; }
+        .hide-panel { text-align: center; font-size: 8px; color: #888; margin-bottom: 15px; letter-spacing: 1px; }
+        .lec-title-bottom { font-size: 14px; font-weight: bold; margin-bottom: 8px; line-height: 1.4; }
+        .youtube-badge { background-color: #d93838; color: white; font-size: 9px; padding: 3px 8px; border-radius: 5px; display: inline-block; margin-bottom: 15px; }
+        .speed-control { font-size: 10px; color: #aaa; margin-bottom: 15px; }
+        .action-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .action-btn { background-color: #1f2937; color: #ddd; border: 1px solid #374151; padding: 8px 12px; border-radius: 8px; font-size: 11px; display: flex; align-items: center; gap: 5px; }
+        .btn-icon { color: #ffaa00; }
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <a href="lectures.html" class="back-icon">⬅</a> 
+        <div class="video-title-top">Lec-01 || सिंधु घाटी सभ्यता (Indus Valley)</div>
+        <div style="font-size: 18px;">⛶</div> 
+    </div>
+
+    <div class="video-player-area">
+        <iframe 
+            width="100%" 
+            height="100%" 
+            src="https://www.youtube.com/embed/jNQXAC9IVRw" 
+            title="ONLY HINDI IAS Video" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div class="bottom-panel">
+        <div class="hide-panel">﹀ HIDE PANEL</div>
+        <div class="lec-title-bottom">Lec-01 || सिंधु घाटी सभ्यता (Indus Valley)</div>
+        <div class="youtube-badge">YouTube</div>
+        <div class="speed-control">SPEED: Use YouTube player controls</div>
+        <div class="action-buttons">
+            <div class="action-btn"><span class="btn-icon">⛶</span> Fullscreen</div>
+            <div class="action-btn"><span class="btn-icon">⬇</span> Download PDF</div>
+            <div class="action-btn"><span class="btn-icon">↗</span> Open External</div>
+        </div>
+    </div>
+
+</body>
+</html>
