@@ -14,86 +14,96 @@
         .tab-active { border-bottom: 3px solid #ffaa00; color: #ffaa00; }
 
         .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .subject-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        .subject-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .subject-card h3 { margin: 0 0 15px 0; color: #1b266d; font-size: 16px; }
         
-        .stats { display: flex; gap: 5px; justify-content: center; }
-        .stat-box { background: #fff8e1; border: 1px solid #ffe082; padding: 5px 8px; border-radius: 8px; font-size: 10px; color: #ff9800; cursor: pointer; display: flex; align-items: center; gap: 3px; }
+        .stat-box { background: #fff8e1; border: 1px solid #ffe082; padding: 5px 8px; border-radius: 8px; font-size: 10px; color: #ff9800; cursor: pointer; display: inline-block; margin-top: 5px; }
 
-        /* प्रोफेशनल पॉप-अप (Modal) */
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 95%; max-width: 600px; border-radius: 15px; overflow: hidden; position: relative; }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: white; z-index: 110; cursor: pointer; background: rgba(0,0,0,0.5); border-radius: 50%; width: 40px; height: 40px; text-align: center; line-height: 35px; }
+        /* 📱 'Lecture Options' पॉप-अप डिजाइन 📱 */
+        .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 90%; max-width: 400px; border-radius: 20px; overflow: hidden; animation: slideUp 0.3s ease-out; }
         
-        /* वीडियो प्लेयर कंटेनर */
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: black; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { margin: 0; font-size: 16px; color: #1b266d; display: flex; align-items: center; gap: 8px; }
+        .close-x { font-size: 24px; cursor: pointer; color: #999; }
+
+        .option-list { padding: 10px 0; }
+        .option-item { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f9f9f9; text-decoration: none; color: inherit; }
+        .option-item:last-child { border-bottom: none; }
+        .option-item:active { background-color: #f5f5f5; }
         
-        .video-info { padding: 15px; text-align: left; background: white; }
-        .video-info h4 { margin: 0; color: #1b266d; }
+        .option-icon { font-size: 24px; width: 40px; }
+        .option-text { flex-grow: 1; }
+        .option-text b { display: block; font-size: 14px; color: #333; }
+        .option-text span { font-size: 11px; color: #888; }
+        .option-arrow { color: #3b5098; font-size: 18px; opacity: 0.5; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="batches.html" class="back-btn">← Back</a>
-        <span style="font-weight: bold; font-size: 14px;">UPSC IAS Foundation Batch</span>
+        <span style="font-weight: bold;">UPSC IAS Foundation Batch</span>
     </div>
 
-    <div class="tabs">
-        <div class="tab-item">📅 Today's Class</div>
-        <div class="tab-item tab-active">📂 Classroom</div>
-        <div class="tab-item">🔔 Updates</div>
-    </div>
+    <div class="tabs"><div class="tab-item">📅 Today's Class</div><div class="tab-item tab-active">📂 Classroom</div><div class="tab-item">🔔 Updates</div></div>
 
     <div class="subject-grid">
-        <div class="subject-card"><h3>History</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box">📄 0 Notes</div></div></div>
-        <div class="subject-card"><h3>Polity</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box) ">📄 0 Notes</div></div></div>
+        <div class="subject-card"><h3>History</h3></div>
+        <div class="subject-card"><h3>Polity</h3></div>
         
-        <div class="subject-card" onclick="openVideo()">
+        <div class="subject-card" onclick="openOptions()">
             <h3>Geography</h3>
-            <div class="stats">
-                <div class="stat-box" style="background: #ffaa00; color: white; border: none;">▶️ 1 Videos</div>
-                <div class="stat-box">📄 1 Notes</div>
-            </div>
+            <div class="stat-box">▶️ 1 Videos | 📄 1 Notes</div>
         </div>
 
-        <div class="subject-card"><h3>Economics</h3><div class="stats"><div class="stat-box">▶️ 0 Videos</div><div class="stat-box">📄 0 Notes</div></div></div>
+        <div class="subject-card"><h3>Economics</h3></div>
     </div>
 
-    <div id="videoModal" class="modal">
-        <span class="close-btn" onclick="closeVideo()">&times;</span>
-        <div class="modal-content">
-            <div class="video-wrapper">
-                <iframe id="ytVideo" 
-                    src="https://www.youtube.com/embed/pUe3MDJgwxI?rel=0&modestbranding=1&showinfo=0" 
-                    allowfullscreen>
-                </iframe>
+    <div id="optionsModal" class="modal-overlay" onclick="closeOptions(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2><span>▶️</span> Lecture Options</h2>
+                <span class="close-x" onclick="document.getElementById('optionsModal').style.display='none'">&times;</span>
             </div>
-            <div class="video-info">
-                <h4>Geography Class 01: भारत की नदियाँ</h4>
-                <p style="font-size: 12px; color: #666; margin-top: 5px;">Enjoy full screen mode by clicking the square icon in video player.</p>
+            
+            <div class="option-list">
+                <a href="https://youtu.be/pUe3MDJgwxI" target="_blank" class="option-item">
+                    <div class="option-icon">📺</div>
+                    <div class="option-text"><b>Watch on YouTube</b><span>Opens in YouTube app</span></div>
+                    <div class="option-arrow">↗️</div>
+                </a>
+
+                <a href="https://youtu.be/pUe3MDJgwxI" target="_blank" class="option-item">
+                    <div class="option-icon">📱</div>
+                    <div class="option-text"><b>Watch on Player</b><span>Built-in video player</span></div>
+                    <div class="option-arrow">↗️</div>
+                </a>
+
+                <a href="governance.pdf" target="_blank" class="option-item">
+                    <div class="option-icon">📄</div>
+                    <div class="option-text"><b>View Lecture PDF</b><span>Read notes here</span></div>
+                    <div class="option-arrow">↗️</div>
+                </a>
+
+                <a href="governance.pdf" download class="option-item">
+                    <div class="option-icon">⬇️</div>
+                    <div class="option-text"><b>Download Lecture PDF</b><span>Save PDF to your device</span></div>
+                    <div class="option-arrow">⬇️</div>
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        function openVideo() {
-            document.getElementById("videoModal").style.display = "flex";
+        function openOptions() {
+            document.getElementById("optionsModal").style.display = "flex";
         }
-        function closeVideo() {
-            var modal = document.getElementById("videoModal");
-            var iframe = document.getElementById("ytVideo");
-            modal.style.display = "none";
-            // वीडियो को बंद करने पर आवाज़ बंद करने के लिए रिफ्रेश
-            var tempSrc = iframe.src;
-            iframe.src = tempSrc;
-        }
-        // बाहर क्लिक करने पर भी बंद हो जाए
-        window.onclick = function(event) {
-            var modal = document.getElementById("videoModal");
-            if (event.target == modal) {
-                closeVideo();
+        function closeOptions(e) {
+            if(e.target.id === "optionsModal") {
+                document.getElementById("optionsModal").style.display = "none";
             }
         }
     </script>
