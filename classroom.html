@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom - ONLY HINDI IAS</title>
+    
+    <style>
+        /* --- पुरानी सेटिंग --- */
+        body { margin: 0; padding: 0; background: linear-gradient(to bottom, #ffffff, #fdf0c3); font-family: Arial, sans-serif; padding-bottom: 30px; min-height: 100vh; }
+        .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; }
+        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-right: 15px; }
+        .page-title { font-size: 14px; font-weight: bold; margin: 0; color: white; }
+        
+        /* मेन्यू पट्टी */
+        .tabs-container { display: flex; background-color: #f1f5f9; padding: 10px; overflow-x: auto; white-space: nowrap; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); }
+        .tab-btn { background-color: white; border: none; padding: 8px 15px; margin-right: 10px; border-radius: 5px; font-size: 12px; color: #555; font-weight: bold; }
+        .tab-btn.active { color: #d4a000; border-bottom: 3px solid #d4a000; }
+
+        /* विषयों का जाल और डिब्बे */
+        .subjects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .subject-card { background-color: white; border-radius: 10px; padding: 15px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .subject-name { font-size: 12px; font-weight: bold; color: #1b266d; margin-bottom: 10px; }
+        
+        /* बैज (0 Video / 0 Notes) */
+        .info-row { display: flex; justify-content: center; gap: 10px; width: 100%; }
+        .badge { background-color: #fff9e6; color: #d97706; padding: 4px 8px; border-radius: 10px; font-size: 9px; font-weight: bold; display: flex; align-items: center; gap: 3px; }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="batches.html" class="back-btn">⬅ Back</a> 
+        <h1 class="page-title">UPSC IAS Foundation Batch</h1>
+    </div>
+
+    <div class="tabs-container">
+        <div class="tab-btn">📅 Today's Class</div>
+        <div class="tab-btn active">📂 Classroom</div> 
+        <div class="tab-btn">🔔 Updates</div>
+        <div class="tab-btn">🕒 Timetable</div>
+        <div class="tab-btn">📝 Test Series</div>
+    </div>
+
+    <div class="subjects-grid">
+        
+        <div class="subject-card">
+            <div class="subject-name">History</div>
+            <div class="info-row">
+                <span class="badge">▶️ 0 Videos</span>
+                <span class="badge">📄 0 Notes</span>
+            </div>
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">Polity</div>
+            <div class="info-row">
+                <span class="badge">▶️ 0 Videos</span>
+                <span class="badge">📄 0 Notes</span>
+            </div>
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">Geography</div>
+            <div class="info-row">
+                <span class="badge">▶️ 0 Videos</span>
+                <span class="badge">📄 0 Notes</span>
+            </div>
+        </div>
+
+        <div class="subject-card">
+            <div class="subject-name">Economics</div>
+            <div class="info-row">
+                <span class="badge">▶️ 0 Videos</span>
+                <span class="badge">📄 0 Notes</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
