@@ -10,31 +10,41 @@
         .header h1 { margin: 0; font-size: 18px; }
         .profile-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #ffaa00; object-fit: cover; }
         
-        /* लाल ब्लिंक लाइट वाला बैनर */
-        .banner-box { position: relative; margin: 20px 15px; padding: 4px; border-radius: 15px; overflow: hidden; border: 2px solid red; animation: red_blink_glow 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-        .banner-box img { width: 100%; display: block; border-radius: 11px; }
+        /* Red Blink Animation for Main Banner */
+        .banner-box { position: relative; margin: 15px; padding: 3px; border-radius: 12px; overflow: hidden; border: 2px solid red; animation: red_blink_glow 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+        .banner-box img { width: 100%; display: block; border-radius: 9px; }
 
         @keyframes red_blink_glow {
-            0%, 100% { border-color: red; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-            50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+            0%, 100% { border-color: red; box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); }
+            50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 18px rgba(255, 0, 0, 0.8); }
         }
 
-        .section-title { padding: 20px 20px 10px; font-size: 14px; font-weight: bold; color: #1b266d; text-transform: uppercase; letter-spacing: 1px; }
+        .section-title { padding: 12px 15px 5px; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; }
         
-        /* 🏛️ GOVERNANCE Full Photo Section - पूरी खुली हुई फोटो */
-        .gov-full-section { width: 100%; background: white; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .gov-full-img { width: 100%; height: auto; display: block; }
-        .gov-action-area { padding: 20px; text-align: center; background: #fff; }
-        .gov-btn { background-color: #28802e; color: white; padding: 12px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 14px; box-shadow: 0 4px 10px rgba(40, 128, 46, 0.3); transition: 0.3s; }
-        .gov-btn:active { transform: scale(0.95); }
+        /* 📚 KGS COURSES Grid */
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 5px 15px; }
+        .menu-item { background-color: white; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+        .menu-item span { font-size: 22px; display: block; margin-bottom: 5px; }
+        .menu-item p { margin: 0; font-size: 11px; font-weight: bold; }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .menu-item { background-color: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .menu-item p { margin: 8px 0 0; font-size: 12px; font-weight: bold; }
+        /* 🏛️ GOVERNANCE Section (Medium Size) */
+        .gov-medium-section { margin: 10px 15px; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; padding: 10px; }
+        .gov-img-small { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; }
+        .gov-info { padding-left: 15px; flex: 1; }
+        .gov-info h3 { margin: 0; font-size: 14px; color: #1b266d; }
+        .gov-btn-small { display: inline-block; margin-top: 8px; background: #28802e; color: white; padding: 8px 18px; border-radius: 20px; font-size: 11px; text-decoration: none; font-weight: bold; text-transform: uppercase; }
 
-        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .comm-card { background-color: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .comm-icon { width: 35px; height: 35px; margin-bottom: 5px; }
+        /* ✨ MORE FEATURES Section (All Back) */
+        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 5px 15px; }
+        .more-item { background-color: white; border-radius: 10px; padding: 10px 5px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .more-item span { font-size: 18px; display: block; margin-bottom: 4px; }
+        .more-item p { margin: 0; font-size: 9px; font-weight: bold; }
+
+        /* 🤝 COMMUNITY Section */
+        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px 15px; }
+        .comm-card { background-color: white; border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+        .comm-icon { width: 30px; height: 30px; margin-bottom: 5px; border-radius: 4px; }
+        .comm-card p { font-size: 11px; font-weight: bold; color: #1b266d; margin: 0; }
         
         a { text-decoration: none; color: inherit; }
     </style>
@@ -50,23 +60,28 @@
         <img src="1774704983075.jpg" alt="Mission 968 Banner">
     </div>
 
-    <div class="section-title">🏛️ शासन व्यवस्था (GOVERNANCE)</div>
-    <div class="gov-full-section">
-        <img src="IMG_20260319_163412_254.jpg" class="gov-full-img" alt="Governance Image">
-        <div class="gov-action-area">
-            <h3 style="margin: 0 0 15px 0; color: #333; font-size: 16px;">UPSC GS Paper 2 - विशेष नोट्स</h3>
-            <a href="Governance-notes (1) (1).pdf" target="_blank" class="gov-btn">
-                📄 ओपन पीडीएफ
-            </a>
+    <div class="section-title">📚 KGS COURSES</div>
+    <div class="menu-grid">
+        <a href="batches.html"><div class="menu-item"><span>🎓</span><p style="color: #ffaa00;">KGS Batches</p></div></a>
+        <div class="menu-item"><span>❤️</span><p style="color: #d93838;">Favourites</p></div>
+        <div class="menu-item"><span>⌛</span><p style="color: #3b5098;">History</p></div>
+        <div class="menu-item"><span>⬇️</span><p style="color: #28802e;">Downloads</p></div>
+    </div>
+
+    <div class="section-title">🏛️ GOVERNANCE (शासन व्यवस्था)</div>
+    <div class="gov-medium-section">
+        <img src="IMG_20260319_163412_254.jpg" class="gov-img-small" alt="Governance">
+        <div class="gov-info">
+            <h3>UPSC GS Paper 2 Notes</h3>
+            <a href="Governance-notes (1) (1).pdf" target="_blank" class="gov-btn-small">📄 OPEN PDF</a>
         </div>
     </div>
 
-    <div class="section-title">📚 KGS COURSES</div>
-    <div class="menu-grid">
-        <a href="batches.html">
-            <div class="menu-item"><span>🎓</span><p style="color: #ffaa00;">KGS Batches</p></div>
-        </a>
-        <div class="menu-item"><span>⌛</span><p style="color: #3b5098;">History</p></div>
+    <div class="section-title">✨ MORE FEATURES</div>
+    <div class="more-grid">
+        <div class="more-item"><span>🏅</span><p style="color: #d93838;">Board Exams</p></div>
+        <div class="more-item"><span>💡</span><p style="color: #3b5098;">Gyan Bindu</p></div>
+        <div class="more-item"><span>📖</span><p style="color: #28802e;">NCERT Books</p></div>
     </div>
 
     <div class="section-title">🤝 COMMUNITY</div>
