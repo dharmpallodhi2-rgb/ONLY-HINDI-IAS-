@@ -3,65 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Home</title>
+    <title>ONLY HINDI IAS - Stealth</title>
     <style>
-        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background-color: #fce34d; padding-bottom: 40px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        /* 🌑 डार्क और खतरनाक बैकग्राउंड */
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #0a0a0a; color: white; padding-bottom: 40px; overflow-x: hidden; }
         
-        /* Header */
-        .header { background-color: #1b266d; color: white; padding: 15px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .header h1 { margin: 0; font-size: 18px; font-weight: 800; text-transform: uppercase; }
-        .profile-logo { width: 42px; height: 42px; border-radius: 50%; border: 3px solid #ffaa00; object-fit: cover; }
-        
-        /* Banner */
-        .banner-box { position: relative; margin: 15px; padding: 3px; border-radius: 12px; overflow: hidden; border: 2px solid red; animation: red_blink_glow 1.5s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
-        .banner-box img { width: 100%; display: block; border-radius: 9px; }
+        /* 🔥 Header - Dark & Powerful */
+        .header { background: #000; color: #ffaa00; padding: 20px; border-bottom: 2px solid #ffaa00; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 25px rgba(255, 170, 0, 0.2); }
+        .header h1 { margin: 0; font-size: 20px; text-shadow: 0 0 10px #ffaa00; letter-spacing: 2px; }
+        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ffaa00; box-shadow: 0 0 15px #ffaa00; }
 
-        @keyframes red_blink_glow {
-            0%, 100% { border-color: red; box-shadow: 0 0 8px rgba(255, 0, 0, 0.6); }
-            50% { border-color: rgba(255, 0, 0, 0.1); box-shadow: 0 0 18px rgba(255, 0, 0, 0.8); }
-        }
+        /* 🚩 Banner - Cyberpunk Border */
+        .banner-box { margin: 20px 15px; border-radius: 15px; overflow: hidden; position: relative; padding: 2px; background: linear-gradient(90deg, #ff0000, #ffaa00, #ff0000); background-size: 200% 200%; animation: moveGradient 3s linear infinite; }
+        .banner-box img { width: 100%; display: block; border-radius: 13px; }
+        @keyframes moveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
 
-        /* 🌈 Gradient News Headline 🌈 */
-        .news-container { background-color: white; padding: 10px 0; white-space: nowrap; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: -5px; margin-bottom: 15px; border-bottom: 2px solid #ddd; }
-        .news-text { display: inline-block; padding-left: 100%; font-size: 16px; font-weight: 800; background-image: linear-gradient(to right, #ff1493, #1e90ff, #fce34d, #ff1493); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: moveNews 15s linear infinite, colorChange 4s linear infinite; }
+        /* 🌈 News Headline - Neon Blue */
+        .news-container { background: #111; padding: 12px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin-bottom: 20px; }
+        .news-text { display: inline-block; padding-left: 100%; font-size: 15px; font-weight: bold; color: #00f2fe; text-shadow: 0 0 8px #00f2fe; animation: moveNews 15s linear infinite; }
         @keyframes moveNews { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        @keyframes colorChange { to { background-position: 200% center; } }
 
-        /* 🌊 RIPPLE EFFECT CSS 🌊 */
-        .ripple-btn { position: relative; overflow: hidden; cursor: pointer; }
-        .ripple { position: absolute; background: rgba(255, 255, 255, 0.6); transform: translate(-50%, -50%); pointer-events: none; border-radius: 50%; animation: ripple-animation 0.6s linear; }
-        @keyframes ripple-animation { from { width: 0px; height: 0px; opacity: 0.5; } to { width: 500px; height: 500px; opacity: 0; } }
-
-        /* Sections & Cards */
-        .section-title { padding: 15px 15px 5px; font-size: 13px; font-weight: bold; color: #555; text-transform: uppercase; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 5px 15px; }
-        
-        .menu-item, .more-item, .comm-card, .gov-medium-section { 
-            background-color: white; border-radius: 15px; padding: 15px; text-align: center; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.1s; 
+        /* 🏛️ Cyber Cards - Black Glass */
+        .card-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .cyber-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 15px; 
+            padding: 20px; 
+            text-align: center; 
+            transition: 0.3s;
+            position: relative;
         }
-        
-        .menu-item:active, .more-item:active, .comm-card:active { transform: scale(0.96); }
-        .menu-item span { font-size: 25px; display: block; margin-bottom: 8px; }
-        .menu-item p { margin: 0; font-size: 12px; font-weight: bold; }
+        .cyber-card:active { transform: scale(0.95); border-color: #ffaa00; box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); }
+        .cyber-card span { font-size: 30px; display: block; margin-bottom: 10px; filter: drop-shadow(0 0 5px white); }
+        .cyber-card p { margin: 0; font-size: 13px; font-weight: bold; color: #aaa; }
 
-        /* Governance Section */
-        .gov-medium-section { margin: 10px 15px; display: flex; align-items: center; padding: 12px; text-align: left; }
-        .gov-img-small { width: 85px; height: 85px; border-radius: 12px; object-fit: cover; }
-        .gov-info { padding-left: 18px; flex: 1; }
-        .gov-info h3 { margin: 0; font-size: 15px; color: #1b266d; font-weight: 800; }
-        .gov-btn-small { display: inline-block; margin-top: 10px; background: #28802e; color: white; padding: 8px 20px; border-radius: 25px; font-size: 12px; text-decoration: none; font-weight: bold; }
+        /* ⚡ Animated Moving Border for Special Cards */
+        .special-border { 
+            position: relative; border: none !important; 
+            background: rgba(255,255,255,0.05) !important;
+        }
+        .special-border::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 15px; padding: 2px; 
+            background: linear-gradient(45deg, transparent, transparent, #ffaa00);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            animation: rotateBorder 2s linear infinite;
+        }
+        @keyframes rotateBorder { to { transform: rotate(360deg); } }
 
-        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 5px 15px; }
-        .more-item { padding: 12px 5px; }
-        .more-item span { font-size: 18px; display: block; margin-bottom: 4px; }
-        .more-item p { margin: 0; font-size: 10px; font-weight: bold; }
+        /* Governance Card */
+        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-left: 4px solid #ffaa00; }
+        .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; border: 1px solid #444; }
+        .btn-glow { background: #ffaa00; color: black; padding: 6px 15px; border-radius: 8px; font-size: 12px; display: inline-block; margin-top: 8px; font-weight: bold; text-transform: uppercase; box-shadow: 0 0 15px #ffaa00; }
 
-        .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .comm-icon { width: 35px; height: 35px; margin-bottom: 5px; border-radius: 5px; }
-        .comm-card p { font-size: 12px; font-weight: bold; color: #1b266d; margin: 0; }
-        
-        a { text-decoration: none; color: inherit; display: block; }
+        .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* 🤝 Community - Neon Colors */
+        .comm-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
+        .comm-icon { width: 35px; height: 35px; margin-bottom: 5px; filter: grayscale(1) brightness(1.5); }
     </style>
 </head>
 <body>
@@ -72,63 +74,48 @@
     </div>
 
     <div class="banner-box">
-        <img src="1774704983075.jpg" alt="Mission 968 Banner">
+        <img src="1774704983075.jpg" alt="Stealth Banner">
     </div>
 
     <div class="news-container">
-        <div class="news-text">
-            𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... सिविल सेवा परीक्षा की तैयारी के लिए सर्वश्रेष्ठ ऑनलाइन संस्थान!
+        <div class="news-text">ACCESS GRANTED... 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें!</div>
+    </div>
+
+    <div class="section-title">⚡ CORE MISSIONS</div>
+    <div class="card-container">
+        <a href="batches.html" class="cyber-card special-border"><span>🎓</span><p style="color: #ffaa00;">KGS Batches</p></a>
+        <div class="cyber-card"><span>❤️</span><p>Favourites</p></div>
+        <div class="cyber-card"><span>⌛</span><p>History</p></div>
+        <div class="cyber-card"><span>⬇️</span><p>Downloads</p></div>
+    </div>
+
+    <div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
+    <div class="card-container">
+        <div class="cyber-card gov-card">
+            <img src="IMG_20260319_163412_254.jpg" alt="Gov">
+            <div>
+                <b style="font-size: 14px; color: #fff;">UPSC GS Paper 2 Classified</b><br>
+                <a href="governance.pdf" class="btn-glow">📄 OPEN DOSSIER</a>
+            </div>
         </div>
     </div>
 
-    <div class="section-title">📚 KGS COURSES</div>
-    <div class="menu-grid">
-        <a href="batches.html" class="ripple-btn"><div class="menu-item"><span>🎓</span><p style="color: #ffaa00;">KGS Batches</p></div></a>
-        <div class="menu-item ripple-btn"><span>❤️</span><p style="color: #d93838;">Favourites</p></div>
-        <div class="menu-item ripple-btn"><span>⌛</span><p style="color: #3b5098;">History</p></div>
-        <div class="menu-item ripple-btn"><span>⬇️</span><p style="color: #28802e;">Downloads</p></div>
+    <div class="section-title">🛡️ SECONDARY TOOLS</div>
+    <div class="card-container" style="grid-template-columns: 1fr 1fr 1fr;">
+        <div class="cyber-card" style="padding: 10px;"><span>🏅</span><p style="font-size: 9px;">Exams</p></div>
+        <div class="cyber-card" style="padding: 10px;"><span>💡</span><p style="font-size: 9px;">Gyan Bindu</p></div>
+        <a href="https://ncert.nic.in/" target="_blank" class="cyber-card" style="padding: 10px;"><span>📖</span><p style="font-size: 9px; color: #00f2fe;">NCERT</p></a>
     </div>
 
-    <div class="section-title">🏛️ शासन व्यवस्था (GOVERNANCE)</div>
-    <div class="gov-medium-section ripple-btn">
-        <img src="IMG_20260319_163412_254.jpg" class="gov-img-small" alt="Governance">
-        <div class="gov-info">
-            <h3>UPSC GS Paper 2 Notes</h3>
-            <a href="governance.pdf" target="_blank" class="gov-btn-small">📄 OPEN PDF</a>
-        </div>
-    </div>
-
-    <div class="section-title">✨ MORE FEATURES</div>
-    <div class="more-grid">
-        <div class="more-item ripple-btn"><span>🏅</span><p style="color: #d93838;">Board Exams</p></div>
-        <div class="more-item ripple-btn"><span>💡</span><p style="color: #3b5098;">Gyan Bindu</p></div>
-        <a href="https://ncert.nic.in/" target="_blank" class="more-item ripple-btn"><span>📖</span><p style="color: #28802e;">NCERT Books</p></a>
-    </div>
-
-    <div class="section-title">🤝 COMMUNITY</div>
-    <div class="community-grid">
-        <a href="https://t.me/mission968" target="_blank" class="comm-card ripple-btn">
-            <img src="7dbfac257b4714f2d63fd8d4178c7528.jpg" class="comm-icon" alt="Telegram"><p>Telegram</p>
+    <div class="section-title">🤝 NETWORKS</div>
+    <div class="community-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px;">
+        <a href="https://t.me/mission968" target="_blank" class="comm-card">
+            <img src="7dbfac257b4714f2d63fd8d4178c7528.jpg" class="comm-icon" alt="Telegram"><p style="font-size: 12px;">Telegram</p>
         </a>
-        <a href="https://wa.me/919685026772" target="_blank" class="comm-card ripple-btn">
-            <img src="398183d05f839d3c448a0053bf11d8bc.jpg" class="comm-icon" alt="WhatsApp"><p>WhatsApp</p>
+        <a href="https://wa.me/919685026772" target="_blank" class="comm-card">
+            <img src="398183d05f839d3c448a0053bf11d8bc.jpg" class="comm-icon" alt="WhatsApp"><p style="font-size: 12px;">WhatsApp</p>
         </a>
     </div>
-
-    <script>
-        document.querySelectorAll('.ripple-btn').forEach(button => {
-            button.addEventListener('click', function (e) {
-                let x = e.clientX - e.target.getBoundingClientRect().left;
-                let y = e.clientY - e.target.getBoundingClientRect().top;
-                let ripples = document.createElement('span');
-                ripples.style.left = x + 'px';
-                ripples.style.top = y + 'px';
-                ripples.classList.add('ripple');
-                this.appendChild(ripples);
-                setTimeout(() => { ripples.remove() }, 600);
-            });
-        });
-    </script>
 
 </body>
 </html>
