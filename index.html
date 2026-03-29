@@ -9,7 +9,6 @@
         body { 
             margin: 0; 
             font-family: 'Poppins', sans-serif; 
-            /* फोटो की तरह डार्क पर्पल ग्रेडिएंट बैकग्राउंड */
             background: radial-gradient(circle at top right, #2d0b3d, #050a1f 60%);
             background-attachment: fixed;
             color: white; 
@@ -17,13 +16,12 @@
             overflow-x: hidden; 
         }
         
-        /* 🔵 Header - Dark & Purple Glow */
         .header { 
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             color: #ffaa00; 
             padding: 20px; 
-            border-bottom: 2px solid #8e2de2; /* पर्पल बॉर्डर */
+            border-bottom: 2px solid #8e2de2; 
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
             display: flex; 
@@ -34,17 +32,14 @@
         .header h1 { margin: 0; font-size: 18px; font-weight: 800; text-shadow: 0 0 10px #ffaa00; }
         .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ffaa00; }
 
-        /* 🚩 Banner */
         .banner-box { margin: 25px 15px; border-radius: 20px; overflow: hidden; border: 1px solid #8e2de2; box-shadow: 0 0 20px rgba(142, 45, 226, 0.3); }
         .banner-box img { width: 100%; display: block; }
 
-        /* 📺 News Line - No Change as per your request */
         .news-container { background: rgba(0, 0, 0, 0.6); padding: 12px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin-bottom: 25px; overflow: hidden; }
         .news-scroll { display: inline-block; white-space: nowrap; padding-left: 100%; animation: newsSlide 15s linear infinite; }
         .news-scroll span { font-size: 16px; font-weight: 800; color: #ffaa00; text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); }
         @keyframes newsSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* ✨ Professional Buttons - No Change in Logic, Just Neon Style ✨ */
         .card-grid { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .prof-button {
@@ -60,7 +55,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* बटन की घूमने वाली रोशनी (पर्पल टोन) */
         .prof-button::before {
             content: '';
             position: absolute;
@@ -84,21 +78,17 @@
         .prof-button span { font-size: 30px; display: block; margin-bottom: 5px; filter: drop-shadow(0 0 8px #8e2de2); }
         .prof-button p { margin: 0; font-size: 13px; font-weight: bold; color: #ffaa00; text-transform: uppercase; }
 
-        /* Section Title */
         .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #8e2de2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 5px #8e2de2; }
 
-        /* 🏛️ Governance Card */
-        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; }
+        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; margin-bottom: 10px; }
         .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; border: 1px solid #8e2de2; }
-        .btn-action { background: #ffaa00; color: #000; padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 900; display: inline-block; margin-top: 8px; box-shadow: 0 0 15px #ffaa00; }
+        .btn-action { background: #ffaa00; color: #000; padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 900; display: inline-block; margin-top: 8px; box-shadow: 0 0 15px #ffaa00; text-decoration: none; }
 
-        /* ✨ MORE FEATURES Section */
         .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 15px; }
         .more-card { background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 15px 5px; text-align: center; border: 1px solid rgba(142, 45, 226, 0.2); }
         .more-card span { font-size: 20px; display: block; }
         .more-card p { margin: 0; font-size: 10px; font-weight: bold; color: #ddd; }
 
-        /* 🤝 COMMUNITY (Original Colors Restored) */
         .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
         .comm-card { background: white; border-radius: 18px; padding: 15px; text-align: center; text-decoration: none; box-shadow: 0 0 15px rgba(142, 45, 226, 0.2); }
         .comm-card img { width: 35px; height: 35px; margin-bottom: 5px; }
@@ -118,7 +108,7 @@
 
     <div class="news-container">
         <div class="news-scroll">
-            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है...&nbsp;&nbsp;&nbsp;&nbsp</span>
+            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें! &nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है...</span>
         </div>
     </div>
 
@@ -132,7 +122,7 @@
         <div class="prof-button"><div class="btn-content"><span>⬇️</span><p>Downloads</p></div></div>
     </div>
 
-    <div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
+    <div class="section-title">🏛️ GOVERNANCE & HISTORY</div>
     <div class="card-grid">
         <div class="prof-button gov-card">
             <div class="btn-content" style="display:flex; align-items:center;">
@@ -140,6 +130,16 @@
                 <div>
                     <b style="font-size: 14px; color: #fff;">GS Paper 2 Dossier</b><br>
                     <a href="governance.pdf" target="_blank" class="btn-action">OPEN DOSSIER</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="prof-button gov-card">
+            <div class="btn-content" style="display:flex; align-items:center;">
+                <img src="IMG_20260329_082203_932.jpg" alt="Ancient History">
+                <div>
+                    <b style="font-size: 14px; color: #fff;">Ancient History Notes</b><br>
+                    <a href="history-notes.pdf" target="_blank" class="btn-action">OPEN PDF</a>
                 </div>
             </div>
         </div>
