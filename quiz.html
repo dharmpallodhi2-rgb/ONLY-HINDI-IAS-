@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Live Quiz - ONLY HINDI IAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --white: #ffffff; --light-bg: #f5f8fa; --correct-green: #d4edda; --correct-border: #c3e6cb; --wrong-red: #f8d7da; --wrong-border: #f5c6cb; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; }
+        
+        /* Header */
+        .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .back-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; }
+        .header h1 { margin: 0; font-size: 16px; font-weight: 800; color: var(--primary-teal); text-transform: uppercase; }
+
+        /* Timer & Info Bar */
+        .info-bar { display: flex; justify-content: space-between; padding: 15px 20px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; margin-bottom: 20px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .question-count { font-size: 14px; font-weight: 800; }
+        .timer { font-size: 14px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
+
+        /* Quiz Container */
+        .quiz-container { padding: 0 15px; }
+        .quiz-box { background: var(--white); border-radius: 16px; padding: 25px 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .quiz-question { font-size: 15px; font-weight: 800; color: var(--primary-teal); margin-bottom: 25px; line-height: 1.6; border-bottom: 2px dashed #eee; padding-bottom: 15px; }
+        .quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        
+        /* Options Style */
+        .option-btn { background: var(--light-bg); border: 2px solid #ddd; border-radius: 12px; padding: 15px; font-size: 13px; font-weight: 600; color: var(--primary-teal); cursor: pointer; transition: all 0.2s ease; text-align: left; position: relative; display: flex; justify-content: space-between; align-items: center;}
+        .option-correct { background: var(--correct-green) !important; border-color: var(--correct-border) !important; color: #155724 !important; }
+        .option-correct::after { content: '✅'; font-size: 16px; }
+        .option-wrong { background: var(--wrong-red) !important; border-color: var(--wrong-border) !important; color: #721c24 !important; }
+        .option-wrong::after { content: '❌'; font-size: 16px; }
+
+        /* Next Button */
+        #next-btn { display: none; margin-top: 25px; width: 100%; background: var(--premium-gold); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(181, 148, 16, 0.3); transition: 0.2s; }
+        #next-btn:active { transform: scale(0.98); }
+
+        /* Result Dashboard */
+        #result-box { display: none; background: var(--white); border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 2px solid var(--primary-teal); }
+        .trophy { font-size: 50px; margin-bottom: 10px; }
+        #result-box h2 { margin: 0; font-size: 22px; font-weight: 800; color: var(--primary-teal); }
+        .score-circle { width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border-radius: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; border: 4px solid var(--premium-gold); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #performance-msg { font-size: 14px; font-weight: 700; color: #555; margin-bottom: 25px; line-height: 1.5; }
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .retry-btn { background: var(--light-bg); color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; }
+        .home-btn { background: var(--primary-teal); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="subjects.html" class="back-btn">← BACK</a>
+        <h1 id="subject-title">Quiz</h1>
+        <div style="width: 60px;"></div> </div>
+
+    <div class="info-bar" id="info-bar">
+        <div class="question-count">Q. <span id="current-q-num">1</span>/<span id="total-q-num">10</span></div>
+        <div class="timer">⏱️ <span id="time">05:00</span></div>
+    </div>
+
+    <div class="quiz-container">
+        
+        <div class="quiz-box" id="quiz-box">
+            <div class="quiz-question" id="question-text">Loading question...</div>
+            <div class="quiz-options">
+                <button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span id="text-a">Option A</span></button>
+                <button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span id="text-b">Option B</span></button>
+                <button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span id="text-c">Option C</span></button>
+                <button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span id="text-d">Option D</span></button>
+            </div>
+            <button id="next-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
+        </div>
+
+        <div id="result-box">
+            <div class="trophy">🏆</div>
+            <h2>Performance Report</h2>
+            <div class="score-circle">
+                <span id="final-score">0</span>/<span id="final-total">0</span>
+            </div>
+            <p id="performance-msg">Evaluating your UPSC preparation...</p>
+            
+            <div class="action-btns">
+                <a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Test</a>
+                <a href="subjects.html" class="home-btn">View Subjects</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. All Subjects Database (Admin can add more questions here)
+        const quizDatabase = {
+            history: [
+                { q: "प्राचीन भारत में 'निष्का' (Nishka) शब्द का प्रयोग किसके लिए किया जाता था?", options: { a: "स्वर्ण आभूषण/मुद्रा", b: "तांबे के सिक्के", c: "कृषि उपकरण", d: "हथियार" }, correct: "a" },
+                { q: "भारतीय राष्ट्रीय कांग्रेस के किस अधिवेशन में 'पूर्ण स्वराज' का प्रस्ताव पारित किया गया?", options: { a: "कलकत्ता अधिवेशन 1928", b: "लाहौर अधिवेशन 1929", c: "कराची अधिवेशन 1931", d: "लखनऊ अधिवेशन 1916" }, correct: "b" }
+            ],
+            polity: [
+                { q: "संविधान के किस अनुच्छेद के तहत राष्ट्रपति पर महाभियोग (Impeachment) लगाया जा सकता है?", options: { a: "अनुच्छेद 54", b: "अनुच्छेद 61", c: "अनुच्छेद 72", d: "अनुच्छेद 123" }, correct: "b" },
+                { q: "धन विधेयक (Money Bill) को संसद के किस सदन में पेश किया जा सकता है?", options: { a: "केवल राज्यसभा", b: "केवल लोकसभा", c: "दोनों सदनों में", d: "विधानसभा में" }, correct: "b" }
+            ],
+            economy: [
+                { q: "भारत में रेपो रेट (Repo Rate) का निर्धारण किसके द्वारा किया जाता है?", options: { a: "वित्त मंत्रालय", b: "नीति आयोग", c: "भारतीय रिजर्व बैंक (RBI)", d: "SEBI" }, correct: "c" },
+                { q: "निम्नलिखित में से कौन सा प्रत्यक्ष कर (Direct Tax) नहीं है?", options: { a: "आयकर (Income Tax)", b: "निगम कर (Corporate Tax)", c: "GST", d: "संपत्ति कर (Wealth Tax)" }, correct: "c" }
+            ],
+            geography: [
+                { q: "भारत का सबसे दक्षिणी बिंदु (Southernmost point) कौन सा है?", options: { a: "कन्याकुमारी", b: "इंदिरा पॉइंट", c: "गुहार मोती", d: "किबिथू" }, correct: "b" }
+            ],
+            current: [
+                { q: "हाल ही में चर्चा में रहा 'G20' समूह का 2023 का शिखर सम्मेलन कहाँ आयोजित हुआ था?", options: { a: "नई दिल्ली, भारत", b: "बाली, इंडोनेशिया", c: "रियो डी जेनेरियो, ब्राजील", d: "ओसाका, जापान" }, correct: "a" }
+            ],
+            art: [
+                { q: "प्रसिद्ध 'मधुबनी चित्रकला' किस राज्य से संबंधित है?", options: { a: "राजस्थान", b: "ओडिशा", c: "बिहार", d: "महाराष्ट्र" }, correct: "c" }
+            ],
+            science: [
+                { q: "इसरो (ISRO) का 'चंद्रयान-3' मिशन चंद्रमा के किस ध्रुव पर उतरा था?", options: { a: "उत्तरी ध्रुव", b: "दक्षिणी ध्रुव", c: "भूमध्य रेखा पर", d: "इनमें से कोई नहीं" }, correct: "b" }
+            ],
+            environment: [
+                { q: "'क्योटो प्रोटोकॉल' (Kyoto Protocol) मुख्य रूप से किससे संबंधित है?", options: { a: "ओजोन परत संरक्षण", b: "ग्रीनहाउस गैस उत्सर्जन कम करना", c: "जैव विविधता संरक्षण", d: "परमाणु हथियारों पर रोक" }, correct: "b" }
+            ],
+            disaster: [
+                { q: "राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDMA) का पदेन अध्यक्ष कौन होता है?", options: { a: "गृह मंत्री", b: "राष्ट्रपति", c: "प्रधानमंत्री", d: "पर्यावरण मंत्री" }, correct: "c" }
+            ]
+        };
+
+        // 2. Variables
+        let currentSubject = "";
+        let currentQuestions = [];
+        let currentQIndex = 0;
+        let score = 0;
+        
+        // Timer Variables
+        let timeInSeconds = 300; // 5 Minutes (5 * 60)
+        let timerInterval;
+
+        // 3. Start Function (Runs when page loads)
+        window.onload = function() {
+            // Get Subject from URL (e.g., quiz.html?subject=history)
+            const urlParams = new URLSearchParams(window.location.search);
+            currentSubject = urlParams.get('subject');
+
+            if (currentSubject && quizDatabase[currentSubject]) {
+                currentQuestions = quizDatabase[currentSubject];
+                
+                // Set Header Title
+                let displayTitle = currentSubject.toUpperCase() + " QUIZ";
+                document.getElementById('subject-title').innerText = displayTitle;
+                
+                // Set Total Questions
+                document.getElementById('total-q-num').innerText = currentQuestions.length;
+                
+                startTimer();
+                loadQuestion();
+            } else {
+                document.getElementById('question-text').innerText = "कोई सवाल नहीं मिला। कृपया वापस जाएँ।";
+            }
+        };
+
+        // 4. Load Question Function
+        function loadQuestion() {
+            document.getElementById('next-btn').style.display = 'none'; // Hide next button
+            document.getElementById('current-q-num').innerText = currentQIndex + 1; // Update Question No.
+
+            const qData = currentQuestions[currentQIndex];
+            document.getElementById('question-text').innerText = "Q" + (currentQIndex + 1) + ". " + qData.q;
+            
+            document.getElementById('text-a').innerText = qData.options.a;
+            document.getElementById('text-b').innerText = qData.options.b;
+            document.getElementById('text-c').innerText = qData.options.c;
+            document.getElementById('text-d').innerText = qData.options.d;
+
+            // Reset buttons (remove colors and enable them)
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('option-correct', 'option-wrong');
+                btn.disabled = false;
+            });
+        }
+
+        // 5. Check Answer Logic
+        function checkAnswer(selectedOption) {
+            const correctOption = currentQuestions[currentQIndex].correct;
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            // Disable all buttons so user can't click twice
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Right or Wrong color logic
+            if (selectedOption === correctOption) {
+                document.getElementById('option-' + selectedOption).classList.add('option-correct');
+                score++;
+            } else {
+                document.getElementById('option-' + selectedOption).classList.add('option-wrong');
+                document.getElementById('option-' + correctOption).classList.add('option-correct');
+            }
+
+            // Show Next Button
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        // 6. Next Question Logic
+        function nextQuestion() {
+            currentQIndex++;
+            if (currentQIndex < currentQuestions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // 7. Timer Logic
+        function startTimer() {
+            timerInterval = setInterval(function() {
+                if (timeInSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    endQuiz(); // Time up!
+                } else {
+                    timeInSeconds--;
+                    let m = Math.floor(timeInSeconds / 60);
+                    let s = timeInSeconds % 60;
+                    if(m < 10) m = "0" + m;
+                    if(s < 10) s = "0" + s;
+                    document.getElementById('time').innerText = m + ":" + s;
+                }
+            }, 1000); // Runs every 1 second
+        }
+
+        // 8. End Quiz & Show Result Dashboard
+        function endQuiz() {
+            clearInterval(timerInterval); // Stop timer
+            
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('info-bar').style.display = 'none';
+            document.getElementById('result-box').style.display = 'block';
+
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-total').innerText = currentQuestions.length;
+
+            let percentage = (score / currentQuestions.length) * 100;
+            let msg = "";
+
+            if (percentage === 100) msg = "अद्भुत प्रदर्शन! आपकी UPSC की तैयारी एकदम सही दिशा में है। 🎯";
+            else if (percentage >= 50) msg = "बहुत अच्छा! थोड़े और रिवीजन के साथ आप टॉप कर सकते हैं। 📚";
+            else msg = "निराश न हों! 'ONLY HINDI IAS' के नोट्स पढ़ें और दोबारा प्रयास करें। ✌️";
+
+            document.getElementById('performance-msg').innerText = msg;
+        }
+    </script>
+
+</body>
+</html>
