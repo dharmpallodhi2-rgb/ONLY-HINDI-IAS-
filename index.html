@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Deep Teal</title>
+    <title>ONLY HINDI IAS - Deep Teal Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         /* 🎨 थीम कलर सेटअप (#0B2B40 और White) */
         :root {
             --primary-teal: #0B2B40;
+            --premium-gold: #b59410; /* प्रीमियम गोल्ड कलर */
             --white: #ffffff;
             --light-bg: #f5f8fa; /* हल्का बैकग्राउंड */
+            --btn-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --btn-hover-shadow: 0 8px 25px rgba(11, 43, 64, 0.15);
         }
 
         body { 
@@ -18,7 +21,7 @@
             font-family: 'Poppins', sans-serif; 
             background-color: var(--light-bg); 
             color: var(--primary-teal); 
-            padding-bottom: 40px; 
+            padding-bottom: 60px; 
             overflow-x: hidden; 
             -webkit-tap-highlight-color: transparent; 
         }
@@ -46,48 +49,118 @@
         .banner-box { margin: 15px; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .banner-box img { width: 100%; display: block; border-radius: 15px; }
 
-        /* 📺 स्वागत वाली न्यूज़ लाइन - No Blur */
+        /* 📺 स्वागत वाली न्यूज़ लाइन */
         .news-container { background: var(--white); padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; margin-bottom: 20px; overflow: hidden; }
         .news-scroll { display: inline-block; white-space: nowrap; padding-left: 100%; animation: newsSlide 18s linear infinite; }
         .news-scroll span { font-size: 15px; font-weight: 600; color: var(--primary-teal); }
         @keyframes newsSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* ✨ प्रोफेशनल बटन - Clean & Focus Look */
-        .card-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        /* ✨ प्रोफेशनल बटन - New Classy Look ✨ */
+        .card-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
         .teal-card { 
             background: var(--white); 
-            border: 1px solid #eee; 
-            border-radius: 12px; 
-            padding: 20px 10px; 
+            border: 1px solid #eaeaea; 
+            border-radius: 16px; 
+            padding: 22px 12px; 
             text-align: center; 
             text-decoration: none; 
             display: block; 
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            box-shadow: var(--btn-shadow);
+            position: relative;
+            overflow: hidden;
         }
-        .teal-card:active { transform: scale(0.96); border-color: var(--primary-teal); box-shadow: 0 5px 15px rgba(11, 43, 64, 0.1); }
-        .teal-card span { font-size: 28px; display: block; margin-bottom: 5px; }
-        .teal-card p { margin: 0; font-size: 12px; font-weight: bold; color: var(--primary-teal); text-transform: uppercase; }
+        
+        /* हल्का सा ग्रेडिएंट इफेक्ट */
+        .teal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(to right, var(--primary-teal), #1d4d6e);
+            opacity: 0;
+            transition: 0.3s;
+        }
 
-        .section-title { padding: 20px 20px 8px; font-size: 12px; font-weight: bold; color: #777; text-transform: uppercase; letter-spacing: 2px; }
+        .teal-card:active, .teal-card:hover { 
+            transform: translateY(-3px); 
+            border-color: #d0d0d0; 
+            box-shadow: var(--btn-hover-shadow); 
+        }
+        
+        .teal-card:hover::before { opacity: 1; }
 
-        /* Governance Card */
-        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 12px; }
-        .gov-card img { width: 65px; height: 65px; border-radius: 8px; margin-right: 12px; border: 1px solid #ddd; }
+        .teal-card span { font-size: 30px; display: block; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .teal-card p { margin: 0; font-size: 13px; font-weight: 700; color: var(--primary-teal); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .section-title { padding: 25px 20px 10px; font-size: 13px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 2.5px; }
+
+        /* Governance & History Card Style */
+        .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-radius: 18px; }
+        .gov-card img { width: 70px; height: 70px; border-radius: 10px; margin-right: 15px; border: 1px solid #ddd; object-fit: cover; }
         .gov-text { flex: 1; }
-        .btn-teal { background: var(--primary-teal); color: white; padding: 6px 15px; border-radius: 6px; font-size: 11px; font-weight: 800; text-decoration: none; display: inline-block; margin-top: 5px; }
+        .gov-text b { font-size: 14px; color: var(--primary-teal); font-weight: 800; display: block; margin-bottom: 2px; }
+        
+        /* प्रोफेशनल एक्शन बटन */
+        .btn-action { 
+            background: var(--primary-teal); 
+            color: white; 
+            padding: 8px 18px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-weight: 800; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin-top: 8px; 
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(11, 43, 64, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-action:active { transform: scale(0.95); box-shadow: 0 2px 5px rgba(11, 43, 64, 0.2); }
 
-        /* COMMUNITY & Features (Icons Back!) */
+        /* 💎 PREMIUM STORE Section - New & Gold 💎 */
+        .premium-card {
+            border: 2px solid var(--premium-gold) !important;
+            background: linear-gradient(135deg, var(--white) 0%, #fffdf3 100%) !important;
+            box-shadow: 0 6px 20px rgba(181, 148, 16, 0.15) !important;
+        }
+        .premium-card:active, .premium-card:hover {
+            box-shadow: 0 10px 30px rgba(181, 148, 16, 0.25) !important;
+        }
+        .premium-card::before {
+            background: linear-gradient(to right, var(--premium-gold), #e6c229) !important;
+        }
+        .premium-badge {
+            position: absolute;
+            top: 10px; right: -25px;
+            background: var(--premium-gold);
+            color: white;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 3px 30px;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-premium {
+            background: var(--premium-gold);
+            box-shadow: 0 4px 10px rgba(181, 148, 16, 0.3);
+        }
+        .btn-premium:active { box-shadow: 0 2px 5px rgba(181, 148, 16, 0.3); }
+
+        /* Features & Connect (Originals Restored) */
         .features-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 15px; }
-        .feature-card { background: var(--white); border-radius: 10px; padding: 12px 5px; text-align: center; }
-        .feature-card p { margin: 0; font-size: 9px; font-weight: bold; color: var(--primary-teal); }
+        .feature-card { background: var(--white); border-radius: 12px; padding: 15px 5px; text-align: center; border: 1px solid #eee; box-shadow: var(--btn-shadow); }
+        .feature-card p { margin: 5px 0 0; font-size: 10px; font-weight: bold; color: var(--primary-teal); }
 
-        .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 10px 15px; }
-        .comm-card { background: var(--white); border-radius: 10px; padding: 15px; text-align: center; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .comm-card img { width: 30px; height: 30px; margin-bottom: 5px; }
-        .comm-card p { margin: 0; font-size: 11px; font-weight: bold; }
+        .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
+        .comm-card { background: var(--white); border-radius: 15px; padding: 18px; text-align: center; text-decoration: none; box-shadow: var(--btn-shadow); border: 1px solid #eee; transition: 0.3s; }
+        .comm-card:active { transform: translateY(-2px); box-shadow: var(--btn-hover-shadow); }
+        .comm-card img { width: 32px; height: 32px; margin-bottom: 6px; }
+        .comm-card p { margin: 0; font-size: 12px; font-weight: bold; }
 
-        /* 📢 Telegram Popup (English Text Fixed) 📢 */
+        /* 📢 Telegram Popup (No Changes) 📢 */
         .popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -143,20 +216,28 @@
         <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
     </div>
 
-    <div class="section-title">🏛️ GOVERNANCE & HISTORY</div>
+    <div class="section-title">💎 PREMIUM STUDY MATERIAL</div>
+    <div class="card-container">
+        <div class="teal-card gov-card premium-card">
+            <div class="premium-badge">PREMIUM</div>
+            <img src="IMG_20260329_082203_932.jpg" alt="Ancient History Premium">
+            <div class="gov-text">
+                <b>Ancient History (Handwritten)</b>
+                <p style="margin: 3px 0; font-size: 11px; color: #555;">UPSC Special Notes | Complete Theory</p>
+                <p style="margin: 0; font-size: 13px; color: var(--premium-gold); font-weight: 800;">Price: ₹59 <span style="text-decoration: line-through; color: #aaa; font-size: 11px;">₹199</span></p>
+                <a href="https://wa.me/919685026772?text=नमस्ते%20नील%20सर,%20मुझे%20Ancient%20History%20के%20Premium%20Notes%20(₹59)%20खरीदने%20हैं।" target="_blank" class="btn-action btn-premium">🔒 BUY NOW (₹59)</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
     <div class="card-container">
         <div class="teal-card gov-card">
             <img src="IMG_20260319_163412_254.jpg" alt="Gov">
             <div class="gov-text">
-                <b style="font-size: 13px;">GS Paper 2 Dossier</b><br>
-                <a href="governance.pdf" target="_blank" class="btn-teal">📄 OPEN PDF</a>
-            </div>
-        </div>
-        <div class="teal-card gov-card">
-            <img src="IMG_20260329_082203_932.jpg" alt="Ancient History">
-            <div class="gov-text">
-                <b style="font-size: 13px;">Ancient History Notes</b><br>
-                <a href="history-notes.pdf" target="_blank" class="btn-teal">📄 OPEN PDF</a>
+                <b>GS Paper 2 Dossier</b>
+                <p style="margin: 0; font-size: 11px; color: #555;">Governance Complete Theory & Notes</p>
+                <a href="governance.pdf" target="_blank" class="btn-action">📄 OPEN PDF</a>
             </div>
         </div>
     </div>
@@ -206,5 +287,4 @@
     </script>
 
 </body>
-        </html>
-        
+</html>
