@@ -96,16 +96,19 @@
 
         .section-title { padding: 25px 20px 10px; font-size: 13px; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: 2.5px; }
 
-        /* 📰 What's New Section (Drishti Style) */
-        .whats-new-container { padding: 0 15px; display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
-        .wn-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: var(--btn-shadow); border: 1px solid #eee; }
-        .english-card .wn-header { background: #8B85E8; color: white; padding: 12px 15px; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 8px;}
-        .hindi-card .wn-header { background: #DEB887; color: white; padding: 12px 15px; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 8px;}
-        .wn-list { padding: 5px 15px; }
-        .wn-item { padding: 12px 0; border-bottom: 1px dashed #ddd; }
-        .wn-item:last-child { border-bottom: none; }
-        .wn-date { font-size: 11px; color: #777; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
-        .wn-text { font-size: 13px; color: #333; font-style: italic; font-weight: 600; line-height: 1.4; }
+        /* 📰 What's New Section (Drishti Style - Side by Side) */
+        .recent-updates-title { text-align: center; font-size: 17px; font-weight: 800; color: #333; margin-top: 25px; letter-spacing: 0; }
+        .recent-updates-sub { text-align: center; font-size: 10px; color: #666; margin-bottom: 15px; font-weight: 600; }
+        
+        .whats-new-container { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .wn-card { background: #fcf9f9; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border: 1px solid #f0eaeb; display: flex; flex-direction: column; }
+        .english-card .wn-header { background: #8B85E8; color: white; padding: 10px 8px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+        .hindi-card .wn-header { background: #DEB887; color: white; padding: 10px 8px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 5px; }
+        .wn-list { padding: 10px 8px; flex: 1; }
+        .wn-item { padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px dashed #ddd; }
+        .wn-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .wn-date { font-size: 9px; color: #666; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; font-weight: 600; }
+        .wn-text { font-size: 11px; color: #333; font-style: italic; font-weight: 600; line-height: 1.4; }
 
         /* Governance & History Card Style */
         .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; border-radius: 18px; }
@@ -228,10 +231,12 @@
         <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
     </div>
 
-    <div class="section-title">📰 RECENT UPDATES / नया क्या है?</div>
+    <div class="recent-updates-title">Recent updates on ONLY HINDI IAS</div>
+    <div class="recent-updates-sub">Scroll down to check out our latest articles.</div>
+
     <div class="whats-new-container">
         <div class="wn-card english-card">
-            <div class="wn-header">⭐ What's New</div>
+            <div class="wn-header">☆ What's New</div>
             <div class="wn-list">
                 <div class="wn-item">
                     <div class="wn-date">📅 1 April 2026</div>
@@ -240,7 +245,7 @@
             </div>
         </div>
         <div class="wn-card hindi-card">
-            <div class="wn-header">⭐ नया क्या है?</div>
+            <div class="wn-header">☆ नया क्या है?</div>
             <div class="wn-list">
                 <div class="wn-item">
                     <div class="wn-date">📅 1 April 2026</div>
