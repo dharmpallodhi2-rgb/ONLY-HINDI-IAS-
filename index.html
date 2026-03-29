@@ -3,87 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Master Edition</title>
+    <title>ONLY HINDI IAS - Glass Edition</title>
     <style>
-        /* 🎨 थीम सेटअप */
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #050a1f; color: white; padding-bottom: 60px; overflow-x: hidden; }
+        /* 🎨 Glassmorphism थीम सेटअप */
+        body { 
+            margin: 0; 
+            font-family: 'Poppins', sans-serif; 
+            /* गहरा नीला और डार्क ब्लू ग्रेडिएंट बैकग्राउंड */
+            background: linear-gradient(135deg, #050a1f 0%, #0a1128 100%); 
+            background-attachment: fixed;
+            color: white; 
+            padding-bottom: 60px; 
+            overflow-x: hidden; 
+        }
         
-        /* 🔵 Header */
-        .header { background: #000; color: #ffaa00; padding: 20px; border-bottom: 3px solid #ffaa00; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 30px rgba(255, 170, 0, 0.4); }
-        .header h1 { margin: 0; font-size: 18px; text-shadow: 0 0 10px #ffaa00; letter-spacing: 1px; }
-        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ffaa00; box-shadow: 0 0 15px #ffaa00; }
+        /* 🔵 Header - Glass Look */
+        .header { 
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: #ffaa00; 
+            padding: 20px; 
+            border-bottom: 1px solid rgba(255, 170, 0, 0.3); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header h1 { margin: 0; font-size: 18px; text-shadow: 0 0 10px #ffaa00; }
+        .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ffaa00; }
 
         /* 🚩 Banner */
-        .banner-box { margin: 25px 15px; border-radius: 20px; overflow: hidden; border: 2px solid red; animation: red_blink 1.5s infinite alternate; }
-        .banner-box img { width: 100%; display: block; border-radius: 18px; }
-        @keyframes red_blink { from { box-shadow: 0 0 5px red; } to { box-shadow: 0 0 20px red; } }
+        .banner-box { margin: 20px 15px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .banner-box img { width: 100%; display: block; }
 
-        /* 📺 News Line एनीमेशन */
-        .news-container { background: #000; padding: 12px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin-bottom: 25px; overflow: hidden; }
-        .news-scroll { display: inline-block; white-space: nowrap; padding-left: 100%; animation: newsSlide 18s linear infinite; }
-        .news-scroll span { font-size: 15px; font-weight: 800; color: #ff4757; text-shadow: 0 0 10px rgba(255, 71, 87, 0.5); }
+        /* 📺 News Line - Only Your Text */
+        .news-container { background: rgba(255, 255, 255, 0.05); padding: 12px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); overflow: hidden; margin-bottom: 25px; }
+        .news-scroll { display: inline-block; white-space: nowrap; padding-left: 100%; animation: newsSlide 12s linear infinite; }
+        .news-scroll span { font-size: 16px; font-weight: 800; color: #ffaa00; text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); }
         @keyframes newsSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* ✨ प्रोफेशनल एनिमेटेड बटन ✨ */
+        /* ✨ Frosted Glass Cards ✨ */
         .card-grid { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
-        .prof-button {
-            position: relative;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 20px 10px;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px 10px;
             text-align: center;
             text-decoration: none;
-            overflow: hidden;
             display: block;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
-        /* बटन की सुनहरी घूमने वाली रोशनी */
-        .prof-button::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, #ffaa00);
-            animation: rotate-border 4s linear infinite;
-        }
+        .glass-card:active { transform: scale(0.95); background: rgba(255, 255, 255, 0.15); border-color: #ffaa00; }
+        .glass-card span { font-size: 32px; display: block; margin-bottom: 8px; }
+        .glass-card p { margin: 0; font-size: 13px; font-weight: bold; color: #fff; letter-spacing: 1px; }
 
-        .prof-button::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background: #0a1128;
-            border-radius: 12px;
-            z-index: 1;
-        }
-
-        .btn-content { position: relative; z-index: 2; }
-        @keyframes rotate-border { 100% { transform: rotate(360deg); } }
-
-        .prof-button span { font-size: 28px; display: block; margin-bottom: 5px; }
-        .prof-button p { margin: 0; font-size: 12px; font-weight: bold; color: #ffaa00; text-transform: uppercase; }
-
-        /* Section Title */
         .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #ffaa00; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* 🏛️ Governance Card */
+        /* 🏛️ Governance Card - Glass Style */
         .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; }
-        .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; }
-        .btn-action { background: #ffaa00; color: #000; padding: 6px 15px; border-radius: 6px; font-size: 11px; font-weight: 900; display: inline-block; margin-top: 5px; }
+        .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-action { background: #ffaa00; color: #000; padding: 8px 20px; border-radius: 10px; font-size: 11px; font-weight: 900; display: inline-block; margin-top: 8px; text-decoration: none; }
 
-        /* ✨ MORE FEATURES Section (NCERT and others) */
-        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 15px; }
-        .more-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px 5px; text-align: center; border: 1px solid #333; }
-        .more-card span { font-size: 18px; display: block; margin-bottom: 5px; }
-        .more-card p { margin: 0; font-size: 10px; font-weight: bold; color: #ddd; }
-
-        /* 🤝 COMMUNITY (Telegram & WhatsApp Original Colors) */
+        /* 🤝 Community - Original Colors Restored */
         .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .comm-card { background: white; border-radius: 15px; padding: 15px; text-align: center; text-decoration: none; }
+        .comm-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 18px; padding: 15px; text-align: center; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); }
         .comm-card img { width: 35px; height: 35px; margin-bottom: 5px; }
         .whatsapp { border-bottom: 4px solid #25d366; }
         .telegram { border-bottom: 4px solid #0088cc; }
-        .comm-card p { margin: 0; font-size: 12px; font-weight: bold; }
+        .comm-card p { margin: 0; font-size: 12px; font-weight: bold; color: #fff; }
+
+        /* More Features Section */
+        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 15px; }
+        .more-card { background: rgba(255, 255, 255, 0.03); border-radius: 15px; padding: 15px 5px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .more-card span { font-size: 20px; display: block; }
+        .more-card p { font-size: 10px; color: #aaa; margin: 5px 0 0; }
     </style>
 </head>
 <body>
@@ -99,29 +101,25 @@
 
     <div class="news-container">
         <div class="news-scroll">
-            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है... मिशन 968 के लिए तैयार रहें! &nbsp;&nbsp;&nbsp;&nbsp; 🔥 नए नोट्स अपलोड कर दिए गए हैं।</span>
+            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है</span>
         </div>
     </div>
 
     <div class="section-title">⚡ QUICK ACCESS</div>
     <div class="card-grid">
-        <a href="batches.html" class="prof-button">
-            <div class="btn-content"><span>🎓</span><p>KGS Batches</p></div>
-        </a>
-        <div class="prof-button"><div class="btn-content"><span>❤️</span><p>Favourites</p></div></div>
-        <div class="prof-button"><div class="btn-content"><span>⌛</span><p>History</p></div></div>
-        <div class="prof-button"><div class="btn-content"><span>⬇️</span><p>Downloads</p></div></div>
+        <a href="batches.html" class="glass-card"><span>🎓</span><p>KGS Batches</p></a>
+        <div class="glass-card"><span>❤️</span><p>Favourites</p></div>
+        <div class="glass-card"><span>⌛</span><p>History</p></div>
+        <div class="glass-card"><span>⬇️</span><p>Downloads</p></div>
     </div>
 
     <div class="section-title">🏛️ GOVERNANCE</div>
     <div class="card-grid">
-        <div class="prof-button gov-card">
-            <div class="btn-content" style="display:flex; align-items:center;">
-                <img src="IMG_20260319_163412_254.jpg" alt="Gov">
-                <div>
-                    <b style="font-size: 14px; color: #fff;">GS Paper 2 Notes</b><br>
-                    <a href="governance.pdf" target="_blank" class="btn-action">OPEN PDF</a>
-                </div>
+        <div class="glass-card gov-card">
+            <img src="IMG_20260319_163412_254.jpg" alt="Gov">
+            <div>
+                <b style="font-size: 14px; color: #ffaa00;">GS Paper 2 Notes</b><br>
+                <a href="governance.pdf" target="_blank" class="btn-action">OPEN PDF</a>
             </div>
         </div>
     </div>
@@ -130,8 +128,8 @@
     <div class="more-grid">
         <div class="more-card"><span>🏅</span><p>Exams</p></div>
         <div class="more-card"><span>💡</span><p>Gyan Bindu</p></div>
-        <a href="https://ncert.nic.in/" target="_blank" class="more-card" style="text-decoration:none;">
-            <span>📖</span><p style="color:#00f2fe;">NCERT</p>
+        <a href="https://ncert.nic.in/" target="_blank" style="text-decoration:none;">
+            <div class="more-card"><span>📖</span><p style="color:#00f2fe;">NCERT</p></div>
         </a>
     </div>
 
@@ -139,11 +137,11 @@
     <div class="comm-grid">
         <a href="https://t.me/mission968" target="_blank" class="comm-card telegram">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-            <p style="color: #0088cc;">Telegram</p>
+            <p>Telegram</p>
         </a>
         <a href="https://wa.me/919685026772" target="_blank" class="comm-card whatsapp">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            <p style="color: #25d366;">WhatsApp</p>
+            <p>WhatsApp</p>
         </a>
     </div>
 
