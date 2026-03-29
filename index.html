@@ -3,43 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Neon Edition</title>
+    <title>ONLY HINDI IAS - Master Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* 🎨 Neon Purple & Dark थीम 🎨 */
+        /* 🎨 रॉयल ब्लू थीम सेटअप (#350EB9) */
+        :root {
+            --primary-blue: #350EB9;
+            --dark-bg: #050a1f;
+        }
+
         body { 
             margin: 0; 
             font-family: 'Poppins', sans-serif; 
-            background: radial-gradient(circle at top right, #2d0b3d, #050a1f 60%);
-            background-attachment: fixed;
+            background-color: var(--dark-bg); 
             color: white; 
-            padding-bottom: 40px; 
+            padding-bottom: 60px; 
             overflow-x: hidden; 
+            -webkit-tap-highlight-color: transparent;
         }
         
+        /* 🔵 Header */
         .header { 
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: #000; 
             color: #ffaa00; 
             padding: 20px; 
-            border-bottom: 2px solid #8e2de2; 
+            border-bottom: 3px solid var(--primary-blue); 
             border-bottom-left-radius: 40px; 
             border-bottom-right-radius: 40px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 0 25px rgba(142, 45, 226, 0.4); 
+            box-shadow: 0 5px 25px rgba(53, 14, 185, 0.4); 
         }
-        .header h1 { margin: 0; font-size: 18px; font-weight: 800; text-shadow: 0 0 10px #ffaa00; }
+        .header h1 { margin: 0; font-size: 18px; text-shadow: 0 0 10px #ffaa00; }
         .profile-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #ffaa00; }
 
-        .banner-box { margin: 25px 15px; border-radius: 20px; overflow: hidden; border: 1px solid #8e2de2; box-shadow: 0 0 20px rgba(142, 45, 226, 0.3); }
+        /* 🧊 बैनर कांच वाला इफेक्ट (Glassmorphism) 🧊 */
+        .banner-box { 
+            position: relative;
+            margin: 25px 15px; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .banner-box::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            pointer-events: none;
+        }
         .banner-box img { width: 100%; display: block; }
 
-        .news-container { background: rgba(0, 0, 0, 0.6); padding: 12px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin-bottom: 25px; overflow: hidden; }
+        /* 📺 न्यूज़ एनीमेशन लाइन */
+        .news-container { background: #000; padding: 12px 0; border-top: 1px solid #333; border-bottom: 1px solid #333; margin-bottom: 25px; overflow: hidden; }
         .news-scroll { display: inline-block; white-space: nowrap; padding-left: 100%; animation: newsSlide 15s linear infinite; }
         .news-scroll span { font-size: 16px; font-weight: 800; color: #ffaa00; text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); }
         @keyframes newsSlide { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
+        /* ✨ प्रोफेशनल एनिमेटेड बटन ✨ */
         .card-grid { padding: 0 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .prof-button {
@@ -51,15 +75,15 @@
             text-decoration: none;
             overflow: hidden;
             display: block;
-            border: 1px solid rgba(142, 45, 226, 0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(53, 14, 185, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .prof-button::before {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: conic-gradient(transparent, transparent, transparent, #8e2de2);
+            background: conic-gradient(transparent, transparent, transparent, var(--primary-blue));
             animation: rotate-border 4s linear infinite;
         }
 
@@ -75,25 +99,48 @@
         .btn-content { position: relative; z-index: 2; }
         @keyframes rotate-border { 100% { transform: rotate(360deg); } }
 
-        .prof-button span { font-size: 30px; display: block; margin-bottom: 5px; filter: drop-shadow(0 0 8px #8e2de2); }
+        .prof-button span { font-size: 30px; display: block; margin-bottom: 5px; }
         .prof-button p { margin: 0; font-size: 13px; font-weight: bold; color: #ffaa00; text-transform: uppercase; }
 
-        .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: #8e2de2; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 5px #8e2de2; }
+        .section-title { padding: 25px 20px 10px; font-size: 12px; font-weight: bold; color: var(--primary-blue); text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 5px var(--primary-blue); }
 
         .gov-card { grid-column: span 2; display: flex; align-items: center; text-align: left; padding: 15px; margin-bottom: 10px; }
-        .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; border: 1px solid #8e2de2; }
+        .gov-card img { width: 75px; height: 75px; border-radius: 12px; margin-right: 15px; border: 1px solid var(--primary-blue); }
+        .btn-action { background: #ffaa00; color: #000; padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 900; display: inline-block; margin-top: 8px; box-shadow: 0 0 15px #ffaa00; text-decoration: none; }
 
-.btn-action { background: #ffaa00; color: #000; padding: 8px 18px; border-radius: 10px; font-size: 12px; font-weight: 900; display: inline-block; margin-top: 8px; box-shadow: 0 0 15px #ffaa00; text-decoration: none; }
-
-        .more-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 15px; }
-        .more-card { background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 15px 5px; text-align: center; border: 1px solid rgba(142, 45, 226, 0.2); }
-        .more-card span { font-size: 20px; display: block; }
-        .more-card p { margin: 0; font-size: 10px; font-weight: bold; color: #ddd; }
-
+        /* Community & Others */
         .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px 15px; }
-        .comm-card { background: white; border-radius: 18px; padding: 15px; text-align: center; text-decoration: none; box-shadow: 0 0 15px rgba(142, 45, 226, 0.2); }
+        .comm-card { background: white; border-radius: 18px; padding: 15px; text-align: center; text-decoration: none; box-shadow: 0 0 15px rgba(53, 14, 185, 0.2); }
         .comm-card img { width: 35px; height: 35px; margin-bottom: 5px; }
         .comm-card p { margin: 0; font-size: 12px; font-weight: bold; }
+
+        /* 📢 Telegram Popup Design 📢 */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(8px);
+        }
+        .popup-box {
+            width: 85%; max-width: 320px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 35px 20px;
+            border-radius: 25px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            animation: popupFade 0.5s ease;
+        }
+        @keyframes popupFade { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .popup-box img { width: 65px; margin-bottom: 15px; }
+        .popup-box h2 { margin: 0; font-size: 22px; color: white; font-weight: 800; }
+        .popup-box p { font-size: 14px; color: #f0f0f0; margin: 12px 0 25px; }
+        .join-btn { background: #ff4757; color: white; padding: 14px 30px; border-radius: 35px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 5px 20px rgba(255, 71, 87, 0.5); }
+        .close-popup { position: absolute; top: 15px; right: 15px; background: white; color: black; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -109,11 +156,11 @@
 
     <div class="news-container">
         <div class="news-scroll">
-            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है...&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है</span>
         </div>
     </div>
 
-    <div class="section-title">⚡ CORE MISSIONS</div>
+    <div class="section-title">⚡ QUICK ACCESS</div>
     <div class="card-grid">
         <a href="batches.html" class="prof-button">
             <div class="btn-content"><span>🎓</span><p>KGS Batches</p></div>
@@ -129,30 +176,20 @@
             <div class="btn-content" style="display:flex; align-items:center;">
                 <img src="IMG_20260319_163412_254.jpg" alt="Gov">
                 <div>
-                    <b style="font-size: 14px; color: #fff;">GOVERNANCE</b><br>
+                    <b style="font-size: 14px; color: #fff;">GS Paper 2 Dossier</b><br>
                     <a href="governance.pdf" target="_blank" class="btn-action">OPEN PDF</a>
                 </div>
             </div>
         </div>
-
         <div class="prof-button gov-card">
             <div class="btn-content" style="display:flex; align-items:center;">
-                <img src="IMG_20260329_082203_932.jpg" alt="ANCIENT HISTORY">
+                <img src="IMG_20260329_082203_932.jpg" alt="History">
                 <div>
-                    <b style="font-size: 14px; color: #fff;">ANCIENT HISTORY</b><br>
+                    <b style="font-size: 14px; color: #fff;">Ancient History Notes</b><br>
                     <a href="history-notes.pdf" target="_blank" class="btn-action">OPEN PDF</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="section-title">🛡️ SECONDARY TOOLS</div>
-    <div class="more-grid">
-        <div class="more-card"><span>🏅</span><p>Exams</p></div>
-        <div class="more-card"><span>💡</span><p>Gyan Bindu</p></div>
-        <a href="https://ncert.nic.in/" target="_blank" style="text-decoration:none;">
-            <div class="more-card"><span>📖</span><p style="color:#00f2fe;">NCERT</p></div>
-        </a>
     </div>
 
     <div class="section-title">🤝 NETWORKS</div>
@@ -160,13 +197,35 @@
         <a href="https://t.me/mission968" target="_blank" class="comm-card" style="border-bottom: 4px solid #0088cc;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
             <p style="color: #0088cc;">Telegram</p>
-
-</a>
+        </a>
         <a href="https://wa.me/919685026772" target="_blank" class="comm-card" style="border-bottom: 4px solid #25d366;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
             <p style="color: #25d366;">WhatsApp</p>
         </a>
     </div>
+
+    <div class="popup-overlay" id="telegramPopup">
+        <div class="popup-box">
+            <div class="close-popup" onclick="closePopup()">×</div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+            <h2>Join Our Telegram!</h2>
+            <p>सबसे पहले अपडेट और नोट्स पाने के लिए हमारे मिशन 968 ग्रुप से जुड़ें।</p>
+            <a href="https://t.me/mission968" target="_blank" class="join-btn" onclick="closePopup()">JOIN NOW</a>
+        </div>
+    </div>
+
+    <script>
+        // 3 सेकंड के बाद पॉपअप दिखाने का फंक्शन
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('telegramPopup').style.display = 'flex';
+            }, 3000); 
+        };
+
+        function closePopup() {
+            document.getElementById('telegramPopup').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
