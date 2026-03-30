@@ -6,7 +6,7 @@
     <title>Select Subject - ONLY HINDI IAS</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-teal: #0B2B40; --light-bg: #f5f8fa; --white: #ffffff; }
+        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --light-bg: #f5f8fa; --white: #ffffff; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; }
         .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; margin-right: 15px; }
@@ -21,6 +21,11 @@
         .subject-card:active { transform: scale(0.95); border-color: var(--primary-teal); }
         .subject-card span { font-size: 28px; display: block; margin-bottom: 8px; }
         .subject-card b { font-size: 13px; font-weight: 800; }
+
+        /* 🔥 VIP GS 1 2025 BUTTON 🔥 */
+        .vip-card { grid-column: span 2; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border: 2px solid var(--premium-gold); position: relative; overflow: hidden; }
+        .vip-card b { color: var(--premium-gold); font-size: 16px; font-weight: 900; letter-spacing: 1px;}
+        .vip-badge { position: absolute; top: 10px; right: -25px; background: var(--premium-gold); color: white; font-size: 9px; font-weight: 900; padding: 3px 30px; transform: rotate(45deg); letter-spacing: 1px;}
     </style>
 </head>
 <body>
@@ -31,10 +36,17 @@
     </div>
 
     <div class="container">
-        <h2 class="title">Select Your Subject</h2>
-        <p class="subtitle">Choose a topic to start your live practice test.</p>
+        <h2 class="title">Select Your Test</h2>
+        <p class="subtitle">Choose a premium test to start your practice.</p>
         
         <div class="subject-grid">
+            <a href="quiz.html?subject=gs1_2025" class="subject-card vip-card">
+                <div class="vip-badge">NEW</div>
+                <span style="font-size: 35px; margin-bottom: 5px;">📜</span>
+                <b>UPSC Prelims 2025 (GS-1)</b>
+                <p style="margin: 5px 0 0; font-size: 11px; color: #eee;">Full Paper | 100 Questions | Live Timer</p>
+            </a>
+
             <a href="quiz.html?subject=history" class="subject-card"><span>🏛️</span><b>History</b></a>
             <a href="quiz.html?subject=polity" class="subject-card"><span>⚖️</span><b>Polity</b></a>
             <a href="quiz.html?subject=economy" class="subject-card"><span>📈</span><b>Economy</b></a>
