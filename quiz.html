@@ -1,239 +1,185 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Live Quiz - ONLY HINDI IAS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --white: #ffffff; --light-bg: #eef2f5; --correct-green: #d4edda; --correct-border: #28a745; --wrong-red: #f8d7da; --wrong-border: #dc3545; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; overflow-x: hidden; }
-        
-        .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .back-btn { background: var(--light-bg); color: var(--primary-teal); border: none; padding: 8px 15px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; }
-        .header h1 { margin: 0; font-size: 16px; font-weight: 900; color: var(--primary-teal); text-transform: uppercase; }
-
-        .info-bar { margin: 15px 15px 25px; padding: 15px 20px; background: linear-gradient(135deg, #1d4d6e 0%, var(--primary-teal) 100%); color: white; border-radius: 16px; box-shadow: 0 8px 20px rgba(11,43,64,0.3); border-bottom: 5px solid #071c2b; position: relative; overflow: hidden; }
-        .info-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .question-count { font-size: 15px; font-weight: 900; background: rgba(255,255,255,0.2); padding: 6px 15px; border-radius: 10px; letter-spacing: 1px;}
-        .timer { font-size: 18px; font-weight: 900; color: #ffeb3b; display: flex; align-items: center; gap: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        
-        .progress-container { width: 100%; height: 8px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ffeb3b, #ff9800); border-radius: 10px; transition: width 0.4s ease; box-shadow: 0 0 10px rgba(255, 235, 59, 0.8); }
-
-        .quiz-container { padding: 0 15px; }
-        
-        .quiz-box { background: var(--white); border-radius: 20px; padding: 25px 20px; border: 2px solid #dde5ed; border-bottom: 6px solid #b5c3d1; box-shadow: 0 10px 20px rgba(0,0,0,0.08); margin-bottom: 20px;}
-        .quiz-question { font-size: 16px; font-weight: 800; color: #222; margin-bottom: 25px; line-height: 1.6; }
-        
-        .quiz-options { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        
-        .option-btn { background: #ffffff; border: 2px solid #dde5ed; border-bottom: 5px solid #b5c3d1; border-radius: 14px; padding: 15px; font-size: 14px; font-weight: 700; color: #333; cursor: pointer; text-align: left; position: relative; display: flex; align-items: flex-start; line-height: 1.4; transition: all 0.1s ease; }
-        .option-text { flex: 1; padding-right: 30px; }
-        
-        .option-correct { background: var(--correct-green) !important; border-color: var(--correct-border) !important; border-bottom-color: #1e7e34 !important; color: #0f5132 !important; font-weight: 800; }
-        .option-correct::after { content: '✔'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #198754; font-weight: 900; background: white; border-radius: 50%; padding: 2px 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
-        .option-wrong { background: var(--wrong-red) !important; border-color: var(--wrong-border) !important; border-bottom-color: #b02a37 !important; color: #842029 !important; font-weight: 800; }
-        .option-wrong::after { content: '✖'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #dc3545; font-weight: 900; background: white; border-radius: 50%; padding: 2px 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
-
-        #next-btn { display: none; margin-top: 25px; width: 100%; background: linear-gradient(135deg, var(--premium-gold) 0%, #d4a700 100%); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 900; letter-spacing: 1px; cursor: pointer; border-bottom: 6px solid #8f7407; text-transform: uppercase; transition: all 0.1s ease;}
-
-        #result-box { display: none; background: linear-gradient(135deg, #ffffff 0%, #fffdf3 100%); border-radius: 20px; padding: 40px 20px; text-align: center; border: 4px solid var(--premium-gold); border-bottom: 8px solid #8f7407; margin: 0 15px; box-shadow: 0 15px 30px rgba(181, 148, 16, 0.3);}
-        .congrats-text { font-size: 28px; font-weight: 900; color: var(--premium-gold); margin: 15px 0 5px; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.1);}
-        .trophy { font-size: 80px; filter: drop-shadow(0 10px 15px rgba(181, 148, 16, 0.5)); }
-        .score-circle { width: 130px; height: 130px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border-radius: 50%; margin: 25px auto; display: flex; align-items: center; justify-content: center; font-size: 45px; font-weight: 900; border: 6px solid var(--premium-gold); box-shadow: inset 0 5px 10px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3);}
-        
-        .action-btns { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top:25px; }
-        .home-btn { background: var(--primary-teal); color: white; padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer; text-decoration: none; display: block; border-bottom: 5px solid #071c2b; text-transform: uppercase; letter-spacing: 1px;}
-        .retry-btn { background: transparent; color: var(--primary-teal); border: 3px solid var(--primary-teal); padding: 14px; border-radius: 12px; font-weight: 900; text-decoration: none; display: block; text-transform: uppercase;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Premium Live Quiz - ONLY HINDI IAS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f0f4f8;--correct-green:#d4edda;--correct-border:#28a745;--wrong-red:#f8d7da;--wrong-border:#dc3545;}
+body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);padding-bottom:40px;overflow-x:hidden;}
+.header{background:var(--white);padding:15px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 15px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;}
+.back-btn{background:transparent;color:var(--primary-teal);border:2px solid var(--primary-teal);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:800;cursor:pointer;text-decoration:none;}
+.header h1{margin:0;font-size:16px;font-weight:900;color:var(--primary-teal);text-transform:uppercase;}
+.info-bar{margin:15px 15px 25px;padding:20px;background:linear-gradient(135deg,var(--primary-teal) 0%,#153e5c 100%);color:white;border-radius:16px;box-shadow:0 10px 25px rgba(11,43,64,0.2);position:relative;overflow:hidden;}
+.info-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.question-count{font-size:15px;font-weight:800;background:rgba(255,255,255,0.15);padding:5px 12px;border-radius:8px;}
+.timer{font-size:16px;font-weight:900;color:var(--premium-gold);display:flex;align-items:center;gap:6px;}
+.progress-container{width:100%;height:6px;background:rgba(255,255,255,0.2);border-radius:10px;overflow:hidden;}
+.progress-bar{height:100%;width:0%;background:var(--premium-gold);border-radius:10px;transition:width 0.4s ease;}
+.quiz-container{padding:0 15px;}
+.quiz-box{background:var(--white);border-radius:20px;padding:25px 20px;box-shadow:0 8px 30px rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.05);margin-bottom:20px;}
+.quiz-question{font-size:15px;font-weight:800;color:#222;margin-bottom:25px;line-height:1.6;}
+.quiz-options{display:grid;grid-template-columns:1fr;gap:12px;}
+.option-btn{background:#fafafa;border:2px solid #eef2f5;border-radius:14px;padding:15px;font-size:13px;font-weight:600;color:#444;cursor:pointer;text-align:left;position:relative;display:flex;align-items:flex-start;line-height:1.4;}
+.option-correct{background:var(--correct-green)!important;border-color:var(--correct-border)!important;color:#0f5132!important;font-weight:800;}
+.option-correct::after{content:'✔';position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px;color:#198754;font-weight:900;}
+.option-wrong{background:var(--wrong-red)!important;border-color:var(--wrong-border)!important;color:#842029!important;font-weight:800;}
+.option-wrong::after{content:'✖';position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px;color:#dc3545;font-weight:900;}
+#next-btn{display:none;margin-top:25px;width:100%;background:linear-gradient(135deg,var(--premium-gold) 0%,#d4a700 100%);color:white;border:none;padding:16px;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(181,148,16,0.3);}
+#result-box{display:none;background:linear-gradient(135deg,#ffffff 0%,#fffdf3 100%);border-radius:20px;padding:40px 20px;text-align:center;border:3px solid var(--premium-gold);margin:0 15px;}
+.congrats-text{font-size:26px;font-weight:900;color:var(--premium-gold);margin:15px 0 5px;}
+.trophy{font-size:70px;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
+.score-circle{width:120px;height:120px;background:linear-gradient(135deg,var(--primary-teal) 0%,#1d4d6e 100%);color:white;border-radius:50%;margin:25px auto;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;border:6px solid var(--premium-gold);}
+.action-btns{display:grid;grid-template-columns:1fr;gap:15px;margin-top:20px;}
+.home-btn{background:var(--primary-teal);color:white;padding:16px;border-radius:12px;font-weight:800;cursor:pointer;text-decoration:none;display:block;}
+.retry-btn{background:transparent;color:var(--primary-teal);border:2px solid var(--primary-teal);padding:14px;border-radius:12px;font-weight:800;text-decoration:none;display:block;}
+</style>
 </head>
 <body>
-
-    <div class="header">
-        <a href="gs1_parts.html" class="back-btn">← Back</a>
-        <h1 id="subject-title">UPSC QUIZ</h1>
-        <div style="width: 65px;"></div>
-    </div>
-
-    <div class="info-bar" id="info-bar">
-        <div class="info-top">
-            <div class="question-count">Q. <span id="current-q-num">1</span> of <span id="total-q-num">0</span></div>
-            <div class="timer">⏱️ <span id="time">00:00</span></div>
-        </div>
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-    </div>
-
-    <div class="quiz-container">
-        <div class="quiz-box" id="quiz-box">
-            <div class="quiz-question" id="question-text">Loading question...</div>
-            <div class="quiz-options">
-                <button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span class="option-text" id="text-a">Option A</span></button>
-                <button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span class="option-text" id="text-b">Option B</span></button>
-                <button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span class="option-text" id="text-c">Option C</span></button>
-                <button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span class="option-text" id="text-d">Option D</span></button>
-            </div>
-            <button id="next-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
-        </div>
-
-        <div id="result-box">
-            <div class="trophy">🏆</div>
-            <div class="congrats-text" id="congrats-title">CONGRATULATIONS!</div>
-            <div class="score-circle">
-                <span id="final-score">0</span><span style="font-size: 24px; color:#ddd; margin:0 5px;">/</span><span id="final-total" style="font-size: 28px;">0</span>
-            </div>
-            <p id="performance-msg" style="font-weight: 800; color: var(--primary-teal); margin-top: 15px;">Evaluating your UPSC preparation...</p>
-            
-            <div class="action-btns">
-                <a href="gs1_parts.html" class="home-btn">Return to Menu</a>
-                <a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Part</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // FLAT AND SAFE DATABASE - NO MULTILINE, NO COMPLEX TAGS
-        const quizDatabase = {
-            "gs1_part1": [
-                {"q": "Q1. निवेश के संदर्भ में: 1. बॉन्ड 2. हेज फंड्स 3. स्टॉक 4. जोखिम पूँजी। इनमें से कितने वैकल्पिक निवेश निधि माने जाते हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) केवल तीन", "d": "(D) सभी चार", "ans": "b"},
-                {"q": "Q2. भारतीय रिज़र्व बैंक की आय के स्रोत: 1. सरकारी बॉन्डों का क्रय-विक्रय 2. विदेशी मुद्रा क्रय-विक्रय 3. पेंशन निधि प्रबंधन 4. निजी कंपनियों को ऋण। सही विकल्प चुनें:", "a": "(A) केवल 1 और 2", "b": "(B) 2, 3 और 4", "c": "(C) 1, 3, 4 और 5", "d": "(D) 1, 2 और 5", "ans": "d"},
-                {"q": "Q3. सुमेलित करें: 1. प्रवर्तन निदेशालय (आर्थिक अपराधी अधिनियम) 2. राजस्व आसूचना निदेशालय (सीमा शुल्क) 3. प्रणाली प्रबंधन (डेटा विश्लेषण)। कितनी पंक्तियाँ सही हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) सभी तीन", "d": "(D) किसी में नहीं", "ans": "b"},
-                {"q": "Q4. 1. RBI सभी सूचीबद्ध कंपनियों को BRSR प्रस्तुत करने का अधिदेश करता है। 2. BRSR में प्रकटन मुख्यतः गैर-वित्तीय होते हैं। सही कथन चुनें:", "a": "(A) केवल 1", "b": "(B) केवल 2", "c": "(C) 1 और 2 दोनों", "d": "(D) दोनों गलत", "ans": "b"},
-                {"q": "Q5. 1. कुक्कुट पालन और ऊन उत्पादन से प्राप्त आय कर मुक्त है। 2. आयकर अधिनियम के अधीन ग्रामीण कृषि भूमि पूँजीगत परिसंपत्ति नहीं है।", "a": "(A) दोनों सही, 2 व्याख्या है", "b": "(B) दोनों सही, व्याख्या नहीं है", "c": "(C) 1 सही, 2 गलत", "d": "(D) 1 गलत, 2 सही", "ans": "d"},
-                {"q": "Q6. 1. भारत खनिज सुरक्षा भागीदारी में सदस्य है। 2. भारत 30 आवश्यक खनिजों में साधन-संपन्न है। 3. केंद्र को नीलामी का अधिकार मिला है। सही कथन चुनें:", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "c"},
-                {"q": "Q7. 1. स्टॉक-धारकों की तुलना में बॉन्ड धारकों को कम जोखिम रहता है। 2. बॉन्ड धारक ऋणदाता होते हैं। 3. पुनर्भुगतान में बॉन्ड धारकों को प्राथमिकता मिलती है।", "a": "(A) 2 और 3 सही, 1 की व्याख्या हैं", "b": "(B) 2 और 3 सही, एक व्याख्या है", "c": "(C) केवल एक सही", "d": "(D) दोनों गलत", "ans": "a"},
-                {"q": "Q8. 1. वैश्विक इक्विटी विकल्प में भारत का वृहद् अंश है। 2. भारत का स्टॉक बाज़ार हांगकांग को पीछे छोड़ चुका है। 3. छोटे निवेशकों के लिए कोई नियामक निकाय नहीं है।", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "a"},
-                {"q": "Q9. चक्रीय अर्थव्यवस्था: 1. ग्रीनहाउस गैस कम करती है। 2. कच्चे माल का प्रयोग कम करती है। 3. उत्पादन में अपव्यय कम करती है। सही विकल्प चुनें:", "a": "(A) 2 और 3 सही, 1 की व्याख्या हैं", "b": "(B) 1 और 2 सही", "c": "(C) केवल एक सही", "d": "(D) दोनों गलत", "ans": "a"},
-                {"q": "Q10. पूँजीगत प्राप्तियां: 1. देयता सृजन करती हैं। 2. उधार-ग्रहण पूँजीगत प्राप्तियां हैं। 3. प्राप्त ब्याज सरकार की देयता है। सही विकल्प चुनें:", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "a"}
-            ],
-            "gs1_part2": [{"q": "Part 2 Coming Soon...", "a": "A", "b": "B", "c": "C", "d": "D", "ans": "a"}],
-            "history": [{"q": "History Coming Soon...", "a": "A", "b": "B", "c": "C", "d": "D", "ans": "a"}]
-        };
-
-        let currentSubject = "";
-        let currentQuestions = [];
-        let currentQIndex = 0;
-        let score = 0;
-        let timeInSeconds = 0;
-        let timerInterval;
-
-        window.onload = function() {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                currentSubject = urlParams.get("subject") || "gs1_part1";
-
-                if (quizDatabase[currentSubject]) {
-                    currentQuestions = quizDatabase[currentSubject];
-                    timeInSeconds = 900; 
-                    
-                    if (currentSubject.indexOf("gs1_part") !== -1) {
-                        document.getElementById("subject-title").innerText = "GS-1 PART TEST";
-                    } else {
-                        document.getElementById("subject-title").innerText = currentSubject.toUpperCase() + " QUIZ";
-                    }
-                    
-                    document.getElementById("total-q-num").innerText = currentQuestions.length;
-                    startTimer();
-                    loadQuestion();
-                } else {
-                    document.getElementById("question-text").innerText = "Paper not found.";
-                }
-            } catch(e) {
-                document.getElementById("question-text").innerText = "System Error.";
-            }
-        };
-
-        function loadQuestion() {
-            document.getElementById("next-btn").style.display = "none"; 
-            document.getElementById("current-q-num").innerText = currentQIndex + 1; 
-
-            let progressPercent = ((currentQIndex) / currentQuestions.length) * 100;
-            document.getElementById("progress-bar").style.width = progressPercent + "%";
-
-            const qData = currentQuestions[currentQIndex];
-            document.getElementById("question-text").innerText = qData.q; 
-            document.getElementById("text-a").innerText = qData.a;
-            document.getElementById("text-b").innerText = qData.b;
-            document.getElementById("text-c").innerText = qData.c;
-            document.getElementById("text-d").innerText = qData.d;
-
-            const buttons = document.querySelectorAll(".option-btn");
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove("option-correct", "option-wrong");
-                buttons[i].disabled = false;
-            }
-        }
-
-        function checkAnswer(selectedOption) {
-            const correctOption = currentQuestions[currentQIndex].ans;
-            const buttons = document.querySelectorAll(".option-btn");
-            
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].disabled = true;
-            }
-
-            if (selectedOption === correctOption) {
-                document.getElementById("option-" + selectedOption).classList.add("option-correct");
-                score++;
-            } else {
-                document.getElementById("option-" + selectedOption).classList.add("option-wrong");
-                document.getElementById("option-" + correctOption).classList.add("option-correct");
-            }
-            document.getElementById("next-btn").style.display = "block";
-        }
-
-        function nextQuestion() {
-            currentQIndex++;
-            if (currentQIndex < currentQuestions.length) {
-                loadQuestion();
-            } else {
-                document.getElementById("progress-bar").style.width = "100%";
-                setTimeout(endQuiz, 500);
-            }
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                if (timeInSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    endQuiz(); 
-                } else {
-                    timeInSeconds--;
-                    let m = Math.floor(timeInSeconds / 60);
-                    let s = timeInSeconds % 60;
-                    if(m < 10) m = "0" + m;
-                    if(s < 10) s = "0" + s;
-                    document.getElementById("time").innerText = m + ":" + s;
-                }
-            }, 1000); 
-        }
-
-        function endQuiz() {
-            clearInterval(timerInterval); 
-            document.getElementById("quiz-box").style.display = "none";
-            document.getElementById("info-bar").style.display = "none";
-            document.getElementById("result-box").style.display = "block";
-            document.getElementById("final-score").innerText = score;
-            document.getElementById("final-total").innerText = currentQuestions.length;
-
-            let percentage = (score / currentQuestions.length) * 100;
-            let msg = "", title = "CONGRATULATIONS!";
-
-            if (percentage >= 80) {
-                msg = "अद्भुत प्रदर्शन! आपकी UPSC की तैयारी एकदम सही दिशा में है। 🎯";
-            } else if (percentage >= 50) {
-                msg = "बहुत अच्छा! थोड़े और रिवीजन के साथ आप टॉप कर सकते हैं। 📚";
-                title = "WELL DONE!";
-            } else {
-                msg = "निराश न हों! 'ONLY HINDI IAS' के नोट्स पढ़ें और दोबारा प्रयास करें। ✌️";
-                title = "KEEP PRACTICING!";
-            }
-            document.getElementById("congrats-title").innerText = title;
-            document.getElementById("performance-msg").innerText = msg;
-        }
-    </script>
-
+<div class="header"><a href="gs1_parts.html" class="back-btn">← Back</a><h1 id="subject-title">UPSC QUIZ</h1><div style="width:65px;"></div></div>
+<div class="info-bar" id="info-bar">
+<div class="info-top"><div class="question-count">Q. <span id="current-q-num">1</span> of <span id="total-q-num">0</span></div><div class="timer">⏱️ <span id="time">00:00</span></div></div>
+<div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+</div>
+<div class="quiz-container">
+<div class="quiz-box" id="quiz-box">
+<div class="quiz-question" id="question-text">Loading question...</div>
+<div class="quiz-options">
+<button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span id="text-a">Option A</span></button>
+<button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span id="text-b">Option B</span></button>
+<button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span id="text-c">Option C</span></button>
+<button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span id="text-d">Option D</span></button>
+</div>
+<button id="next-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
+</div>
+<div id="result-box">
+<div class="trophy">🏆</div><div class="congrats-text" id="congrats-title">CONGRATULATIONS!</div>
+<div class="score-circle"><span id="final-score">0</span><span style="font-size:24px;color:#ddd;margin:0 5px;">/</span><span id="final-total" style="font-size:28px;">0</span></div>
+<p id="performance-msg" style="font-weight:800;color:var(--primary-teal);margin-top:15px;">Evaluating your UPSC preparation...</p>
+<div class="action-btns"><a href="gs1_parts.html" class="home-btn">Return to Menu</a><a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Part</a></div>
+</div>
+</div>
+<script>
+const quizDatabase = {
+"gs1_part1": [
+{"q": "Q1. निवेश के संदर्भ में: 1. बॉन्ड 2. हेज फंड्स 3. स्टॉक 4. जोखिम पूँजी। इनमें से कितने वैकल्पिक निवेश निधि माने जाते हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) केवल तीन", "d": "(D) सभी चार", "ans": "b"},
+{"q": "Q2. भारतीय रिज़र्व बैंक की आय के स्रोत: 1. सरकारी बॉन्डों का क्रय-विक्रय 2. विदेशी मुद्रा क्रय-विक्रय 3. पेंशन निधि प्रबंधन 4. निजी कंपनियों को ऋण। सही विकल्प चुनें:", "a": "(A) केवल 1 और 2", "b": "(B) 2, 3 और 4", "c": "(C) 1, 3, 4 और 5", "d": "(D) 1, 2 और 5", "ans": "d"},
+{"q": "Q3. सुमेलित करें: 1. प्रवर्तन निदेशालय (आर्थिक अपराधी अधिनियम) 2. राजस्व आसूचना निदेशालय (सीमा शुल्क) 3. प्रणाली प्रबंधन (डेटा विश्लेषण)। कितनी पंक्तियाँ सही हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) सभी तीन", "d": "(D) किसी में नहीं", "ans": "b"},
+{"q": "Q4. 1. RBI सभी सूचीबद्ध कंपनियों को BRSR प्रस्तुत करने का अधिदेश करता है। 2. BRSR में प्रकटन मुख्यतः गैर-वित्तीय होते हैं। सही कथन चुनें:", "a": "(A) केवल 1", "b": "(B) केवल 2", "c": "(C) 1 और 2 दोनों", "d": "(D) दोनों गलत", "ans": "b"},
+{"q": "Q5. 1. कुक्कुट पालन और ऊन उत्पादन से प्राप्त आय कर मुक्त है। 2. आयकर अधिनियम के अधीन ग्रामीण कृषि भूमि पूँजीगत परिसंपत्ति नहीं है।", "a": "(A) दोनों सही, 2 व्याख्या है", "b": "(B) दोनों सही, व्याख्या नहीं है", "c": "(C) 1 सही, 2 गलत", "d": "(D) 1 गलत, 2 सही", "ans": "d"},
+{"q": "Q6. 1. भारत खनिज सुरक्षा भागीदारी में सदस्य है। 2. भारत 30 आवश्यक खनिजों में साधन-संपन्न है। 3. केंद्र को नीलामी का अधिकार मिला है। सही कथन चुनें:", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "c"},
+{"q": "Q7. 1. स्टॉक-धारकों की तुलना में बॉन्ड धारकों को कम जोखिम रहता है। 2. बॉन्ड धारक ऋणदाता होते हैं। 3. पुनर्भुगतान में बॉन्ड धारकों को प्राथमिकता मिलती है।", "a": "(A) 2 और 3 सही, 1 की व्याख्या हैं", "b": "(B) 2 और 3 सही, एक व्याख्या है", "c": "(C) केवल एक सही", "d": "(D) दोनों गलत", "ans": "a"},
+{"q": "Q8. 1. वैश्विक इक्विटी विकल्प में भारत का वृहद् अंश है। 2. भारत का स्टॉक बाज़ार हांगकांग को पीछे छोड़ चुका है। 3. छोटे निवेशकों के लिए कोई नियामक निकाय नहीं है।", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "a"},
+{"q": "Q9. चक्रीय अर्थव्यवस्था: 1. ग्रीनहाउस गैस कम करती है। 2. कच्चे माल का प्रयोग कम करती है। 3. उत्पादन में अपव्यय कम करती है। सही विकल्प चुनें:", "a": "(A) 2 और 3 सही, 1 की व्याख्या हैं", "b": "(B) 1 और 2 सही", "c": "(C) केवल एक सही", "d": "(D) दोनों गलत", "ans": "a"},
+{"q": "Q10. पूँजीगत प्राप्तियां: 1. देयता सृजन करती हैं। 2. उधार-ग्रहण पूँजीगत प्राप्तियां हैं। 3. प्राप्त ब्याज सरकार की देयता है। सही विकल्प चुनें:", "a": "(A) 1 और 2", "b": "(B) 2 और 3", "c": "(C) 1 और 3", "d": "(D) 1, 2 और 3", "ans": "a"}
+],
+"gs1_part2": [
+{"q": "Q11. राजा राममोहन राय के बारे में: 1. उनमें प्राच्य विश्व के पारम्परिक दार्शनिक सिद्धांतों के प्रति अत्यंत अनुराग और समादर था। 2. उनकी कामना थी कि देशवासी तर्कसंगत और वैज्ञानिक दृष्टिकोण अपनाएं। सही कथन चुनें:", "a": "(A) केवल 1", "b": "(B) केवल 2", "c": "(C) 1 और 2 दोनों", "d": "(D) न तो 1 और न ही 2", "ans": "a"},
+{"q": "Q12. असहयोग कार्यक्रम के विषय: 1. न्यायालयों/विदेशी वस्त्र का बहिष्कार 2. अहिंसा का पालन 3. उपाधियों का प्रतिधारण 4. पंचायतों की स्थापना। कितने अवयव हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) केवल तीन", "d": "(D) सभी चार", "ans": "c"},
+{"q": "Q13. सिंचाई में काम आने वाला 'अरघट्टा' क्या था?", "a": "(A) एक घिरनी से खींचा जाने वाला चमड़े का थैला", "b": "(B) एक बड़ा चक्का, जिसकी अराओं पर मिट्टी के पात्र बँधे हों", "c": "(C) बैलों द्वारा खींचा जाने वाला बड़ा पात्र", "d": "(D) सीधे हाथों से खींचा जाने वाला जल-डोल", "ans": "b"},
+{"q": "Q14. प्राचीन भारत में 'मत्तविलास', 'विचित्रचित्त' और 'गुणभरा' उपाधियाँ किसने धारण कीं?", "a": "(A) महेन्द्रवर्मन प्रथम", "b": "(B) सिंहविष्णु", "c": "(C) नरसिंहवर्मन प्रथम", "d": "(D) सिंहवर्मन", "ans": "a"},
+{"q": "Q15. चीनी तीर्थयात्री फाह्यान ने किसके शासनकाल में भारत की यात्रा की?", "a": "(A) समुद्रगुप्त", "b": "(B) चन्द्रगुप्त द्वितीय", "c": "(C) कुमारगुप्त प्रथम", "d": "(D) स्कंदगुप्त", "ans": "b"},
+{"q": "Q16. श्रीविजय के विरुद्ध सफल सैन्य अभियान का नेतृत्व किसने किया?", "a": "(A) अमोघवर्ष (राष्ट्रकूट)", "b": "(B) प्रतापरुद्र (काकतीय)", "c": "(C) राजेन्द्र प्रथम (चोल)", "d": "(D) विष्णुवर्धन (होयसल)", "ans": "c"},
+{"q": "Q17. युग्मों पर विचार कीजिए: 1. अश्मक : गोदावरी 2. कम्बोज : विपास 3. अवन्ती : महानदी 4. कोसल : सरयू। कितने युग्म सही सुमेलित हैं?", "a": "(A) केवल एक", "b": "(B) केवल दो", "c": "(C) केवल तीन", "d": "(D) सभी चार", "ans": "b"},
+{"q": "Q18. प्रथम गन्धर्व महाविद्यालय (1901) कहाँ स्थापित किया गया था?", "a": "(A) दिल्ली", "b": "(B) ग्वालियर", "c": "(C) उज्जैन", "d": "(D) लाहौर", "ans": "d"},
+{"q": "Q19. अशोक के अभिलेखों में 'प्रादेशिक', 'राजुक' और 'युक्त' किस स्तर के अधिकारी थे?", "a": "(A) ग्राम-स्तरीय", "b": "(B) जिला-स्तरीय", "c": "(C) प्रांतीय", "d": "(D) केन्द्रीय", "ans": "b"},
+{"q": "Q20. असहयोग आंदोलन के संबंध में: 1. उद्देश्य वैध तरीके से 'स्वराज' प्राप्त करना था। 2. इसे चरणों में कार्यान्वित किया जाना था। सही कथन चुनें:", "a": "(A) केवल 1", "b": "(B) केवल 2", "c": "(C) 1 और 2 दोनों", "d": "(D) न तो 1 और न ही 2", "ans": "b"}
+],
+"gs1_part3": [{"q": "Part 3 Coming Soon...", "a": "A", "b": "B", "c": "C", "d": "D", "ans": "a"}],
+"history": [{"q": "History Coming Soon...", "a": "A", "b": "B", "c": "C", "d": "D", "ans": "a"}]
+};
+let currentSubject="";let currentQuestions=[];let currentQIndex=0;let score=0;let timeInSeconds=0;let timerInterval;
+window.onload=function(){
+try{
+const urlParams=new URLSearchParams(window.location.search);
+currentSubject=urlParams.get("subject")||"gs1_part1";
+if(quizDatabase[currentSubject]){
+currentQuestions=quizDatabase[currentSubject];
+timeInSeconds=900;
+if(currentSubject.indexOf("gs1_part")!==-1){
+document.getElementById("subject-title").innerText="GS-1 PART TEST";
+}else{
+document.getElementById("subject-title").innerText=currentSubject.toUpperCase()+" QUIZ";
+}
+document.getElementById("total-q-num").innerText=currentQuestions.length;
+startTimer();loadQuestion();
+}else{
+document.getElementById("question-text").innerText="Paper not found.";
+}
+}catch(e){document.getElementById("question-text").innerText="System Error.";}
+};
+function loadQuestion(){
+document.getElementById("next-btn").style.display="none";
+document.getElementById("current-q-num").innerText=currentQIndex+1;
+let progressPercent=((currentQIndex)/currentQuestions.length)*100;
+document.getElementById("progress-bar").style.width=progressPercent+"%";
+const qData=currentQuestions[currentQIndex];
+document.getElementById("question-text").innerText=qData.q;
+document.getElementById("text-a").innerText=qData.a;
+document.getElementById("text-b").innerText=qData.b;
+document.getElementById("text-c").innerText=qData.c;
+document.getElementById("text-d").innerText=qData.d;
+const buttons=document.querySelectorAll(".option-btn");
+for(let i=0;i<buttons.length;i++){
+buttons[i].classList.remove("option-correct","option-wrong");
+buttons[i].disabled=false;
+}
+}
+function checkAnswer(selectedOption){
+const correctOption=currentQuestions[currentQIndex].ans;
+const buttons=document.querySelectorAll(".option-btn");
+for(let i=0;i<buttons.length;i++){buttons[i].disabled=true;}
+if(selectedOption===correctOption){
+document.getElementById("option-"+selectedOption).classList.add("option-correct");
+score++;
+}else{
+document.getElementById("option-"+selectedOption).classList.add("option-wrong");
+document.getElementById("option-"+correctOption).classList.add("option-correct");
+}
+document.getElementById("next-btn").style.display="block";
+}
+function nextQuestion(){
+currentQIndex++;
+if(currentQIndex<currentQuestions.length){
+loadQuestion();
+}else{
+document.getElementById("progress-bar").style.width="100%";
+setTimeout(endQuiz,500);
+}
+}
+function startTimer(){
+timerInterval=setInterval(function(){
+if(timeInSeconds<=0){
+clearInterval(timerInterval);endQuiz();
+}else{
+timeInSeconds--;
+let m=Math.floor(timeInSeconds/60);let s=timeInSeconds%60;
+if(m<10)m="0"+m;if(s<10)s="0"+s;
+document.getElementById("time").innerText=m+":"+s;
+}
+},1000);
+}
+function endQuiz(){
+clearInterval(timerInterval);
+document.getElementById("quiz-box").style.display="none";
+document.getElementById("info-bar").style.display="none";
+document.getElementById("result-box").style.display="block";
+document.getElementById("final-score").innerText=score;
+document.getElementById("final-total").innerText=currentQuestions.length;
+let percentage=(score/currentQuestions.length)*100;
+let msg="",title="CONGRATULATIONS!";
+if(percentage>=80){
+msg="अद्भुत प्रदर्शन! आपकी UPSC की तैयारी एकदम सही दिशा में है। 🎯";
+}else if(percentage>=50){
+msg="बहुत अच्छा! थोड़े और रिवीजन के साथ आप टॉप कर सकते हैं। 📚";title="WELL DONE!";
+}else{
+msg="निराश न हों! 'ONLY HINDI IAS' के नोट्स पढ़ें और दोबारा प्रयास करें। ✌️";title="KEEP PRACTICING!";
+}
+document.getElementById("congrats-title").innerText=title;
+document.getElementById("performance-msg").innerText=msg;
+}
+</script>
 </body>
 </html>
