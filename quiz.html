@@ -73,8 +73,9 @@
 
     <div class="info-bar" id="info-bar">
         <div class="info-top">
-            <div class="question-count">Q. <span id="current-q-num">1</span> of <span id="total-q-num">20</span></div>
-            <div class="timer">⏱️ <span id="time">120:00</span></div> </div>
+            <div class="question-count">Q. <span id="current-q-num">1</span> of <span id="total-q-num">0</span></div>
+            <div class="timer">⏱️ <span id="time">00:00</span></div>
+        </div>
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
@@ -110,9 +111,9 @@
     </div>
 
     <script>
-        // शॉर्टकट फॉर्मेट (a, b, c, d, ans) ताकि कोड छोटा और फ़ास्ट रहे।
+        // एक समान फॉर्मेट का डेटाबेस (सभी सवालों के लिए)
         const quizDatabase = {
-            // 🔥 GS 1 2025 (पहले 20 प्रश्न) 🔥
+            // 🔥 GS 1 2025 (20 प्रश्न) 🔥
             gs1_2025: [
                 { q: "1. निवेश के संदर्भ में, निम्नलिखित पर विचार कीजिए:\nI. बॉन्ड\nII. प्रतिरक्षा निधियाँ (हेज फंड्स)\nIII. स्टॉक\nIV. जोखिम पूँजी\nउपर्युक्त में से कितनों को वैकल्पिक निवेश निधि माना जाता है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "b" },
                 { q: "2. निम्नलिखित में कौन-कौन से, भारतीय रिज़र्व बैंक की आय के स्रोत हैं?\nI. सरकारी बॉन्डों का क्रय और विक्रय\nII. विदेशी मुद्रा का क्रय और विक्रय\nIII. पेंशन निधि प्रबंधन\nIV. निजी कंपनियों को ऋण देना\nV. करेंसी नोटों का मुद्रण और वितरण", a: "(A) केवल I और II", b: "(B) II, III और IV", c: "(C) I, III, IV और V", d: "(D) I, II और V", ans: "d" },
@@ -135,15 +136,34 @@
                 { q: "19. अशोक के अभिलेखों में 'प्रादेशिक', 'राजुक' और 'युक्त' किस स्तर के अधिकारी थे?", a: "(A) ग्राम-स्तरीय", b: "(B) जिला-स्तरीय", c: "(C) प्रांतीय", d: "(D) केन्द्रीय", ans: "b" },
                 { q: "20. असहयोग आंदोलन के संबंध में:\nI. उद्देश्य वैध तरीके से 'स्वराज' प्राप्त करना था।\nII. इसे चरणों में कार्यान्वित किया जाना था।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" }
             ],
-            history: [ { q: "History test...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ]
-            // अन्य विषय
+            // 🔥 HISTORY PYQ (10 प्रश्न) 🔥
+            history: [
+                { q: "Q. बौद्ध धर्म के संदर्भ में, 'महायान' संप्रदाय की मुख्य विशेषता क्या थी? [UPSC 2024]", a: "(A) बुद्ध की मूर्ति पूजा", b: "(B) कठोर तपस्या", c: "(C) केवल पालि भाषा का प्रयोग", d: "(D) उपरोक्त सभी", ans: "a" },
+                { q: "Q. 1935 के भारत सरकार अधिनियम की मुख्य विशेषता क्या थी? [UPSC 2024]", a: "(A) प्रांतीय स्वायत्तता", b: "(B) केंद्र में द्वैध शासन", c: "(C) अखिल भारतीय संघ", d: "(D) उपरोक्त सभी", ans: "d" },
+                { q: "Q. विजयनगर साम्राज्य में 'अमरनायक' प्रणाली क्या थी? [UPSC 2025]", a: "(A) राजस्व संग्रह प्रणाली", b: "(B) सैन्य कमांडरों को भूमि अनुदान", c: "(C) मंदिर प्रशासन", d: "(D) सिंचाई व्यवस्था", ans: "b" },
+                { q: "Q. भारतीय स्वतंत्रता संग्राम के दौरान 'स्वदेशी आंदोलन' का तात्कालिक कारण क्या था? [UPSC 2024]", a: "(A) रोलेट एक्ट", b: "(B) बंगाल का विभाजन", c: "(C) जलियांवाला बाग हत्याकांड", d: "(D) क्रिप्स मिशन", ans: "b" },
+                { q: "Q. प्राचीन भारत में 'श्रेणी' (Guilds) के संदर्भ में क्या सही है? [UPSC 2025]", a: "(A) धार्मिक संस्थाएं", b: "(B) व्यापारियों/कारीगरों का संगठन", c: "(C) राजा की निजी सेना", d: "(D) कर संग्रहकर्ता", ans: "b" },
+                { q: "Q. मुगल प्रशासन में 'ज़ब्त' (Zabt) प्रणाली का संबंध किससे था? [UPSC 2024]", a: "(A) सैन्य भर्ती", b: "(B) भू-राजस्व निर्धारण", c: "(C) धार्मिक कर", d: "(D) व्यापारिक चुंगी", ans: "b" },
+                { q: "Q. क्रिप्स मिशन (1942) का मुख्य प्रस्ताव क्या था? [UPSC 2025]", a: "(A) भारत का पूर्ण विभाजन", b: "(B) युद्ध के बाद डोमिनियन स्टेटस", c: "(C) तुरंत पूर्ण स्वतंत्रता", d: "(D) संविधान सभा का बहिष्कार", ans: "b" },
+                { q: "Q. सिंधु घाटी सभ्यता के किस स्थल से 'गोदीबाड़ा' (Dockyard) के साक्ष्य मिले हैं? [UPSC 2024]", a: "(A) हड़प्पा", b: "(B) मोहनजोदड़ो", c: "(C) लोथल", d: "(D) कालीबंगा", ans: "c" },
+                { q: "Q. 1857 के विद्रोह के दौरान लखनऊ में विद्रोह का नेतृत्व किसने किया था? [UPSC 2025]", a: "(A) नाना साहेब", b: "(B) कुंवर सिंह", c: "(C) बेगम हज़रत महल", d: "(D) रानी लक्ष्मीबाई", ans: "c" },
+                { q: "Q. अशोक के अधिकांश शिलालेख किस भाषा और लिपि में लिखे गए हैं? [UPSC 2024]", a: "(A) संस्कृत और देवनागरी", b: "(B) पालि और खरोष्ठी", c: "(C) प्राकृत और ब्राह्मी", d: "(D) तमिल और वट्टेळुत्तु", ans: "c" }
+            ],
+            polity: [ { q: "Polity Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            economy: [ { q: "Economy Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            geography: [ { q: "Geography Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            current: [ { q: "Current Affairs Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            art: [ { q: "Art & Culture Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            science: [ { q: "Science & Tech Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            environment: [ { q: "Environment Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ],
+            disaster: [ { q: "Disaster Management Questions Coming Soon...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ]
         };
 
         let currentSubject = "";
         let currentQuestions = [];
         let currentQIndex = 0;
         let score = 0;
-        let timeInSeconds = 7200; // 120 Minutes
+        let timeInSeconds = 0;
         let timerInterval;
 
         window.onload = function() {
@@ -153,9 +173,15 @@
             if (currentSubject && quizDatabase[currentSubject]) {
                 currentQuestions = quizDatabase[currentSubject];
                 
-                // Set Custom Title
-                let titleText = currentSubject === 'gs1_2025' ? "UPSC PRELIMS 2025 (GS-1)" : currentSubject.toUpperCase() + " QUIZ";
-                document.getElementById('subject-title').innerText = titleText;
+                // टाइमर सेट करना (GS1 के लिए 120 मिनट, बाकी के लिए 15 मिनट)
+                if(currentSubject === 'gs1_2025') {
+                    timeInSeconds = 7200; // 120 Mins
+                    document.getElementById('subject-title').innerText = "UPSC PRELIMS 2025 (GS-1)";
+                } else {
+                    timeInSeconds = 900; // 15 Mins
+                    document.getElementById('subject-title').innerText = currentSubject.toUpperCase() + " QUIZ";
+                }
+                
                 document.getElementById('total-q-num').innerText = currentQuestions.length;
                 
                 startTimer();
@@ -169,84 +195,6 @@
             document.getElementById('next-btn').style.display = 'none'; 
             document.getElementById('current-q-num').innerText = currentQIndex + 1; 
 
-            // Update Progress Bar
-            let progressPercent = ((currentQIndex) / currentQuestions.length) * 100;
-            document.getElementById('progress-bar').style.width = progressPercent + "%";
-
-            const qData = currentQuestions[currentQIndex];
-            document.getElementById('question-text').innerHTML = qData.q.replace(/\n/g, "<br><br>");
-            
-            document.getElementById('text-a').innerText = qData.a;
-            document.getElementById('text-b').innerText = qData.b;
-            document.getElementById('text-c').innerText = qData.c;
-            document.getElementById('text-d').innerText = qData.d;
-
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('option-correct', 'option-wrong');
-                btn.disabled = false;
-            });
-        }
-
-        function checkAnswer(selectedOption) {
-            const correctOption = currentQuestions[currentQIndex].ans;
-            const buttons = document.querySelectorAll('.option-btn');
-            
-            buttons.forEach(btn => btn.disabled = true);
-
-            if (selectedOption === correctOption) {
-                document.getElementById('option-' + selectedOption).classList.add('option-correct');
-                score++;
-            } else {
-                document.getElementById('option-' + selectedOption).classList.add('option-wrong');
-                document.getElementById('option-' + correctOption).classList.add('option-correct');
-            }
-
-            document.getElementById('next-btn').style.display = 'block';
-        }
-
-        function nextQuestion() {
-            currentQIndex++;
-            if (currentQIndex < currentQuestions.length) {
-                loadQuestion();
-            } else {
-                // Set Progress bar to 100% at the end
-                document.getElementById('progress-bar').style.width = "100%";
-                setTimeout(endQuiz, 500);
-            }
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                if (timeInSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    endQuiz(); 
-                } else {
-                    timeInSeconds--;
-                    let h = Math.floor(timeInSeconds / 3600);
-                    let m = Math.floor((timeInSeconds % 3600) / 60);
-                    let s = timeInSeconds % 60;
-                    if(m < 10) m = "0" + m;
-                    if(s < 10) s = "0" + s;
-                    let timeString = h > 0 ? h + ":" + m + ":" + s : m + ":" + s;
-                    document.getElementById('time').innerText = timeString;
-                }
-            }, 1000); 
-        }
-
-        function endQuiz() {
-            clearInterval(timerInterval); 
-            
-            document.getElementById('quiz-box').style.display = 'none';
-            document.getElementById('info-bar').style.display = 'none';
-            document.getElementById('result-box').style.display = 'block';
-
-            document.getElementById('final-score').innerText = score;
-            document.getElementById('final-total').innerText = currentQuestions.length;
-
-            let percentage = (score / currentQuestions.length) * 100;
-            let msg = "";
-            let title = "CONGRATULATIONS!";
-
-            if (percentage >= 80) {
+            // Progress Bar Update
+            let progressPercent = ((currentQIndex) / currentQu
          
