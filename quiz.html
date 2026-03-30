@@ -3,78 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Live Quiz - ONLY HINDI IAS</title>
+    <title>Premium Live Quiz - ONLY HINDI IAS</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --white: #ffffff; --light-bg: #f5f8fa; --correct-green: #d4edda; --correct-border: #c3e6cb; --wrong-red: #f8d7da; --wrong-border: #f5c6cb; }
+        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --white: #ffffff; --light-bg: #f0f4f8; --correct-green: #d4edda; --correct-border: #28a745; --wrong-red: #f8d7da; --wrong-border: #dc3545; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; overflow-x: hidden; }
         
-        /* Header */
-        .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .back-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; }
-        .header h1 { margin: 0; font-size: 16px; font-weight: 800; color: var(--primary-teal); text-transform: uppercase; }
+        /* Premium Header */
+        .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .back-btn { background: var(--light-bg); color: var(--primary-teal); border: none; padding: 8px 15px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header h1 { margin: 0; font-size: 15px; font-weight: 900; color: var(--primary-teal); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Timer & Info Bar */
-        .info-bar { display: flex; justify-content: space-between; padding: 15px 20px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; margin-bottom: 20px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .question-count { font-size: 14px; font-weight: 800; }
-        .timer { font-size: 14px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 20px; display: flex; align-items: center; gap: 5px; }
-
-        /* Quiz Container */
-        .quiz-container { padding: 0 15px; }
-        .quiz-box { background: var(--white); border-radius: 16px; padding: 25px 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .quiz-question { font-size: 15px; font-weight: 800; color: var(--primary-teal); margin-bottom: 25px; line-height: 1.6; border-bottom: 2px dashed #eee; padding-bottom: 15px; }
-        .quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        /* Premium Info Bar & Progress */
+        .info-bar { margin: 15px 15px 25px; padding: 20px; background: linear-gradient(135deg, var(--primary-teal) 0%, #153e5c 100%); color: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(11,43,64,0.2); position: relative; overflow: hidden; }
+        .info-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .question-count { font-size: 15px; font-weight: 800; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 8px; }
+        .timer { font-size: 16px; font-weight: 900; color: var(--premium-gold); display: flex; align-items: center; gap: 6px; }
         
-        /* Options Style */
-        .option-btn { background: var(--light-bg); border: 2px solid #ddd; border-radius: 12px; padding: 15px; font-size: 13px; font-weight: 600; color: var(--primary-teal); cursor: pointer; transition: all 0.2s ease; text-align: left; position: relative; display: flex; justify-content: space-between; align-items: center;}
-        .option-correct { background: var(--correct-green) !important; border-color: var(--correct-border) !important; color: #155724 !important; }
-        .option-correct::after { content: '✅'; font-size: 16px; }
-        .option-wrong { background: var(--wrong-red) !important; border-color: var(--wrong-border) !important; color: #721c24 !important; }
-        .option-wrong::after { content: '❌'; font-size: 16px; }
+        /* The Progress Bar */
+        .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: var(--premium-gold); border-radius: 10px; transition: width 0.4s ease; box-shadow: 0 0 10px var(--premium-gold); }
+
+        /* Modern Quiz Box */
+        .quiz-container { padding: 0 15px; }
+        .quiz-box { background: var(--white); border-radius: 20px; padding: 25px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); }
+        .quiz-question { font-size: 16px; font-weight: 800; color: #222; margin-bottom: 25px; line-height: 1.6; }
+        
+        /* Premium Options */
+        .quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .option-btn { background: #fafafa; border: 2px solid #eef2f5; border-radius: 14px; padding: 16px 15px; font-size: 14px; font-weight: 600; color: #444; cursor: pointer; transition: all 0.2s ease; text-align: left; position: relative; display: flex; align-items: flex-start; line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .option-btn:active { transform: scale(0.98); }
+        .option-text { flex: 1; padding-right: 25px; }
+        
+        /* Correct / Wrong Styles */
+        .option-correct { background: var(--correct-green) !important; border-color: var(--correct-border) !important; color: #0f5132 !important; font-weight: 800; box-shadow: 0 4px 15px rgba(40,167,69,0.2); }
+        .option-correct::after { content: '✔'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #198754; font-weight: 900; }
+        .option-wrong { background: var(--wrong-red) !important; border-color: var(--wrong-border) !important; color: #842029 !important; font-weight: 800; box-shadow: 0 4px 15px rgba(220,53,69,0.2); }
+        .option-wrong::after { content: '✖'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #dc3545; font-weight: 900; }
 
         /* Next Button */
-        #next-btn { display: none; margin-top: 25px; width: 100%; background: var(--premium-gold); color: white; border: none; padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(181, 148, 16, 0.3); transition: 0.2s; }
-        #next-btn:active { transform: scale(0.98); }
+        #next-btn { display: none; margin-top: 25px; width: 100%; background: linear-gradient(135deg, var(--premium-gold) 0%, #d4a700 100%); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 15px; font-weight: 900; letter-spacing: 1px; cursor: pointer; box-shadow: 0 6px 20px rgba(181, 148, 16, 0.3); transition: 0.2s; text-transform: uppercase; }
+        #next-btn:active { transform: translateY(2px); box-shadow: 0 2px 10px rgba(181, 148, 16, 0.3); }
 
         /* 🔥 PREMIUM RESULT DASHBOARD 🔥 */
-        #result-box { display: none; background: linear-gradient(135deg, #ffffff 0%, #fffdf3 100%); border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(181, 148, 16, 0.2); border: 3px solid var(--premium-gold); position: relative; overflow: hidden; }
-        .congrats-text { font-size: 24px; font-weight: 900; color: var(--premium-gold); margin: 10px 0; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .trophy { font-size: 60px; filter: drop-shadow(0 5px 10px rgba(181, 148, 16, 0.4)); margin-bottom: 5px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        #result-box { display: none; background: linear-gradient(135deg, #ffffff 0%, #fffdf3 100%); border-radius: 20px; padding: 40px 20px; text-align: center; box-shadow: 0 15px 40px rgba(181, 148, 16, 0.2); border: 3px solid var(--premium-gold); position: relative; overflow: hidden; margin: 0 15px; }
+        .congrats-text { font-size: 26px; font-weight: 900; color: var(--premium-gold); margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .trophy { font-size: 70px; filter: drop-shadow(0 10px 15px rgba(181, 148, 16, 0.5)); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         
-        .score-circle { width: 110px; height: 110px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border-radius: 50%; margin: 20px auto; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 900; border: 5px solid var(--premium-gold); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        #performance-msg { font-size: 15px; font-weight: 800; color: var(--primary-teal); margin-bottom: 25px; line-height: 1.5; }
+        .score-circle { width: 120px; height: 120px; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border-radius: 50%; margin: 25px auto; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; border: 6px solid var(--premium-gold); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        #performance-msg { font-size: 15px; font-weight: 800; color: var(--primary-teal); margin-bottom: 30px; line-height: 1.6; padding: 0 10px; }
         
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .retry-btn { background: var(--light-bg); color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; }
-        .home-btn { background: var(--primary-teal); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; box-shadow: 0 4px 10px rgba(11, 43, 64, 0.3); }
+        .action-btns { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .home-btn { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: block; box-shadow: 0 6px 15px rgba(11, 43, 64, 0.25); text-transform: uppercase;}
+        .retry-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; text-decoration: none; display: block; }
 
         /* 🎉 FIREWORKS / CONFETTI CSS 🎉 */
-        .confetti { position: fixed; width: 10px; height: 10px; background-color: #f2d74e; opacity: 0; z-index: 9999; animation: fall 4s ease-in-out infinite; }
-        @keyframes fall { 0% { opacity: 1; top: -10%; transform: translateX(0) rotate(0deg); } 100% { opacity: 0; top: 110%; transform: translateX(100px) rotate(720deg); } }
+        .confetti { position: fixed; width: 12px; height: 12px; opacity: 0; z-index: 9999; animation: fall linear forwards; border-radius: 3px; }
+        @keyframes fall { 0% { opacity: 1; top: -10%; transform: translateX(0) rotate(0deg); } 100% { opacity: 0; top: 110%; transform: translateX(150px) rotate(1080deg); } }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="subjects.html" class="back-btn">← BACK</a>
-        <h1 id="subject-title">Quiz</h1>
-        <div style="width: 60px;"></div>
+        <a href="subjects.html" class="back-btn">← Back</a>
+        <h1 id="subject-title">UPSC QUIZ</h1>
+        <div style="width: 65px;"></div>
     </div>
 
     <div class="info-bar" id="info-bar">
-        <div class="question-count">Q. <span id="current-q-num">1</span>/<span id="total-q-num">15</span></div>
-        <div class="timer">⏱️ <span id="time">10:00</span></div> </div>
+        <div class="info-top">
+            <div class="question-count">Q. <span id="current-q-num">1</span> of <span id="total-q-num">20</span></div>
+            <div class="timer">⏱️ <span id="time">120:00</span></div> </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </div>
 
     <div class="quiz-container">
         
         <div class="quiz-box" id="quiz-box">
             <div class="quiz-question" id="question-text">Loading question...</div>
             <div class="quiz-options">
-                <button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span id="text-a">Option A</span></button>
-                <button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span id="text-b">Option B</span></button>
-                <button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span id="text-c">Option C</span></button>
-                <button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span id="text-d">Option D</span></button>
+                <button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span class="option-text" id="text-a">Option A</span></button>
+                <button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span class="option-text" id="text-b">Option B</span></button>
+                <button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span class="option-text" id="text-c">Option C</span></button>
+                <button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span class="option-text" id="text-d">Option D</span></button>
             </div>
             <button id="next-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
         </div>
@@ -83,64 +97,71 @@
             <div class="trophy">🏆</div>
             <div class="congrats-text" id="congrats-title">CONGRATULATIONS!</div>
             <div class="score-circle">
-                <span id="final-score">0</span>/<span id="final-total">0</span>
+                <span id="final-score">0</span><span style="font-size: 20px; color:#ddd;">/</span><span id="final-total" style="font-size: 24px;">0</span>
             </div>
             <p id="performance-msg">Evaluating your UPSC preparation...</p>
             
             <div class="action-btns">
-                <a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Test</a>
-                <a href="subjects.html" class="home-btn">View Subjects</a>
+                <a href="subjects.html" class="home-btn">Finish & Go to Menu</a>
+                <a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Exam</a>
             </div>
         </div>
 
     </div>
 
     <script>
-        // 1. All Subjects Database (Asali UPSC PYQ)
+        // शॉर्टकट फॉर्मेट (a, b, c, d, ans) ताकि कोड छोटा और फ़ास्ट रहे।
         const quizDatabase = {
-            history: [
-                { q: "1. राजा राममोहन राय के बारे में, निम्नलिखित कथनों पर विचार कीजिए :\nI. उनमें प्राच्य विश्व के पारम्परिक दार्शनिक सिद्धांतों के प्रति अत्यंत अनुराग और समादर था।\nII. उनकी कामना थी कि उनके देशवासी तर्कसंगत और वैज्ञानिक दृष्टिकोण मानें। [UPSC 2025 GS1]", options: { a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II" }, correct: "a" },
-                { q: "2. असहयोग कार्यक्रम के बारे में, निम्नलिखित विषयों पर विचार कीजिए :\nI. न्यायालयों और विदेशी वस्त्र का बहिष्कार\nII. अहिंसा का कठोर अनुपालन\nIII. उपाधियों का प्रतिधारण\nIV. पंचायतों की स्थापना [UPSC 2025 GS1]", options: { a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार" }, correct: "c" },
-                { q: "3. सिंचाई में काम आने वाला 'अरघट्टा' नामक उपकरण क्या था? [UPSC 2025 GS1]", options: { a: "(A) एक घिरनी से खींचा जाने वाला चमड़े का पानी का थैला", b: "(B) एक बड़ा चक्का, जिसकी अराओं के बाहरी छोरों पर मिट्टी के पात्र बँधे हों", c: "(C) बैलों के द्वारा खींचा जाने वाला मिट्टी का बड़ा पात्र", d: "(D) सीधे हाथों से खींचा जाने वाला जल-डोल" }, correct: "b" },
-                { q: "4. प्राचीन भारत में इनमें से किस शासक ने 'मत्तविलास', 'विचित्रचित्त' और 'गुणभरा' उपाधियाँ धारण की थीं? [UPSC 2025 GS1]", options: { a: "(A) महेन्द्रवर्मन प्रथम", b: "(B) सिंहविष्णु", c: "(C) नरसिंहवर्मन प्रथम", d: "(D) सिंहवर्मन" }, correct: "a" },
-                { q: "5. चीनी तीर्थयात्री फाह्यान ने इनमें से किसके शासनकाल में भारत की यात्रा की थी? [UPSC 2025 GS1]", options: { a: "(A) समुद्रगुप्त", b: "(B) चन्द्रगुप्त द्वितीय", c: "(C) कुमारगुप्त प्रथम", d: "(D) स्कंदगुप्त" }, correct: "b" },
-                { q: "6. इनमें से किसने शक्तिशाली समुद्रवर्ती राज्य श्रीविजय के विरुद्ध एक सफल सैन्य अभियान का नेतृत्व किया था? [UPSC 2025 GS1]", options: { a: "(A) अमोघवर्ष (राष्ट्रकूट)", b: "(B) प्रतापरुद्र (काकतीय)", c: "(C) राजेन्द्र प्रथम (चोल)", d: "(D) विष्णुवर्धन (होयसल)" }, correct: "c" },
-                { q: "7. प्राचीन भारत (600-322 ईसा पूर्व) के संदर्भ में विचार कीजिए : \nI. अश्मक : गोदावरी \nII. कम्बोज : विपास \nIII. अवन्ती : महानदी \nIV. कोसल : सरयू \nकितने युग्म सही हैं? [UPSC 2025 GS1]", options: { a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार" }, correct: "b" },
-                { q: "8. प्रथम गन्धर्व महाविद्यालय, जो एक संगीत प्रशिक्षण विद्यालय था, विष्णु दिगंबर पलुस्कर द्वारा 1901 में कहाँ स्थापित किया गया था? [UPSC 2025 GS1]", options: { a: "(A) दिल्ली", b: "(B) ग्वालियर", c: "(C) उज्जैन", d: "(D) लाहौर" }, correct: "d" },
-                { q: "9. अशोक के अभिलेखों से ज्ञात होता है, 'प्रादेशिक', 'राजुक' और 'युक्त' किस स्तर पर महत्त्वपूर्ण अधिकारी थे? [UPSC 2025 GS1]", options: { a: "(A) ग्राम-स्तरीय प्रशासन", b: "(B) जिला-स्तरीय प्रशासन", c: "(C) प्रांतीय प्रशासन", d: "(D) केन्द्रीय प्रशासन स्तर" }, correct: "b" },
-                { q: "10. असहयोग आंदोलन के संबंध में :\nI. काँग्रेस ने घोषणा की कि सभी वैध और शांतिपूर्ण तरीकों से 'स्वराज' प्राप्त करना उद्देश्य है।\nII. इसे चरणों में कार्यान्वित किया जाना था। [UPSC 2025 GS1]", options: { a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II" }, correct: "b" },
-                { q: "11. गाँधीजी ने विख्यात वक्तव्य 'राजद्रोह मेरा धर्म हो गया है' कब दिया था? [UPSC 2025 GS1]", options: { a: "(A) चंपारण सत्याग्रह के समय", b: "(B) दांडी में नमक कानून का सार्वजनिक उल्लंघन करने के समय", c: "(C) द्वितीय गोलमेज सम्मेलन के समय", d: "(D) भारत छोड़ो आंदोलन के समय" }, correct: "b" },
-                { q: "12. मोहनजोदड़ो से प्राप्त 'नाचती हुई लड़की (डांसिंग गर्ल)' नामक प्रख्यात नारी लघुमूर्ति किस पदार्थ की बनी है? [UPSC 2025 GS1]", options: { a: "(A) इन्द्रगोप मणि", b: "(B) मृत्तिका", c: "(C) कांस्य", d: "(D) स्वर्ण" }, correct: "c" },
-                { q: "13. चौरी-चौरा घटना के परिणामस्वरूप बंदी बनाए गए लोगों को किसने विधिक प्रतिरक्षा प्रदान की? [UPSC 2025 GS1]", options: { a: "(A) सी० आर० दास", b: "(B) मदन मोहन मालवीय और कृष्णकांत", c: "(C) डॉ० सैफुद्दीन किचलू", d: "(D) एम० ए० जिन्ना" }, correct: "b" },
-                { q: "14. गाँधीजी ने किस घटना के उपरांत अपने राजनीतिक कार्यक्रम में 'हरिजनों' के उत्थान को शामिल करने का निश्चय किया? [UPSC 2025 GS1]", options: { a: "(A) पूना समझौता", b: "(B) गाँधी-इरविन समझौता", c: "(C) भारत छोड़ो आंदोलन", d: "(D) भारत सरकार अधिनियम 1935" }, correct: "a" },
-                { q: "15. इनमें से कौन 'आत्म-सम्मान आंदोलन (सेल्फ-रेस्पेक्ट मूवमेंट)' का संस्थापक था? [UPSC 2025 GS1]", options: { a: "(A) पेरियार ई० वी० रामास्वामी नायकर", b: "(B) डॉ० बी० आर० अम्बेडकर", c: "(C) भास्करराव जाधव", d: "(D) दिनकरराव जवलकर" }, correct: "a" }
+            // 🔥 GS 1 2025 (पहले 20 प्रश्न) 🔥
+            gs1_2025: [
+                { q: "1. निवेश के संदर्भ में, निम्नलिखित पर विचार कीजिए:\nI. बॉन्ड\nII. प्रतिरक्षा निधियाँ (हेज फंड्स)\nIII. स्टॉक\nIV. जोखिम पूँजी\nउपर्युक्त में से कितनों को वैकल्पिक निवेश निधि माना जाता है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "b" },
+                { q: "2. निम्नलिखित में कौन-कौन से, भारतीय रिज़र्व बैंक की आय के स्रोत हैं?\nI. सरकारी बॉन्डों का क्रय और विक्रय\nII. विदेशी मुद्रा का क्रय और विक्रय\nIII. पेंशन निधि प्रबंधन\nIV. निजी कंपनियों को ऋण देना\nV. करेंसी नोटों का मुद्रण और वितरण", a: "(A) केवल I और II", b: "(B) II, III और IV", c: "(C) I, III, IV और V", d: "(D) I, II और V", ans: "d" },
+                { q: "3. भारत सरकार के संदर्भ में, सूचना पर विचार कीजिए :\nI. प्रवर्तन निदेशालय : भगोड़ा आर्थिक अपराधी अधिनियम\nII. राजस्व आसूचना निदेशालय : सीमा शुल्क अधिनियम\nIII. प्रणाली एवं आँकड़ा प्रबंधन महानिदेशालय : वृहत् आँकड़ा विश्लेषण\nकितनी पंक्तियों में सूचना सही सुमेलित है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) सभी तीन", d: "(D) किसी में नहीं", ans: "b" },
+                { q: "4. कथनों पर विचार कीजिए :\nI. भारतीय रिज़र्व बैंक भारत में सभी सूचीबद्ध कंपनियों को व्यावसायिक उत्तरदायित्व और स्थिरता रिपोर्ट (BRSR) प्रस्तुत करने का अधिदेश करता है।\nII. BRSR में प्रकटन मुख्यतः गैर-वित्तीय स्वरूप के होते हैं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" },
+                { q: "5. कथन I: भारत में, कुक्कुट पालन और ऊन उत्पादन से प्राप्त आय कर मुक्त है।\nकथन II: आयकर अधिनियम, 1961 के अधीन ग्रामीण कृषि भूमि पूँजीगत परिसंपत्ति नहीं है।", a: "(A) दोनों सही, II व्याख्या है", b: "(B) दोनों सही, II व्याख्या नहीं है", c: "(C) I सही, II गलत", d: "(D) I गलत, II सही", ans: "d" },
+                { q: "6. कथनों पर विचार कीजिए :\nI. भारत, खनिज सुरक्षा भागीदारी में सदस्य है।\nII. भारत 30 अति आवश्यक खनिजों में साधन-संपन्न है।\nIII. संसद ने 2023 में अधिनियम में संशोधन कर नीलामी का अधिकार केंद्र को दिया है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "c" },
+                { q: "7. निवेश पर विचार कीजिए :\nकथन I: स्टॉक-धारकों की तुलना में बॉन्ड धारकों को कम जोखिम रहता है।\nकथन II: बॉन्ड धारक ऋणदाता होते हैं, स्टॉक-धारक स्वामी।\nकथन III: पुनर्भुगतान में बॉन्ड धारकों को प्राथमिकता दी जाती है।", a: "(A) II और III सही, दोनों I की व्याख्या करते हैं", b: "(B) II और III सही, एक व्याख्या करता है", c: "(C) एक सही, वह व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
+                { q: "8. कथनों पर विचार कीजिए :\nI. वैश्विक इक्विटी विकल्प संविदाओं में भारत का वृहद् अंश है।\nII. भारत का स्टॉक बाज़ार हांगकांग को पीछे छोड़ चुका है।\nIII. छोटे निवेशकों को चेतावनी देने के लिए कोई नियामक निकाय नहीं है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
+                { q: "9. चक्रीय अर्थव्यवस्था के बारे में:\nकथन I: यह ग्रीनहाउस गैसों के उत्सर्जन को कम करती है।\nकथन II: यह कच्चे माल के प्रयोग को कम करती है।\nकथन III: यह उत्पादन में अपव्यय को कम करती है।", a: "(A) II और III सही, I की व्याख्या करते हैं", b: "(B) I और II सही, I व्याख्या है", c: "(C) एक सही, व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
+                { q: "10. पूँजीगत प्राप्तियों के बारे में:\nI. ये देयता का सृजन करती है या परिसंपत्तियों में कमी लाती हैं।\nII. उधार-ग्रहण और विनिवेश पूँजीगत प्राप्तियाँ हैं।\nIII. ऋणों पर प्राप्त ब्याज सरकार की देयता का सृजन करता है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
+                { q: "11. राजा राममोहन राय के बारे में :\nI. उनमें प्राच्य विश्व के पारम्परिक दार्शनिक सिद्धांतों के प्रति अत्यंत अनुराग और समादर था।\nII. उनकी कामना थी कि देशवासी तर्कसंगत और वैज्ञानिक दृष्टिकोण अपनाएं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो 1 और न ही II", ans: "a" },
+                { q: "12. असहयोग कार्यक्रम के विषय:\nI. न्यायालयों/विदेशी वस्त्र का बहिष्कार\nII. अहिंसा का पालन\nIII. उपाधियों का प्रतिधारण\nIV. पंचायतों की स्थापना", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "c" },
+                { q: "13. सिंचाई में काम आने वाला 'अरघट्टा' क्या था?", a: "(A) एक घिरनी से खींचा जाने वाला चमड़े का थैला", b: "(B) एक बड़ा चक्का, जिसकी अराओं पर मिट्टी के पात्र बँधे हों", c: "(C) बैलों द्वारा खींचा जाने वाला बड़ा पात्र", d: "(D) सीधे हाथों से खींचा जाने वाला जल-डोल", ans: "b" },
+                { q: "14. प्राचीन भारत में 'मत्तविलास', 'विचित्रचित्त' उपाधियाँ किसने धारण कीं?", a: "(A) महेन्द्रवर्मन प्रथम", b: "(B) सिंहविष्णु", c: "(C) नरसिंहवर्मन प्रथम", d: "(D) सिंहवर्मन", ans: "a" },
+                { q: "15. चीनी तीर्थयात्री फाह्यान ने किसके शासनकाल में भारत की यात्रा की?", a: "(A) समुद्रगुप्त", b: "(B) चन्द्रगुप्त द्वितीय", c: "(C) कुमारगुप्त प्रथम", d: "(D) स्कंदगुप्त", ans: "b" },
+                { q: "16. श्रीविजय के विरुद्ध सफल सैन्य अभियान का नेतृत्व किसने किया?", a: "(A) अमोघवर्ष (राष्ट्रकूट)", b: "(B) प्रतापरुद्र (काकतीय)", c: "(C) राजेन्द्र प्रथम (चोल)", d: "(D) विष्णुवर्धन (होयसल)", ans: "c" },
+                { q: "17. युग्मों पर विचार कीजिए :\nI. अश्मक : गोदावरी\nII. कम्बोज : विपास\nIII. अवन्ती : महानदी\nIV. कोसल : सरयू", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "d" },
+                { q: "18. प्रथम गन्धर्व महाविद्यालय (1901) कहाँ स्थापित किया गया था?", a: "(A) दिल्ली", b: "(B) ग्वालियर", c: "(C) उज्जैन", d: "(D) लाहौर", ans: "c" },
+                { q: "19. अशोक के अभिलेखों में 'प्रादेशिक', 'राजुक' और 'युक्त' किस स्तर के अधिकारी थे?", a: "(A) ग्राम-स्तरीय", b: "(B) जिला-स्तरीय", c: "(C) प्रांतीय", d: "(D) केन्द्रीय", ans: "b" },
+                { q: "20. असहयोग आंदोलन के संबंध में:\nI. उद्देश्य वैध तरीके से 'स्वराज' प्राप्त करना था।\nII. इसे चरणों में कार्यान्वित किया जाना था।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" }
             ],
-            polity: [ { q: "Polity Questions Coming Soon...", options: { a: "A", b: "B", c: "C", d: "D" }, correct: "a" } ],
-            economy: [ { q: "Economy Questions Coming Soon...", options: { a: "A", b: "B", c: "C", d: "D" }, correct: "a" } ]
-            // अन्य विषय यहाँ जोड़े जा सकते हैं
+            history: [ { q: "History test...", a: "A", b: "B", c: "C", d: "D", ans: "a" } ]
+            // अन्य विषय
         };
 
         let currentSubject = "";
         let currentQuestions = [];
         let currentQIndex = 0;
         let score = 0;
-        
-        let timeInSeconds = 600; // 10 Minutes (10 * 60)
+        let timeInSeconds = 7200; // 120 Minutes
         let timerInterval;
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            currentSubject = urlParams.get('subject') || 'history'; // Default history
+            currentSubject = urlParams.get('subject') || 'gs1_2025';
 
             if (currentSubject && quizDatabase[currentSubject]) {
                 currentQuestions = quizDatabase[currentSubject];
-                document.getElementById('subject-title').innerText = currentSubject.toUpperCase() + " QUIZ";
+                
+                // Set Custom Title
+                let titleText = currentSubject === 'gs1_2025' ? "UPSC PRELIMS 2025 (GS-1)" : currentSubject.toUpperCase() + " QUIZ";
+                document.getElementById('subject-title').innerText = titleText;
                 document.getElementById('total-q-num').innerText = currentQuestions.length;
                 
                 startTimer();
                 loadQuestion();
             } else {
-                document.getElementById('question-text').innerText = "कोई सवाल नहीं मिला।";
+                document.getElementById('question-text').innerText = "Paper not found.";
             }
         };
 
@@ -148,14 +169,17 @@
             document.getElementById('next-btn').style.display = 'none'; 
             document.getElementById('current-q-num').innerText = currentQIndex + 1; 
 
+            // Update Progress Bar
+            let progressPercent = ((currentQIndex) / currentQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + "%";
+
             const qData = currentQuestions[currentQIndex];
-            // \n को लाइन ब्रेक <br> में बदलने के लिए innerHTML का प्रयोग
-            document.getElementById('question-text').innerHTML = qData.q.replace(/\n/g, "<br>");
+            document.getElementById('question-text').innerHTML = qData.q.replace(/\n/g, "<br><br>");
             
-            document.getElementById('text-a').innerText = qData.options.a;
-            document.getElementById('text-b').innerText = qData.options.b;
-            document.getElementById('text-c').innerText = qData.options.c;
-            document.getElementById('text-d').innerText = qData.options.d;
+            document.getElementById('text-a').innerText = qData.a;
+            document.getElementById('text-b').innerText = qData.b;
+            document.getElementById('text-c').innerText = qData.c;
+            document.getElementById('text-d').innerText = qData.d;
 
             const buttons = document.querySelectorAll('.option-btn');
             buttons.forEach(btn => {
@@ -165,7 +189,7 @@
         }
 
         function checkAnswer(selectedOption) {
-            const correctOption = currentQuestions[currentQIndex].correct;
+            const correctOption = currentQuestions[currentQIndex].ans;
             const buttons = document.querySelectorAll('.option-btn');
             
             buttons.forEach(btn => btn.disabled = true);
@@ -186,7 +210,9 @@
             if (currentQIndex < currentQuestions.length) {
                 loadQuestion();
             } else {
-                endQuiz();
+                // Set Progress bar to 100% at the end
+                document.getElementById('progress-bar').style.width = "100%";
+                setTimeout(endQuiz, 500);
             }
         }
 
@@ -197,11 +223,13 @@
                     endQuiz(); 
                 } else {
                     timeInSeconds--;
-                    let m = Math.floor(timeInSeconds / 60);
+                    let h = Math.floor(timeInSeconds / 3600);
+                    let m = Math.floor((timeInSeconds % 3600) / 60);
                     let s = timeInSeconds % 60;
                     if(m < 10) m = "0" + m;
                     if(s < 10) s = "0" + s;
-                    document.getElementById('time').innerText = m + ":" + s;
+                    let timeString = h > 0 ? h + ":" + m + ":" + s : m + ":" + s;
+                    document.getElementById('time').innerText = timeString;
                 }
             }, 1000); 
         }
@@ -221,36 +249,4 @@
             let title = "CONGRATULATIONS!";
 
             if (percentage >= 80) {
-                msg = "अद्भुत प्रदर्शन! आपकी UPSC की तैयारी एकदम सही दिशा में है। 🎯";
-                fireConfetti(); // अच्छे नंबर पर पटाखे फूटेंगे!
-            }
-            else if (percentage >= 50) {
-                msg = "बहुत अच्छा! थोड़े और रिवीजन के साथ आप टॉप कर सकते हैं। 📚";
-                title = "WELL DONE!";
-            }
-            else {
-                msg = "निराश न हों! 'ONLY HINDI IAS' के नोट्स पढ़ें और दोबारा प्रयास करें। ✌️";
-                title = "KEEP PRACTICING!";
-            }
-
-            document.getElementById('congrats-title').innerText = title;
-            document.getElementById('performance-msg').innerText = msg;
-        }
-
-        // 🎉 FIREWORKS / CONFETTI FUNCTION 🎉
-        function fireConfetti() {
-            const colors = ['#b59410', '#0B2B40', '#ffffff', '#ff4081', '#00e676', '#ffeb3b'];
-            for(let i=0; i<80; i++) {
-                let conf = document.createElement('div');
-                conf.classList.add('confetti');
-                conf.style.left = Math.random() * 100 + 'vw';
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                conf.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                conf.style.animationDelay = Math.random() * 2 + 's';
-                document.body.appendChild(conf);
-            }
-        }
-    </script>
-
-</body>
-</html>
+         
