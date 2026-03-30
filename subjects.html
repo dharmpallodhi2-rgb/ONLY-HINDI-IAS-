@@ -11,54 +11,37 @@
         .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; margin-right: 15px; }
         .header h1 { margin: 0; font-size: 16px; font-weight: 800; color: var(--primary-teal); }
-        
         .container { padding: 20px 15px; }
         .title { margin: 0 0 5px; font-size: 20px; font-weight: 800; }
         .subtitle { font-size: 12px; color: #666; margin-bottom: 20px; }
-        
         .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .subject-card { background: white; border-radius: 12px; padding: 20px 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid #eee; text-decoration: none; color: var(--primary-teal); display: block; transition: 0.2s; }
-        .subject-card:active { transform: scale(0.95); border-color: var(--primary-teal); }
         .subject-card span { font-size: 28px; display: block; margin-bottom: 8px; }
         .subject-card b { font-size: 13px; font-weight: 800; }
-
-        /* 🔥 VIP GS 1 2025 BUTTON 🔥 */
+        /* 🔥 VIP BUTTON 🔥 */
         .vip-card { grid-column: span 2; background: linear-gradient(135deg, var(--primary-teal) 0%, #1d4d6e 100%); color: white; border: 2px solid var(--premium-gold); position: relative; overflow: hidden; }
         .vip-card b { color: var(--premium-gold); font-size: 16px; font-weight: 900; letter-spacing: 1px;}
         .vip-badge { position: absolute; top: 10px; right: -25px; background: var(--premium-gold); color: white; font-size: 9px; font-weight: 900; padding: 3px 30px; transform: rotate(45deg); letter-spacing: 1px;}
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <a href="index.html" class="back-btn">← BACK</a>
-        <h1>SUBJECTS</h1>
-    </div>
-
+    <div class="header"><a href="index.html" class="back-btn">← BACK</a><h1>SUBJECTS</h1></div>
     <div class="container">
         <h2 class="title">Select Your Test</h2>
         <p class="subtitle">Choose a premium test to start your practice.</p>
-        
         <div class="subject-grid">
-            <a href="quiz.html?subject=gs1_2025" class="subject-card vip-card">
+            <a href="gs1_parts.html" class="subject-card vip-card">
                 <div class="vip-badge">NEW</div>
                 <span style="font-size: 35px; margin-bottom: 5px;">📜</span>
                 <b>UPSC Prelims 2025 (GS-1)</b>
-                <p style="margin: 5px 0 0; font-size: 11px; color: #eee;">Full Paper | PYQ | Live Timer</p>
+                <p style="margin: 5px 0 0; font-size: 11px; color: #eee;">Full Paper | 100 Questions | 10 Parts</p>
             </a>
-
             <a href="quiz.html?subject=history" class="subject-card"><span>🏛️</span><b>History</b></a>
             <a href="quiz.html?subject=polity" class="subject-card"><span>⚖️</span><b>Polity</b></a>
             <a href="quiz.html?subject=economy" class="subject-card"><span>📈</span><b>Economy</b></a>
             <a href="quiz.html?subject=geography" class="subject-card"><span>🌍</span><b>Geography</b></a>
             <a href="quiz.html?subject=current" class="subject-card"><span>📰</span><b>Current Affairs</b></a>
-            <a href="quiz.html?subject=art" class="subject-card"><span>🎨</span><b>Art & Culture</b></a>
-            <a href="quiz.html?subject=science" class="subject-card"><span>🚀</span><b>Science & Tech</b></a>
-            <a href="quiz.html?subject=environment" class="subject-card"><span>🌳</span><b>Environment</b></a>
-            <a href="quiz.html?subject=disaster" class="subject-card" style="grid-column: span 2;"><span>🌪️</span><b>Disaster Management</b></a>
         </div>
     </div>
-
 </body>
 </html>
-
