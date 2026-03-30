@@ -25,18 +25,10 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .quiz-options{display:grid;grid-template-columns:1fr;gap:12px;}
 .option-btn{background:#fafafa;border:2px solid #eef2f5;border-radius:14px;padding:15px;font-size:13px;font-weight:600;color:#444;cursor:pointer;text-align:left;position:relative;display:flex;align-items:flex-start;line-height:1.4;}
 .option-correct{background:var(--correct-green)!important;border-color:var(--correct-border)!important;color:#0f5132!important;font-weight:800;}
-.option-correct::after{content:'✔';position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px;color:#198754;font-weight:900;}
 .option-wrong{background:var(--wrong-red)!important;border-color:var(--wrong-border)!important;color:#842029!important;font-weight:800;}
-.option-wrong::after{content:'✖';position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:18px;color:#dc3545;font-weight:900;}
 #next-btn{display:none;margin-top:25px;width:100%;background:linear-gradient(135deg,var(--premium-gold) 0%,#d4a700 100%);color:white;border:none;padding:16px;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(181,148,16,0.3);}
 #result-box{display:none;background:linear-gradient(135deg,#ffffff 0%,#fffdf3 100%);border-radius:20px;padding:40px 20px;text-align:center;border:3px solid var(--premium-gold);margin:0 15px;}
-.congrats-text{font-size:26px;font-weight:900;color:var(--premium-gold);margin:15px 0 5px;}
-.trophy{font-size:70px;animation:bounce 2s infinite;}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);}}
-.score-circle{width:120px;height:120px;background:linear-gradient(135deg,var(--primary-teal) 0%,#1d4d6e 100%);color:white;border-radius:50%;margin:25px auto;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;border:6px solid var(--premium-gold);}
-.action-btns{display:grid;grid-template-columns:1fr;gap:15px;margin-top:20px;}
-.home-btn{background:var(--primary-teal);color:white;padding:16px;border-radius:12px;font-weight:800;cursor:pointer;text-decoration:none;display:block;}
-.retry-btn{background:transparent;color:var(--primary-teal);border:2px solid var(--primary-teal);padding:14px;border-radius:12px;font-weight:800;text-decoration:none;display:block;}
+.score-circle{width:120px;height:120px;background:var(--primary-teal);color:white;border-radius:50%;margin:25px auto;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;border:6px solid var(--premium-gold);}
 </style>
 </head>
 <body>
@@ -47,20 +39,21 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 </div>
 <div class="quiz-container">
 <div class="quiz-box" id="quiz-box">
-<div class="quiz-question" id="question-text">Loading question...</div>
+<div class="quiz-question" id="question-text">डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...</div>
 <div class="quiz-options">
 <button class="option-btn" id="option-a" onclick="checkAnswer('a')"><span id="text-a">Option A</span></button>
 <button class="option-btn" id="option-b" onclick="checkAnswer('b')"><span id="text-b">Option B</span></button>
 <button class="option-btn" id="option-c" onclick="checkAnswer('c')"><span id="text-c">Option C</span></button>
 <button class="option-btn" id="option-d" onclick="checkAnswer('d')"><span id="text-d">Option D</span></button>
 </div>
-<button id="next-btn" onclick="nextQuestion()">NEXT QUESTION →</button>
+<button id="next-btn" onclick="nextQuestion()">अगला सवाल →</button>
 </div>
 <div id="result-box">
-<div class="trophy">🏆</div><div class="congrats-text" id="congrats-title">CONGRATULATIONS!</div>
-<div class="score-circle"><span id="final-score">0</span><span style="font-size:24px;color:#ddd;margin:0 5px;">/</span><span id="final-total" style="font-size:28px;">0</span></div>
-<p id="performance-msg" style="font-weight:800;color:var(--primary-teal);margin-top:15px;">Evaluating your UPSC preparation...</p>
-<div class="action-btns"><a href="gs1_parts.html" class="home-btn">Return to Menu</a><a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Part</a></div>
+<div style="font-size:50px;">🏆</div>
+<div id="congrats-title" style="font-size:20px;font-weight:900;color:var(--premium-gold);">शानदार!</div>
+<div class="score-circle"><span id="final-score">0</span>/<span id="final-total">0</span></div>
+<p id="performance-msg" style="font-weight:800;"></p>
+<div style="margin-top:20px;"><a href="gs1_parts.html" style="background:var(--primary-teal);color:white;padding:15px 30px;border-radius:10px;text-decoration:none;display:inline-block;font-weight:800;">Main Menu</a></div>
 </div>
 </div>
 
@@ -68,94 +61,98 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 
 <script>
 let currentSubject="";let currentQuestions=[];let currentQIndex=0;let score=0;let timeInSeconds=0;let timerInterval;
-window.onload=function(){
-try{
-const urlParams=new URLSearchParams(window.location.search);
-currentSubject=urlParams.get("subject")||"gs1_part1";
-if(quizDatabase[currentSubject]){
-currentQuestions=quizDatabase[currentSubject];
-timeInSeconds=900;
-if(currentSubject.indexOf("gs1_part")!==-1){
-document.getElementById("subject-title").innerText="GS-1 PART TEST";
-}else{
-document.getElementById("subject-title").innerText=currentSubject.toUpperCase()+" QUIZ";
-}
-document.getElementById("total-q-num").innerText=currentQuestions.length;
-startTimer();loadQuestion();
-}else{
-document.getElementById("question-text").innerText="Paper not found.";
-}
-}catch(e){document.getElementById("question-text").innerText="System Error.";}
+
+// यह फंक्शन तब चलेगा जब Google Sheet से डेटा आ जाएगा
+window.startQuizAfterLoading = function() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        currentSubject = urlParams.get("subject") || "gs1_part1";
+        
+        if (quizDatabase && quizDatabase[currentSubject]) {
+            currentQuestions = quizDatabase[currentSubject];
+            timeInSeconds = 900;
+            document.getElementById("subject-title").innerText = "UPSC QUIZ - " + currentSubject.replace('_', ' ').toUpperCase();
+            document.getElementById("total-q-num").innerText = currentQuestions.length;
+            startTimer();
+            loadQuestion();
+        } else {
+            document.getElementById("question-text").innerText = "शीट में सवाल नहीं मिले। कृपया 'Subject' कॉलम चेक करें।";
+        }
+    } catch (e) {
+        document.getElementById("question-text").innerText = "लोडिंग एरर। कृपया रिफ्रेश करें।";
+    }
 };
-function loadQuestion(){
-document.getElementById("next-btn").style.display="none";
-document.getElementById("current-q-num").innerText=currentQIndex+1;
-let progressPercent=((currentQIndex)/currentQuestions.length)*100;
-document.getElementById("progress-bar").style.width=progressPercent+"%";
-const qData=currentQuestions[currentQIndex];
-document.getElementById("question-text").innerText=qData.q;
-document.getElementById("text-a").innerText=qData.a;
-document.getElementById("text-b").innerText=qData.b;
-document.getElementById("text-c").innerText=qData.c;
-document.getElementById("text-d").innerText=qData.d;
-const buttons=document.querySelectorAll(".option-btn");
-for(let i=0;i<buttons.length;i++){
-buttons[i].classList.remove("option-correct","option-wrong");
-buttons[i].disabled=false;
+
+// अगर पेज लोड होते ही डेटा तैयार है, तो शुरू करें
+window.onload = function() {
+    if (typeof isDataLoaded !== 'undefined' && isDataLoaded) {
+        window.startQuizAfterLoading();
+    }
+};
+
+function loadQuestion() {
+    document.getElementById("next-btn").style.display = "none";
+    document.getElementById("current-q-num").innerText = currentQIndex + 1;
+    let progressPercent = ((currentQIndex) / currentQuestions.length) * 100;
+    document.getElementById("progress-bar").style.width = progressPercent + "%";
+    
+    const qData = currentQuestions[currentQIndex];
+    document.getElementById("question-text").innerText = qData.q;
+    document.getElementById("text-a").innerText = qData.a;
+    document.getElementById("text-b").innerText = qData.b;
+    document.getElementById("text-c").innerText = qData.c;
+    document.getElementById("text-d").innerText = qData.d;
+    
+    const buttons = document.querySelectorAll(".option-btn");
+    buttons.forEach(btn => {
+        btn.classList.remove("option-correct", "option-wrong");
+        btn.disabled = false;
+    });
 }
+
+function checkAnswer(selectedOption) {
+    const correctOption = currentQuestions[currentQIndex].ans;
+    const buttons = document.querySelectorAll(".option-btn");
+    buttons.forEach(btn => btn.disabled = true);
+    
+    if (selectedOption === correctOption) {
+        document.getElementById("option-" + selectedOption).classList.add("option-correct");
+        score++;
+    } else {
+        document.getElementById("option-" + selectedOption).classList.add("option-wrong");
+        document.getElementById("option-" + correctOption).classList.add("option-correct");
+    }
+    document.getElementById("next-btn").style.display = "block";
 }
-function checkAnswer(selectedOption){
-const correctOption=currentQuestions[currentQIndex].ans;
-const buttons=document.querySelectorAll(".option-btn");
-for(let i=0;i<buttons.length;i++){buttons[i].disabled=true;}
-if(selectedOption===correctOption){
-document.getElementById("option-"+selectedOption).classList.add("option-correct");
-score++;
-}else{
-document.getElementById("option-"+selectedOption).classList.add("option-wrong");
-document.getElementById("option-"+correctOption).classList.add("option-correct");
+
+function nextQuestion() {
+    currentQIndex++;
+    if (currentQIndex < currentQuestions.length) {
+        loadQuestion();
+    } else {
+        endQuiz();
+    }
 }
-document.getElementById("next-btn").style.display="block";
+
+function startTimer() {
+    timerInterval = setInterval(function() {
+        if (timeInSeconds <= 0) { clearInterval(timerInterval); endQuiz(); }
+        else {
+            timeInSeconds--;
+            let m = Math.floor(timeInSeconds / 60); let s = timeInSeconds % 60;
+            document.getElementById("time").innerText = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+        }
+    }, 1000);
 }
-function nextQuestion(){
-currentQIndex++;
-if(currentQIndex<currentQuestions.length){
-loadQuestion();
-}else{
-document.getElementById("progress-bar").style.width="100%";
-setTimeout(endQuiz,500);
-}
-}
-function startTimer(){
-timerInterval=setInterval(function(){
-if(timeInSeconds<=0){
-clearInterval(timerInterval);endQuiz();
-}else{
-timeInSeconds--;
-let m=Math.floor(timeInSeconds/60);let s=timeInSeconds%60;
-if(m<10)m="0"+m;if(s<10)s="0"+s;
-document.getElementById("time").innerText=m+":"+s;
-}
-},1000);
-}
-function endQuiz(){
-clearInterval(timerInterval);
-document.getElementById("quiz-box").style.display="none";
-document.getElementById("info-bar").style.display="none";
-document.getElementById("result-box").style.display="block";
-document.getElementById("final-score").innerText=score;
-document.getElementById("final-total").innerText=currentQuestions.length;
-let percentage=(score/currentQuestions.length)*100;
-let msg="",title="CONGRATULATIONS!";
-if(percentage>=80){
-msg="अद्भुत प्रदर्शन! आपकी UPSC की तैयारी एकदम सही दिशा में है। 🎯";
-}else if(percentage>=50){
-msg="बहुत अच्छा! थोड़े और रिवीजन के साथ आप टॉप कर सकते हैं। 📚";title="WELL DONE!";
-}else{
-msg="निराश न हों! 'ONLY HINDI IAS' के नोट्स पढ़ें और दोबारा प्रयास करें। ✌️";title="KEEP PRACTICING!";
-}
-document.getElementById("congrats-title").innerText=title;
-document.getElementById("performance-msg").innerText=msg;
+
+function endQuiz() {
+    clearInterval(timerInterval);
+    document.getElementById("quiz-box").style.display = "none";
+    document.getElementById("info-bar").style.display = "none";
+    document.getElementById("result-box").style.display = "block";
+    document.getElementById("final-score").innerText = score;
+    document.getElementById("final-total").innerText = currentQuestions.length;
+    document.getElementById("performance-msg").innerText = (score/currentQuestions.length > 0.5) ? "अच्छी तैयारी है!" : "मेहनत की ज़रूरत है।";
 }
 </script>
 </body>
