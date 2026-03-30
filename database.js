@@ -5,15 +5,13 @@ const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tq
 
 let quizDatabase = {};
 
-// Google Sheet से डेटा खींचने वाला फंक्शन
 async function loadExternalData() {
     try {
         const response = await fetch(SHEET_URL);
         const data = await response.text();
-        const rows = data.split('\n').slice(1); // पहली हेडिंग वाली लाइन छोड़कर
+        const rows = data.split('\n').slice(1); 
 
         rows.forEach(row => {
-            // CSV डेटा को टुकड़ों में बांटना
             const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
             if (cols.length >= 7) {
                 const subject = cols[0].replace(/"/g, '').trim();
@@ -32,11 +30,10 @@ async function loadExternalData() {
                 quizDatabase[subject].push(question);
             }
         });
-        console.log("Database Updated from Google Sheet!");
+        console.log("Database Sync Successful!");
     } catch (error) {
-        console.error("Error loading sheet data:", error);
+        console.error("Sync Error:", error);
     }
 }
 
-// वेबसाइट लोड होते ही डेटा सिंक करें
 loadExternalData();
