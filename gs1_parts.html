@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS 1 Parts - ONLY HINDI IAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --light-bg: #f5f8fa; --white: #ffffff; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; }
+        .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .back-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; margin-right: 15px; }
+        .header h1 { margin: 0; font-size: 15px; font-weight: 900; color: var(--primary-teal); text-transform: uppercase;}
+        
+        .container { padding: 20px 15px; }
+        .title { margin: 0 0 5px; font-size: 20px; font-weight: 900; color: var(--primary-teal); }
+        .subtitle { font-size: 12px; color: #666; margin-bottom: 25px; font-weight: 600; }
+        
+        .parts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        /* 🔥 3D BUTTON DESIGN 🔥 */
+        .part-card { 
+            background: linear-gradient(to bottom, #ffffff, #f0f4f8); 
+            border-radius: 15px; padding: 20px 10px; text-align: center; 
+            text-decoration: none; color: var(--primary-teal); display: block; 
+            border: 2px solid #dde5ed;
+            border-bottom: 6px solid #b5c3d1; /* 3D Effect Base */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.1s ease;
+        }
+        .part-card:active { 
+            transform: translateY(4px); /* दबने का असली एहसास */
+            border-bottom: 2px solid #b5c3d1; 
+            margin-bottom: 4px;
+        }
+        .part-icon { font-size: 28px; display: block; margin-bottom: 5px; }
+        .part-title { font-size: 14px; font-weight: 900; display: block; color: var(--primary-teal); }
+        .part-ques { font-size: 10px; font-weight: 800; color: var(--premium-gold); background: rgba(181, 148, 16, 0.1); padding: 3px 8px; border-radius: 10px; display: inline-block; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="subjects.html" class="back-btn">← BACK</a>
+        <h1>UPSC GS-1 (2025)</h1>
+    </div>
+
+    <div class="container">
+        <h2 class="title">Complete Test Series</h2>
+        <p class="subtitle">Attempt all 10 parts to cover 100 Questions.</p>
+        
+        <div class="parts-grid">
+            <a href="quiz.html?subject=gs1_part1" class="part-card"><span class="part-icon">🎯</span><span class="part-title">Part - 1</span><span class="part-ques">Q. 1 to 10</span></a>
+            <a href="quiz.html?subject=gs1_part2" class="part-card"><span class="part-icon">🔥</span><span class="part-title">Part - 2</span><span class="part-ques">Q. 11 to 20</span></a>
+            <a href="quiz.html?subject=gs1_part3" class="part-card"><span class="part-icon">💡</span><span class="part-title">Part - 3</span><span class="part-ques">Q. 21 to 30</span></a>
+            <a href="quiz.html?subject=gs1_part4" class="part-card"><span class="part-icon">🚀</span><span class="part-title">Part - 4</span><span class="part-ques">Q. 31 to 40</span></a>
+            <a href="quiz.html?subject=gs1_part5" class="part-card"><span class="part-icon">🏆</span><span class="part-title">Part - 5</span><span class="part-ques">Q. 41 to 50</span></a>
+            <a href="quiz.html?subject=gs1_part6" class="part-card"><span class="part-icon">🛡️</span><span class="part-title">Part - 6</span><span class="part-ques">Q. 51 to 60</span></a>
+            <a href="quiz.html?subject=gs1_part7" class="part-card"><span class="part-icon">⚔️</span><span class="part-title">Part - 7</span><span class="part-ques">Q. 61 to 70</span></a>
+            <a href="quiz.html?subject=gs1_part8" class="part-card"><span class="part-icon">🧠</span><span class="part-title">Part - 8</span><span class="part-ques">Q. 71 to 80</span></a>
+            <a href="quiz.html?subject=gs1_part9" class="part-card"><span class="part-icon">⚡</span><span class="part-title">Part - 9</span><span class="part-ques">Q. 81 to 90</span></a>
+            <a href="quiz.html?subject=gs1_part10" class="part-card"><span class="part-icon">👑</span><span class="part-title">Part - 10</span><span class="part-ques">Q. 91 to 100</span></a>
+        </div>
+    </div>
+
+</body>
+</html>
