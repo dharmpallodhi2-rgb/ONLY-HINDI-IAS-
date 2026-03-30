@@ -9,43 +9,34 @@
         :root { --primary-teal: #0B2B40; --premium-gold: #b59410; --white: #ffffff; --light-bg: #f0f4f8; --correct-green: #d4edda; --correct-border: #28a745; --wrong-red: #f8d7da; --wrong-border: #dc3545; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--primary-teal); padding-bottom: 40px; overflow-x: hidden; }
         
-        /* Premium Header */
         .header { background: var(--white); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { background: var(--light-bg); color: var(--primary-teal); border: none; padding: 8px 15px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .header h1 { margin: 0; font-size: 15px; font-weight: 900; color: var(--primary-teal); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Premium Info Bar & Progress */
         .info-bar { margin: 15px 15px 25px; padding: 20px; background: linear-gradient(135deg, var(--primary-teal) 0%, #153e5c 100%); color: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(11,43,64,0.2); position: relative; overflow: hidden; }
         .info-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .question-count { font-size: 15px; font-weight: 800; background: rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 8px; }
         .timer { font-size: 16px; font-weight: 900; color: var(--premium-gold); display: flex; align-items: center; gap: 6px; }
         
-        /* The Progress Bar */
         .progress-container { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: var(--premium-gold); border-radius: 10px; transition: width 0.4s ease; box-shadow: 0 0 10px var(--premium-gold); }
 
-        /* Modern Quiz Box */
         .quiz-container { padding: 0 15px; }
         .quiz-box { background: var(--white); border-radius: 20px; padding: 25px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); }
-        .quiz-question { font-size: 16px; font-weight: 800; color: #222; margin-bottom: 25px; line-height: 1.6; }
+        .quiz-question { font-size: 15px; font-weight: 800; color: #222; margin-bottom: 25px; line-height: 1.6; }
         
-        /* Premium Options */
         .quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .option-btn { background: #fafafa; border: 2px solid #eef2f5; border-radius: 14px; padding: 16px 15px; font-size: 14px; font-weight: 600; color: #444; cursor: pointer; transition: all 0.2s ease; text-align: left; position: relative; display: flex; align-items: flex-start; line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .option-btn:active { transform: scale(0.98); }
+        .option-btn { background: #fafafa; border: 2px solid #eef2f5; border-radius: 14px; padding: 15px; font-size: 13px; font-weight: 600; color: #444; cursor: pointer; transition: all 0.2s ease; text-align: left; position: relative; display: flex; align-items: flex-start; line-height: 1.4; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         .option-text { flex: 1; padding-right: 25px; }
         
-        /* Correct / Wrong Styles */
         .option-correct { background: var(--correct-green) !important; border-color: var(--correct-border) !important; color: #0f5132 !important; font-weight: 800; box-shadow: 0 4px 15px rgba(40,167,69,0.2); }
         .option-correct::after { content: '✔'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #198754; font-weight: 900; }
         .option-wrong { background: var(--wrong-red) !important; border-color: var(--wrong-border) !important; color: #842029 !important; font-weight: 800; box-shadow: 0 4px 15px rgba(220,53,69,0.2); }
         .option-wrong::after { content: '✖'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #dc3545; font-weight: 900; }
 
-        /* Next Button */
         #next-btn { display: none; margin-top: 25px; width: 100%; background: linear-gradient(135deg, var(--premium-gold) 0%, #d4a700 100%); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 15px; font-weight: 900; letter-spacing: 1px; cursor: pointer; box-shadow: 0 6px 20px rgba(181, 148, 16, 0.3); transition: 0.2s; text-transform: uppercase; }
         #next-btn:active { transform: translateY(2px); box-shadow: 0 2px 10px rgba(181, 148, 16, 0.3); }
 
-        /* 🔥 PREMIUM RESULT DASHBOARD 🔥 */
         #result-box { display: none; background: linear-gradient(135deg, #ffffff 0%, #fffdf3 100%); border-radius: 20px; padding: 40px 20px; text-align: center; box-shadow: 0 15px 40px rgba(181, 148, 16, 0.2); border: 3px solid var(--premium-gold); position: relative; overflow: hidden; margin: 0 15px; }
         .congrats-text { font-size: 26px; font-weight: 900; color: var(--premium-gold); margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 1px; }
         .trophy { font-size: 70px; filter: drop-shadow(0 10px 15px rgba(181, 148, 16, 0.5)); animation: bounce 2s infinite; }
@@ -58,7 +49,6 @@
         .home-btn { background: var(--primary-teal); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: block; box-shadow: 0 6px 15px rgba(11, 43, 64, 0.25); text-transform: uppercase;}
         .retry-btn { background: transparent; color: var(--primary-teal); border: 2px solid var(--primary-teal); padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; text-decoration: none; display: block; }
 
-        /* 🎉 FIREWORKS / CONFETTI CSS 🎉 */
         .confetti { position: fixed; width: 12px; height: 12px; opacity: 0; z-index: 9999; animation: fall linear forwards; border-radius: 3px; }
         @keyframes fall { 0% { opacity: 1; top: -10%; transform: translateX(0) rotate(0deg); } 100% { opacity: 0; top: 110%; transform: translateX(150px) rotate(1080deg); } }
     </style>
@@ -82,7 +72,6 @@
     </div>
 
     <div class="quiz-container">
-        
         <div class="quiz-box" id="quiz-box">
             <div class="quiz-question" id="question-text">Loading question...</div>
             <div class="quiz-options">
@@ -107,36 +96,33 @@
                 <a href="#" class="retry-btn" onclick="location.reload()">↻ Retry Exam</a>
             </div>
         </div>
-
     </div>
 
     <script>
-        // एक समान फॉर्मेट का डेटाबेस (सभी सवालों के लिए)
+        // इस बार मैंने सभी सवालों को बिल्कुल एक सिंगल लाइन में सेट कर दिया है, ताकि कोई Error न आए।
         const quizDatabase = {
-            // 🔥 GS 1 2025 (20 प्रश्न) 🔥
             gs1_2025: [
-                { q: "1. निवेश के संदर्भ में, निम्नलिखित पर विचार कीजिए:\nI. बॉन्ड\nII. प्रतिरक्षा निधियाँ (हेज फंड्स)\nIII. स्टॉक\nIV. जोखिम पूँजी\nउपर्युक्त में से कितनों को वैकल्पिक निवेश निधि माना जाता है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "b" },
-                { q: "2. निम्नलिखित में कौन-कौन से, भारतीय रिज़र्व बैंक की आय के स्रोत हैं?\nI. सरकारी बॉन्डों का क्रय और विक्रय\nII. विदेशी मुद्रा का क्रय और विक्रय\nIII. पेंशन निधि प्रबंधन\nIV. निजी कंपनियों को ऋण देना\nV. करेंसी नोटों का मुद्रण और वितरण", a: "(A) केवल I और II", b: "(B) II, III और IV", c: "(C) I, III, IV और V", d: "(D) I, II और V", ans: "d" },
-                { q: "3. भारत सरकार के संदर्भ में, सूचना पर विचार कीजिए :\nI. प्रवर्तन निदेशालय : भगोड़ा आर्थिक अपराधी अधिनियम\nII. राजस्व आसूचना निदेशालय : सीमा शुल्क अधिनियम\nIII. प्रणाली एवं आँकड़ा प्रबंधन महानिदेशालय : वृहत् आँकड़ा विश्लेषण\nकितनी पंक्तियों में सूचना सही सुमेलित है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) सभी तीन", d: "(D) किसी में नहीं", ans: "b" },
-                { q: "4. कथनों पर विचार कीजिए :\nI. भारतीय रिज़र्व बैंक भारत में सभी सूचीबद्ध कंपनियों को व्यावसायिक उत्तरदायित्व और स्थिरता रिपोर्ट (BRSR) प्रस्तुत करने का अधिदेश करता है।\nII. BRSR में प्रकटन मुख्यतः गैर-वित्तीय स्वरूप के होते हैं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" },
-                { q: "5. कथन I: भारत में, कुक्कुट पालन और ऊन उत्पादन से प्राप्त आय कर मुक्त है।\nकथन II: आयकर अधिनियम, 1961 के अधीन ग्रामीण कृषि भूमि पूँजीगत परिसंपत्ति नहीं है।", a: "(A) दोनों सही, II व्याख्या है", b: "(B) दोनों सही, II व्याख्या नहीं है", c: "(C) I सही, II गलत", d: "(D) I गलत, II सही", ans: "d" },
-                { q: "6. कथनों पर विचार कीजिए :\nI. भारत, खनिज सुरक्षा भागीदारी में सदस्य है।\nII. भारत 30 अति आवश्यक खनिजों में साधन-संपन्न है।\nIII. संसद ने 2023 में अधिनियम में संशोधन कर नीलामी का अधिकार केंद्र को दिया है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "c" },
-                { q: "7. निवेश पर विचार कीजिए :\nकथन I: स्टॉक-धारकों की तुलना में बॉन्ड धारकों को कम जोखिम रहता है।\nकथन II: बॉन्ड धारक ऋणदाता होते हैं, स्टॉक-धारक स्वामी।\nकथन III: पुनर्भुगतान में बॉन्ड धारकों को प्राथमिकता दी जाती है।", a: "(A) II और III सही, दोनों I की व्याख्या करते हैं", b: "(B) II और III सही, एक व्याख्या करता है", c: "(C) एक सही, वह व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
-                { q: "8. कथनों पर विचार कीजिए :\nI. वैश्विक इक्विटी विकल्प संविदाओं में भारत का वृहद् अंश है।\nII. भारत का स्टॉक बाज़ार हांगकांग को पीछे छोड़ चुका है।\nIII. छोटे निवेशकों को चेतावनी देने के लिए कोई नियामक निकाय नहीं है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
-                { q: "9. चक्रीय अर्थव्यवस्था के बारे में:\nकथन I: यह ग्रीनहाउस गैसों के उत्सर्जन को कम करती है।\nकथन II: यह कच्चे माल के प्रयोग को कम करती है।\nकथन III: यह उत्पादन में अपव्यय को कम करती है।", a: "(A) II और III सही, I की व्याख्या करते हैं", b: "(B) I और II सही, I व्याख्या है", c: "(C) एक सही, व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
-                { q: "10. पूँजीगत प्राप्तियों के बारे में:\nI. ये देयता का सृजन करती है या परिसंपत्तियों में कमी लाती हैं।\nII. उधार-ग्रहण और विनिवेश पूँजीगत प्राप्तियाँ हैं।\nIII. ऋणों पर प्राप्त ब्याज सरकार की देयता का सृजन करता है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
-                { q: "11. राजा राममोहन राय के बारे में :\nI. उनमें प्राच्य विश्व के पारम्परिक दार्शनिक सिद्धांतों के प्रति अत्यंत अनुराग और समादर था।\nII. उनकी कामना थी कि देशवासी तर्कसंगत और वैज्ञानिक दृष्टिकोण अपनाएं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो 1 और न ही II", ans: "a" },
-                { q: "12. असहयोग कार्यक्रम के विषय:\nI. न्यायालयों/विदेशी वस्त्र का बहिष्कार\nII. अहिंसा का पालन\nIII. उपाधियों का प्रतिधारण\nIV. पंचायतों की स्थापना", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "c" },
+                { q: "1. निवेश के संदर्भ में, निम्नलिखित पर विचार कीजिए:<br>I. बॉन्ड<br>II. प्रतिरक्षा निधियाँ (हेज फंड्स)<br>III. स्टॉक<br>IV. जोखिम पूँजी<br>उपर्युक्त में से कितनों को वैकल्पिक निवेश निधि माना जाता है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "b" },
+                { q: "2. निम्नलिखित में कौन-कौन से, भारतीय रिज़र्व बैंक की आय के स्रोत हैं?<br>I. सरकारी बॉन्डों का क्रय और विक्रय<br>II. विदेशी मुद्रा का क्रय और विक्रय<br>III. पेंशन निधि प्रबंधन<br>IV. निजी कंपनियों को ऋण देना<br>V. करेंसी नोटों का मुद्रण और वितरण", a: "(A) केवल I और II", b: "(B) II, III और IV", c: "(C) I, III, IV और V", d: "(D) I, II और V", ans: "d" },
+                { q: "3. भारत सरकार के संदर्भ में, सूचना पर विचार कीजिए:<br>I. प्रवर्तन निदेशालय : भगोड़ा आर्थिक अपराधी अधिनियम<br>II. राजस्व आसूचना निदेशालय : सीमा शुल्क अधिनियम<br>III. प्रणाली एवं आँकड़ा प्रबंधन महानिदेशालय : वृहत् आँकड़ा विश्लेषण<br>कितनी पंक्तियों में सूचना सही सुमेलित है?", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) सभी तीन", d: "(D) किसी में नहीं", ans: "b" },
+                { q: "4. कथनों पर विचार कीजिए:<br>I. भारतीय रिज़र्व बैंक भारत में सभी सूचीबद्ध कंपनियों को व्यावसायिक उत्तरदायित्व और स्थिरता रिपोर्ट (BRSR) प्रस्तुत करने का अधिदेश करता है।<br>II. BRSR में प्रकटन मुख्यतः गैर-वित्तीय स्वरूप के होते हैं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" },
+                { q: "5. कथन I: भारत में, कुक्कुट पालन और ऊन उत्पादन से प्राप्त आय कर मुक्त है।<br>कथन II: आयकर अधिनियम, 1961 के अधीन ग्रामीण कृषि भूमि पूँजीगत परिसंपत्ति नहीं है।", a: "(A) दोनों सही, II व्याख्या है", b: "(B) दोनों सही, II व्याख्या नहीं है", c: "(C) I सही, II गलत", d: "(D) I गलत, II सही", ans: "d" },
+                { q: "6. कथनों पर विचार कीजिए:<br>I. भारत, खनिज सुरक्षा भागीदारी में सदस्य है।<br>II. भारत 30 अति आवश्यक खनिजों में साधन-संपन्न है।<br>III. संसद ने 2023 में अधिनियम में संशोधन कर नीलामी का अधिकार केंद्र को दिया है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "c" },
+                { q: "7. निवेश पर विचार कीजिए:<br>कथन I: स्टॉक-धारकों की तुलना में बॉन्ड धारकों को कम जोखिम रहता है।<br>कथन II: बॉन्ड धारक ऋणदाता होते हैं, स्टॉक-धारक स्वामी।<br>कथन III: पुनर्भुगतान में बॉन्ड धारकों को प्राथमिकता दी जाती है।", a: "(A) II और III सही, दोनों I की व्याख्या करते हैं", b: "(B) II और III सही, एक व्याख्या करता है", c: "(C) एक सही, वह व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
+                { q: "8. कथनों पर विचार कीजिए:<br>I. वैश्विक इक्विटी विकल्प संविदाओं में भारत का वृहद् अंश है।<br>II. भारत का स्टॉक बाज़ार हांगकांग को पीछे छोड़ चुका है।<br>III. छोटे निवेशकों को चेतावनी देने के लिए कोई नियामक निकाय नहीं है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
+                { q: "9. चक्रीय अर्थव्यवस्था के बारे में:<br>कथन I: यह ग्रीनहाउस गैसों के उत्सर्जन को कम करती है।<br>कथन II: यह कच्चे माल के प्रयोग को कम करती है।<br>कथन III: यह उत्पादन में अपव्यय को कम करती है।", a: "(A) II और III सही, I की व्याख्या करते हैं", b: "(B) I और II सही, I व्याख्या है", c: "(C) एक सही, व्याख्या करता है", d: "(D) दोनों गलत", ans: "a" },
+                { q: "10. पूँजीगत प्राप्तियों के बारे में:<br>I. ये देयता का सृजन करती है या परिसंपत्तियों में कमी लाती हैं।<br>II. उधार-ग्रहण और विनिवेश पूँजीगत प्राप्तियाँ हैं।<br>III. ऋणों पर प्राप्त ब्याज सरकार की देयता का सृजन करता है।", a: "(A) केवल I और II", b: "(B) केवल II और III", c: "(C) केवल I और III", d: "(D) I, II और III", ans: "a" },
+                { q: "11. राजा राममोहन राय के बारे में:<br>I. उनमें प्राच्य विश्व के पारम्परिक दार्शनिक सिद्धांतों के प्रति अत्यंत अनुराग और समादर था।<br>II. उनकी कामना थी कि देशवासी तर्कसंगत और वैज्ञानिक दृष्टिकोण अपनाएं।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो 1 और न ही II", ans: "a" },
+                { q: "12. असहयोग कार्यक्रम के विषय:<br>I. न्यायालयों/विदेशी वस्त्र का बहिष्कार<br>II. अहिंसा का पालन<br>III. उपाधियों का प्रतिधारण<br>IV. पंचायतों की स्थापना", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "c" },
                 { q: "13. सिंचाई में काम आने वाला 'अरघट्टा' क्या था?", a: "(A) एक घिरनी से खींचा जाने वाला चमड़े का थैला", b: "(B) एक बड़ा चक्का, जिसकी अराओं पर मिट्टी के पात्र बँधे हों", c: "(C) बैलों द्वारा खींचा जाने वाला बड़ा पात्र", d: "(D) सीधे हाथों से खींचा जाने वाला जल-डोल", ans: "b" },
                 { q: "14. प्राचीन भारत में 'मत्तविलास', 'विचित्रचित्त' उपाधियाँ किसने धारण कीं?", a: "(A) महेन्द्रवर्मन प्रथम", b: "(B) सिंहविष्णु", c: "(C) नरसिंहवर्मन प्रथम", d: "(D) सिंहवर्मन", ans: "a" },
                 { q: "15. चीनी तीर्थयात्री फाह्यान ने किसके शासनकाल में भारत की यात्रा की?", a: "(A) समुद्रगुप्त", b: "(B) चन्द्रगुप्त द्वितीय", c: "(C) कुमारगुप्त प्रथम", d: "(D) स्कंदगुप्त", ans: "b" },
                 { q: "16. श्रीविजय के विरुद्ध सफल सैन्य अभियान का नेतृत्व किसने किया?", a: "(A) अमोघवर्ष (राष्ट्रकूट)", b: "(B) प्रतापरुद्र (काकतीय)", c: "(C) राजेन्द्र प्रथम (चोल)", d: "(D) विष्णुवर्धन (होयसल)", ans: "c" },
-                { q: "17. युग्मों पर विचार कीजिए :\nI. अश्मक : गोदावरी\nII. कम्बोज : विपास\nIII. अवन्ती : महानदी\nIV. कोसल : सरयू", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "d" },
+                { q: "17. युग्मों पर विचार कीजिए:<br>I. अश्मक : गोदावरी<br>II. कम्बोज : विपास<br>III. अवन्ती : महानदी<br>IV. कोसल : सरयू", a: "(A) केवल एक", b: "(B) केवल दो", c: "(C) केवल तीन", d: "(D) सभी चार", ans: "d" },
                 { q: "18. प्रथम गन्धर्व महाविद्यालय (1901) कहाँ स्थापित किया गया था?", a: "(A) दिल्ली", b: "(B) ग्वालियर", c: "(C) उज्जैन", d: "(D) लाहौर", ans: "c" },
                 { q: "19. अशोक के अभिलेखों में 'प्रादेशिक', 'राजुक' और 'युक्त' किस स्तर के अधिकारी थे?", a: "(A) ग्राम-स्तरीय", b: "(B) जिला-स्तरीय", c: "(C) प्रांतीय", d: "(D) केन्द्रीय", ans: "b" },
-                { q: "20. असहयोग आंदोलन के संबंध में:\nI. उद्देश्य वैध तरीके से 'स्वराज' प्राप्त करना था।\nII. इसे चरणों में कार्यान्वित किया जाना था।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" }
+                { q: "20. असहयोग आंदोलन के संबंध में:<br>I. उद्देश्य वैध तरीके से 'स्वराज' प्राप्त करना था।<br>II. इसे चरणों में कार्यान्वित किया जाना था।", a: "(A) केवल I", b: "(B) केवल II", c: "(C) I और II दोनों", d: "(D) न तो I और न ही II", ans: "b" }
             ],
-            // 🔥 HISTORY PYQ (10 प्रश्न) 🔥
             history: [
                 { q: "Q. बौद्ध धर्म के संदर्भ में, 'महायान' संप्रदाय की मुख्य विशेषता क्या थी? [UPSC 2024]", a: "(A) बुद्ध की मूर्ति पूजा", b: "(B) कठोर तपस्या", c: "(C) केवल पालि भाषा का प्रयोग", d: "(D) उपरोक्त सभी", ans: "a" },
                 { q: "Q. 1935 के भारत सरकार अधिनियम की मुख्य विशेषता क्या थी? [UPSC 2024]", a: "(A) प्रांतीय स्वायत्तता", b: "(B) केंद्र में द्वैध शासन", c: "(C) अखिल भारतीय संघ", d: "(D) उपरोक्त सभी", ans: "d" },
@@ -173,17 +159,15 @@
             if (currentSubject && quizDatabase[currentSubject]) {
                 currentQuestions = quizDatabase[currentSubject];
                 
-                // टाइमर सेट करना (GS1 के लिए 120 मिनट, बाकी के लिए 15 मिनट)
                 if(currentSubject === 'gs1_2025') {
-                    timeInSeconds = 7200; // 120 Mins
+                    timeInSeconds = 7200; // 120 मिनट 
                     document.getElementById('subject-title').innerText = "UPSC PRELIMS 2025 (GS-1)";
                 } else {
-                    timeInSeconds = 900; // 15 Mins
+                    timeInSeconds = 900; // 15 मिनट
                     document.getElementById('subject-title').innerText = currentSubject.toUpperCase() + " QUIZ";
                 }
                 
                 document.getElementById('total-q-num').innerText = currentQuestions.length;
-                
                 startTimer();
                 loadQuestion();
             } else {
@@ -195,6 +179,12 @@
             document.getElementById('next-btn').style.display = 'none'; 
             document.getElementById('current-q-num').innerText = currentQIndex + 1; 
 
-            // Progress Bar Update
-            let progressPercent = ((currentQIndex) / currentQu
-         
+            let progressPercent = ((currentQIndex) / currentQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + "%";
+
+            const qData = currentQuestions[currentQIndex];
+            document.getElementById('question-text').innerHTML = qData.q; // अब कोई Error नहीं आएगा 
+            
+            document.getElementById('text-a').innerText = qData.a;
+            document.getElementById('text-b').innerText = qData.b;
+            document.getElementById('text-c').innerText =
