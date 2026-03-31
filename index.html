@@ -15,11 +15,12 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .header h1{margin:0;font-size:18px;font-weight:800;color:var(--primary-teal);letter-spacing:1px;}
 .profile-logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--primary-teal);}
 
-/* बैनर स्लाइड शो - फोटो कटेगी नहीं */
-.banner-slider-box{margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;}
+/* बैनर स्लाइड शो */
+.banner-slider-box{margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;background:#eee;}
 .banner-slider-box img{width:100%;height:auto;display:none;border-radius:15px;}
 .banner-slider-box img.active{display:block;}
 
+/* लाइव क्वीज सेक्शन */
 .live-quiz-section{margin:0 15px 20px;background:var(--primary-teal);border-radius:20px;padding:25px 15px;text-align:center;color:white;position:relative;overflow:hidden;}
 .live-quiz-section::after{content:'LIVE';position:absolute;top:10px;right:10px;background:#ff0000;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;animation:blink 1s infinite;}
 @keyframes blink{50%{opacity:0;}}
@@ -31,24 +32,35 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 @keyframes newsSlide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
 
 .card-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-.teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;transition:all 0.3s ease;box-shadow:var(--btn-shadow);position:relative;overflow:hidden;}
+.teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;box-shadow:var(--btn-shadow);position:relative;overflow:hidden;}
 .teal-card span{font-size:30px;display:block;margin-bottom:8px;}
 .teal-card p{margin:0;font-size:13px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;}
 
 .section-title{padding:25px 20px 10px;font-size:13px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2.5px;}
 
 .whats-new-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
-.wn-card{background:#fcf9f9;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;}
+.wn-card{background:#fcf9f9;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;display:flex;flex-direction:column;}
 .wn-header{padding:10px 8px;font-size:11px;font-weight:800;color:white;}
-.wn-list{padding:10px 8px;}
+.wn-list{padding:10px 8px;flex:1;}
 .wn-text{font-size:11px;color:#333;font-style:italic;font-weight:600;line-height:1.4;}
 
 .gov-card{grid-column:span 2;display:flex;align-items:center;text-align:left;padding:15px;border-radius:18px;}
-.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;object-fit:cover;}
+.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;border:1px solid #ddd;object-fit:cover;}
+.gov-text{flex:1;}
 .btn-action{background:var(--primary-teal);color:white;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;display:inline-block;margin-top:8px;}
 
 .premium-card{border:2px solid var(--premium-gold)!important;background:linear-gradient(135deg,var(--white) 0%,#fffdf3 100%)!important;position:relative;overflow:hidden;}
 .premium-badge{position:absolute;top:10px;right:-25px;background:var(--premium-gold);color:white;font-size:9px;font-weight:900;padding:3px 30px;transform:rotate(45deg);}
+
+/* --- बटन फिक्स --- */
+.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 15px;}
+.feature-card{background:var(--white);border-radius:12px;padding:15px 5px;text-align:center;border:1px solid #eee;box-shadow:var(--btn-shadow);text-decoration:none;display:block;}
+.feature-card p{margin:5px 0 0;font-size:10px;font-weight:bold;color:var(--primary-teal);}
+
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:10px 15px;}
+.comm-card{background:var(--white);border-radius:15px;padding:18px;text-align:center;text-decoration:none;box-shadow:var(--btn-shadow);border:1px solid #eee;display:block;}
+.comm-card img{width:32px;height:32px;margin-bottom:6px;display:inline-block;}
+.comm-card p{margin:0;font-size:12px;font-weight:bold;}
 
 .footer{text-align:center;padding:20px;margin-top:20px;border-top:1px solid #ddd;background:var(--white);}
 .footer a{color:var(--primary-teal);font-size:12px;font-weight:800;text-decoration:none;margin:0 8px;}
@@ -107,15 +119,15 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 
 <div class="section-title">✨ MORE FEATURES</div>
 <div class="features-grid">
-<div class="feature-card">🏅<p style="font-size:10px;font-weight:bold;">Exams</p></div>
-<div class="feature-card">💡<p style="font-size:10px;font-weight:bold;">Gyan Bindu</p></div>
-<a href="https://ncert.nic.in/" style="text-decoration:none;"><div class="feature-card">📖<p style="font-size:10px;font-weight:bold;color:#0088cc;">NCERT Books</p></div></a>
+    <div class="feature-card">🏅<p>Exams</p></div>
+    <div class="feature-card">💡<p>Gyan Bindu</p></div>
+    <a href="https://ncert.nic.in/" class="feature-card">📖<p style="color:#0088cc;">NCERT Books</p></a>
 </div>
 
 <div class="section-title">🤝 CONNECT WITH US</div>
 <div class="comm-grid">
-<a href="https://t.me/mission968" class="comm-card" style="border-bottom:3px solid #0088cc;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="30"><p style="color:#0088cc;">Telegram</p></a>
-<a href="https://wa.me/919685026772" class="comm-card" style="border-bottom:3px solid #25d366;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30"><p style="color:#25d366;">WhatsApp</p></a>
+    <a href="https://t.me/mission968" class="comm-card" style="border-bottom:3px solid #0088cc;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"><p style="color:#0088cc;">Telegram</p></a>
+    <a href="https://wa.me/919685026772" class="comm-card" style="border-bottom:3px solid #25d366;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"><p style="color:#25d366;">WhatsApp</p></a>
 </div>
 
 <div class="section-title">🌟 STUDENTS FEEDBACK</div>
@@ -149,4 +161,5 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
     }, 5000);
 </script>
 </body>
-</html>
+    </html>
+    
