@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Student Ratings - ONLY HINDI IAS</title><script async src="https://www.googletagmanager.com/gtag/js?id=G-GGTXK0V93Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GGTXK0V93Z');</script><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"><style>:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;} body{margin:0;font-family:'Poppins',sans-serif;background:var(--light-bg);color:var(--primary-teal);padding-bottom:40px;} .header{background:var(--white);padding:15px 20px;display:flex;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;} .back-btn{background:transparent;color:var(--primary-teal);border:2px solid var(--primary-teal);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;margin-right:15px;} .container{padding:20px 15px;} .rating-form{background:white;padding:20px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.05);margin-bottom:25px;border:2px solid var(--premium-gold);} .rating-form h2{margin:0 0 15px;font-size:18px;text-align:center;} .stars{display:flex;justify-content:center;gap:10px;margin-bottom:15px;font-size:30px;color:#ddd;cursor:pointer;} .stars span.active{color:var(--premium-gold);} .input-box{width:100%;padding:12px;margin-bottom:10px;border:1px solid #ddd;border-radius:8px;box-sizing:border-box;font-family:inherit;} .submit-btn{width:100%;padding:12px;background:var(--primary-teal);color:white;border:none;border-radius:8px;font-weight:800;cursor:pointer;} .review-card{background:white;padding:15px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border-left:5px solid var(--premium-gold);} .review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;} .review-name{font-weight:800;font-size:14px;} .review-stars{color:var(--premium-gold);font-size:12px;} .review-text{font-size:13px;color:#555;font-style:italic;}</style></head><body>
+<div class="header"><a href="index.html" class="back-btn">← BACK</a><h1>STUDENT RATINGS</h1></div>
+<div class="container">
+    <div class="rating-form">
+        <h2>अपनी रेटिंग दें ⭐</h2>
+        <div class="stars" id="star-input"><span onclick="setRating(1)">★</span><span onclick="setRating(2)">★</span><span onclick="setRating(3)">★</span><span onclick="setRating(4)">★</span><span onclick="setRating(5)">★</span></div>
+        <input type="text" id="user-name" class="input-box" placeholder="आपका नाम (UPSC Aspirant)">
+        <textarea id="user-msg" class="input-box" placeholder="आपका फीडबैक..."></textarea>
+        <button class="submit-btn" onclick="submitRating()">SUBMIT RATING</button>
+    </div>
+    <div id="reviews-list">
+        <div class="review-card"><div class="review-header"><span class="review-name">Kajal (UPSC Aspirant)</span><span class="review-stars">★★★★★</span></div><p class="review-text">"Thanku ye bhot achha h study k liye 🙏🏻"</p></div>
+    </div>
+</div>
+<script>
+let selectedRating = 0;
+function setRating(n){
+    selectedRating = n;
+    const stars = document.querySelectorAll('#star-input span');
+    stars.forEach((s, i) => { s.classList.toggle('active', i < n); });
+}
+function submitRating(){
+    const name = document.getElementById('user-name').value;
+    const msg = document.getElementById('user-msg').value;
+    if(!selectedRating || !name){ alert('कृपया नाम और स्टार रेटिंग चुनें!'); return; }
+    alert('नमस्ते ' + name + '! आपकी रेटिंग एडमिन को भेज दी गई है। (अभी यह डेमो है, जल्द ही लाइव होगा)');
+}
+</script></body></html>
