@@ -22,171 +22,88 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 @keyframes newsSlide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
 .card-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:15px;}
 .teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;transition:all 0.3s ease;box-shadow:var(--btn-shadow);position:relative;overflow:hidden;}
-.teal-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(to right,var(--primary-teal),#1d4d6e);opacity:0;transition:0.3s;}
 .teal-card:active,.teal-card:hover{transform:translateY(-3px);border-color:#d0d0d0;box-shadow:var(--btn-hover-shadow);}
-.teal-card:hover::before{opacity:1;}
-.teal-card span{font-size:30px;display:block;margin-bottom:8px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));}
+.teal-card span{font-size:30px;display:block;margin-bottom:8px;}
 .teal-card p{margin:0;font-size:13px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;letter-spacing:0.5px;}
 .section-title{padding:25px 20px 10px;font-size:13px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2.5px;}
-.recent-updates-title{text-align:center;font-size:17px;font-weight:800;color:#333;margin-top:25px;letter-spacing:0;}
-.recent-updates-sub{text-align:center;font-size:10px;color:#666;margin-bottom:15px;font-weight:600;}
 .whats-new-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
-.wn-card{background:#fcf9f9;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;display:flex;flex-direction:column;}
-.english-card .wn-header{background:#8B85E8;color:white;padding:10px 8px;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px;}
-.hindi-card .wn-header{background:#DEB887;color:white;padding:10px 8px;font-size:11px;font-weight:800;display:flex;align-items:center;gap:5px;}
-.wn-list{padding:10px 8px;flex:1;}
+.wn-card{background:#fcf9f9;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;}
+.english-card .wn-header{background:#8B85E8;color:white;padding:10px 8px;font-size:11px;font-weight:800;}
+.hindi-card .wn-header{background:#DEB887;color:white;padding:10px 8px;font-size:11px;font-weight:800;}
+.wn-list{padding:10px 8px;}
 .wn-item{padding-bottom:8px;margin-bottom:8px;border-bottom:1px dashed #ddd;}
-.wn-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.wn-date{font-size:9px;color:#666;margin-bottom:4px;display:flex;align-items:center;gap:4px;font-weight:600;}
+.wn-item:last-child{border-bottom:none;}
 .wn-text{font-size:11px;color:#333;font-style:italic;font-weight:600;line-height:1.4;}
-.quiz-section{padding:0 15px 20px;display:grid;grid-template-columns:1fr;gap:10px;}
-.quiz-start-card{grid-column:span 1;display:flex;align-items:center;justify-content:space-between;text-align:left;border-radius:16px;cursor:pointer;padding:20px;text-decoration:none;}
-.quiz-icon{font-size:30px;margin-right:15px;}
+.quiz-section{padding:0 15px 20px;}
+.quiz-start-card{display:flex;align-items:center;justify-content:space-between;border-radius:16px;padding:20px;text-decoration:none;}
 .quiz-info b{font-size:16px;font-weight:800;color:var(--primary-teal);}
 .quiz-info p{margin:2px 0 0;font-size:12px;color:#555;}
-.quiz-right-arrow{font-size:18px;color:var(--primary-teal);font-weight:bold;}
-.gov-card{grid-column:span 2;display:flex;align-items:center;text-align:left;padding:15px;border-radius:18px;}
-.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;border:1px solid #ddd;object-fit:cover;}
-.gov-text{flex:1;}
-.gov-text b{font-size:14px;color:var(--primary-teal);font-weight:800;display:block;margin-bottom:2px;}
-.btn-action{background:var(--primary-teal);color:white;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;display:inline-block;margin-top:8px;border:none;cursor:pointer;}
-.premium-card{border:2px solid var(--premium-gold)!important;background:linear-gradient(135deg,var(--white) 0%,#fffdf3 100%)!important;}
-.premium-badge{position:absolute;top:10px;right:-25px;background:var(--premium-gold);color:white;font-size:9px;font-weight:900;padding:3px 30px;transform:rotate(45deg);}
+.gov-card{grid-column:span 2;display:flex;align-items:center;padding:15px;border-radius:18px;}
+.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;object-fit:cover;}
+.gov-text b{font-size:14px;color:var(--primary-teal);font-weight:800;}
+.btn-action{background:var(--primary-teal);color:white;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;display:inline-block;margin-top:8px;}
+.premium-card{border:2px solid var(--premium-gold)!important;}
 .btn-premium{background:var(--premium-gold);}
-.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 15px;}
-.feature-card{background:var(--white);border-radius:12px;padding:15px 5px;text-align:center;border:1px solid #eee;box-shadow:var(--btn-shadow);}
-.feature-card p{margin:5px 0 0;font-size:10px;font-weight:bold;color:var(--primary-teal);}
-.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:10px 15px;}
-.comm-card{background:var(--white);border-radius:15px;padding:18px;text-align:center;text-decoration:none;box-shadow:var(--btn-shadow);border:1px solid #eee;transition:0.3s;}
-.comm-card img{width:32px;height:32px;margin-bottom:6px;}
-.comm-card p{margin:0;font-size:12px;font-weight:bold;}
 .footer{text-align:center;padding:20px;margin-top:20px;border-top:1px solid #ddd;background:var(--white);}
 .footer a{color:var(--primary-teal);font-size:12px;font-weight:800;text-decoration:none;margin:0 8px;}
-.footer p{color:#666;font-size:10px;font-weight:600;margin-top:10px;}
 </style>
 </head>
 <body>
 <div class="header"><h1>ONLY HINDI IAS</h1><img src="1766115476203(2).jpg" class="profile-logo" alt="Logo"></div>
 <div class="banner-box"><img src="1774704983075.jpg" alt="Banner"></div>
 <div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
+
 <div class="section-title">⚡ QUICK ACCESS</div>
 <div class="card-container">
-<a href="batches.html" class="teal-card"><div class="btn-content"><span>🎓</span><p>KGS Batches</p></div></a>
+<a href="batches.html" class="teal-card"><span>🎓</span><p>KGS Batches</p></a>
 <div class="teal-card"><span>❤️</span><p>Favourites</p></div>
 <div class="teal-card"><span>⌛</span><p>History</p></div>
 <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
 </div>
 
-<div class="recent-updates-title">Recent updates on ONLY HINDI IAS</div>
-<div class="recent-updates-sub">Scroll down to check out our latest articles.</div>
-<div class="whats-new-container">
-<div class="wn-card english-card">
-<div class="wn-header">☆ What's New</div>
-<div class="wn-list">
-<div class="wn-item"><div class="wn-date">📅 1 April 2026</div><div class="wn-text">Economy notes coming soon</div></div>
-<div class="wn-item"><div class="wn-date">📅 30 March 2026</div><div class="wn-text">GS-1:2025 Test series are available<br><span style="font-size:9px;font-weight:normal;color:#666;">(Click on UPSC subject wise quiz)</span></div></div>
-</div>
-</div>
-<div class="wn-card hindi-card">
-<div class="wn-header">☆ नया क्या है?</div>
-<div class="wn-list">
-<div class="wn-item"><div class="wn-date">📅 1 April 2026</div><div class="wn-text">अर्थव्यवस्था के नोट्स जल्द आ रहे हैं</div></div>
-<div class="wn-item"><div class="wn-date">📅 30 March 2026</div><div class="wn-text">GS-1: 2025 टेस्ट सीरीज़ उपलब्ध है<br><span style="font-size:9px;font-weight:normal;color:#666;">(UPSC subject wise quiz पर क्लिक करें)</span></div></div>
-</div>
-</div>
-</div>
-
 <div class="section-title">✍️ DAILY PRACTICE QUIZ</div>
 <div class="quiz-section">
 <a href="subjects.html" class="teal-card quiz-start-card">
-<div style="display:flex;align-items:center;"><span class="quiz-icon">📝</span><div class="quiz-info"><b>UPSC Subject-wise Quiz</b><p>History, Polity, Economy & more</p></div></div>
-<div class="quiz-right-arrow">START →</div>
+<div style="display:flex;align-items:center;"><span>📝</span>&nbsp;&nbsp;<div class="quiz-info"><b>UPSC Subject-wise Quiz</b><p>History, Polity, Economy & more</p></div></div>
+<div style="font-weight:bold;">START →</div>
 </a>
 </div>
 
 <div class="section-title">💎 PREMIUM STUDY MATERIAL</div>
-<div class="card-container">
-<div class="teal-card gov-card premium-card">
-<div class="premium-badge">PREMIUM</div>
-<img src="IMG_20260329_082203_932.jpg" alt="Ancient History Premium">
-<div class="gov-text">
-<b>Ancient History (Handwritten)</b>
-<p style="margin:3px 0;font-size:11px;color:#555;">UPSC Special Notes | Complete Theory</p>
-<p style="margin:0;font-size:13px;color:var(--premium-gold);font-weight:800;">Price: ₹59 <span style="text-decoration:line-through;color:#aaa;font-size:11px;">₹199</span></p>
-<a href="https://wa.me/919685026772?text=नमस्ते%20नील%20सर,%20मुझे%20Ancient%20History%20के%20Premium%20Notes%20(₹59)%20खरीदने%20हैं।" target="_blank" class="btn-action btn-premium">🔒 BUY NOW (₹59)</a>
-</div>
-</div>
-</div>
-
-<div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
-<div class="card-container">
-<div class="teal-card gov-card">
-<img src="IMG_20260319_163412_254.jpg" alt="Gov">
-<div class="gov-text">
-<b>GS Paper 2 Dossier</b>
-<p style="margin:0;font-size:11px;color:#555;">Governance Complete Theory & Notes</p>
-<a href="governance.pdf" target="_blank" class="btn-action">📄 OPEN PDF</a>
-</div>
-</div>
-</div>
-
-<div class="section-title">✨ MORE FEATURES</div>
-<div class="features-grid">
-<div class="feature-card">🏅<p>Exams</p></div>
-<div class="feature-card">💡<p>Gyan Bindu</p></div>
-<a href="https://ncert.nic.in/" target="_blank" style="text-decoration:none;"><div class="feature-card">📖<p style="color:#0088cc;">NCERT Books</p></div></a>
-</div>
-
-<div class="section-title">🤝 CONNECT WITH US</div>
-<div class="comm-grid">
-<a href="https://t.me/mission968" target="_blank" class="comm-card" style="border-bottom:3px solid #0088cc;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"><p style="color:#0088cc;">Telegram</p></a>
-<a href="https://wa.me/919685026772" target="_blank" class="comm-card" style="border-bottom:3px solid #25d366;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"><p style="color:#25d366;">WhatsApp</p></a>
-</div>
+<div class="card-container"><div class="teal-card gov-card premium-card"><img src="IMG_20260329_082203_932.jpg" alt="Ancient History"><div class="gov-text"><b>Ancient History (Premium)</b><p style="font-size:11px;color:#555;">UPSC Special Handwritten Notes</p><a href="https://wa.me/919685026772?text=नमस्ते%20नील%20सर,%20मुझे%20Ancient%20History%20के%20Premium%20Notes%20खरीदने%20हैं।" target="_blank" class="btn-action btn-premium">🔒 BUY NOW (₹59)</a></div></div></div>
 
 <div class="section-title">🌟 STUDENTS FEEDBACK</div>
-<div class="card-container" style="display:block;padding:0 15px;margin-bottom:20px;">
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"नील सर आपकी वेबसाइट और ग्रुप से पढ़ाई में बहुत मदद मिलती है, इसके लिए दिल से धन्यवाद🥰♥️🙏"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">P</div><b style="font-size:12px;color:var(--primary-teal);">Pushpa Raj (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"यह वेबसाइट बहुत ही यूज़फुल है 🥰"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">K</div><b style="font-size:12px;color:var(--primary-teal);">Komal (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"ONLY HINDI IAS की वेबसाइट बहुत ही सरल और उपयोगी है। सर आपके नोट्स से UPSC की तैयारी बहुत आसान हो गई!"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">P</div><b style="font-size:12px;color:var(--primary-teal);">Priya Singh (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"बहुत-बहुत धन्यवाद 🙏हमें upsc सामग्री प्रदान करने के लिए, यह हमारे लिए बहुत ही उपयोगी है, आपने हमें काफी आसान भाषा में यह उपलब्ध कराई है शुक्रिया 👍"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">A</div><b style="font-size:12px;color:var(--primary-teal);">Aditi Singh (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"Aapka content saral, spasht aur poori tarah UPSC-oriented hai. Hindi medium aspirants ke liye bahut upyogi. Dhanyavaad 🙏"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">M</div><b style="font-size:12px;color:var(--primary-teal);">Muskan (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"super h"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">A</div><b style="font-size:12px;color:var(--primary-teal);">Abhi (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"यह बेबसाइट बहुत अच्छी है धन्यवाद"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">A</div><b style="font-size:12px;color:var(--primary-teal);">आराधना यादव (UPSC Aspirant)</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"useful site thanks"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">M</div><b style="font-size:12px;color:var(--primary-teal);">Mohan</b></div>
-</div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:15px;border-left:4px solid var(--primary-teal);">
-<p style="font-size:13px;font-style:italic;color:#444;margin-bottom:8px;">"Thanku ye bhot achha h study k liye 🙏🏻"</p>
-<div style="display:flex;align-items:center;"><div style="width:30px;height:30px;background:#ddd;border-radius:50%;margin-right:10px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">K</div><b style="font-size:12px;color:var(--primary-teal);">Kajal (UPSC Aspirant)</b></div>
+<div style="padding:0 15px;">
+    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:12px;border-left:4px solid var(--primary-teal);">
+    <p style="font-size:12px;font-style:italic;color:#444;margin-bottom:8px;">"नील सर आपकी वेबसाइट और ग्रुप से पढ़ाई में बहुत मदद मिलती है, इसके लिए दिल से धन्यवाद🥰♥️🙏"</p>
+    <b style="font-size:12px;color:var(--primary-teal);">Pushpa Raj (UPSC Aspirant)</b>
+    </div>
+
+    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:12px;border-left:4px solid var(--primary-teal);">
+    <p style="font-size:12px;font-style:italic;color:#444;margin-bottom:8px;">"यह वेबसाइट बहुत अच्छी है, नोट्स और क्विज़ दोनों ही बहुत मददगार हैं! ⭐⭐⭐⭐⭐"</p>
+    <b style="font-size:12px;color:var(--primary-teal);">Sanjana (UPSC Aspirant)</b>
+    </div>
+
+    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:12px;border-left:4px solid var(--primary-teal);">
+    <p style="font-size:12px;font-style:italic;color:#444;margin-bottom:8px;">"Thanku ye bhot achha h study k liye 🙏🏻"</p>
+    <b style="font-size:12px;color:var(--primary-teal);">Kajal (UPSC Aspirant)</b>
+    </div>
+
+    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:12px;border-left:4px solid var(--primary-teal);">
+    <p style="font-size:12px;font-style:italic;color:#444;margin-bottom:8px;">"यह बेबसाइट बहुत अच्छी है धन्यवाद"</p>
+    <b style="font-size:12px;color:var(--primary-teal);">आराधना यादव (UPSC Aspirant)</b>
+    </div>
+
+    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:12px;border-left:4px solid var(--primary-teal);">
+    <p style="font-size:12px;font-style:italic;color:#444;margin-bottom:8px;">"useful site thanks"</p>
+    <b style="font-size:12px;color:var(--primary-teal);">Mohan</b>
+    </div>
+
+    <a href="rating.html" class="btn-action" style="width:100%;box-sizing:border-box;text-align:center;background:var(--premium-gold);color:white;padding:12px;border-radius:12px;display:block;margin:15px auto;font-weight:900;text-decoration:none;">⭐ वेबसाइट को रेटिंग दें (RATINGS)</a>
+    
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfRiKQFP2WemSN9G2LGGt4Vk_qKwqDMYGbWKcCLiXucVPtWuw/viewform" target="_blank" class="btn-action" style="width:100%;box-sizing:border-box;text-align:center;background:white;color:var(--primary-teal);border:2px dashed var(--primary-teal);padding:12px;border-radius:12px;display:block;font-weight:800;text-decoration:none;">📝 GIVE YOUR FEEDBACK</a>
 </div>
 
-<a href="rating.html" class="btn-action" style="width:100%;box-sizing:border-box;text-align:center;background:var(--premium-gold);color:white;padding:12px;border-radius:12px;display:block;margin:10px auto;border:none;font-weight:900;text-decoration:none;">⭐ वेबसाइट को रेटिंग दें (RATINGS)</a>
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSfRiKQFP2WemSN9G2LGGt4Vk_qKwqDMYGbWKcCLiXucVPtWuw/viewform" target="_blank" class="btn-action" style="width:100%;box-sizing:border-box;text-align:center;background:var(--white);color:var(--primary-teal);border:2px dashed var(--primary-teal);box-shadow:none;padding:12px;border-radius:12px;display:block;margin:0 auto;">📝 GIVE YOUR FEEDBACK</a>
-</div>
 <div class="footer"><a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a><p>© 2026 ONLY HINDI IAS. All Rights Reserved.</p></div>
 </body>
-                                                                                                               </html>
-  
+</html>
