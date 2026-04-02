@@ -22,6 +22,23 @@
         .batch-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; }
         .batch-date { font-size: 9px; color: #888; margin-bottom: 12px; }
         .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 6px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
+
+        /* ---------- यहाँ से आपका नया डिज़ाइन (CSS) जोड़ा गया है ---------- */
+        
+        /* लेक्चर्स वाले पेज का डिज़ाइन */
+        #geo-lectures-section { display: none; padding: 20px; }
+        .lecture-card { background: white; border-radius: 10px; display: flex; align-items: center; padding: 10px; margin-bottom: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); cursor: pointer; }
+        .lecture-card img { width: 90px; height: 55px; border-radius: 6px; object-fit: cover; margin-right: 15px; }
+        .lecture-card-info { flex-grow: 1; }
+        .lecture-card-title { font-size: 13px; font-weight: bold; color: #3b5098; margin: 0 0 3px 0; }
+        .lecture-card-sub { font-size: 10px; color: #888; margin: 0; }
+        .play-icon-btn { background: #3b5098; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; }
+
+        /* ब्लैक स्क्रीन वीडियो पॉप-अप (Modal) का डिज़ाइन */
+        .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
+        .close-btn-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 40px; cursor: pointer; z-index: 10000; line-height: 1; font-weight: bold;}
+        .iframe-container { width: 100%; max-width: 800px; aspect-ratio: 16/9; position: relative; }
+        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
@@ -31,11 +48,12 @@
         <h1 class="page-title">UPSC Free Batches</h1>
     </div>
 
-    <div class="search-container">
+    <div class="search-container" id="search-box-area">
         <input type="text" class="search-box" placeholder="🔍 Search batches...">
     </div>
 
-    <div class="batch-grid">
+    <div class="batch-grid" id="main-batch-grid">
+        <!-- पुराना बैच 1 -->
         <a href="classroom.html">
             <div class="batch-card">
                 <div class="batch-image">🏛️ IAS</div>
@@ -47,6 +65,7 @@
             </div>
         </a>
 
+        <!-- पुराना बैच 2 -->
         <div class="batch-card">
             <div class="batch-image" style="background-color: #d93838;">🧮 CSAT</div>
             <div class="batch-content">
@@ -55,7 +74,127 @@
                 <div class="fav-btn">♡ Add to Favorites</div>
             </div>
         </div>
+
+        <!-- ---------- आपका नया World Geography बैच यहाँ लगाया गया है ---------- -->
+        <div class="batch-card" onclick="openGeoLectures()" style="cursor: pointer;">
+            <!-- कवर फोटो यहाँ लगी है -->
+            <div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover no-repeat; padding: 0; height: 90px;"></div>
+            <div class="batch-content">
+                <div class="batch-title">World Geography By Sachin Arora Sir</div>
+                <div class="batch-date">Total 6 Lectures</div>
+                <div class="fav-btn" style="background-color: #3b5098; color: white;">▶ OPEN BATCH</div>
+            </div>
+        </div>
     </div>
+
+    <!-- ---------- यहाँ से लेक्चर्स की लिस्ट शुरू होती है (जो बैच पर क्लिक करने पर दिखेगी) ---------- -->
+    <div id="geo-lectures-section">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <button onclick="goBackToBatches()" style="background-color: #ffaa00; border: none; color: white; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer; margin-right: 15px;">⬅ Back</button>
+            <h2 style="font-size: 16px; margin: 0; color: #3b5098;">World Geography</h2>
+        </div>
+
+        <!-- Lecture 1 -->
+        <div class="lecture-card" onclick="openVideo('BIOMk06xp3k')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 01</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+
+        <!-- Lecture 2 -->
+        <div class="lecture-card" onclick="openVideo('sIoG0Ov6sJw')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 02</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+
+        <!-- Lecture 3 -->
+        <div class="lecture-card" onclick="openVideo('sxC5z3VWAgE')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 03</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+
+        <!-- Lecture 4 -->
+        <div class="lecture-card" onclick="openVideo('z6CX9313lYw')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 04</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+
+        <!-- Lecture 5 -->
+        <div class="lecture-card" onclick="openVideo('EzeW4S_aZd4')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 05</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+
+        <!-- Lecture 6 -->
+        <div class="lecture-card" onclick="openVideo('O3engm8_fI4')">
+            <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
+            <div class="lecture-card-info">
+                <h3 class="lecture-card-title">Lecture 06</h3>
+                <p class="lecture-card-sub">Sachin Arora Sir</p>
+            </div>
+            <div class="play-icon-btn">▶</div>
+        </div>
+    </div>
+
+    <!-- ---------- ब्लैक स्क्रीन वीडियो पॉप-अप (Modal) ---------- -->
+    <div class="video-modal" id="videoModal">
+        <div class="close-btn-modal" onclick="closeVideo()">×</div>
+        <div class="iframe-container">
+            <!-- allowfullscreen लगाया है ताकि बच्चा वीडियो को बड़ा (Full size) कर सके -->
+            <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ---------- यहाँ से जावास्क्रिप्ट (बटन काम करने का लॉजिक) शुरू होता है ---------- -->
+    <script>
+        // 1. जब बच्चा बैच पर क्लिक करेगा, तो पुराने बैच छुप जाएंगे और लेक्चर दिखेंगे
+        function openGeoLectures() {
+            document.getElementById('main-batch-grid').style.display = 'none';
+            document.getElementById('search-box-area').style.display = 'none';
+            document.getElementById('geo-lectures-section').style.display = 'block';
+            window.scrollTo(0, 0); // पेज को एकदम ऊपर ले जाएगा
+        }
+
+        // 2. जब बच्चा वापस जाने के लिए 'Back' दबाएगा, तो पुराने बैच वापस आ जाएंगे
+        function goBackToBatches() {
+            document.getElementById('geo-lectures-section').style.display = 'none';
+            document.getElementById('main-batch-grid').style.display = 'grid'; // पहले जैसा ग्रिड
+            document.getElementById('search-box-area').style.display = 'block';
+        }
+
+        // 3. लेक्चर पर क्लिक करने से ब्लैक स्क्रीन में सीधा वीडियो चलेगा
+        function openVideo(videoId) {
+            document.getElementById('videoModal').style.display = 'flex';
+            // यूट्यूब का लिंक (ऑटोप्ले और बिना एक्स्ट्रा डिज़ाइन के)
+            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&fs=1";
+            document.getElementById('ytPlayer').src = embedUrl;
+        }
+
+        // 4. '×' (क्रॉस) दबाने पर वीडियो बंद हो जाएगा
+        function closeVideo() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('ytPlayer').src = ""; // वीडियो बैकग्राउंड में बजता न रहे, इसलिए इसे खाली कर दिया
+        }
+    </script>
 
 </body>
 </html>
