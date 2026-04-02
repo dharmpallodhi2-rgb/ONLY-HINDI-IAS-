@@ -25,8 +25,9 @@
         #subjects-section { display: none; padding: 20px; position: relative; }
         .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; display: flex; flex-direction: column;}
         
-        /* बैनर को पूरा दिखाने के लिए 'contain' का उपयोग किया गया है */
-        .subject-banner { height: 130px; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #ffffff; border-bottom: 3px solid #ffaa00; }
+        /* नया: बैनर को 100% फुल (बिना सफेद जगह के) दिखाने का कोड */
+        .subject-banner { width: 100%; display: block; border-bottom: 3px solid #ffaa00; }
+        .subject-banner img { width: 100%; height: auto; display: block; margin: 0; padding: 0; }
         
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
         .subject-info h3 { margin: 0; font-size: 16px; color: #3b5098; font-weight: bold;}
@@ -57,7 +58,6 @@
 </head>
 <body>
 
-    <!-- स्मार्ट टॉप बार बैक बटन -->
     <div class="top-bar">
         <div class="back-btn" onclick="handleSmartBack()">⬅ Back</div>
         <h1 class="page-title">UPSC Free Batches</h1>
@@ -67,7 +67,6 @@
         <input type="text" class="search-box" placeholder="🔍 Search batches...">
     </div>
 
-    <!-- 1. मेन बैच पेज -->
     <div class="batch-grid" id="main-batch-grid">
         <a href="classroom.html">
             <div class="batch-card">
@@ -100,14 +99,16 @@
         </div>
     </div>
 
-    <!-- 2. सब्जेक्ट्स वाला पेज -->
     <div id="subjects-section">
         <div style="margin-bottom: 20px; padding-left: 5px;">
             <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         </div>
 
         <div class="subject-card" onclick="openGeoLectures()">
-            <div class="subject-banner" style="background-image: url('HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg');"></div>
+            <!-- यहाँ बैनर को सीधा इमेज की तरह लगाया गया है ताकि कोई जगह खाली न रहे -->
+            <div class="subject-banner">
+                <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="World Geography Banner">
+            </div>
             <div class="subject-info">
                 <div>
                     <h3>🌍 World Geography</h3>
@@ -118,7 +119,6 @@
         </div>
     </div>
 
-    <!-- 3. लेक्चर्स की लिस्ट -->
     <div id="geo-lectures-section">
         <div style="margin-bottom: 20px; padding-left: 5px; z-index: 2; position: relative;">
             <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">World Geography</h2>
@@ -179,7 +179,6 @@
         </div>
     </div>
 
-    <!-- 4. वीडियो प्लेयर -->
     <div class="video-modal" id="videoModal">
         <div class="modal-top-controls">
             <div class="custom-fs-btn" onclick="toggleFullScreen()">🔲 FULL SCREEN</div>
@@ -192,19 +191,16 @@
         </div>
     </div>
 
-    <!-- 5. स्मार्ट जावास्क्रिप्ट -->
     <script>
-        // वर्तमान पेज को ट्रैक करने के लिए
         let currentPageState = 'main'; 
 
-        // स्मार्ट बैक बटन लॉजिक (एक ही बटन सारा काम करेगा)
         function handleSmartBack() {
             if (currentPageState === 'lectures') {
                 goBackToSubjects();
             } else if (currentPageState === 'subjects') {
                 goBackToMainBatches();
             } else {
-                window.location.href = 'index.html'; // होम पेज पर वापस
+                window.location.href = 'index.html'; 
             }
         }
 
@@ -268,5 +264,4 @@
     </script>
 
 </body>
-    </html>
-    
+</html>
