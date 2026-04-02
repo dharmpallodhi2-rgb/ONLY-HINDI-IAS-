@@ -13,7 +13,7 @@
         .search-box { width: 100%; padding: 12px; border-radius: 20px; border: none; box-sizing: border-box; font-size: 14px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
         .batch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
         a { text-decoration: none; color: inherit; display: block; }
-        .batch-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); height: 100%; display: flex; flex-direction: column; z-index: 2;}
+        .batch-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); height: 100%; display: flex; flex-direction: column; z-index: 2; cursor: pointer;}
         .batch-image { height: 90px; background-color: #1b266d; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; }
         .batch-content { padding: 12px 10px; flex-grow: 1; display: flex; flex-direction: column; }
         .batch-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; }
@@ -21,6 +21,15 @@
         .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 8px 10px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
         #main-batch-grid { column-gap: 30px; row-gap: 25px; position: relative; }
         #main-batch-grid::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); height: 100%; width: 2px; background-color: rgba(27, 38, 109, 0.2); z-index: 1; }
+        
+        /* नया: सब्जेक्ट्स सेक्शन */
+        #subjects-section { display: none; padding: 20px; position: relative; }
+        .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; display: flex; flex-direction: column;}
+        .subject-banner { height: 120px; width: 100%; background-size: cover; background-position: center; border-bottom: 3px solid #ffaa00; }
+        .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
+        .subject-info h3 { margin: 0; font-size: 16px; color: #3b5098; font-weight: bold;}
+        .subject-info p { margin: 5px 0 0 0; font-size: 12px; color: #888; font-weight: bold;}
+        
         #geo-lectures-section { display: none; padding: 20px; position: relative; }
         #geo-lectures-section::after { content: ''; position: absolute; top: 0; left: 10px; height: 100%; width: 2px; background-color: rgba(27, 38, 109, 0.2); z-index: 1; }
         .lecture-card { background: white; border-radius: 12px; display: flex; align-items: center; padding: 12px; margin-bottom: 15px; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 2; position: relative;}
@@ -29,19 +38,18 @@
         .lecture-card-title { font-size: 15px; font-weight: bold; color: #3b5098; margin: 0 0 5px 0; }
         .lecture-card-sub { font-size: 12px; color: #888; margin: 0; font-weight: bold;}
         .play-icon-btn { background: #3b5098; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2);}
-        .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
         
+        .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
         .modal-top-controls { position: absolute; top: 20px; right: 20px; z-index: 10000; display: flex; align-items: center; gap: 15px; }
         .custom-fs-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
         .close-btn-modal { color: white; font-size: 45px; cursor: pointer; line-height: 0.8; font-weight: bold; }
-        
         .iframe-container { width: 100%; max-width: 100%; height: 300px; position: relative; }
         .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .iframe-container:fullscreen iframe { height: 100vh; }
         .iframe-container:-webkit-full-screen iframe { height: 100vh; }
         .iframe-container:-ms-fullscreen iframe { height: 100vh; }
 
-        /* यूट्यूब लिंक्स को "Dead" (Unclickable) करने के लिए अदृश्य शील्ड */
+        /* यूट्यूब लिंक्स शील्ड */
         .yt-shield-top { position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 10001; background: transparent; }
         .yt-shield-bottom { position: absolute; bottom: 0; right: 0; width: 130px; height: 60px; z-index: 10001; background: transparent; }
     </style>
@@ -57,6 +65,7 @@
         <input type="text" class="search-box" placeholder="🔍 Search batches...">
     </div>
 
+    <!-- 1. मेन बैच पेज -->
     <div class="batch-grid" id="main-batch-grid">
         <a href="classroom.html">
             <div class="batch-card">
@@ -78,7 +87,8 @@
             </div>
         </div>
 
-        <div class="batch-card" onclick="openGeoLectures()" style="cursor: pointer;">
+        <!-- बैच पर क्लिक करने से अब सीधे 'सब्जेक्ट्स' खुलेंगे -->
+        <div class="batch-card" onclick="openSubjects()">
             <div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover no-repeat; padding: 0; height: 90px;"></div>
             <div class="batch-content">
                 <div style="font-size: 10px; color: #3b5098; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center;"><span style="background: #eef2fb; padding: 2px 6px; border-radius: 4px;">🎓 Batch</span></div>
@@ -89,9 +99,32 @@
         </div>
     </div>
 
+    <!-- 2. नया: सब्जेक्ट्स वाला पेज (यहाँ भविष्य में और विषय जुड़ेंगे) -->
+    <div id="subjects-section">
+        <div style="display: flex; align-items: center; margin-bottom: 25px;">
+            <button onclick="goBackToMainBatches()" style="background-color: #ffaa00; border: none; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; margin-right: 15px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">⬅ Back</button>
+            <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
+        </div>
+
+        <!-- वर्ल्ड ज्योग्राफी का बैनर -->
+        <div class="subject-card" onclick="openGeoLectures()">
+            <div class="subject-banner" style="background-image: url('HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg');"></div>
+            <div class="subject-info">
+                <div>
+                    <h3>🌍 World Geography</h3>
+                    <p>By Sachin Arora Sir</p>
+                </div>
+                <div style="background: #eef2fb; color: #3b5098; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 12px;">6 Lectures ▶</div>
+            </div>
+        </div>
+        
+        <!-- भविष्य के विषय (हिस्ट्री, पालिटी आदि) इसी तरह नीचे जोड़े जाएंगे -->
+    </div>
+
+    <!-- 3. लेक्चर्स की लिस्ट -->
     <div id="geo-lectures-section">
         <div style="display: flex; align-items: center; margin-bottom: 25px; padding-left: 10px; z-index: 2; position: relative;">
-            <button onclick="goBackToBatches()" style="background-color: #ffaa00; border: none; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; margin-right: 15px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">⬅ Back</button>
+            <button onclick="goBackToSubjects()" style="background-color: #ffaa00; border: none; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; margin-right: 15px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">⬅ Back</button>
             <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">World Geography</h2>
         </div>
 
@@ -150,45 +183,61 @@
         </div>
     </div>
 
+    <!-- 4. वीडियो प्लेयर -->
     <div class="video-modal" id="videoModal">
         <div class="modal-top-controls">
             <div class="custom-fs-btn" onclick="toggleFullScreen()">🔲 FULL SCREEN</div>
             <div class="close-btn-modal" onclick="closeVideo()">×</div>
         </div>
         <div class="iframe-container" id="videoContainer">
-            <!-- क्लिक ब्लॉक करने वाली ढाल (Shields) -->
             <div class="yt-shield-top"></div>
             <div class="yt-shield-bottom"></div>
             <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
+    <!-- 5. जावास्क्रिप्ट (लॉजिक) -->
     <script>
-        function openGeoLectures() {
+        // मेन बैच से सब्जेक्ट पेज पर जाना
+        function openSubjects() {
             document.getElementById('main-batch-grid').style.display = 'none';
             document.getElementById('search-box-area').style.display = 'none';
-            document.getElementById('geo-lectures-section').style.display = 'block';
+            document.getElementById('subjects-section').style.display = 'block';
             window.scrollTo(0, 0); 
         }
 
-        function goBackToBatches() {
-            document.getElementById('geo-lectures-section').style.display = 'none';
+        // सब्जेक्ट पेज से वापस मेन बैच पर जाना
+        function goBackToMainBatches() {
+            document.getElementById('subjects-section').style.display = 'none';
             document.getElementById('main-batch-grid').style.display = 'grid'; 
             document.getElementById('search-box-area').style.display = 'block';
         }
 
+        // सब्जेक्ट पेज से लेक्चर्स पर जाना
+        function openGeoLectures() {
+            document.getElementById('subjects-section').style.display = 'none';
+            document.getElementById('geo-lectures-section').style.display = 'block';
+            window.scrollTo(0, 0); 
+        }
+
+        // लेक्चर्स से वापस सब्जेक्ट पेज पर जाना
+        function goBackToSubjects() {
+            document.getElementById('geo-lectures-section').style.display = 'none';
+            document.getElementById('subjects-section').style.display = 'block';
+        }
+
+        // वीडियो चलाना
         function openVideo(videoId) {
             var modal = document.getElementById('videoModal');
             modal.style.display = 'flex';
-            
             var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&cc_load_policy=0&iv_load_policy=3";
             document.getElementById('ytPlayer').src = embedUrl;
         }
 
+        // वीडियो बंद करना
         function closeVideo() {
             document.getElementById('videoModal').style.display = 'none';
             document.getElementById('ytPlayer').src = ""; 
-            
             if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
                 if (document.exitFullscreen) { document.exitFullscreen(); }
                 else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
@@ -196,6 +245,7 @@
             }
         }
 
+        // फुल स्क्रीन कंट्रोल
         function toggleFullScreen() {
             var container = document.getElementById('videoContainer');
             if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
@@ -211,4 +261,5 @@
     </script>
 
 </body>
-</html>
+                </html>
+                
