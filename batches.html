@@ -31,33 +31,32 @@
         .subject-info h3 { margin: 0; font-size: 16px; color: #3b5098; font-weight: bold;}
         .subject-info p { margin: 5px 0 0 0; font-size: 12px; color: #888; font-weight: bold;}
         
-        /* ---------- नया: लेक्चर ग्रिड और कार्ड डिज़ाइन ---------- */
         #geo-lectures-section { display: none; padding: 0; position: relative; background-color: #f5f6f9; min-height: 100vh;}
-        
-        /* लेक्चर पेज की नीली हेडर पट्टी */
         .lecture-header-bar { background-color: #3b5098; padding: 12px 15px; display: flex; align-items: center; color: white; margin-bottom: 15px; }
         .lecture-back-circle { background-color: #ffaa00; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 12px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
         
-        /* Classes / Notes टॉगल बटन */
         .toggle-container { display: flex; justify-content: center; margin-bottom: 20px; padding: 0 15px;}
         .toggle-box { background: white; border-radius: 30px; display: flex; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); width: 100%; max-width: 350px; }
-        .toggle-btn-active { flex: 1; text-align: center; background: #3b5098; color: white; border-radius: 30px; padding: 8px 0; font-size: 12px; font-weight: bold; }
-        .toggle-btn-inactive { flex: 1; text-align: center; color: #888; border-radius: 30px; padding: 8px 0; font-size: 12px; font-weight: bold; }
+        .toggle-btn { flex: 1; text-align: center; border-radius: 30px; padding: 8px 0; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .active-tab { background: #3b5098; color: white; }
+        .inactive-tab { color: #888; }
 
-        /* 2-कॉलम लेक्चर ग्रिड */
         .lecture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px 30px 15px; }
-        
-        /* लेक्चर कार्ड का नया डिज़ाइन */
         .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; display: flex; flex-direction: column; border: 1px solid #eaeaea;}
         .lecture-img-container { width: 100%; aspect-ratio: 16/9; background-color: #eee; position: relative;}
         .lecture-img-container img { width: 100%; height: 100%; object-fit: cover; display: block;}
-        
         .lecture-card-content { padding: 10px; flex-grow: 1; display: flex; flex-direction: column;}
         .lecture-badge { display: inline-block; color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; margin-bottom: 6px; background: #fdf0f0; width: max-content;}
         .lecture-card-title { font-size: 11px; font-weight: bold; color: #222; margin: 0 0 10px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
-        
         .lecture-card-footer { background-color: #fafafa; padding: 8px 10px; font-size: 9px; color: #888; display: flex; align-items: center; gap: 5px; border-top: 1px solid #f0f0f0; font-weight: bold;}
-        /* --------------------------------------------------- */
+
+        /* नोट्स सेक्शन डिज़ाइन */
+        #notes-content-area { display: none; padding: 0 15px; }
+        .pdf-card { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid #eee; margin-bottom: 15px; }
+        .pdf-info { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .pdf-icon { font-size: 30px; }
+        .pdf-name { font-size: 13px; font-weight: bold; color: #333; }
+        .view-btn { background: #3b5098; color: white; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; font-weight: bold; cursor: pointer; }
 
         .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
         .modal-top-controls { position: absolute; top: 20px; right: 20px; z-index: 10000; display: flex; align-items: center; gap: 15px; }
@@ -65,12 +64,9 @@
         .close-btn-modal { color: white; font-size: 45px; cursor: pointer; line-height: 0.8; font-weight: bold; }
         .iframe-container { width: 100%; max-width: 100%; height: 300px; position: relative; }
         .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .iframe-container:fullscreen iframe { height: 100vh; }
-        .iframe-container:-webkit-full-screen iframe { height: 100vh; }
-        .iframe-container:-ms-fullscreen iframe { height: 100vh; }
-
-        .yt-shield-top { position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 10001; background: transparent; }
-        .yt-shield-bottom { position: absolute; bottom: 0; right: 0; width: 130px; height: 60px; z-index: 10001; background: transparent; }
+        
+        /* पीडीएफ व्यूअर मोडल */
+        #pdfViewerModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 20000; flex-direction: column; }
     </style>
 </head>
 <body>
@@ -120,95 +116,48 @@
         <div style="margin-bottom: 20px; padding-left: 5px;">
             <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         </div>
-
         <div class="subject-card" onclick="openGeoLectures()">
-            <div class="subject-banner">
-                <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="World Geography Banner">
-            </div>
+            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="World Geography Banner"></div>
             <div class="subject-info">
-                <div>
-                    <h3>🌍 World Geography</h3>
-                    <p>By Sachin Arora Sir</p>
-                </div>
+                <div><h3>🌍 World Geography</h3><p>By Sachin Arora Sir</p></div>
                 <div style="background: #eef2fb; color: #3b5098; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 12px;">6 Lectures ▶</div>
             </div>
         </div>
     </div>
 
-    <!-- नया लेक्चर्स सेक्शन (बिल्कुल स्क्रीनशॉट के अनुसार) -->
     <div id="geo-lectures-section">
-        
-        <!-- नीली हेडर पट्टी -->
         <div class="lecture-header-bar">
             <div class="lecture-back-circle" onclick="goBackToSubjects()">⬅</div>
             <h2 style="font-size: 14px; margin: 0; font-weight: bold;">World Geography by Sachin Arora Sir</h2>
         </div>
 
-        <!-- टॉगल बटन -->
         <div class="toggle-container">
             <div class="toggle-box">
-                <div class="toggle-btn-active">📺 Classes</div>
-                <div class="toggle-btn-inactive">📄 Notes</div>
+                <div id="tab-classes" class="toggle-btn active-tab" onclick="switchTab('classes')">📺 Classes</div>
+                <div id="tab-notes" class="toggle-btn inactive-tab" onclick="switchTab('notes')">📄 Notes</div>
             </div>
         </div>
 
-        <!-- 2-कॉलम ग्रिड -->
-        <div class="lecture-grid">
-            
+        <!-- लेक्चर्स ग्रिड -->
+        <div id="classes-content-area" class="lecture-grid">
             <div class="lecture-card" onclick="openVideo('O3engm8_fI4')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 06 || World Geography by Sachin Arora Sir</div>
-                </div>
+                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 06 || World Geography by Sachin Arora Sir</div></div>
                 <div class="lecture-card-footer">🕒 1 Apr 2026 - 09:00</div>
             </div>
+            <!-- अन्य लेक्चर्स यहाँ आएंगे -->
+        </div>
 
-            <div class="lecture-card" onclick="openVideo('EzeW4S_aZd4')">
-                <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 05 || World Geography by Sachin Arora Sir</div>
+        <!-- नोट्स एरिया -->
+        <div id="notes-content-area">
+            <div class="pdf-card">
+                <div class="pdf-info">
+                    <span class="pdf-icon">📕</span>
+                    <span class="pdf-name">World Geography Notes 4</span>
                 </div>
-                <div class="lecture-card-footer">🕒 31 Mar 2026 - 09:00</div>
+                <!-- यहाँ आपकी पीडीएफ फाइल का नाम डाला गया है -->
+                <div class="view-btn" onclick="openPdf('World Geography Notes 4_9304868484 (1).pdf')">VIEW PDF</div>
             </div>
-
-            <div class="lecture-card" onclick="openVideo('z6CX9313lYw')">
-                <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 04 || World Geography by Sachin Arora Sir</div>
-                </div>
-                <div class="lecture-card-footer">🕒 30 Mar 2026 - 09:00</div>
-            </div>
-
-            <div class="lecture-card" onclick="openVideo('sxC5z3VWAgE')">
-                <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 03 || World Geography by Sachin Arora Sir</div>
-                </div>
-                <div class="lecture-card-footer">🕒 27 Mar 2026 - 09:00</div>
-            </div>
-
-            <div class="lecture-card" onclick="openVideo('sIoG0Ov6sJw')">
-                <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 02 || World Geography by Sachin Arora Sir</div>
-                </div>
-                <div class="lecture-card-footer">🕒 26 Mar 2026 - 09:00</div>
-            </div>
-
-            <div class="lecture-card" onclick="openVideo('BIOMk06xp3k')">
-                <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge">▶ CLASS VIDEO</span>
-                    <div class="lecture-card-title">Lecture 01 || World Geography by Sachin Arora Sir</div>
-                </div>
-                <div class="lecture-card-footer">🕒 25 Mar 2026 - 09:00</div>
-            </div>
-
         </div>
     </div>
 
@@ -219,14 +168,47 @@
             <div class="close-btn-modal" onclick="closeVideo()">×</div>
         </div>
         <div class="iframe-container" id="videoContainer">
-            <div class="yt-shield-top"></div>
-            <div class="yt-shield-bottom"></div>
             <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
+    <!-- पीडीएफ व्यूअर मोडल -->
+    <div id="pdfViewerModal">
+        <div class="lecture-header-bar" style="margin-bottom:0;">
+            <div class="lecture-back-circle" onclick="closePdf()">⬅</div>
+            <h2 style="font-size: 14px; margin: 0; font-weight: bold;">Viewing Notes</h2>
+        </div>
+        <iframe id="pdfFrame" style="width:100%; height:calc(100% - 52px); border:none;"></iframe>
+    </div>
+
     <script>
         let currentPageState = 'main'; 
+
+        function switchTab(tab) {
+            if(tab === 'classes') {
+                document.getElementById('tab-classes').className = 'toggle-btn active-tab';
+                document.getElementById('tab-notes').className = 'toggle-btn inactive-tab';
+                document.getElementById('classes-content-area').style.display = 'grid';
+                document.getElementById('notes-content-area').style.display = 'none';
+            } else {
+                document.getElementById('tab-classes').className = 'toggle-btn inactive-tab';
+                document.getElementById('tab-notes').className = 'toggle-btn active-tab';
+                document.getElementById('classes-content-area').style.display = 'none';
+                document.getElementById('notes-content-area').style.display = 'block';
+            }
+        }
+
+        function openPdf(pdfName) {
+            // मोबाइल पर बेहतर व्यू के लिए गूगल ड्राइव व्यूअर का उपयोग
+            const pdfUrl = window.location.origin + '/' + pdfName;
+            document.getElementById('pdfFrame').src = "https://docs.google.com/viewer?url=" + encodeURIComponent(pdfUrl) + "&embedded=true";
+            document.getElementById('pdfViewerModal').style.display = 'flex';
+        }
+
+        function closePdf() {
+            document.getElementById('pdfViewerModal').style.display = 'none';
+            document.getElementById('pdfFrame').src = "";
+        }
 
         function handleSmartBack() {
             if (currentPageState === 'subjects') {
@@ -252,7 +234,6 @@
         }
 
         function openGeoLectures() {
-            // लेक्चर्स खोलते समय मेन टॉप बार को छुपा देते हैं ताकि नया नीला हेडर अच्छा लगे
             document.getElementById('main-top-bar').style.display = 'none'; 
             document.getElementById('subjects-section').style.display = 'none';
             document.getElementById('geo-lectures-section').style.display = 'block';
@@ -261,7 +242,6 @@
         }
 
         function goBackToSubjects() {
-            // वापस आते समय मेन टॉप बार को वापस दिखा देते हैं
             document.getElementById('main-top-bar').style.display = 'flex'; 
             document.getElementById('geo-lectures-section').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'block';
@@ -271,33 +251,14 @@
         function openVideo(videoId) {
             var modal = document.getElementById('videoModal');
             modal.style.display = 'flex';
-            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&cc_load_policy=0&iv_load_policy=3";
+            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
             document.getElementById('ytPlayer').src = embedUrl;
         }
 
         function closeVideo() {
             document.getElementById('videoModal').style.display = 'none';
             document.getElementById('ytPlayer').src = ""; 
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-                if (document.exitFullscreen) { document.exitFullscreen(); }
-                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
-            }
-        }
-
-        function toggleFullScreen() {
-            var container = document.getElementById('videoContainer');
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                if (container.requestFullscreen) { container.requestFullscreen(); }
-                else if (container.webkitRequestFullscreen) { container.webkitRequestFullscreen(); }
-                else if (container.msRequestFullscreen) { container.msRequestFullscreen(); }
-            } else {
-                if (document.exitFullscreen) { document.exitFullscreen(); }
-                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
-            }
         }
     </script>
-
 </body>
 </html>
