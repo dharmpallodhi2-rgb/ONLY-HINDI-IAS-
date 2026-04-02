@@ -7,41 +7,86 @@
     <style>
         body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; }
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
-        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; }
+        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; margin-right: 20px; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
         .search-container { padding: 20px; }
         .search-box { width: 100%; padding: 12px; border-radius: 20px; border: none; box-sizing: border-box; font-size: 14px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }
         .batch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
+        
+        /* लिंक के लिए सेटिंग */
         a { text-decoration: none; color: inherit; display: block; }
-        .batch-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); height: 100%; display: flex; flex-direction: column; z-index: 2;}
+        
+        .batch-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); height: 100%; display: flex; flex-direction: column; }
         .batch-image { height: 90px; background-color: #1b266d; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; }
-        .batch-content { padding: 12px 10px; flex-grow: 1; display: flex; flex-direction: column; }
+        .batch-content { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
         .batch-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; }
         .batch-date { font-size: 9px; color: #888; margin-bottom: 12px; }
-        .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 8px 10px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
-        #main-batch-grid { column-gap: 30px; row-gap: 25px; position: relative; }
-        #main-batch-grid::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); height: 100%; width: 2px; background-color: rgba(27, 38, 109, 0.2); z-index: 1; }
+        .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 6px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
+
+        /* ---------- नए स्टाइल यहाँ से जोड़े गए हैं (ओवरराइड और जोड़) ---------- */
+        
+        /* ग्रिड के बीच की लाइन और प्रीमियम लुक */
+        #main-batch-grid {
+            column-gap: 30px; /* बीच में लाइन के लिए ज़्यादा जगह */
+            row-gap: 25px; /* कार्ड्स के बीच में भी थोड़ा ज़्यादा स्पेस */
+            position: relative;
+        }
+
+        /* बीच में वर्टिकल लाइन बनाने के लिए */
+        #main-batch-grid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 2px;
+            background-color: rgba(27, 38, 109, 0.2); /* प्रीमियम लुक के लिए हल्का कलर */
+            z-index: 1;
+        }
+
+        /* प्रीमियम लुक के लिए बेहतर शैडो और थोड़ा ज़्यादा स्पेसिंग */
+        .batch-card {
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08); /* नरम शैडो */
+            z-index: 2; /* लाइन के ऊपर लाने के लिए */
+        }
+
+        /* लेक्चर कार्ड के अंदरूनी हिस्से में थोड़ा ज़्यादा पैडिंग */
+        .batch-content {
+            padding: 12px 10px; /* थोड़ा ज़्यादा पैडिंग */
+        }
+
+        /* बटंस थोड़े बड़े */
+        .fav-btn {
+            padding: 8px 10px; /* थोडा ज़्यादा पैडिंग */
+        }
+
+        /* लेक्चर्स वाले पेज का डिज़ाइन */
         #geo-lectures-section { display: none; padding: 20px; position: relative; }
-        #geo-lectures-section::after { content: ''; position: absolute; top: 0; left: 10px; height: 100%; width: 2px; background-color: rgba(27, 38, 109, 0.2); z-index: 1; }
-        .lecture-card { background: white; border-radius: 12px; display: flex; align-items: center; padding: 12px; margin-bottom: 15px; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 2; position: relative;}
-        .lecture-card img { width: 130px; height: 80px; border-radius: 8px; object-fit: cover; margin-right: 15px; border: 1px solid #eee;}
+        /* लेक्चर कार्ड्स के बीच में डिवाइडर लाइन */
+        #geo-lectures-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            height: 100%;
+            width: 2px;
+            background-color: rgba(27, 38, 109, 0.2);
+            z-index: 1;
+        }
+        
+        .lecture-card { background: white; border-radius: 10px; display: flex; align-items: center; padding: 10px; margin-bottom: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); cursor: pointer; z-index: 2; /* लाइन के ऊपर लाने के लिए */ }
+        .lecture-card img { width: 90px; height: 55px; border-radius: 6px; object-fit: cover; margin-right: 15px; }
         .lecture-card-info { flex-grow: 1; }
-        .lecture-card-title { font-size: 15px; font-weight: bold; color: #3b5098; margin: 0 0 5px 0; }
-        .lecture-card-sub { font-size: 12px; color: #888; margin: 0; font-weight: bold;}
-        .play-icon-btn { background: #3b5098; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0px 4px 8px rgba(0,0,0,0.2);}
+        .lecture-card-title { font-size: 13px; font-weight: bold; color: #3b5098; margin: 0 0 3px 0; }
+        .lecture-card-sub { font-size: 10px; color: #888; margin: 0; }
+        .play-icon-btn { background: #3b5098; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; }
+
+        /* ब्लैक स्क्रीन वीडियो पॉप-अप (Modal) का डिज़ाइन */
         .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
-        
-        /* टॉप कंट्रोल्स के लिए नया डिज़ाइन */
-        .modal-top-controls { position: absolute; top: 20px; right: 20px; z-index: 10000; display: flex; align-items: center; gap: 15px; }
-        .custom-fs-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid white; color: white; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; }
-        .close-btn-modal { color: white; font-size: 45px; cursor: pointer; line-height: 0.8; font-weight: bold; }
-        
-        .iframe-container { width: 100%; max-width: 100%; height: 300px; position: relative; }
+        .close-btn-modal { position: absolute; top: 20px; right: 20px; color: white; font-size: 50px; /* क्लोज बटन को बड़ा किया */ cursor: pointer; z-index: 10000; line-height: 1; font-weight: bold;}
+        .iframe-container { width: 100%; max-width: 800px; aspect-ratio: 16/9; position: relative; }
         .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        /* फुलस्क्रीन में वीडियो को पूरी स्क्रीन पर फैलाने के लिए */
-        .iframe-container:fullscreen iframe { height: 100vh; }
-        .iframe-container:-webkit-full-screen iframe { height: 100vh; }
-        .iframe-container:-ms-fullscreen iframe { height: 100vh; }
     </style>
 </head>
 <body>
@@ -56,7 +101,8 @@
     </div>
 
     <div class="batch-grid" id="main-batch-grid">
-        <a href="classroom.html">
+        
+<a href="classroom.html">
             <div class="batch-card">
                 <div class="batch-image">🏛️ IAS</div>
                 <div class="batch-content">
@@ -67,7 +113,8 @@
             </div>
         </a>
 
-        <div class="batch-card">
+        
+<div class="batch-card">
             <div class="batch-image" style="background-color: #d93838;">🧮 CSAT</div>
             <div class="batch-content">
                 <div class="batch-title">CSAT Target Batch For UPSC Prelims</div>
@@ -76,23 +123,34 @@
             </div>
         </div>
 
-        <div class="batch-card" onclick="openGeoLectures()" style="cursor: pointer;">
-            <div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover no-repeat; padding: 0; height: 90px;"></div>
+        
+<div class="batch-card" onclick="openGeoLectures()" style="cursor: pointer;">
+            
+<div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover no-repeat; padding: 0; height: 90px;"></div>
             <div class="batch-content">
-                <div class="batch-title">World Geography By Sachin Arora Sir</div>
-                <div class="batch-date">Total 6 Lectures</div>
+                
+<div class="gov-text" style="display:flex; flex-direction:column; gap:2px; margin-bottom:5px;">
+                    <div style="font-size: 10px; color: #888; display:flex; align-items:center; gap: 4px; margin-bottom: 1px;">
+                        <span>school</span>
+                        <span>🎓Batch</span>
+                    </div>
+                    <div class="batch-title" style="font-size: 11px;">UPSC (Pre+Mains) Foundation Batch 2026 (Hindi Medium)</div>
+                    <div class="batch-date" style="font-size: 9px; color: #888;">Start: 16 Sept 2024</div>
+                </div>
                 <div class="fav-btn" style="background-color: #3b5098; color: white;">▶ OPEN BATCH</div>
             </div>
         </div>
     </div>
 
-    <div id="geo-lectures-section">
-        <div style="display: flex; align-items: center; margin-bottom: 25px; padding-left: 10px; z-index: 2; position: relative;">
-            <button onclick="goBackToBatches()" style="background-color: #ffaa00; border: none; color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; margin-right: 15px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">⬅ Back</button>
-            <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">World Geography</h2>
+    
+<div id="geo-lectures-section">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+            <button onclick="goBackToBatches()" style="background-color: #ffaa00; border: none; color: white; padding: 8px 15px; border-radius: 15px; font-weight: bold; cursor: pointer; margin-right: 15px;">⬅ Back</button>
+            <h2 style="font-size: 16px; margin: 0; color: #3b5098;">World Geography</h2>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('BIOMk06xp3k')">
+        
+<div class="lecture-card" onclick="openVideo('BIOMk06xp3k')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 01</h3>
@@ -101,7 +159,8 @@
             <div class="play-icon-btn">▶</div>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('sIoG0Ov6sJw')">
+        
+<div class="lecture-card" onclick="openVideo('sIoG0Ov6sJw')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 02</h3>
@@ -110,7 +169,8 @@
             <div class="play-icon-btn">▶</div>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('sxC5z3VWAgE')">
+        
+<div class="lecture-card" onclick="openVideo('sxC5z3VWAgE')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 03</h3>
@@ -119,7 +179,8 @@
             <div class="play-icon-btn">▶</div>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('z6CX9313lYw')">
+        
+<div class="lecture-card" onclick="openVideo('z6CX9313lYw')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 04</h3>
@@ -128,7 +189,8 @@
             <div class="play-icon-btn">▶</div>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('EzeW4S_aZd4')">
+        
+<div class="lecture-card" onclick="openVideo('EzeW4S_aZd4')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 05</h3>
@@ -137,7 +199,8 @@
             <div class="play-icon-btn">▶</div>
         </div>
 
-        <div class="lecture-card" onclick="openVideo('O3engm8_fI4')">
+        
+<div class="lecture-card" onclick="openVideo('O3engm8_fI4')">
             <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumbnail">
             <div class="lecture-card-info">
                 <h3 class="lecture-card-title">Lecture 06</h3>
@@ -147,64 +210,69 @@
         </div>
     </div>
 
-    <!-- ब्लैक स्क्रीन वीडियो पॉप-अप (Modal) -->
-    <div class="video-modal" id="videoModal">
-        <!-- कस्टम बटन्स: फुलस्क्रीन और क्लोज -->
-        <div class="modal-top-controls">
-            <div class="custom-fs-btn" onclick="toggleFullScreen()">🔲 FULL SCREEN</div>
-            <div class="close-btn-modal" onclick="closeVideo()">×</div>
-        </div>
-        <div class="iframe-container" id="videoContainer">
-            <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+<div class="video-modal" id="videoModal">
+        <div class="close-btn-modal" onclick="closeVideo()">×</div>
+        <div class="iframe-container">
+            
+<iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
-    <script>
+    
+<script>
+        // 1. जब बच्चा बैच पर क्लिक करेगा, तो पुराने बैच छुप जाएंगे और लेक्चर दिखेंगे
         function openGeoLectures() {
             document.getElementById('main-batch-grid').style.display = 'none';
             document.getElementById('search-box-area').style.display = 'none';
             document.getElementById('geo-lectures-section').style.display = 'block';
-            window.scrollTo(0, 0); 
+            window.scrollTo(0, 0); // पेज को एकदम ऊपर ले जाएगा
         }
 
+        // 2. जब बच्चा वापस जाने के लिए 'Back' दबाएगा, तो पुराने बैच वापस आ जाएंगे
         function goBackToBatches() {
             document.getElementById('geo-lectures-section').style.display = 'none';
-            document.getElementById('main-batch-grid').style.display = 'grid'; 
+            document.getElementById('main-batch-grid').style.display = 'grid'; // पहले जैसा ग्रिड
             document.getElementById('search-box-area').style.display = 'block';
         }
 
-        function openVideo(videoId) {
-            var modal = document.getElementById('videoModal');
-            modal.style.display = 'flex';
-            
-            // controls=0 लगाकर यूट्यूब के सारे बटन और सेटिंग हटा दिए गए हैं
-            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&cc_load_policy=0&iv_load_policy=3";
-            document.getElementById('ytPlayer').src = embedUrl;
-        }
+        // ---------- नया जावास्क्रिप्ट यहाँ से जोड़ा गया है (कार्यक्षमता सुधार) ----------
 
-        function closeVideo() {
-            document.getElementById('videoModal').style.display = 'none';
-            document.getElementById('ytPlayer').src = ""; 
+        // 3. लेक्चर पर क्लिक करने से ब्लैक स्क्रीन में सीधा वीडियो चलेगा (ताकि और कोई सेटिंग ऑप्शन न आए और फुलस्क्रीन हो)
+        function openVideo(videoId) {
+            document.getElementById('videoModal').style.display = 'flex';
+            // यूट्यूब का लिंक (ऑटोप्ले, बिना एक्स्ट्रा डिज़ाइन के, सबटाइटल बंद, एनोटेशन बंद, फुल स्क्रीन बटन दिखाएँ)
+            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&fs=1&cc_load_policy=0&iv_load_policy=3";
+            var player = document.getElementById('ytPlayer');
+            player.src = embedUrl;
             
-            // अगर वीडियो फुलस्क्रीन में है, तो उसे नॉर्मल कर दें
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-                if (document.exitFullscreen) { document.exitFullscreen(); }
-                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+            // फुल स्क्रीन के लिए कॉल (Fullscreen API)
+            var modal = document.getElementById('videoModal');
+            if (modal.requestFullscreen) {
+                modal.requestFullscreen();
+            } else if (modal.webkitRequestFullscreen) { /* Chrome, Safari, Opera */
+                modal.webkitRequestFullscreen();
+            } else if (modal.mozRequestFullScreen) { /* Firefox */
+                modal.mozRequestFullScreen();
+            } else if (modal.msRequestFullscreen) { /* IE/Edge */
+                modal.msRequestFullscreen();
             }
         }
 
-        // कस्टम फुलस्क्रीन फंक्शन
-        function toggleFullScreen() {
-            var container = document.getElementById('videoContainer');
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                if (container.requestFullscreen) { container.requestFullscreen(); }
-                else if (container.webkitRequestFullscreen) { container.webkitRequestFullscreen(); }
-                else if (container.msRequestFullscreen) { container.msRequestFullscreen(); }
-            } else {
-                if (document.exitFullscreen) { document.exitFullscreen(); }
-                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
-                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+        // 4. '×' (क्रॉस) दबाने पर वीडियो बंद हो जाएगा
+        function closeVideo() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('ytPlayer').src = ""; // वीडियो बैकग्राउंड में बजता न रहे, इसलिए इसे खाली कर दिया
+            
+            // फुल स्क्रीन से बाहर निकलने के लिए
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
             }
         }
     </script>
