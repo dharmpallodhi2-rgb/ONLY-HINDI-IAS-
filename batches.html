@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC Batches - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; user-select: none; -webkit-user-select: none; }
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; }
         .back-btn { background-color: #ffaa00; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
@@ -44,6 +44,15 @@
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
+        <!-- International Relations Card (NEW) -->
+        <div class="subject-card" onclick="window.location.href='ir.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.jpg"></div>
+            <div class="subject-info">
+                <div><b>🌍 International Relations</b><p>By Nawab Sir</p></div>
+                <div class="play-badge">38 Lectures ▶</div>
+            </div>
+        </div>
+
         <!-- Environment & Ecology -->
         <div class="subject-card" onclick="window.location.href='environment.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg"></div>
@@ -100,17 +109,22 @@
     </div>
     
     <script>
-        // SECURITY PROTOCOL: DevTools & Shortcut Blocking
+        // --- SECURITY PROTOCOL START ---
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
 
-        // Anti-Debugging Logic
         (function() {
-            setInterval(function() { debugger; }, 100);
+            const block = function() {
+                setInterval(function() {
+                    debugger;
+                }, 50);
+            };
+            try { block(); } catch (err) {}
         })();
+        // --- SECURITY PROTOCOL END ---
 
         let isMenuOpen = false;
 
