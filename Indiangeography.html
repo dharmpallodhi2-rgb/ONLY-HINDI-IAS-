@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Geography Lectures</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; }
+        .info { padding: 10px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <b style="font-size: 14px;">Indian Geography by Sachin Arora Sir</b>
+    </div>
+    <div class="grid" id="india-geo-list"></div>
+
+    <script>
+        const lectures = [
+            { t: "L 31 || भारतीय कृषि (Last Class)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F404403%2Fkgss-1764406033-v404403.m3u8", i: "6Px0nvBcrAMV1iFUs5gvOL5FF64E8SODM94y1Xcb" },
+            { t: "L 30 || भारतीय परिवहन (Part 2)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F403879%2Fkgss-1764321982-v403879.m3u8", i: "12jCIIFsSWyusDhElBI8hNkFbDcWYeliixBe7Rxm" },
+            { t: "L 29 || भारतीय परिवहन (Part 1)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F402976%2Fkgss-1764235428-v402976.m3u8", i: "d6PF0iZtsxC0uTOiKY2zcfTqZCIP33F23XgWgsos" },
+            { t: "L 28 || भारतीय उद्योग (Part 2)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F402166%2Fkgss-1764148425-v402166.m3u8", i: "vXRxPaEZrRKS8274NyzqJlFjc8QPCr7jdnLdbr1g" },
+            { t: "L 27 || भारतीय उद्योग (Part 1)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F401201%2Fkgss-1764062729-v401201.m3u8", i: "f498yHJaYNFcyS9qvyjLHNr5viFUlRguVa73w1BE" },
+            { t: "L 26 || ऊर्जा संसाधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F400301%2Fkgss-1763976223-v400301.m3u8", i: "QCiJ4OXggd13COi26Tu1Jr8p4Azu5zR3PbC2JU2L" },
+            { t: "L 25 || खनिज संसाधन (Part 3)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F398506%2Fkgss-1763717191-v398506.m3u8", i: "9YQWFut96TWCwRhAqAfK3LnlB6f7i502xM1aZrel" },
+            { t: "L 24 || खनिज संसाधन (Part 2)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F397514%2Fkgss-1763630637-v397514.m3u8", i: "O1e7wiSykK05CRFif1LnTv7srW5KgmfKhSnoqZoY" },
+            { t: "L 23 || खनिज संसाधन (Part 1)", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FrDsP7sorn_I", i: "ojXdI5qqIV4x2mNmsOlbt7gshiHpFLKWGpI8NKYW" },
+            { t: "L 22 || भारतीय जनसांख्यिकी", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F395434%2Fkgss-1763457822-v395434.m3u8", i: "xbPOY5msXVupf70nPuJJc1lyNFcyC3bQztQTcJmi" },
+            { t: "L 21 || भारत की जनसंख्या", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F394134%2Fkgss-1763370655-v394134.m3u8", i: "KlDbd50MDU4iZMLLf9wsA6qVaqe0JsmGsnWZoptg" },
+            { t: "L 20 || भारत की वनस्पति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F391569%2Fkgss-1763026384-v391569.m3u8", i: "tXGxgRWIWIeYUEUm6fSdQvPOrEih39eu8fw5mD6q" },
+            { t: "L 19 || भारत की मृदा", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FXz1X4FjytPQ", i: "NrZgPN0nGBSfnuNzel3q7swFIJqUrsB7Jh0XZDW7" },
+            { t: "L 18 || पश्चिम भारत की नदियां", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F388298%2Fkgss-1762853983-v388298.m3u8", i: "WxYXgTQ9Hxu7cpoDYkc1IRIwEjIzOlHr2p7xyN16" },
+            { t: "L 17 || गंगा नदी तंत्र", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F386927%2Fkgss-1762765597-v386927.m3u8", i: "XlrksZKZWHnPSBkcCDihsJ5n1f4IxQNc21aYjblz" },
+            { t: "L 16 || हिमालयी नदी तंत्र", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F385212%2Fkgss-1762506894-v385212.m3u8", i: "5rT0xZfTlZMEb4Q9wrKCIXHSacRdUBP7F3aNu9iA" },
+            { t: "L 15 || भारत का अपवाह तंत्र 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FoDj1VVZOB1I", i: "tpyMPbqa0jB4PMnVe73VyLN6ESw5zO5Hc8lWfrtV" },
+            { t: "L 14 || भारत का अपवाह तंत्र", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F381916%2Fkgss-1762249234-v381916.m3u8", i: "Ghy1P0xMnGUZXQr5cV6MXdUxgUgmUgcF1bYURopL" },
+            { t: "L 13 || मैडेन जूलियन दोलन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F380625%2Fkgss-1762162951-v380625.m3u8", i: "rEkjwGd45J9tZY4N3AhNsAcdnphcd7lLY1CxQcTJ" },
+            { t: "L 12 || भारत की जलवायु 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F379403%2Fkgss-1761903640-v379403.m3u8", i: "njEeaKw8ECNe8plPI1oJO9TltA6qhIsoLJaMiBRu" },
+            { t: "L 11 || भारत की जलवायु 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F378658%2Fkgss-1761817122-v378658.m3u8", i: "JXkaHnb9zHIO2cqkYWOgv3d3VcsgeZRxYzXy9vHv" },
+            { t: "L 10 || प्रायद्वीपीय पठार 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F378033%2Fkgss-1761730888-v378033.m3u8", i: "9J7GrULU6RUbht8qeHFeqaqHvsJS780IKFbZ7RpA" },
+            { t: "L 09 || प्रायद्वीपीय पठार 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F377528%2Fkgss-1761644652-v377528.m3u8", i: "fqtTKA70eEhfgxJpczezUa5bgRg9PMSpfTrR8Pel" },
+            { t: "L 08 || भारत के तटीय मैदान", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F376574%2Fkgss-1761298829-v376574.m3u8", i: "qmdk1Ntp5sSxCMhBtqha8WvYHHM5K5KphW5EpRY5" },
+            { t: "L 07 || उत्तर भारतीय मैदान", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F376274%2Fkgss-1761212425-v376274.m3u8", i: "oRk575RciUbuIRVNkXXwYQD9UPem2FEeRIl0f4LP" },
+            { t: "L 06 || भारत का उत्तरी मैदान", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F375371%2Fkgss-1760694040-v375371.m3u8", i: "E8YCZLaNj6G1MXov2Fq9p1KdLSubNiiL9QnPYDWY" },
+            { t: "L 05 || हिमालय चोटियां एवं दर्रे", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F373725%2Fkgss-1760607380-v373725.m3u8", i: "ZyUfMHR0zm6tyfYHqfTcwlGbn5E3iN9MHp83dAe1" },
+            { t: "L 04 || हिमालय की उत्पत्ति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F372757%2Fkgss-1760521190-v372757.m3u8", i: "mOOa2GTaiABSVxCyoRT7JFLHFEhdvTSuWB4zVXK8" },
+            { t: "L 03 || भूगर्भिक विकास 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F370686%2Fkgss-1760434631-v370686.m3u8", i: "8P7vaE8mGk4KgrysZWrwy4qDtjjTYs0bI7MDAxuv" },
+            { t: "L 02 || भूगर्भिक विकास 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F366533%2Fkgss-1760347870-v366533.m3u8", i: "aQUyhmxjBwelmy31C9piPnDCMPGSjTeTglYZFZ5h" },
+            { t: "L 01 || भारत की अवस्थिति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F366525%2Fkgss-1760174518-v366525.m3u8", i: "fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf" }
+        ];
+
+        const list = document.getElementById('india-geo-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${l.u}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb">
+                    <div class="info">
+                        <span class="badge">▶ CLASS VIDEO</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
