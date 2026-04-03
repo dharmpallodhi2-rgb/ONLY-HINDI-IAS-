@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Geography Lectures</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .info { padding: 10px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .pdf-badge { color: #2196F3; border-color: #2196F3; background: #e3f2fd; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <b style="font-size: 14px;">General Geography by Sachin Arora Sir</b>
+    </div>
+    <div class="grid" id="geo-list"></div>
+
+    <script>
+        const lectures = [
+            { t: "Lecture 26 || महासागरीय धाराओं का प्रवाह", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F275832%2Fkgss-1749869730-v275832.m3u8", i: "CnXIVNPfmZ5yl3afES0PfgKMYg2tbjYqCaGKC707.png", type: "video" },
+            { t: "Lecture 25 || Geography Notes (PDF)", u: "https://kgs-web.vercel.app/view-pdf?url=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fpdfs%2F202fb069-62a0-4684-befd-88a334cf0284.pdf", i: "gZ1kB5qtF7EUgrrkKVjEdmGg7Hl5L8TdPTBDRakA.png", type: "pdf" },
+            { t: "Lecture 24 || महासागरीय तापमान और लवणता", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F274274%2Fkgss-1749698760-v274274.m3u8", i: "iI20yveJgnF5p6m8c5nmJ3vHzf1UV8VjRyoUxS1x.png", type: "video" },
+            { t: "Lecture 23 || महासागरीय नितल की स्थलाकृतियाँ", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F272921%2Fkgss-1749612527-v272921.m3u8", i: "xBMvTInp4Nf9RZtTHI0cqXo6LqYDMlWyuGjoEzuu.png", type: "video" },
+            { t: "Lecture 22 || जलमंडल", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F272214%2Fkgss-1749525734-v272214.m3u8", i: "YlRIgjHL2XgXhx08HppDDoJ5VLuCl7mcCN1luJly.png", type: "video" },
+            { t: "Lecture 21 || शीतोष्ण कटिबंधीय चक्रवात", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F270914%2Fkgss-1749180294-v270914.m3u8", i: "bHvrzB2AWxEfJJVyQCAOZH20vlBjvtHOcXNg0o6S.png", type: "video" },
+            { t: "Lecture 20 || उष्णकटिबंधीय चक्रवात", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F270377%2Fkgss-1749093899-v270377.m3u8", i: "0rzDp5PtNYAa9btFN3DBw7UVy2FmDnbcUaZZLFxB.png", type: "video" },
+            { t: "Lecture 19 || General Geography Intro", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjun-2025%2F266717%2Fkgss-1748756192-v266717.m3u8", i: "Rvn7cnIUTG5C0QaON6grqEmR3Wa4uWd3bUQHoI8s.jpg", type: "video" },
+            { t: "Lecture 18 || वायुमंडलीय परिसंचरण", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F265528%2Fkgss-1748583504-v265528.m3u8", i: "683944a23f4ff.jpg", type: "video" },
+            { t: "Lecture 17 || मानक समय ज़ोन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fgeneral-geo-sachin-sir%2Fl-17%2Fgen-geo-hin5.m3u8", i: "6837f175495b6.jpg", type: "video" },
+            { t: "Lecture 16 || ज्वालामुखी एवं भूकंप", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fgeneral-geo-sachin-sir%2Fl-16%2Fgen-geo-hin5.m3u8", i: "6836a0fa517ee.jpg", type: "video" },
+            { t: "Lecture 15 || पृथ्वी पर स्थलाकृतियां", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fgeneral-geo-sachin-sir%2Fl-15%2Fgen-geo-hin5.m3u8", i: "68354f0180318.jpg", type: "video" },
+            { t: "Lecture 14 || प्लेट विवर्तनिकी सिद्धांत", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F248179%2Fkgss-1747020081-v248179.m3u8", i: "68216f85d2987.jpg", type: "video" },
+            { t: "Lecture 13 || सागरीय नितल विस्तारण", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F246353%2Fkgss-1746760983-v246353.m3u8", i: "681d77e804f59.jpg", type: "video" },
+            { t: "Lecture 12 || महाद्वीपीय विस्थापन सिद्धांत", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F245841%2Fkgss-1746674782-v245841.m3u8", i: "681c2e40f0dc3.jpg", type: "video" },
+            { t: "Lecture 11 || भूकंपीय तरंगों का अध्ययन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F245341%2Fkgss-1746588543-v245341.m3u8", i: "681ad4694de6d.jpg", type: "video" },
+            { t: "Lecture 10 || पृथ्वी की आंतरिक संरचना", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F244046%2Fkgss-1746502247-v244046.m3u8", i: "681d78393febd.jpg", type: "video" },
+            { t: "Lecture 09 || ग्रह एवं उपग्रह", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F243523%2Fkgss-1746415598-v243523.m3u8", i: "681d783a6e397.jpg", type: "video" },
+            { t: "Lecture 08 || सौरमंडल की उत्पत्ति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F242424%2Fkgss-1746156617-v242424.m3u8", i: "681d783b68054.jpg", type: "video" },
+            { t: "Lecture 07 || तारामंडल", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F241373%2Fkgss-1746069529-v241373.m3u8", i: "681d783c5e19e.jpg", type: "video" },
+            { t: "Lecture 06 || ब्रह्मांड का परिचय", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F235346%2Fkgss-1745983394-v235346.m3u8", i: "681d783d55e5e.jpg", type: "video" },
+            { t: "Lecture 05 || ऊष्मा बजट", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F234816%2Fkgss-1745896924-v234816.m3u8", i: "681d783e4cb03.jpg", type: "video" },
+            { t: "Lecture 04 || वायुदाब", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F234444%2Fkgss-1745810823-v234444.m3u8", i: "681d783f54fb6.jpg", type: "video" },
+            { t: "Lecture 03 || वायुमंडल का संगठन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F233508%2Fkgss-1745551444-v233508.m3u8", i: "681d78404ae79.jpg", type: "video" },
+            { t: "Lecture 02 || वायुमंडल की स्थिति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F232857%2Fkgss-1745465023-v232857.m3u8", i: "680a0c916ecd6.jpg", type: "video" },
+            { t: "Lecture 01 || वायुमंडल की उत्पत्ति", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F232581%2Fkgss-1745378843-v232581.m3u8", i: "680a0c928dddc.jpg", type: "video" }
+        ];
+
+        const list = document.getElementById('geo-list');
+        lectures.forEach(l => {
+            // Check if thumbnail is a full URL or a partial ID
+            const thumbUrl = l.i.includes('http') ? l.i : (l.i.includes('/') ? `https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/${l.i}` : `https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/${l.i}`);
+            
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${l.u}'">
+                    <img src="${thumbUrl}" class="thumb">
+                    <div class="info">
+                        <span class="badge ${l.type === 'pdf' ? 'pdf-badge' : ''}">${l.type === 'pdf' ? '📄 PDF NOTES' : '▶ CLASS VIDEO'}</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
