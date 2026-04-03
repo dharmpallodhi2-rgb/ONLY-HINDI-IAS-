@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC Batches - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; user-select: none; }
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; user-select: none; -webkit-user-select: none; }
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; }
         .back-btn { background-color: #ffaa00; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
         
-        /* Containers */
         #subjects-section { display: none; padding: 20px; }
         .batch-grid { padding: 20px; }
 
-        /* Card Design */
         .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: transform 0.2s; }
         .subject-card:active { transform: scale(0.98); }
-        .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 3px solid #ffaa00; }
+        .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 3px solid #ffaa00; background: #eee; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
         .subject-info b { font-size: 15px; color: #333; }
         .subject-info p { margin: 5px 0 0; font-size: 12px; color: #888; }
@@ -26,13 +24,12 @@
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
-    <!-- Top Navigation Bar -->
     <div class="top-bar">
         <button class="back-btn" id="master-back-btn" onclick="handleBackLogic()">⬅ Back</button>
         <h1 class="page-title" id="main-title">UPSC Free Batches</h1>
     </div>
 
-    <!-- 1. मुख्य पेज: फाउंडेशन बैच का बड़ा कार्ड -->
+    <!-- 1. मुख्य पेज: फाउंडेशन बैच कार्ड -->
     <div class="batch-grid" id="main-batch-container">
         <div class="subject-card" onclick="openFoundationMenu()">
             <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; display: block;">
@@ -43,70 +40,58 @@
         </div>
     </div>
 
-    <!-- 2. फाउंडेशन के अंदर के सब्जेक्ट्स -->
+    <!-- 2. फाउंडेशन के अंदर के सभी सब्जेक्ट्स -->
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
-        <!-- Environment & Ecology Card -->
+        <!-- Environment & Ecology -->
         <div class="subject-card" onclick="window.location.href='environment.html'">
-            <div class="subject-banner">
-                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg" alt="Environment">
-            </div>
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg"></div>
             <div class="subject-info">
                 <div><b>🌿 Environment & Ecology</b><p>By Shankar Jha Sir</p></div>
                 <div class="play-badge">27 Lectures ▶</div>
             </div>
         </div>
 
-        <!-- Indian Geography Card -->
+        <!-- Indian Geography -->
         <div class="subject-card" onclick="window.location.href='indiangeography.html'">
-            <div class="subject-banner">
-                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg" alt="Indian Geography">
-            </div>
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg"></div>
             <div class="subject-info">
                 <div><b>🇮🇳 Indian Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">31 Lectures ▶</div>
             </div>
         </div>
 
-        <!-- Indian Polity Card -->
-        <div class="subject-card" onclick="window.location.href='polity.html'">
-            <div class="subject-banner">
-                <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg" alt="Polity">
-            </div>
-            <div class="subject-info">
-                <div><b>⚖️ Indian Polity</b><p>By Rajesh Mishra Sir</p></div>
-                <div class="play-badge">55 Lectures ▶</div>
-            </div>
-        </div>
-
-        <!-- World Geography Card -->
+        <!-- World Geography -->
         <div class="subject-card" onclick="window.location.href='worldgeography.html'">
-            <div class="subject-banner">
-                <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Geography">
-            </div>
+            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
             <div class="subject-info">
                 <div><b>🌍 World Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">7 Lectures ▶</div>
             </div>
         </div>
 
-        <!-- Disaster Management Card -->
-        <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
-            <div class="subject-banner">
-                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg" alt="Disaster Management">
+        <!-- Indian Polity -->
+        <div class="subject-card" onclick="window.location.href='polity.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
+            <div class="subject-info">
+                <div><b>⚖️ Indian Polity</b><p>By Rajesh Mishra Sir</p></div>
+                <div class="play-badge">55 Lectures ▶</div>
             </div>
+        </div>
+
+        <!-- Disaster Management -->
+        <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg"></div>
             <div class="subject-info">
                 <div><b>🌋 Disaster Management</b><p>By Shankar Jha Sir</p></div>
                 <div class="play-badge">9 Lectures ▶</div>
             </div>
         </div>
 
-        <!-- General Geography Card -->
+        <!-- General Geography -->
         <div class="subject-card" onclick="window.location.href='generalgeography.html'">
-            <div class="subject-banner">
-                <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg" alt="General Geography">
-            </div>
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg"></div>
             <div class="subject-info">
                 <div><b>🗺️ General Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">26 Lectures ▶</div>
@@ -115,26 +100,17 @@
     </div>
     
     <script>
-        // --- SECURITY BLOCK START ---
-        // Disable Developer Tools Shortcuts
+        // SECURITY PROTOCOL: DevTools & Shortcut Blocking
         document.onkeydown = function(e) {
-            if(e.keyCode == 123 || 
-               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-               (e.ctrlKey && e.keyCode == 85)) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
 
-        // Anti-Debugging: infinite loop to freeze if console is opened
+        // Anti-Debugging Logic
         (function() {
-            var dummy = new Image();
-            Object.defineProperty(dummy, 'id', { get: function() { throw new Error('DevTools Detected'); } });
-            setInterval(function() {
-                console.log(dummy);
-                console.clear();
-            }, 1000);
+            setInterval(function() { debugger; }, 100);
         })();
-        // --- SECURITY BLOCK END ---
 
         let isMenuOpen = false;
 
