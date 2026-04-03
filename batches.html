@@ -20,30 +20,44 @@
         .batch-title { font-size: 11px; font-weight: bold; color: #333; margin-bottom: 5px; }
         .batch-date { font-size: 9px; color: #888; margin-bottom: 12px; }
         .fav-btn { background-color: white; border: 1px solid #1b266d; color: #1b266d; padding: 8px 10px; border-radius: 15px; font-size: 10px; font-weight: bold; text-align: center; margin-top: auto; }
+        #main-batch-grid { column-gap: 30px; row-gap: 25px; position: relative; }
+        #main-batch-grid::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); height: 100%; width: 2px; background-color: rgba(27, 38, 109, 0.2); z-index: 1; }
         
         #subjects-section { display: none; padding: 20px; position: relative; }
         .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; display: flex; flex-direction: column;}
-        .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 3px solid #ffaa00; }
+        .subject-banner { width: 100%; display: block; border-bottom: 3px solid #ffaa00; }
+        .subject-banner img { width: 100%; height: auto; display: block; margin: 0; padding: 0; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
         .subject-info h3 { margin: 0; font-size: 16px; color: #3b5098; font-weight: bold;}
+        .subject-info p { margin: 5px 0 0 0; font-size: 12px; color: #888; font-weight: bold;}
         
+        /* ---------- नया: लेक्चर ग्रिड और कार्ड डिज़ाइन ---------- */
         #geo-lectures-section { display: none; padding: 0; position: relative; background-color: #f5f6f9; min-height: 100vh;}
+        
+        /* लेक्चर पेज की नीली हेडर पट्टी */
         .lecture-header-bar { background-color: #3b5098; padding: 12px 15px; display: flex; align-items: center; color: white; margin-bottom: 15px; }
         .lecture-back-circle { background-color: #ffaa00; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 12px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
         
+        /* Classes / Notes टॉगल बटन */
         .toggle-container { display: flex; justify-content: center; margin-bottom: 20px; padding: 0 15px;}
         .toggle-box { background: white; border-radius: 30px; display: flex; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); width: 100%; max-width: 350px; }
         .toggle-btn-active { flex: 1; text-align: center; background: #3b5098; color: white; border-radius: 30px; padding: 8px 0; font-size: 12px; font-weight: bold; }
         .toggle-btn-inactive { flex: 1; text-align: center; color: #888; border-radius: 30px; padding: 8px 0; font-size: 12px; font-weight: bold; }
 
+        /* 2-कॉलम लेक्चर ग्रिड */
         .lecture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 15px 30px 15px; }
+        
+        /* लेक्चर कार्ड का नया डिज़ाइन */
         .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; display: flex; flex-direction: column; border: 1px solid #eaeaea;}
         .lecture-img-container { width: 100%; aspect-ratio: 16/9; background-color: #eee; position: relative;}
         .lecture-img-container img { width: 100%; height: 100%; object-fit: cover; display: block;}
+        
         .lecture-card-content { padding: 10px; flex-grow: 1; display: flex; flex-direction: column;}
         .lecture-badge { display: inline-block; color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; margin-bottom: 6px; background: #fdf0f0; width: max-content;}
         .lecture-card-title { font-size: 11px; font-weight: bold; color: #222; margin: 0 0 10px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+        
         .lecture-card-footer { background-color: #fafafa; padding: 8px 10px; font-size: 9px; color: #888; display: flex; align-items: center; gap: 5px; border-top: 1px solid #f0f0f0; font-weight: bold;}
+        /* --------------------------------------------------- */
 
         .video-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
         .modal-top-controls { position: absolute; top: 20px; right: 20px; z-index: 10000; display: flex; align-items: center; gap: 15px; }
@@ -51,6 +65,12 @@
         .close-btn-modal { color: white; font-size: 45px; cursor: pointer; line-height: 0.8; font-weight: bold; }
         .iframe-container { width: 100%; max-width: 100%; height: 300px; position: relative; }
         .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .iframe-container:fullscreen iframe { height: 100vh; }
+        .iframe-container:-webkit-full-screen iframe { height: 100vh; }
+        .iframe-container:-ms-fullscreen iframe { height: 100vh; }
+
+        .yt-shield-top { position: absolute; top: 0; left: 0; width: 100%; height: 65px; z-index: 10001; background: transparent; }
+        .yt-shield-bottom { position: absolute; bottom: 0; right: 0; width: 130px; height: 60px; z-index: 10001; background: transparent; }
     </style>
 </head>
 <body>
@@ -65,9 +85,30 @@
     </div>
 
     <div class="batch-grid" id="main-batch-grid">
-        <div class="batch-card" onclick="openSubjects()">
-            <div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover; height: 90px;"></div>
+        <a href="classroom.html">
+            <div class="batch-card">
+                <div class="batch-image">🏛️ IAS</div>
+                <div class="batch-content">
+                    <div class="batch-title">UPSC IAS Foundation Batch (Hindi Medium)</div>
+                    <div class="batch-date">Start: 15 May 2026</div>
+                    <div class="fav-btn">♡ Add to Favorites</div>
+                </div>
+            </div>
+        </a>
+
+        <div class="batch-card">
+            <div class="batch-image" style="background-color: #d93838;">🧮 CSAT</div>
             <div class="batch-content">
+                <div class="batch-title">CSAT Target Batch For UPSC Prelims</div>
+                <div class="batch-date">Start: 20 May 2026</div>
+                <div class="fav-btn">♡ Add to Favorites</div>
+            </div>
+        </div>
+
+        <div class="batch-card" onclick="openSubjects()">
+            <div class="batch-image" style="background: url('b4055760-9313-4a64-b55b-f5784001f48b.jpg') center/cover no-repeat; padding: 0; height: 90px;"></div>
+            <div class="batch-content">
+                <div style="font-size: 10px; color: #3b5098; font-weight: bold; margin-bottom: 5px; display: flex; align-items: center;"><span style="background: #eef2fb; padding: 2px 6px; border-radius: 4px;">🎓 Batch</span></div>
                 <div class="batch-title">UPSC (Pre+Mains) Foundation Batch 2026 (Hindi Medium)</div>
                 <div class="batch-date">Start: 16 Sept 2024</div>
                 <div class="fav-btn" style="background-color: #3b5098; color: white;">▶ OPEN BATCH</div>
@@ -76,81 +117,110 @@
     </div>
 
     <div id="subjects-section">
+        <div style="margin-bottom: 20px; padding-left: 5px;">
+            <h2 style="font-size: 18px; margin: 0; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
+        </div>
+
         <div class="subject-card" onclick="openGeoLectures()">
-            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Banner"></div>
+            <div class="subject-banner">
+                <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="World Geography Banner">
+            </div>
             <div class="subject-info">
-                <div><h3>🌍 World Geography & Polity</h3><p>By Sachin Arora Sir & Rajesh Mishra Sir</p></div>
-                <div style="background: #eef2fb; color: #3b5098; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 12px;">7 Lectures ▶</div>
+                <div>
+                    <h3>🌍 World Geography</h3>
+                    <p>By Sachin Arora Sir</p>
+                </div>
+                <div style="background: #eef2fb; color: #3b5098; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 12px;">6 Lectures ▶</div>
             </div>
         </div>
     </div>
 
+    <!-- नया लेक्चर्स सेक्शन (बिल्कुल स्क्रीनशॉट के अनुसार) -->
     <div id="geo-lectures-section">
+        
+        <!-- नीली हेडर पट्टी -->
         <div class="lecture-header-bar">
             <div class="lecture-back-circle" onclick="goBackToSubjects()">⬅</div>
-            <h2 style="font-size: 14px; margin: 0; font-weight: bold;">UPSC Foundation Classes</h2>
+            <h2 style="font-size: 14px; margin: 0; font-weight: bold;">World Geography by Sachin Arora Sir</h2>
         </div>
 
+        <!-- टॉगल बटन -->
         <div class="toggle-container">
-            <div class="toggle-box"><div class="toggle-btn-active">📺 Classes</div><div class="toggle-btn-inactive">📄 Notes</div></div>
+            <div class="toggle-box">
+                <div class="toggle-btn-active">📺 Classes</div>
+                <div class="toggle-btn-inactive">📄 Notes</div>
+            </div>
         </div>
 
+        <!-- 2-कॉलम ग्रिड -->
         <div class="lecture-grid">
             
-            <div class="lecture-card" onclick="openVideo('H6SWsuKlHpU')">
-                <div class="lecture-img-container"><img src="https://img.youtube.com/vi/H6SWsuKlHpU/maxresdefault.jpg" alt="Polity Thumb"></div>
-                <div class="lecture-card-content">
-                    <span class="lecture-badge" style="background:#eef2fb; color:#3b5098; border-color:#3b5098;">▶ POLITY VIDEO</span>
-                    <div class="lecture-card-title">Lecture 01 || Indian Polity by Rajesh Mishra Sir (Intro)</div>
-                </div>
-                <div class="lecture-card-footer">🕒 3 Apr 2026 - 09:00</div>
-            </div>
-
             <div class="lecture-card" onclick="openVideo('O3engm8_fI4')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 06 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 1 Apr 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 06 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 1 Apr 2026 - 09:00</div>
             </div>
 
             <div class="lecture-card" onclick="openVideo('EzeW4S_aZd4')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 05 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 31 Mar 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 05 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 31 Mar 2026 - 09:00</div>
             </div>
 
             <div class="lecture-card" onclick="openVideo('z6CX9313lYw')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 04 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 30 Mar 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 04 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 30 Mar 2026 - 09:00</div>
             </div>
 
             <div class="lecture-card" onclick="openVideo('sxC5z3VWAgE')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 03 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 27 Mar 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 03 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 27 Mar 2026 - 09:00</div>
             </div>
 
             <div class="lecture-card" onclick="openVideo('sIoG0Ov6sJw')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 02 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 26 Mar 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 02 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 26 Mar 2026 - 09:00</div>
             </div>
 
             <div class="lecture-card" onclick="openVideo('BIOMk06xp3k')">
                 <div class="lecture-img-container"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="Thumb"></div>
-                <div class="lecture-card-content"><span class="lecture-badge">▶ CLASS VIDEO</span><div class="lecture-card-title">Lecture 01 || World Geography</div></div>
-                <div class="lecture-card-footer">🕒 25 Mar 2026</div>
+                <div class="lecture-card-content">
+                    <span class="lecture-badge">▶ CLASS VIDEO</span>
+                    <div class="lecture-card-title">Lecture 01 || World Geography by Sachin Arora Sir</div>
+                </div>
+                <div class="lecture-card-footer">🕒 25 Mar 2026 - 09:00</div>
             </div>
 
         </div>
     </div>
 
+    <!-- वीडियो प्लेयर -->
     <div class="video-modal" id="videoModal">
         <div class="modal-top-controls">
             <div class="custom-fs-btn" onclick="toggleFullScreen()">🔲 FULL SCREEN</div>
             <div class="close-btn-modal" onclick="closeVideo()">×</div>
         </div>
         <div class="iframe-container" id="videoContainer">
+            <div class="yt-shield-top"></div>
+            <div class="yt-shield-bottom"></div>
             <iframe id="ytPlayer" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
@@ -159,7 +229,11 @@
         let currentPageState = 'main'; 
 
         function handleSmartBack() {
-            if (currentPageState === 'subjects') { goBackToMainBatches(); } else { window.location.href = 'index.html'; }
+            if (currentPageState === 'subjects') {
+                goBackToMainBatches();
+            } else {
+                window.location.href = 'index.html'; 
+            }
         }
 
         function openSubjects() {
@@ -167,6 +241,7 @@
             document.getElementById('search-box-area').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'block';
             currentPageState = 'subjects';
+            window.scrollTo(0, 0); 
         }
 
         function goBackToMainBatches() {
@@ -177,37 +252,52 @@
         }
 
         function openGeoLectures() {
+            // लेक्चर्स खोलते समय मेन टॉप बार को छुपा देते हैं ताकि नया नीला हेडर अच्छा लगे
             document.getElementById('main-top-bar').style.display = 'none'; 
             document.getElementById('subjects-section').style.display = 'none';
             document.getElementById('geo-lectures-section').style.display = 'block';
             currentPageState = 'lectures';
+            window.scrollTo(0, 0); 
         }
 
         function goBackToSubjects() {
+            // वापस आते समय मेन टॉप बार को वापस दिखा देते हैं
             document.getElementById('main-top-bar').style.display = 'flex'; 
             document.getElementById('geo-lectures-section').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'block';
             currentPageState = 'subjects';
         }
 
-                function openVideo(videoId) {
-            document.getElementById('videoModal').style.display = 'flex';
-            // यह लिंक "Video Unavailable" की समस्या को ठीक कर देगा
-            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&controls=1";
+        function openVideo(videoId) {
+            var modal = document.getElementById('videoModal');
+            modal.style.display = 'flex';
+            var embedUrl = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&controls=0&disablekb=1&fs=0&cc_load_policy=0&iv_load_policy=3";
             document.getElementById('ytPlayer').src = embedUrl;
-                }
-        
+        }
 
         function closeVideo() {
             document.getElementById('videoModal').style.display = 'none';
             document.getElementById('ytPlayer').src = ""; 
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+                if (document.exitFullscreen) { document.exitFullscreen(); }
+                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+            }
         }
 
         function toggleFullScreen() {
             var container = document.getElementById('videoContainer');
-            if (!document.fullscreenElement) { container.requestFullscreen(); } else { document.exitFullscreen(); }
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (container.requestFullscreen) { container.requestFullscreen(); }
+                else if (container.webkitRequestFullscreen) { container.webkitRequestFullscreen(); }
+                else if (container.msRequestFullscreen) { container.msRequestFullscreen(); }
+            } else {
+                if (document.exitFullscreen) { document.exitFullscreen(); }
+                else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+                else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+            }
         }
     </script>
+
 </body>
-                        </html>
-                    
+</html>
