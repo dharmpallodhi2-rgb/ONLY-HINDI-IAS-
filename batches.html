@@ -2,12 +2,12 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC Batches - ONLY HINDI IAS</title>
     <style>
         body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; }
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; }
-        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; }
+        .back-btn { background-color: #ffaa00; color: white; text-decoration: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; border: none; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
         
         #subjects-section { display: none; padding: 20px; }
@@ -20,34 +20,31 @@
         .lecture-back-circle { background-color: #ffaa00; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 12px; font-weight: bold; }
         
         .lecture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px 15px; }
-        .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; border: 1px solid #eaeaea;}
+        .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; border: 1px solid #eaeaea; display: flex; flex-direction: column; }
         .lecture-img-container { width: 100%; aspect-ratio: 16/9; position: relative;}
         .lecture-img-container img { width: 100%; height: 100%; object-fit: cover; display: block;}
-        .lecture-card-content { padding: 10px; }
+        .lecture-card-content { padding: 10px; flex-grow: 1; }
         .lecture-badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px;}
-        .lecture-card-title { font-size: 11px; font-weight: bold; color: #222; margin: 0; line-height: 1.4; }
+        .lecture-card-title { font-size: 10px; font-weight: bold; color: #222; margin: 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
     </style>
 </head>
 <body>
 
     <div class="top-bar" id="main-top-bar">
-        <div class="back-btn" onclick="handleSmartBack()">⬅ Back</div>
+        <button class="back-btn" onclick="handleSmartBack()">⬅ Back</button>
         <h1 class="page-title">UPSC Free Batches</h1>
     </div>
 
-    <!-- बैच कार्ड (मेन पेज) -->
     <div class="batch-grid" id="main-batch-grid" style="padding: 20px;">
-        <div class="subject-card" onclick="openSubjects()" style="background: white;">
+        <div class="subject-card" onclick="openSubjects()">
             <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%;">
             <div style="padding:15px; text-align:center;"><b>UPSC Foundation Batch 2026</b></div>
         </div>
     </div>
 
-    <!-- सब्जेक्ट्स सेक्शन (फाउंडेशन बैच के अंदर) -->
     <div id="subjects-section">
-        <h2 style="font-size: 16px; margin-bottom: 15px; color: #3b5098;">Foundation Subjects</h2>
+        <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098;">Foundation Subjects</h2>
 
-        <!-- वर्ल्ड जियोग्राफी कार्ड -->
         <div class="subject-card" onclick="showLectures('geography')">
             <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
             <div class="subject-info">
@@ -56,30 +53,37 @@
             </div>
         </div>
 
-        <!-- नया कार्ड: इंडियन पॉलिटी -->
         <div class="subject-card" onclick="showLectures('polity')">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
             <div class="subject-info">
                 <div><b>⚖️ Indian Polity</b><p style="margin:5px 0; font-size:12px; color:#888;">By Rajesh Mishra Sir</p></div>
-                <div style="background:#eef2fb; color:#3b5098; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:bold;">1 Lecture ▶</div>
+                <div style="background:#eef2fb; color:#3b5098; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:bold;">10 Lectures ▶</div>
             </div>
         </div>
     </div>
 
-    <!-- लेक्चर्स डिस्प्ले सेक्शन -->
     <div id="lectures-display-section">
         <div class="lecture-header-bar">
             <div class="lecture-back-circle" onclick="backToSubjects()">⬅</div>
             <h2 id="current-subject-title" style="font-size: 14px; margin: 0; font-weight: bold;"></h2>
         </div>
-
-        <div class="lecture-grid" id="lecture-container">
-            <!-- लेक्चर्स यहाँ जावास्क्रिप्ट से लोड होंगे -->
-        </div>
+        <div class="lecture-grid" id="lecture-container"></div>
     </div>
 
     <script>
         let state = 'main';
+        const polityData = [
+            { id: 1, title: "Lecture 01 || परिचय", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-01%2Fl-01-polity-rajesh-mishra-sir-hin5.m3u8&title=Lecture+-+01+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A4%AF&section=kgs&source_title=Lecture+-+01+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A4%AF&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=119059&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2F7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg" },
+            { id: 2, title: "Lecture 02 || राज्य+ संविधान का परिचय", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F119418%2Fkgss-1726576283-v119418.m3u8&title=Lecture+-+02+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%2B+%E0%A4%B8%E0%A4%B2+%E0%A4%95%E0%A4%BE+%E0%A4%AA%E0%A4%B0%E0%A4%AF&section=kgs&source_title=Lecture+-+02+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%2B+%E0%A4%B8%E0%A4%B2+%E0%A4%95%E0%A4%BE+%E0%A4%AA%E0%A4%B0%E0%A4%AF&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=119237&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FGPhTlUhwBDnGtewt51TvLSMlZueaz4rHHAfll4US.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/GPhTlUhwBDnGtewt51TvLSMlZueaz4rHHAfll4US.jpg" },
+            { id: 3, title: "Lecture 03 || प्रस्तावना", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-03%2Fl-03-in-polity-rajesh-mishra-hin5.m3u8&title=Lecture+-+03+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE&section=kgs&source_title=Lecture+-+03+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=119774&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FTQEt8o0ElYSlbB5KJy3JlA249E0Gd9fydpR9QgvX.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/TQEt8o0ElYSlbB5KJy3JlA249E0Gd9fydpR9QgvX.jpg" },
+            { id: 4, title: "Lecture 04 || प्रस्तावना भाग-2", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F120399%2Fkgss-1726750533-v120399.m3u8&title=Lecture+-+04+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE+%E0%A4%AD%E0%A4%BE%E0%A4%97-2&section=kgs&source_title=Lecture+-+04+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE+%E0%A4%AD%E0%A4%BE%E0%A4%97-2&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=120413&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FoP00Fb87m5iIC6bTQooeZ0s7igGXvXBpKRtUlCIi.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/oP00Fb87m5iIC6bTQooeZ0s7igGXvXBpKRtUlCIi.jpg" },
+            { id: 5, title: "Lecture 05 || ऐतिहासिक मामले, मौलिक अधिकार", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121041%2Fkgss-1726836272-v121041.m3u8&title=Lecture+-+05++%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE+%E0%A4%B8%E0%A5%87+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7%E0%A4%BF%E0%A4%A4+%E0%A4%90%E0%A4%A4%E0%A4%BF%E0%A4%B9%E0%A4%BE%E0%A4%B8%E0%A4%BF%E0%A4%9C+%E0%A4%AE%E0%A4%BE%E0%A4%AE%E0%A4%B2%E0%A5%87%2C+%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0&section=kgs&source_title=Lecture+-+05++%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%E0%A4%A8%E0%A4%BE+%E0%A4%B8%E0%A5%87+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7%E0%A4%BF%E0%A4%A4+%E0%A4%90%E0%A4%A4%E0%A4%BF%E0%A4%B9%E0%A4%BE%E0%A4%B8%E0%A4%BF%E0%A4%9C+%E0%A4%AE%E0%A4%BE%E0%A4%AE%E0%A4%B2%E0%A5%87%2C+%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=121041&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FY5k7B7iC33RlozwSDmUqJu6ajZKHyD3telY98JVT.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/Y5k7B7iC33RlozwSDmUqJu6ajZKHyD3telY98JVT.jpg" },
+            { id: 6, title: "Lecture 06 || मौलिक अधिकार भाग-2", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121817%2Fkgss-1726922853-v121817.m3u8&title=Lecture+-+06+%7C%7C++%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0+%E0%A4%AD%E0%A4%BE%E0%A4%97-2&section=kgs&source_title=Lecture+-+06+%7C%7C++%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0+%E0%A4%AD%E0%A4%BE%E0%A4%97-2&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=121817&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2F5DluGga1KgmsEIt9pRgpbyi0g8l4YqWBMRubj2J4.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/5DluGga1KgmsEIt9pRgpbyi0g8l4YqWBMRubj2J4.jpg" },
+            { id: 7, title: "Lecture 07 || मौलिक अधिकार भाग-3", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FKgRMPfRxTt0&title=Lecture+-+07+%7C%7C+%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0+%E0%A4%AD%E0%A4%BE%E0%A4%97-3&section=kgs&source_title=Lecture+-+07+%7C%7C+%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A4%BE%E0%A4%B0+%E0%A4%AD%E0%A4%BE%E0%A4%97-3&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=122720&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fh5rFc2o3x6VzqjdJHnMIT31i2LgBrBV342w1L45x.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/h5rFc2o3x6VzqjdJHnMIT31i2LgBrBV342w1L45x.jpg" },
+            { id: 8, title: "Lecture 08 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F123312%2Fkgss-1727268621-v123312.m3u8&title=Lecture+-+08+%7C%7C+Indian+Polity+by+Rajesh+Mishra+Sir&section=kgs&source_title=Lecture+-+08+%7C%7C+Indian+Polity+by+Rajesh+Mishra+Sir&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=123312&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fu16pcvYbXUKyORhZWoWYX0FZLx6pUSyZRdWuWYih.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/u16pcvYbXUKyORhZWoWYX0FZLx6pUSyZRdWuWYih.jpg" },
+            { id: 9, title: "Lecture 09 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124027%2Fkgss-1727355192-v124027.m3u8&title=Lecture+-+09+%7C%7C+Indian+Polity+by+Rajesh+Mishra&section=kgs&source_title=Lecture+-+09+%7C%7C+Indian+Polity+by+Rajesh+Mishra&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=124027&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FwmCc0FAXUfxrCH2YQ9hFkDw7sRb9C6VsPd4VUa0m.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/wmCc0FAXUfxrCH2YQ9hFkDw7sRb9C6VsPd4VUa0m.jpg" },
+            { id: 10, title: "Lecture 10 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124208%2Fkgss-1727441217-v124208.m3u8&title=Lecture+-+10++%7C%7C+Indian+Polity+by+Rajesh+Mishra&section=kgs&source_title=Lecture+-+10++%7C%7C+Indian+Polity+by+Rajesh+Mishra&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=124450&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FtTFuUZxQ3k48xkPtipDT0V5WW06rv1dQ6UjYszCC.jpg", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/tTFuUZxQ3k48xkPtipDT0V5WW06rv1dQ6UjYszCC.jpg" }
+        ];
 
         function openSubjects() {
             document.getElementById('main-batch-grid').style.display = 'none';
@@ -98,21 +102,23 @@
 
             if(subject === 'geography') {
                 title.innerText = "World Geography by Sachin Arora Sir";
-                // यहाँ जियोग्राफी के लेक्चर का कोड डाल सकते हैं
+                // Add Geography cards here if needed
             } 
             else if(subject === 'polity') {
                 title.innerText = "Indian Polity by Rajesh Mishra Sir";
-                container.innerHTML = `
-                    <div class="lecture-card" onclick="window.location.href='https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-01%2Fl-01-polity-rajesh-mishra-sir-hin5.m3u8&title=Lecture+-+01+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%9A%E0%A4%AF&section=kgs&source_title=Lecture+-+01+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%9A%E0%A4%AF&parent_title=Indian+Polity+by+Rajesh+Mishra+Sir&item_id=119059&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2F7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg'">
-                        <div class="lecture-img-container">
-                            <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg">
+                polityData.forEach(lecture => {
+                    container.innerHTML += `
+                        <div class="lecture-card" onclick="window.location.href='${lecture.url}'">
+                            <div class="lecture-img-container">
+                                <img src="${lecture.thumb}">
+                            </div>
+                            <div class="lecture-card-content">
+                                <span class="lecture-badge">▶ CLASS VIDEO</span>
+                                <div class="lecture-card-title">${lecture.title}</div>
+                            </div>
                         </div>
-                        <div class="lecture-card-content">
-                            <span class="lecture-badge">▶ CLASS VIDEO</span>
-                            <div class="lecture-card-title">Lecture 01 || परिचय</div>
-                        </div>
-                    </div>
-                `;
+                    `;
+                });
             }
         }
 
