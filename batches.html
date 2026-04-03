@@ -5,25 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UPSC Batches - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; padding-bottom: 30px; user-select: none; -webkit-user-select: none; -ms-user-select: none; }
-        .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; }
-        .back-btn { background-color: #ffaa00; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; }
+        /* Base Styles */
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 30px; user-select: none; -webkit-user-select: none; -ms-user-select: none; overflow-x: hidden; }
+        .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .back-btn { background-color: #ffaa00; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; transition: 0.3s; }
+        .back-btn:hover { background-color: #e69900; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
         
-        #subjects-section { display: none; padding: 20px; }
+        /* Layout Containers */
+        #subjects-section { display: none; padding: 20px; animation: fadeIn 0.5s ease; }
         .batch-grid { padding: 20px; }
 
-        .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: transform 0.2s; }
-        .subject-card:active { transform: scale(0.98); }
-        .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 3px solid #ffaa00; background: #eee; }
+        /* Professional Card Design */
+        .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; position: relative; }
+        .subject-card:active { transform: scale(0.97); }
+        .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 4px solid #ffaa00; background: #f0f0f0; object-fit: cover; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
-        .subject-info b { font-size: 15px; color: #333; }
-        .subject-info p { margin: 5px 0 0; font-size: 12px; color: #888; }
-        .play-badge { background: #eef2fb; color: #3b5098; padding: 6px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; }
+        .subject-info b { font-size: 15px; color: #222; display: block; }
+        .subject-info p { margin: 5px 0 0; font-size: 12px; color: #777; }
+        .play-badge { background: #eef2fb; color: #3b5098; padding: 7px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; border: 1px solid #d0d9f0; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
+    <!-- Top Navigation Bar -->
     <div class="top-bar">
         <button class="back-btn" id="master-back-btn" onclick="handleBackLogic()">⬅ Back</button>
         <h1 class="page-title" id="main-title">UPSC Free Batches</h1>
@@ -32,21 +39,23 @@
     <!-- 1. मुख्य पेज: फाउंडेशन बैच कार्ड -->
     <div class="batch-grid" id="main-batch-container">
         <div class="subject-card" onclick="openFoundationMenu()">
-            <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; display: block;">
-            <div style="padding:15px; text-align:center; background: white;">
-                <b style="color: #3b5098; font-size: 16px;">UPSC Foundation Batch 2026</b>
-                <p style="margin-top:5px; color:#666;">Hindi Medium (Pre + Mains)</p>
+            <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; display: block;" onerror="this.src='https://via.placeholder.com/400x200?text=UPSC+Foundation+Batch'">
+            <div style="padding:20px; text-align:center; background: white;">
+                <b style="color: #3b5098; font-size: 18px;">UPSC Foundation Batch 2026</b>
+                <p style="margin-top:5px; color:#555; font-weight: 500;">Hindi Medium (Pre + Mains)</p>
             </div>
         </div>
     </div>
 
-    <!-- 2. फाउंडेशन के अंदर के सभी सब्जेक्ट्स -->
+    <!-- 2. फाउंडेशन के अंदर के सभी 7 सब्जेक्ट्स -->
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
-        <!-- International Relations Card (NEW) -->
+        <!-- International Relations -->
         <div class="subject-card" onclick="window.location.href='ir.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png" alt="IR">
+            </div>
             <div class="subject-info">
                 <div><b>🌍 International Relations</b><p>By Nawab Sir</p></div>
                 <div class="play-badge">38 Lectures ▶</div>
@@ -55,7 +64,9 @@
 
         <!-- Environment & Ecology -->
         <div class="subject-card" onclick="window.location.href='environment.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg" alt="Env">
+            </div>
             <div class="subject-info">
                 <div><b>🌿 Environment & Ecology</b><p>By Shankar Jha Sir</p></div>
                 <div class="play-badge">27 Lectures ▶</div>
@@ -64,7 +75,9 @@
 
         <!-- Indian Geography -->
         <div class="subject-card" onclick="window.location.href='indiangeography.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg" alt="India Geo">
+            </div>
             <div class="subject-info">
                 <div><b>🇮🇳 Indian Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">31 Lectures ▶</div>
@@ -73,7 +86,9 @@
 
         <!-- World Geography -->
         <div class="subject-card" onclick="window.location.href='worldgeography.html'">
-            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
+            <div class="subject-banner">
+                <img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" alt="World Geo">
+            </div>
             <div class="subject-info">
                 <div><b>🌍 World Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">7 Lectures ▶</div>
@@ -82,7 +97,9 @@
 
         <!-- Indian Polity -->
         <div class="subject-card" onclick="window.location.href='polity.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg" alt="Polity">
+            </div>
             <div class="subject-info">
                 <div><b>⚖️ Indian Polity</b><p>By Rajesh Mishra Sir</p></div>
                 <div class="play-badge">55 Lectures ▶</div>
@@ -91,7 +108,9 @@
 
         <!-- Disaster Management -->
         <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg" alt="DM">
+            </div>
             <div class="subject-info">
                 <div><b>🌋 Disaster Management</b><p>By Shankar Jha Sir</p></div>
                 <div class="play-badge">9 Lectures ▶</div>
@@ -100,7 +119,9 @@
 
         <!-- General Geography -->
         <div class="subject-card" onclick="window.location.href='generalgeography.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg"></div>
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg" alt="Gen Geo">
+            </div>
             <div class="subject-info">
                 <div><b>🗺️ General Geography</b><p>By Sachin Arora Sir</p></div>
                 <div class="play-badge">26 Lectures ▶</div>
@@ -109,13 +130,18 @@
     </div>
     
     <script>
-        // --- SECURITY PROTOCOL START ---
+        // --- MASTER SECURITY PROTOCOL ---
+        
+        // 1. Block Keyboard Inspect Shortcuts
         document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+            if(e.keyCode == 123 || 
+               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+               (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
 
+        // 2. Anti-Debugger (Freeze Inspect Console)
         (function() {
             const block = function() {
                 setInterval(function() {
@@ -124,8 +150,13 @@
             };
             try { block(); } catch (err) {}
         })();
-        // --- SECURITY PROTOCOL END ---
 
+        // 3. Clear Console continuously
+        setInterval(() => {
+            console.clear();
+        }, 1000);
+
+        // --- NAVIGATION LOGIC ---
         let isMenuOpen = false;
 
         function openFoundationMenu() {
