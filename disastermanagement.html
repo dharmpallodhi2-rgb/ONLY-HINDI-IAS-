@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Management Lectures</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .info { padding: 10px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <b style="font-size: 14px;">Disaster Management by Shankar Jha Sir</b>
+    </div>
+
+    <div class="grid" id="dm-list"></div>
+
+    <script>
+        const lectures = [
+            { t: "Lecture 01 || आपदा प्रबंधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F447880%2Fkgss-1768272450-v447880.m3u8", i: "https://i.postimg.cc/x1M0YN5Z/sunny.jpg" },
+            { t: "Lecture 02 || आपदा प्रबंधन के चरण", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F449087%2Fkgss-1768359798-v449087.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg" },
+            { t: "Lecture 03 || भारत में आपदा प्रबंधन दिशा प्रयास", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F450587%2Fkgss-1768445664-v450587.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/IQJEIwSmEscLjkoc2gGv65XfFJYuygp5S2tGHRtD.jpg" },
+            { t: "Lecture 04 || भूकंप आपदा और प्रबंधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2F22F01R2xDdA", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/LhSwr4BwJsSO7vZ89CngBt7qIrNB9YaZ4GxNZCIF.jpg" },
+            { t: "Lecture 05 || सुनामी आपदा और प्रबंधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F452825%2Fkgss-1768616929-v452825.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/FXwVKUqHcx0Ejwsi6rcg8XumQw6R8lYRvrfz6Ve7.jpg" },
+            { t: "Lecture 06 || सूखा आपदा एवं प्रबंधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F454439%2Fkgss-1768703272-v454439.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/KpBDg3qvcBhIX78hHIekm2bMVsBPfKILISEZr80q.jpg" },
+            { t: "Lecture 07 || बादल फटने का कारण / प्रक्रिया", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F454503%2Fkgss-1768789595-v454503.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/GXcuk91SzvNLK5qkuuIxjfyRNnwLOLmcFS0I1zJk.jpg" },
+            { t: "Lecture 08 || नगरीय बाढ़", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F455126%2Fkgss-1768876000-v125130.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/zet07diTlgLTOcLap6UIveSkSrne1e00k9KLmIzT.jpg" },
+            { t: "Lecture 09 || जैविक आपदा / महामारी", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F456372%2Fkgss-1768962270-v456372.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/VclMiQzgg1FsPcY4NEPojSQIZpiWFpBkpIqgysbB.jpg" }
+        ];
+
+        const list = document.getElementById('dm-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${l.u}'">
+                    <img src="${l.i}" class="thumb">
+                    <div class="info">
+                        <span class="badge">▶ CLASS VIDEO</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
