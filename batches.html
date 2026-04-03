@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <!-- 2. फाउंडेशन के अंदर के सब्जेक्ट्स (Geography & Polity) -->
+    <!-- 2. फाउंडेशन के अंदर के सब्जेक्ट्स (Geography, Polity & DM) -->
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
@@ -74,12 +74,25 @@
                 <div class="play-badge">55 Lectures ▶</div>
             </div>
         </div>
+
+        <!-- Disaster Management Card (नया जोड़ा गया) -->
+        <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
+            <div class="subject-banner">
+                <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg" alt="Disaster Management">
+            </div>
+            <div class="subject-info">
+                <div>
+                    <b>🌋 Disaster Management</b>
+                    <p>By Shankar Jha Sir</p>
+                </div>
+                <div class="play-badge">9 Lectures ▶</div>
+            </div>
+        </div>
     </div>
     
     <script>
         let isMenuOpen = false;
 
-        // फाउंडेशन बैच खोलने का फंक्शन
         function openFoundationMenu() {
             document.getElementById('main-batch-container').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'block';
@@ -88,16 +101,13 @@
             window.scrollTo(0,0);
         }
 
-        // बैक बटन का लॉजिक
         function handleBackLogic() {
             if (isMenuOpen) {
-                // अगर सब्जेक्ट्स खुले हैं, तो वापस मुख्य बैच कार्ड पर जाओ
                 document.getElementById('subjects-section').style.display = 'none';
                 document.getElementById('main-batch-container').style.display = 'block';
                 document.getElementById('main-title').innerText = "UPSC Free Batches";
                 isMenuOpen = false;
             } else {
-                // अगर मुख्य पेज पर हैं, तो इंडेक्स पेज पर जाओ
                 window.location.href = 'index.html';
             }
         }
