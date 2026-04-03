@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internal Player - ONLY HINDI IAS</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; font-family: sans-serif; }
         video { width: 100%; height: 100%; outline: none; }
-        .back-btn { position: absolute; top: 20px; left: 20px; background: #ffaa00; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; z-index: 100; font-family: sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        iframe { width: 100%; height: 100%; border: none; }
+        .back-btn { position: absolute; top: 20px; left: 20px; background: #ffaa00; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -16,31 +17,32 @@
     <div id="video-container" style="width: 100%; height: 100%;"></div>
 
     <script>
-        // URL से वीडियो लिंक निकालना
         const params = new URLSearchParams(window.location.search);
         const videoUrl = params.get('url');
         
         if (videoUrl) {
             const container = document.getElementById('video-container');
-            // YouTube चेक
+            
             if (videoUrl.includes('youtube.com') || videoUrl.includes('embed')) {
                 container.innerHTML = `<iframe src="${videoUrl}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
-            } 
-            // m3u8 या डायरेक्ट वीडियो चेक
-            else {
-                container.innerHTML = `<video id="video-player" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
-                const video = document.getElementById('video-player');
-                if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = videoUrl;
-                } else {
-                    // अगर ब्राउज़र m3u8 सपोर्ट नहीं करता (जैसे Chrome), तो HLS.js का इस्तेमाल (Optional)
+            } else {
+                container.innerHTML = `<video id="video" controls autoplay playsinline></video>`;
+                const video = document.getElementById('video');
+                
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(videoUrl);
+                    hls.attachMedia(video);
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
                     video.src = videoUrl;
                 }
             }
         }
 
-        // --- SECURITY ---
-        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        // Security Protocol
+        document.onkeydown = (e) => { 
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; 
+        };
     </script>
 </body>
 </html>
