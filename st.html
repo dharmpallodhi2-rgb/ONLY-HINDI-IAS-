@@ -3,44 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internal Player - ONLY HINDI IAS</title>
+    <title>S&T - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
-        video { width: 100%; height: 100%; outline: none; }
-        .back-btn { position: absolute; top: 20px; left: 20px; background: #ffaa00; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; z-index: 100; font-family: sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
     </style>
 </head>
-<body oncontextmenu="return false">
-    <a href="javascript:history.back()" class="back-btn">⬅ Back</a>
-    <div id="video-container" style="width: 100%; height: 100%;"></div>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Science & Technology</b>
+            <span style="font-size: 10px; color: #ffaa00;">By Sanjay Sir</span>
+        </div>
+    </div>
+
+    <div class="grid" id="st-list"></div>
 
     <script>
-        // URL से वीडियो लिंक निकालना
-        const params = new URLSearchParams(window.location.search);
-        const videoUrl = params.get('url');
-        
-        if (videoUrl) {
-            const container = document.getElementById('video-container');
-            // YouTube चेक
-            if (videoUrl.includes('youtube.com') || videoUrl.includes('embed')) {
-                container.innerHTML = `<iframe src="${videoUrl}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
-            } 
-            // m3u8 या डायरेक्ट वीडियो चेक
-            else {
-                container.innerHTML = `<video id="video-player" controls autoplay playsinline style="width:100%; height:100%;"></video>`;
-                const video = document.getElementById('video-player');
-                if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = videoUrl;
-                } else {
-                    // अगर ब्राउज़र m3u8 सपोर्ट नहीं करता (जैसे Chrome), तो HLS.js का इस्तेमाल (Optional)
-                    video.src = videoUrl;
-                }
-            }
-        }
-
-        // --- SECURITY ---
+        // MASTER SECURITY
         document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        setInterval(() => { debugger; }, 100);
+
+        const d = (s) => atob(s);
+        const lectures = [
+            { t: "L 39 || सूचना और संचार-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvNDAyMDE5L2tnc3MtMTc2NDE1Mjk0Mi12NDAyMDE5Lm0zdTg=", i: "o4TSDPp295VKmgnUtsCbNtiKPMZiO9GtvMKHyj8" },
+            { t: "L 38 || सूचना और संचार-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvNDAxMDc2L2tnc3MtMTc2NDA2NjQ0Mi12NDAxMDc2Lm0zdTg=", i: "0n7k7pYhUzJ7tmrYj1DZIxTnG9bqZNt74UCkb9fy" },
+            { t: "L 37 || सूचना और संचार-02", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvUktqd1AwYm1rODA=", i: "z3Wl2aLNCnXYQA46qclkG98iOkEBqeCaBvW3IrpQ" },
+            { t: "L 36 || सूचना और संचार-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzg3MDM3L2tnc3MtMTc2Mjc3NTgyNy12Mzg3MDM3Lm0zdTg=", i: "gLjzLCdHFMENGeNvrOSBgI7YM9OMm6dkLlqMcz2c" },
+            { t: "L 35 || जेनेटिक इंजीनियरिंग-06", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzg2MTQwL2tnc3MtMTc2MjU4NzYwMi12Mzg2MTQwLm0zdTg=", i: "tvUpi4igK2EToeGLZsJPIoiOFrlfpjesLOYdeB5O" },
+            { t: "L 34 || जेनेटिक इंजीनियरिंग-05", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvTlNBdkYtczVJS0k=", i: "CrRqKLZNwfLv5134dz5YqEncwJXyfpv0TviVt4uE" },
+            { t: "L 33 || जेनेटिक इंजीनियरिंग-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzg0Mzc1L2tnc3MtMTc2MjQzMDI2Ni12Mzg0Mzc1Lm0zdTg=", i: "NuISAEXigBxPNkegRMkOuEliif5d4qyzf1Dn8cFs" },
+            { t: "L 32 || जेनेटिक इंजीनियरिंग-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzgzNDEyL2tnc3MtMTc2MjMyODQ1NC12MzgzNDEyLm0zdTg=", i: "rknVpeuaQan3ya1p0vMFt2kTtIIuC2lrsTbMSrxn" },
+            { t: "L 31 || जेनेटिक इंजीनियरिंग-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzgxNDE3L2tnc3MtMTc2MjI1NzQzMy12MzgxNDE3Lm0zdTg=", i: "ijMfChicq67OjFR4UpE63qREnItw62Pg4P6DYKvo" },
+            { t: "L 30 || जेनेटिक इंजीनियरिंग-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzgwOTYwL2tnc3MtMTc2MjE3MDU0Ni12MzgwOTYwLm0zdTg=", i: "yucKGPWnzsOjD47jKBnyk6GVfgb1tv9E63q6bCtS" },
+            { t: "L 29 || जैव प्रौद्योगिकी-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzgwMTIxL2tnc3MtMTc2MTk5ODAzOC12MzgwMTIxLm0zdTg=", i: "SuWD6fKMoYZZiJ1irFkt91167QldVnxSbRil8SZl" },
+            { t: "L 28 || जैव प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc5NTEwL2tnc3MtMTc2MTkxMjAyMC12Mzc5NTEwLm0zdTg=", i: "voZUoaoUBmgEke66f02ov6sCFrdFOE8Fzd9cHSsu" },
+            { t: "L 27 || बौद्धिक संपदा अधिकार-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc4NzM2L2tnc3MtMTc2MTgyNTI3Mi12Mzc4NzM2Lm0zdTg=", i: "9k94PjwZb14kEaECakhrtG8PuRoK0i6KsrjmycFw" },
+            { t: "L 26 || बौद्धिक संपदा अधिकार-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc3OTA5L2tnc3MtMTc2MTczODkxNS12Mzc3OTA5Lm0zdTg=", i: "LP6mRXWrbisQc1AwKiau4e5XQr3xsO5TTBOQnzoT" },
+            { t: "L 25 || रक्षा प्रौद्योगिकी-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc3NTUwL2tnc3MtMTc2MTY1MjU0MS12Mzc3NTUwLm0zdTg=", i: "2dfiCzVg6RUb64zrF5mzIzY0Oxhp04iQdGVQoEcK" },
+            { t: "L 24 || रक्षा प्रौद्योगिकी-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc3MDA4L2tnc3MtMTc2MTM3ODI2Mi12Mzc3MDA4Lm0zdTg=", i: "RMkUpyAjSy7DVW5fsh2hDMNr9NQf1eZVTVFFUt5L" },
+            { t: "L 23 || रक्षा प्रौद्योगिकी-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc2NjY5L2tnc3MtMTc2MTMwNjkyNy12Mzc2NjY5Lm0zdTg=", i: "qRcYGZXk7AzLyOl2IsC0JccBdtUXVEdZRhIOxAfl" },
+            { t: "L 22 || रक्षा प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzc2MzA3L2tnc3MtMTc2MTIyMDYzNy12Mzc2MzA3Lm0zdTg=", i: "OlkQFbRWXCg2Hrxm26Dg8oW9gyJJUcq0xFoMHauV" },
+            { t: "L 21 || रोबोटिक्स-02", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvQWxCMFVFbXQwSXc=", i: "BEa4N75wgirAz10sZsD6ywr9vA2LZ2V53Cd2XRfa" },
+            { t: "L 20 || रोबोटिक्स-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzczMjYyL2tnc3MtMTc2MDYwMDY4NS12MzczMjYyLm0zdTg=", i: "HRa8221yuX7Xo5DJyd949gmGEQUPIEffxGDZo3g6" },
+            { t: "L 19 || नैनो प्रौद्योगिकी-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzcyMzM1L2tnc3MtMTc2MDUyOTQ2My12MzcyMzM1Lm0zdTg=", i: "YzJGolknYSF4KEa3MwH66leeGiiaaDlNmtRR2Emy" },
+            { t: "L 18 || नैनो प्रौद्योगिकी-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzcwNjUzL2tnc3MtMTc2MDQ0MzEwMC12MzcwNjUzLm0zdTg=", i: "BCcLsodRKUPPaaJiVN277WMKHrsvEzeZs6NheRYT" },
+            { t: "L 17 || नैनो प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzY2OTU0L2tnc3MtMTc2MDM1NjkwMy12MzY2OTU0Lm0zdTg=", i: "Ok18obhjyzz5qJ0zSwOytVpuUi8yJzlE760feRH9" },
+            { t: "L 16 || ऊर्जा सेक्टर-05", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzY2NTYyL2tnc3MtMTc2MDE4NTU3Ni12MzY2NTYyLm0zdTg=", i: "SAl7fCfhw2xrg9hYSVoRTS6UnOAJBWMwk6lAdr0b" },
+            { t: "L 15 || ऊर्जा सेक्टर-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzY1MzcwL2tnc3MtMTc2MDA5OTIzNS12MzY1MzcwLm0zdTg=", i: "Ksy7an3dl4psWfv3vxxWZMxlNE4LqGQpNf9qtVBK" },
+            { t: "L 14 || ऊर्जा सेक्टर-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzY0MTMxL2tnc3MtMTc2MDAxMjc5Ni12MzY0MTMxLm0zdTg=", i: "aJZom1Dv0XgjI0SmsLKxH8FIl52OZdPjHPnV7d35" },
+            { t: "L 13 || ऊर्जा सेक्टर-02", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzYyMDUzL2tnc3MtMTc1OTgzOTQyNC12MzYyMDUzLm0zdTg=", i: "xkIaQWft3fZyrKfxVOdLH8AQZsg6IkhxYGPBDkJl" },
+            { t: "L 12 || ऊर्जा सेक्टर-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzYxMzE3L2tnc3MtMTc1OTc1MzU3OS12MzYxMzE3Lm0zdTg=", i: "rRF4Vc63lUmnWVMTdk6bdiIBLQ7TjnkW7G4F6azb" },
+            { t: "L 11 || अंतरिक्ष प्रौद्योगिकी-11", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzYwODYyL2tnc3MtMTc1OTU4MDc0MC12MzYwODYyLm0zdTg=", i: "rrxQ8fTr22nSJRZE8tIAOitR8PdtSU0bgKI83xDe" },
+            { t: "L 10 || अंतरिक्ष प्रौद्योगिकी-10", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzYwNTQ3L2tnc3MtMTc1OTQ5NDQ5My12MzYwNTQ3Lm0zdTg=", i: "nkzAbzwBGfRMDdx680XLoMdlAIASalFcgtgQpLCn" },
+            { t: "L 09 || अंतरिक्ष प्रौद्योगिकी-09", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU5OTAyL2tnc3MtMTc1OTIzNDIyOC12MzU5OTAyLm0zdTg=", i: "DTOq6EGwIGeQ8Qh3yNdTSXSmR1TprAzO8CyPpHfM" },
+            { t: "L 08 || अंतरिक्ष प्रौद्योगिकी-08", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvZWJ3aUNzcmRGVVE=", i: "Y6WUBr66gSM9iBzeLqapoY3pZE6CEtiD1rrVCmzU" },
+            { t: "L 07 || अंतरिक्ष प्रौद्योगिकी-07", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU3NzUwL2tnc3MtMTc1ODg4ODk2NC12MzU3NzUwLm0zdTg=", i: "EiIlIX3cedxxEMycVkEvTpOW7EkQtiDyS6fMj7qq" },
+            { t: "L 06 || अंतरिक्ष प्रौद्योगिकी-06", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU2MzMxL2tnc3MtMTc1ODgwMzA4MC12MzU2MzMxLm0zdTg=", i: "QJwEU766EMFyz37oOTdq8fTh92k3I2QGwutYYYYa" },
+            { t: "L 05 || अंतरिक्ष प्रौद्योगिकी-05", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU1NTY5L2tnc3MtMTc1ODcxNjY3MC12MzU1NTY5Lm0zdTg=", i: "XSQm4L33DxZ8Mpe09q4TPZNaYUuR91cJVuP5ec6o" },
+            { t: "L 04 || अंतरिक्ष प्रौद्योगिकी-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU0NzMzL2tnc3MtMTc1ODYzMDM3My12MzU0NzMzLm0zdTg=", i: "1CpDfvEzJNyk4wt0YL0VZAqQfpka5GldIJJhiJS1" },
+            { t: "L 03 || अंतरिक्ष प्रौद्योगिकी-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzUzOTg3L2tnc3MtMTc1ODU0MzQ5Mi12MzUzOTg3Lm0zdTg=", i: "cH01ftedCkWJOcMKEpgnZgMvIqe7pPRsu31StjZl" },
+            { t: "L 02 || अंतरिक्ष प्रौद्योगिकी-02", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvX0dYdmZOdGhEaG8=", i: "2XT684yqOaKVO9M7uR07V1sLbwosCVJ8M1KAKAWD" },
+            { t: "L 01 || अंतरिक्ष प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzM4MjI3L2tnc3MtMTc1Njg5MjgxOC12MzM4MjI3Lm0zdTg=", i: "0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K" }
+        ];
+
+        const list = document.getElementById('st-list');
+        lectures.forEach(l => {
+            const playerUrl = `vplayer.html?url=${d(l.u)}`;
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${playerUrl}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb">
+                    <div class="info">
+                        <span class="badge">▶ PLAY VIDEO</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
     </script>
 </body>
 </html>
