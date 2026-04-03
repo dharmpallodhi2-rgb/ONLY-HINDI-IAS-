@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environment & Ecology - ONLY HINDI IAS</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Environment & Ecology</b>
+            <span style="font-size: 10px; color: #ffaa00;">By Shankar Jha Sir</span>
+        </div>
+    </div>
+
+    <div class="grid" id="env-list"></div>
+
+    <script>
+        // Security Logic
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
+        // Anti-Debugger Loop
+        setInterval(function() { debugger; }, 100);
+
+        const lectures = [
+            { t: "L 27 || ओजोन विघटन एवं संरक्षण", u: "https://www.youtube.com/embed/WLX5d_zNFrY", i: "zgXcB4dIsbz0XTjHMhs4dfMRxqyvRZFDuSg28fPc" },
+            { t: "L 26 || ध्वनि प्रदूषण", u: "https://www.youtube.com/embed/clBuIlqkxjo", i: "RSQu4kNgeil7mhl4eUpwOmGKOWApxAHu3OKQFF8f" },
+            { t: "L 25 || जलवायु परिवर्तन शमन प्रौद्योगिकी", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F445362%2Fkgss-1767928670-v445362.m3u8", i: "wX0t3y4BZwOi7ZQTLRSxeMEcQDDKyOk2MwP8XFfJ" },
+            { t: "L 24 || पेरिस समझौता एवं अनुच्छेद 6", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F443978%2Fkgss-1767842311-v443978.m3u8", i: "ZwWU8OWzosE8xowzoPTYA5gIA88cYDbQBYIjEUgg" },
+            { t: "L 23 || पर्यावरण संरक्षण अंतर्राष्ट्रीय सम्मेलन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F442987%2Fkgss-1767755597-v442987.m3u8", i: "PcpGkY8MwX9zDJSubKIaz0Fh2lP0M0Gjqk4A5NT2" },
+            { t: "L 22 || जलवायु परिवर्तन और सतत विकास", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fjan-2026%2F441304%2Fkgss-1767669581-v441304.m3u8", i: "1TRBEjmpdI2sTRTLiI7OopbDVQm82GnV0amp3HNl" },
+            { t: "L 21 || वैश्विक जलवायु परिवर्तन 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F424924%2Fkgss-1766215549-v424924.m3u8", i: "DFCWKFl4FecInC4800Gvjb1dSBnNOWM7CWYm1ruf" },
+            { t: "L 20 || वैश्विक जलवायु परिवर्तन 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F416208%2Fkgss-1765610019-v416208.m3u8", i: "4HIAcFUiM1gKlR8cZdkfSmeSRWDGDl6LsIlwkp5C" },
+            { t: "L 19 || ओजोन विघटन प्रक्रिया", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F404345%2Fkgss-1764401448-v404345.m3u8", i: "KTx8rymZyjv2nIdrTjZmwyym4YguLmii5ztKV7gO" },
+            { t: "L 18 || प्रकाश प्रदुषण", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F399624%2Fkgss-1763792228-v399624.m3u8", i: "eYouODl4tB8GBXoASgRlpisEGKe3znU9LroORm4C" },
+            { t: "L 17 || प्रदूषण स्रोत के आधार पर", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F393641%2Fkgss-1763187843-v393641.m3u8", i: "BX5UPBAqEKn1cIjDJdtxUeAHPmLr0ZXNLNr82act" },
+            { t: "L 16 || वायु गुणवत्ता", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F386082%2Fkgss-1762570742-v386082.m3u8", i: "x0itWk4p2lNus7UhNlWrWbGHjtL9HnO1aRSbAlzu" },
+            { t: "L 15 || उत्तर भारत में प्रदूषण समस्या", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F385409%2Fkgss-1762482299-v385409.m3u8", i: "FxfuYoAh92FdGHuHZ1MRtKeOqBElPPEixIkhztv1" },
+            { t: "L 14 || वायु प्रदूषण", u: "https://www.youtube.com/embed/LNHi3ilvK78", i: "WpzRzX0ZfiOOkynWigWUyQk5BtXIlIZHW24bZObO" },
+            { t: "L 13 || जैव विविधता विरासत स्थल", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F381713%2Fkgss-1762221937-v381713.m3u8", i: "vf7NY45qAIweoWcZtiBJgy4DWqaAtENM48w7ySZm" },
+            { t: "L 12 || जैव विविधता सम्मेलन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F380881%2Fkgss-1762136583-v380881.m3u8", i: "Z9hUktCtBHBn9mufHRCo4XV8JuRGhnrm33mBr7Wo" },
+            { t: "L 11 || जैव विविधता संंरक्षण", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F374617%2Fkgss-1760678885-v374617.m3u8", i: "BOszWAQQU0gW1jHzOE91gGuroRafg2uyR7fV04aI" },
+            { t: "L 10 || जैव विविधता विलोपन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F373328%2Fkgss-1760580691-v373328.m3u8", i: "wJnEsDHKU2qAinIutxPJzFy1tQYjcTlz1XJmSDV2" },
+            { t: "L 09 || जैव विविधता का मापन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F372410%2Fkgss-1760494351-v372410.m3u8", i: "RTE3qM03ShnOtdVomBdOY1wHbtKJgiDDnlsqCqER" },
+            { t: "L 08 || आर्द्रभूमि संरक्षण एवं प्रबंधन", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F370394%2Fkgss-1760408434-v370394.m3u8", i: "aijlBNeuisXRm7s1bBaJf3nfayhEBks8jgkoDDGC" },
+            { t: "L 07 || तटीय पारितंत्र चुनौतियां", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F369006%2Fkgss-1760321698-v369006.m3u8", i: "REzFHnsoLWEAdbRiAadgJ0dLPB0UVdGcITDYtKGd" },
+            { t: "L 06 || महासागरीय पर्यावरण - 02", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F366320%2Fkgss-1760150226-v366320.m3u8", i: "3iAtrPmQv2YnFjYIAeN5t2NlkhONS33jTRccmBYL" },
+            { t: "L 05 || महासागरीय पर्यावरण - 01", u: "https://www.youtube.com/embed/v-9x1T7xitw", i: "Gu7ik1o7Gxqh370g28kdUuUUZPSRYPCiL1odXpVL" },
+            { t: "L 04 || पारिस्थितिकी तंत्र के प्रकार", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F364097%2Fkgss-1759975845-v364097.m3u8", i: "Luut45Jj5xQIJuroitwySI4qz3ielaejzLklBQlP" },
+            { t: "L 03 || पारिस्थितिकी तंत्र की संरचना", u: "https://www.youtube.com/embed/D-pf-uhWgnI", i: "jCYFX567syTwSTeTDsVQHKuiem4y1qrawF5XZ9Lg" },
+            { t: "L 02 || पारिस्थितिकी तंत्र", u: "https://www.youtube.com/embed/wbSHPpzcpqo", i: "Ed9cUqGQX4QCylQC66Bra6h2TMEuCSFKSbChxBPU" },
+            { t: "L 01 || पर्यावरण vs पारिस्थितिकी तंत्र", u: "https://www.youtube.com/embed/rlsslkEH4r0", i: "W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc" }
+        ];
+
+        const list = document.getElementById('env-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${l.u}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb">
+                    <div class="info">
+                        <span class="badge">▶ CLASS VIDEO</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
