@@ -9,22 +9,16 @@
         .top-bar { background-color: #3b5098; color: white; padding: 15px; display: flex; align-items: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: sticky; top: 0; z-index: 10000; }
         .back-btn { background-color: #ffaa00; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-right: 20px; cursor: pointer; }
         .page-title { font-size: 16px; font-weight: bold; margin: 0; flex-grow: 1; text-align: center; padding-right: 40px; }
-        
-        /* Containers Visibility */
         #subjects-section, #lectures-display-section { display: none; }
-
-        /* Subject & Batch Cards */
         .batch-grid { padding: 20px; }
         .subject-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; }
         .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 3px solid #ffaa00; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
-        
-        /* Lectures Section */
         .lecture-header-bar { background-color: #3b5098; padding: 12px 15px; display: flex; align-items: center; color: white; }
         .lecture-back-circle { background-color: #ffaa00; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 12px; font-weight: bold; }
         .lecture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px 15px; }
-        .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; border: 1px solid #eaeaea; display: flex; flex-direction: column; }
-        .lecture-img-container { width: 100%; aspect-ratio: 16/9; position: relative;}
+        .lecture-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08); cursor: pointer; display: flex; flex-direction: column; border: 1px solid #eaeaea;}
+        .lecture-img-container { width: 100%; aspect-ratio: 16/9; position: relative; background: #eee;}
         .lecture-img-container img { width: 100%; height: 100%; object-fit: cover; display: block;}
         .lecture-card-content { padding: 10px; flex-grow: 1; }
         .lecture-badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px;}
@@ -38,21 +32,28 @@
         <h1 class="page-title">UPSC Free Batches</h1>
     </div>
 
-    <!-- MAIN PAGE: Foundation Batch Card -->
+    <!-- Main Page Batch Card -->
     <div class="batch-grid" id="main-batch-grid">
         <div class="subject-card" onclick="openSubjects()">
             <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; display: block;">
-            <div style="padding:15px; text-align:center; background: white;">
-                <b style="color: #3b5098;">UPSC Foundation Batch 2026</b>
-                <p style="margin: 5px 0 0; font-size: 12px; color: #888;">Hindi Medium (Pre + Mains)</p>
-            </div>
+            <div style="padding:15px; text-align:center; background: white;"><b style="color: #3b5098;">UPSC Foundation Batch 2026</b></div>
         </div>
     </div>
 
-    <!-- SUBJECTS SECTION -->
+    <!-- Subjects Section -->
     <div id="subjects-section" style="padding: 20px;">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098;">Foundation Subjects</h2>
         
+        <!-- Geography Card -->
+        <div class="subject-card" onclick="showLectures('geography')">
+            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
+            <div class="subject-info">
+                <div><b>🌍 World Geography</b><p style="margin:5px 0; font-size:12px; color:#888;">By Sachin Arora Sir</p></div>
+                <div style="background:#eef2fb; color:#3b5098; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:bold;">6 Lectures ▶</div>
+            </div>
+        </div>
+
+        <!-- Polity Card -->
         <div class="subject-card" onclick="showLectures('polity')">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
             <div class="subject-info">
@@ -60,17 +61,9 @@
                 <div style="background:#eef2fb; color:#3b5098; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:bold;">55 Lectures ▶</div>
             </div>
         </div>
-        
-        <div class="subject-card">
-            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
-            <div class="subject-info">
-                <div><b>🌍 World Geography</b><p style="margin:5px 0; font-size:12px; color:#888;">By Sachin Arora Sir</p></div>
-                <div style="background:#eef2fb; color:#3b5098; padding:5px 12px; border-radius:15px; font-size:11px; font-weight:bold;">Soon ▶</div>
-            </div>
-        </div>
     </div>
 
-    <!-- LECTURES DISPLAY -->
+    <!-- Lectures Display Section -->
     <div id="lectures-display-section">
         <div class="lecture-header-bar">
             <div class="lecture-back-circle" onclick="backToSubjects()">⬅</div>
@@ -82,21 +75,75 @@
     <script>
         let state = 'main';
 
-        const polityData = [
-            { id: 1, title: "Lecture 01 || परिचय", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-01%2Fl-01-polity-rajesh-mishra-sir-hin5.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg" },
-            { id: 2, title: "Lecture 02 || राज्य+ संविधान का परिचय", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F119418%2Fkgss-1726576283-v119418.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/GPhTlUhwBDnGtewt51TvLSMlZueaz4rHHAfll4US.jpg" },
-            { id: 3, title: "Lecture 03 || प्रस्तावना", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-03%2Fl-03-in-polity-rajesh-mishra-hin5.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/TQEt8o0ElYSlbB5KJy3JlA249E0Gd9fydpR9QgvX.jpg" },
-            { id: 4, title: "Lecture 04 || प्रस्तावना भाग-2", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F120399%2Fkgss-1726750533-v120399.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/oP00Fb87m5iIC6bTQooeZ0s7igGXvXBpKRtUlCIi.jpg" },
-            { id: 5, title: "Lecture 05 || प्रस्तावना एवं मौलिक अधिकार", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121041%2Fkgss-1726836272-v121041.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/Y5k7B7iC33RlozwSDmUqJu6ajZKHyD3telY98JVT.jpg" },
-            { id: 6, title: "Lecture 06 || मौलिक अधिकार भाग-2", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121817%2Fkgss-1726922853-v121817.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/5DluGga1KgmsEIt9pRgpbyi0g8l4YqWBMRubj2J4.jpg" },
-            { id: 7, title: "Lecture 07 || मौलिक अधिकार भाग-3", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FKgRMPfRxTt0", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/h5rFc2o3x6VzqjdJHnMIT31i2LgBrBV342w1L45x.jpg" },
-            { id: 8, title: "Lecture 08 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F123312%2Fkgss-1727268621-v123312.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/u16pcvYbXUKyORhZWoWYX0FZLx6pUSyZRdWuWYih.jpg" },
-            { id: 9, title: "Lecture 09 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124027%2Fkgss-1727355192-v124027.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/wmCc0FAXUfxrCH2YQ9hFkDw7sRb9C6VsPd4VUa0m.jpg" },
-            { id: 10, title: "Lecture 10 || Indian Polity", url: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124208%2Fkgss-1727441217-v124208.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/tTFuUZxQ3k48xkPtipDT0V5WW06rv1dQ6UjYszCC.jpg" }
-            // नील भाई, इसी तरह 11 से 55 तक के लेक्चर यहाँ एरे में आ जाएंगे।
+        // Geography Lectures (6)
+        const geoData = [
+            { t: "L 06 || World Geography", u: "O3engm8_fI4", type: "yt" },
+            { t: "L 05 || World Geography", u: "EzeW4S_aZd4", type: "yt" },
+            { t: "L 04 || World Geography", u: "z6CX9313lYw", type: "yt" },
+            { t: "L 03 || World Geography", u: "sxC5z3VWAgE", type: "yt" },
+            { t: "L 02 || World Geography", u: "sIoG0Ov6sJw", type: "yt" },
+            { t: "L 01 || World Geography", u: "BIOMk06xp3k", type: "yt" }
         ];
 
-        // 1. Foundation Batch Card Click
+        // Polity Lectures (1 to 55 - Full List)
+        const polityData = [
+            { t: "L 01 || परिचय", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-01%2Fl-01-polity-rajesh-mishra-sir-hin5.m3u8", i: "7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5" },
+            { t: "L 02 || राज्य+ संविधान", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F119418%2Fkgss-1726576283-v119418.m3u8", i: "GPhTlUhwBDnGtewt51TvLSMlZueaz4rHHAfll4US" },
+            { t: "L 03 || प्रस्तावना", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3-upsc%2Fupsc-hin-batch-05%2Fpolity-rajesh-mishra-sir%2Fpre%2Fl-03%2Fl-03-in-polity-rajesh-mishra-hin5.m3u8", i: "TQEt8o0ElYSlbB5KJy3JlA249E0Gd9fydpR9QgvX" },
+            { t: "L 04 || प्रस्तावना 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F120399%2Fkgss-1726750533-v120399.m3u8", i: "oP00Fb87m5iIC6bTQooeZ0s7igGXvXBpKRtUlCIi" },
+            { t: "L 05 || मौलिक अधिकार", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121041%2Fkgss-1726836272-v121041.m3u8", i: "Y5k7B7iC33RlozwSDmUqJu6ajZKHyD3telY98JVT" },
+            { t: "L 06 || मौलिक अधिकार 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F121817%2Fkgss-1726922853-v121817.m3u8", i: "5DluGga1KgmsEIt9pRgpbyi0g8l4YqWBMRubj2J4" },
+            { t: "L 07 || मौलिक अधिकार 3", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FKgRMPfRxTt0", i: "h5rFc2o3x6VzqjdJHnMIT31i2LgBrBV342w1L45x" },
+            { t: "L 08 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F123312%2Fkgss-1727268621-v123312.m3u8", i: "u16pcvYbXUKyORhZWoWYX0FZLx6pUSyZRdWuWYih" },
+            { t: "L 09 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124027%2Fkgss-1727355192-v124027.m3u8", i: "wmCc0FAXUfxrCH2YQ9hFkDw7sRb9C6VsPd4VUa0m" },
+            { t: "L 10 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F124208%2Fkgss-1727441217-v124208.m3u8", i: "tTFuUZxQ3k48xkPtipDT0V5WW06rv1dQ6UjYszCC" },
+            { t: "L 11 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F125130%2Fkgss-1727527738-v125130.m3u8", i: "thumb/uploads/wXF2JhDBxGHVj1wl32Ipqwmgn7aPrqdcFVFEGzbO" },
+            { t: "L 12 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fsep-2024%2F125315%2Fkgss-1727700784-v125315.m3u8", i: "PQVfREFJ4BIdGL2xkvKn1PYjNn3UvKKGLbkveHo6" },
+            { t: "L 13 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F125895%2Fkgss-1727786033-v125895.m3u8", i: "Hk2FM220nYbRp1WAuKN0jOVLWZWjmToJ9KEFw163" },
+            { t: "L 14 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F126528%2Fkgss-1727959848-v126528.m3u8", i: "V0pMRj75PJwysYjkqbue7VlkBCyjwp6QAp38gJFz" },
+            { t: "L 15 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F127594%2Fkgss-1728045812-v127594.m3u8", i: "thumb/uploads/Ai5TCDlyZixTKRE1LwOmsmZETqAnGnq3epSf8HDg" },
+            { t: "L 16 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F127962%2Fkgss-1728132787-v127962.m3u8", i: "jrzV5b7BETx88Jk6q4UVelTj0T1F790lLFroQc7H" },
+            { t: "L 17 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F128140%2Fkgss-1728305327-v128140.m3u8", i: "y7YHWYnK6Y0dELrXgrqFr2XSTbg2U99aViklGlhB" },
+            { t: "L 18 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F128833%2Fkgss-1728391775-v128833.m3u8", i: "Li0D9mo6xecJFiS850tYXmgXoTn8cc41g8IQAuiU" },
+            { t: "L 19 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F129285%2Fkgss-1728477846-v129285.m3u8", i: "7yuJzRtdYehrs3IrD7aI2kHcz3oum10Ld4cYwjI3" },
+            { t: "L 20 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F129913%2Fkgss-1728564619-v129913.m3u8", i: "77q5d0XoYq3IXskeiyNM2QeAyiQxVSznr07FMKd8" },
+            { t: "L 21 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F130484%2Fkgss-1728909276-v130484.m3u8", i: "zy90n3pbRRzcCbwVJjXWW3QdPnxybUiknYjVro2y" },
+            { t: "L 22 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F132186%2Fkgss-1729081973-v132186.m3u8", i: "thumb/uploads/K18QQYtXnZCQSSmSbKFdNWodsMxuGquGOJQZanrF" },
+            { t: "L 23 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F132956%2Fkgss-1729168136-v132956.m3u8", i: "bxHrSkAdHshWffJ04oTHmsEluWM3Kwo7rfuO5dRG" },
+            { t: "L 24 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F133434%2Fkgss-1729255010-v133434.m3u8", i: "inNPBlvjGYlfLVmSBg8C3Ls0424sF4Q4eN46yAEq" },
+            { t: "L 25 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F137315%2Fkgss-1729342312-v137315.m3u8", i: "jrGwoqPXahTrsG8fYhsM1UlYKzlfATecjCVenXbq" },
+            { t: "L 26 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F138035%2Fkgss-1729515249-v138035.m3u8", i: "gyjqwGYZiBRVC7cBnhrtk06YZTv4P7jpp3KzEy52" },
+            { t: "L 27 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F138202%2Fkgss-1729601745-v138202.m3u8", i: "7vvxHglImhyQU7nf996NvFY1j7N03R6FxnfG9Fvb" },
+            { t: "L 28 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F138780%2Fkgss-1729687972-v138780.m3u8", i: "THxrmWRS8EX3N7fkyNtbNyWMLEeHhPYa8sWxDZ8L" },
+            { t: "L 29 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F139753%2Fkgss-1729774464-v139753.m3u8", i: "C95alK5NX9BaU0QS45QqNlnIoollkFfPgjZLVRH0" },
+            { t: "L 30 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F140596%2Fkgss-1729861077-v140596.m3u8", i: "5OERwHtpvolzGdBJE2LpDZRxYlaeA2SpUmynxnk7" },
+            { t: "L 31 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2024%2F140867%2Fkgss-1729947507-v140867.m3u8", i: "wEgp0iy2rwcMeL2aRbjzYKtdxliP9MjrK4Rxnzc8" },
+            { t: "L 32 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F146059%2Fkgss-1730724499-v146059.m3u8", i: "0MSYWliJsXakUYmoi4M9aLb9z5Mn1DYiaF4078ly" },
+            { t: "L 33 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F146634%2Fkgss-1730810279-v146634.m3u8", i: "PSr21aQzZaRnok9rkbqSHtglT1VURAVywMe1tp2Q" },
+            { t: "L 34 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F146864%2Fkgss-1730896528-v146864.m3u8", i: "R7KJDUkbzVVGDNIPH3KaDlfQy0QmndY9znlVskHZ" },
+            { t: "L 35 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F147636%2Fkgss-1731069180-v147636.m3u8", i: "0KnxSyvvNOPOkrCZhJtRzzlnNAH9bSNj40oLeKBD" },
+            { t: "L 36 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F147728%2Fkgss-1731156284-v147728.m3u8", i: "WZNapJwmgtObhAyRLFXiboGMSndgROtgjnUZoYxF" },
+            { t: "L 37 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F148313%2Fkgss-1731328626-v148313.m3u8", i: "Gf7HGeoXovBJwaS84B76dA2lyQbVPWvD24zj9PCn" },
+            { t: "L 38 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F149078%2Fkgss-1731414996-v149078.m3u8", i: "N3gRO6h6MG7Fu33zzt4Iv3wmOMHs5e1zqKEfC4YD" },
+            { t: "L 39 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F149981%2Fkgss-1731501421-v149981.m3u8", i: "dtGFzoGgCq4t12j83JGoe8xjYMdCzE8IHBzJMcA3" },
+            { t: "L 40 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F150435%2Fkgss-1731585832-v150435.m3u8", i: "gNmC5x8a0NAUKoch8aCyLZF1Ry8Ove1ItKsygKuP" },
+            { t: "L 41 || Indian Polity", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F152891%2Fkgss-1732020001-v152891.m3u8", i: "AdC7haRAvE3G3O3tgX9BTi4uQJCQhLg7oA4hdeDN" },
+            { t: "L 42 || संघीय शासन 4", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F153395%2Fkgss-1732106170-v153395.m3u8", i: "0hSM90Ww2te5V36zw1xGUD2RMvppU1h28PrJFrsL" },
+            { t: "L 43 || संघीय शासन 5", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F154044%2Fkgss-1732193454-v154044.m3u8", i: "thumb/uploads/J0v7LAcZvZWLIkyF3b8gXGYJLwTKc41Zy6QPDEEL" },
+            { t: "L 44 || संघीय शासन 6", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F154548%2Fkgss-1732276912-v154548.m3u8", i: "l0ANkN9fRByut4KKIfMQwvRl8PKkZyRUaxx3wWf8" },
+            { t: "L 45 || संघीय शासन 7", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F155151%2Fkgss-1732364780-v155151.m3u8", i: "lhNjRBqYqdH9gy6YIx8xKbhoU79qkVbMnQKPZr05" },
+            { t: "L 46 || संघीय शासन 8", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F155803%2Fkgss-1732538056-v155803.m3u8", i: "hiRKqUyAjCII0IUMBs2X7BcsSuLFgCWlORvo9vaE" },
+            { t: "L 47 || न्यायपालिका 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F156523%2Fkgss-1732624631-v156523.m3u8", i: "YDEn8oOfw36GpF33ovUeJjh4vRNdIlwRMrz3K8ZC" },
+            { t: "L 48 || न्यायपालिका 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F157095%2Fkgss-1732711008-v157095.m3u8", i: "zDjQHqYkGG0EZY6mJTu6hu8tRF61NfI5cxCF09ni" },
+            { t: "L 49 || न्यायपालिका 3", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F157792%2Fkgss-1732797424-v157792.m3u8", i: "r1NZx3E6gto9KMrW47XdNXDSJUmJK4byt0OPETH2" },
+            { t: "L 50 || न्यायपालिका 4", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F158299%2Fkgss-1732883634-v158299.m3u8", i: "9Je5pAcvn1Ciu9jWTjKMX9KIwVDtDe3FKVgaUyeD" },
+            { t: "L 51 || न्यायपालिका 5", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2024%2F158786%2Fkgss-1732970218-v158786.m3u8", i: "thumb/uploads/94Hk9aTJHvXukkkU724pLChAWUt5FTUJ4vLRxhW1" },
+            { t: "L 52 || पंचायती राज 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2024%2F159562%2Fkgss-1733143020-v159562.m3u8", i: "w61AnO7qrBrUBf0BhFCTYYkrSlNcMgAvDRhmkL03" },
+            { t: "L 53 || नगरपालिका 1", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2024%2F160050%2Fkgss-1733229468-v160050.m3u8", i: "QOGAYdcOMTubYWK4jg8itoCpfMsxEehKaIfQAC7p" },
+            { t: "L 54 || नगरपालिका 2", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2024%2F160610%2Fkgss-1733315864-v160610.m3u8", i: "0fEn5pZ1rSsBj2jtvVU6CW7ETm9b0Kk6aUQyuzoT" },
+            { t: "L 55 || प्रश्न उत्तर", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2024%2F162579%2Fkgss-1733402295-v162579.m3u8", i: "9OgBOzLwpc15s2zenKp6s7Wz3WsfbrdLuNU9jeDU" }
+        ];
+
         function openSubjects() {
             document.getElementById('main-batch-grid').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'block';
@@ -104,7 +151,6 @@
             window.scrollTo(0,0);
         }
 
-        // 2. Show Polity Lectures
         function showLectures(subject) {
             document.getElementById('main-top-bar').style.display = 'none';
             document.getElementById('subjects-section').style.display = 'none';
@@ -116,35 +162,8 @@
 
             if(subject === 'polity') {
                 title.innerText = "Indian Polity by Rajesh Mishra Sir";
-                polityData.forEach(lecture => {
+                polityData.forEach(l => {
                     container.innerHTML += `
-                        <div class="lecture-card" onclick="window.location.href='${lecture.url}'">
-                            <div class="lecture-img-container"><img src="${lecture.thumb}"></div>
-                            <div class="lecture-card-content">
-                                <span class="lecture-badge">▶ CLASS VIDEO</span>
-                                <div class="lecture-card-title">${lecture.title}</div>
-                            </div>
-                        </div>`;
-                });
-            }
-            window.scrollTo(0,0);
-        }
-
-        function backToSubjects() {
-            document.getElementById('lectures-display-section').style.display = 'none';
-            document.getElementById('subjects-section').style.display = 'block';
-            document.getElementById('main-top-bar').style.display = 'flex';
-        }
-
-        function handleSmartBack() {
-            if(state === 'subjects') {
-                document.getElementById('subjects-section').style.display = 'none';
-                document.getElementById('main-batch-grid').style.display = 'block';
-                state = 'main';
-            } else {
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
-</body>
-</html>
+                        <div class="lecture-card" onclick="window.location.href='${l.u}'">
+                            <div class="lecture-img-container"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/${l.i}.jpg"></div>
+                            <div class="lectu
