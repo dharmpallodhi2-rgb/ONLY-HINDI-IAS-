@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Indian Economy (Mains) - ONLY HINDI IAS</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .back-circle { background-color: #ffaa00; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; font-size: 18px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; border-bottom: 3px solid #ffaa00; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #28a745; font-size: 8px; font-weight: bold; border: 1px solid #28a745; padding: 2px 6px; border-radius: 4px; background: #f0fff4; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Indian Economy (Mains)</b>
+            <span style="font-size: 10px; color: #ffaa00; font-weight: 500;">By Rameshwar Sir</span>
+        </div>
+    </div>
+
+    <div class="grid" id="economy-list"></div>
+
+    <script>
+        // --- MASTER SECURITY ---
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+        setInterval(function() { debugger; }, 100);
+
+        const d = (s) => atob(s);
+
+        const lectures = [
+            { t: "L 36 || खाद्य - सुरक्षा (Last Class)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNDUyMTUlMkZrZ3NzLTE3NTc1OTA3ODctdjM0NTIxNS5tM3U4", i: "OmCC8tRMpjsoH37QRh2fERmA7qQ4W1h7wHoK291t" },
+            { t: "L 35 || समावेशी विकास", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNDM2NDUlMkZrZ3NzLTE3NTc1MDQzOTAtdjM0MzY0NS5tM3U4", i: "LK1g8djGWLhld2j1a2RnNaRyuZWvfu14f04FKLQO" },
+            { t: "L 34 || बेरोजगारी", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNDI4OTMlMkZrZ3NzLTE3NTc0MTc4MDYtdjM0Mjg5My5tM3U4", i: "Db4j4LaMTEOW1Eh5YufYgz86RX5IHC5s1XAyCI0H" },
+            { t: "L 33 || गरीबी (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNDE5OTMlMkZrZ3NzLTE3NTczMzE2MDEtdjM0MTk5My5tM3U4", i: "ocXx9Gb6A61MRbh1WKn7G8dcZmovDPmiXeEd2avl" },
+            { t: "L 32 || गरीबी (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGYXVnLTIwMjUlMkYzMzQ1NzElMkZrZ3NzLTE3NTY0NjYzNjAtdjMzNDU3MS5tM3U4", i: "ZgJtkuvfS3xGPaf7BuBLAafI8JMskzBilxeIV32o" },
+            { t: "L 31 || गरीबी (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMzM1MjElMkZrZ3NzLTE3NTYzODEwMDQtdjMzMzUyMS5tM3U4", i: "7sBxt2QtcriQCTCHvC4MR9fBgAsTNRGRz0dEzdqS" },
+            { t: "L 30 || आर्थिक उदारीकरण (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMzI1NzUlMkZrZ3NzLTE3NTYyOTQ4NDItdjMzMjU3NS5tM3U4", i: "5EeyOcaBdMRV1hbnFTCYWLKp2w14yj2a4Zi0yBkf" },
+            { t: "L 29 || आर्थिक उदारीकरण (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMzEyODglMkZrZ3NzLTE3NTYyMDQ4NDctdjMzMTI4OC5tM3U4", i: "uDI3yNZGG0bVnip2TNFu3o6KpaI5g2C4E21RiFD6" },
+            { t: "L 28 || औद्योगिक नीति में परिवर्तन", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMzA1OTglMkZrZ3NzLTE3NTYxMjQ2MjgtdjMzMDU5OC5tM3U4", i: "QHJqlFdwyj95ivcrRrXdDpj4VlVgrWS6tvEWugCE" },
+            { t: "L 27 || आधारभूत संरचना (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjk3ODklMkZrZ3NzLTE3NTU5NTE1MzMtdjMyOTc4OS5tM3U4", i: "k91WdgKs2jqlGirG29PcfZgN1lUkkHsgwLyP7zHw" },
+            { t: "L 26 || आधारभूत संरचना (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjg3MzAlMkZrZ3NzLTE3NTU4NjQ4MzctdjMyODczMC5tM3U4", i: "xJPhtFeXoXuGRhC1D04ipVkIjotWhpf5YFFFclTT" },
+            { t: "L 25 || आधारभूत संरचना (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjM0MzIlMkZrZ3NzLTE3NTUxNzUwMzMtdjMyMzQzMi5tM3U4", i: "X7GqShxhQuKAs9a77RfDc8VMTWGPqUMyCcCksKIP" },
+            { t: "L 24 || निवेश मॉडल (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjIyMjIlMkZrZ3NzLTE3NTUwODczMTktdjMyMjIyMi5tM3U4", i: "nOIGJSubXy13qMFI2XsHJ4pZPBZ266uJbWFwmfrc" },
+            { t: "L 23 || निवेश मॉडल (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjEyNTYlMkZrZ3NzLTE3NTUwMDEzMDgtdjMyMTI1Ni5tM3U4", i: "cToE8Vq0ACiY2qsVHggpH4j67UamzNxtDwCU3o4R" },
+            { t: "L 22 || सरकारी बजटिंग (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMjA1MzMlMkZrZ3NzLTE3NTQ5MTUzNjgtdjMyMDUzMy5tM3U4", i: "jBp6imtwYuXCNnWlraO52IR50r0yCRbaUOxrawZw" },
+            { t: "L 21 || सरकारी बजटिंग (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMTkxNzYlMkZrZ3NzLTE3NTQ1Njk5OTgtdjMxOTE3Ni5tM3U4", i: "rMnPkv7EOLA4NoQ5khwmywrgnRr6tbbg33VXTHiM" },
+            { t: "L 20 || खाद्य प्रसंस्करण उद्योग (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMTgzNTQlMkZrZ3NzLTE3NTQ0ODI4ODMtdjMxODM1NC5tM3U4", i: "4hbCCvX4wcAwkzomycZKb73q9ryGlWgSuO876p3b" },
+            { t: "L 19 || खाद्य प्रसंस्करण उद्योग (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMTc0NDUlMkZrZ3NzLTE3NTQzOTcwNTgtdjMxNzQ0NS5tM3U4", i: "mtGUgewb0pZFq8wz50PZrX7VoTl4PgHtpn2bzUlq" },
+            { t: "L 18 || सार्वजनिक वितरण प्रणाली (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMTU4NjclMkZrZ3NzLTE3NTQzMTEwMDYtdjMxNTg2Ny5tM3U4", i: "zAQu503hVuexAqMDiGvL6oFJJFWB9ePQuyHMpnEZ" },
+            { t: "L 17 || सार्वजनिक वितरण प्रणाली (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGYXVnLTIwMjUlMkYzMTUxNDIlMkZrZ3NzLTE3NTQwNTEwMzQtdjMxNTE0Mi5tM3U4", i: "igjE3N5E4y6D2FWtkFdRk1z03SeVpmvPh6lI89RA" },
+            { t: "L 16 || पशुपालन का अर्थशास्त्र (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMTM1MjQlMkZrZ3NzLTE3NTM5NjQwOTctdjMxMzUyNC5tM3U4", i: "oJdRyVZTYTDZNrG8yOofxMAI7pE94xnUbeP8X2Om" },
+            { t: "L 15 || पशुपालन का अर्थशास्त्र (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMTI0MTMlMkZrZ3NzLTE3NTM4NzgyODMtdjMxMjQxMy5tM3U4", i: "oChF2MlcFRfkTJDgzeliX6H8oHBXYUcdXm6xPUnF" },
+            { t: "L 14 || कृषि विपणन प्रणाली (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMTEyNTElMkZrZ3NzLTE3NTM3OTE3NTYtdjMxMTI1MS5tM3U4", i: "dP2WQvOowPE17V5AHDdAk6PenHcik4YU44yRVCVl" },
+            { t: "L 13 || कृषि विपणन प्रणाली (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMTAwNDAlMkZrZ3NzLTE3NTM3MDUwNTAtdjMxMDA0MC5tM3U4", i: "DqhvDft996gzFh7uTQ1kwiNHepDdHiCwMsl0p6P0" },
+            { t: "L 12 || कृषि विपणन प्रणाली (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDc1MzklMkZrZ3NzLTE3NTM0NDcwNTEtdjMwNzUzOS5tM3U4", i: "88qbNNkQsxRt0Jb5pYENFtRiU9H8Dn0Vpwn8c6OK" },
+            { t: "L 11 || न्यूनतम समर्थन मूल्य (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDY3NjklMkZrZ3NzLTE3NTMzNjA3ODEtdjMwNjc2OS5tM3U4", i: "9pc80dqc07JZwW1WtxzG0At4aqe69cjOB9oIyfjB" },
+            { t: "L 10 || न्यूनतम समर्थन मूल्य (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDU4NjAlMkZrZ3NzLTE3NTMyNzQ0MDgtdjMwNTg2MC5tM3U4", i: "qcwM8Y1b0000mCIv2PnkEHrJ5rNa6pGyYdhVYBNS" },
+            { t: "L 09 || न्यूनतम समर्थन मूल्य (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDQ3MjIlMkZrZ3NzLTE3NTMxODcwNjMtdjMwNDcyMi5tM3U4", i: "PNLsVxmuM5J7baB492jCcDemixmLIqyx1B2NzIKm" },
+            { t: "L 08 || भारत में प्रत्यक्ष-अप्रत्यक्ष सब्सिडी (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDE2MDglMkZrZ3NzLTE3NTI4NDE2NjYtdjMwMTYwOC5tM3U4", i: "IYCqDK3tRAEnc7ofhAEbzlENiwmjYIyixJiQqC0N" },
+            { t: "L 07 || भारत में प्रत्यक्ष-अप्रत्यक्ष सब्सिडी (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDA0ODklMkZrZ3NzLTE3NTI3NTUyNzQtdjMwMDQ4OS5tM3U4", i: "TFMANKiFspOJH2kDuGbEPiXLT7Cp44agSVOfVRWE" },
+            { t: "L 06 || भारत में प्रत्यक्ष-अप्रत्यक्ष सब्सिडी (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYzMDAwNzIlMkZrZ3NzLTE3NTI2Njk0NjAtdjMwMDA3Mi5tM3U4", i: "8cCKOfIL6eLgT5tqKqukECPJ7ttRBzjkm9skuOkt" },
+            { t: "L 05 || भूमि सुधार (Part 4)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYyOTkwMzUlMkZrZ3NzLTE3NTI1ODMwNzctdjI5OTAzNS5tM3U4", i: "ht9e9oqAQqfYILu8e794fqWNu6kkoTPC4p21PdPQ" },
+            { t: "L 04 || भूमि सुधार (Part 3)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYyOTUwODglMkZrZ3NzLTE3NTIxNTAzMzAtdjI5NTA4OC5tM3U4", i: "pReCAICNWwnzsg5qZneMkqPq6PXVGfCEdZTqlQ60" },
+            { t: "L 03 || भूमि सुधार (Part 2)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYyOTQ1ODElMkZrZ3NzLTE3NTIwNjEwODMtdjI5NDU4MS5tM3U4", i: "2UW1MmZ6vJxaKvEC1iLu7AB9DpgNC9rhQIuJF82J" },
+            { t: "L 02 || भूमि सुधार (Part 1)", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYyOTM1MjclMkZrZ3NzLTE3NTE5NzUyMjEtdjI5MzUyNy5tM3U4", i: "dqxE4ahhdVKtZBo4xj7oGDhHKdHnzHgGmVgsaspg" },
+            { t: "L 01 || Syllabus Discussion", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGanVsLTIwMjUlMkYyOTI3OTElMkZrZ3NzLTE3NTE4OTEwMjAtdjI5Mjc5MS5tM3U4", i: "Z4B3SVSWAoaXS8qiJzQ5TPtHyfgQF9B0zz3s0FnU" }
+        ];
+
+        const list = document.getElementById('economy-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${d(l.u)}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=Indian+Economy'">
+                    <div class="info">
+                        <span class="badge">MAINS CLASS</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+
+        // Anti-Copy Logic
+        document.addEventListener('copy', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
