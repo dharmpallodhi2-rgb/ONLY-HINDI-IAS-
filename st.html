@@ -3,56 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Secure Video Player - ONLY HINDI IAS</title>
+    <title>S&T - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; padding: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; font-family: sans-serif; }
-        .back-btn { position: absolute; top: 15px; left: 15px; background: #ffaa00; color: white; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: bold; z-index: 9999; font-size: 14px; border: 2px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
-        .back-btn:active { transform: scale(0.9); }
-        .player-container { width: 100%; height: 100%; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
-        .loading { color: #ffaa00; position: absolute; z-index: 1; font-weight: bold; }
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; color: white; text-decoration: none; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; border-bottom: 3px solid #ffaa00; }
+        .info { padding: 8px; text-align: center; }
+        .title { font-size: 11px; font-weight: bold; color: #222; height: 2.8em; overflow: hidden; line-height: 1.3; }
+        .btn-play { background: #3b5098; color: white; border: none; padding: 5px; border-radius: 5px; font-size: 10px; font-weight: bold; width: 100%; margin-top: 5px; cursor: pointer; }
     </style>
 </head>
 <body oncontextmenu="return false">
 
-    <!-- Back Button -->
-    <a href="javascript:history.back()" class="back-btn">⬅ BACK</a>
-
-    <div class="loading">Loading Video...</div>
-
-    <div class="player-container" id="video-box">
-        <!-- Video Interface will be injected here -->
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Science & Technology</b>
+            <span style="font-size: 10px; color: #ffaa00;">By Sanjay Sir</span>
+        </div>
     </div>
 
+    <div class="grid" id="st-list"></div>
+
     <script>
-        // URL से वीडियो लिंक निकालना
-        const params = new URLSearchParams(window.location.search);
-        const videoUrl = params.get('url');
+        // मास्टर डिकोडिंग फंक्शन
+        const d = (s) => atob(s);
 
-        if (videoUrl) {
-            const container = document.getElementById('video-box');
-            
-            // 1. YouTube Link Handling
-            if (videoUrl.includes('youtube.com') || videoUrl.includes('embed')) {
-                container.innerHTML = `<iframe src="${videoUrl}?autoplay=1&modestbranding=1&rel=0" allow="autoplay; fullscreen"></iframe>`;
+        const lectures = [
+            { t: "L 01 || अंतरिक्ष प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzM4MjI3L2tnc3MtMTc1Njg5MjgxOC12MzM4MjI3Lm0zdTg=", i: "0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K" },
+            { t: "L 02 || अंतरिक्ष प्रौद्योगिकी-02", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvX0dYdmZOdGhEaG8=", i: "2XT684yqOaKVO9M7uR07V1sLbwosCVJ8M1KAKAWD" },
+            { t: "L 03 || अंतरिक्ष प्रौद्योगिकी-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzUzOTg3L2tnc3MtMTc1ODU0MzQ5Mi12MzUzOTg3Lm0zdTg=", i: "cH01ftedCkWJOcMKEpgnZgMvIqe7pPRsu31StjZl" },
+            { t: "L 04 || अंतरिक्ष प्रौद्योगिकी-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU0NzMzL2tnc3MtMTc1ODYzMDM3My12MzU0NzMzLm0zdTg=", i: "1CpDfvEzJNyk4wt0YL0VZAqQfpka5GldIJJhiJS1" }
+            // बाकी 39 लेक्चर्स के लिंक भी इसी फॉर्मेट में यहाँ आएंगे
+        ];
+
+        const list = document.getElementById('st-list');
+
+        lectures.forEach(l => {
+            const rawLink = d(l.u);
+            let finalPlayUrl = "";
+
+            // 1. अगर यूट्यूब है तो सीधा यूट्यूब पर भेजो
+            if (rawLink.includes("youtube.com") || rawLink.includes("embed")) {
+                finalPlayUrl = rawLink;
             } 
-            // 2. KGS Encrypted Link Handling (Using a Working Gateway)
+            // 2. अगर KGS m3u8 लिंक है, तो उसे एक 'Universal Online Player' पर भेजो
             else {
-                // हम यहाँ एक अल्टरनेटिव वर्किंग गेटवे का सहारा ले रहे हैं ताकि वीडियो बिना रुके चले
-                const secureGateway = `https://kgs-web-three.vercel.app/video-player?url=${encodeURIComponent(videoUrl)}`;
-                container.innerHTML = `<iframe src="${secureGateway}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                // यह प्लेयर आपके वीडियो को किसी भी ब्राउज़र में चला देगा
+                finalPlayUrl = `https://m3u8-player.com/?url=${encodeURIComponent(rawLink)}`;
             }
-        } else {
-            document.getElementById('video-box').innerHTML = "<h2 style='color:white;'>Link Not Found!</h2>";
-        }
 
-        // --- HIGH LEVEL SECURITY ---
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
-                return false;
-            }
-        };
-        setInterval(function() { debugger; }, 100);
+            list.innerHTML += `
+                <div class="card" onclick="window.open('${finalPlayUrl}', '_blank')">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb">
+                    <div class="info">
+                        <div class="title">${l.t}</div>
+                        <button class="btn-play">CLICK TO PLAY ▶</button>
+                    </div>
+                </div>`;
+        });
+
+        // सिक्योरिटी: इंस्पेक्ट एलिमेंट ब्लॉक
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
     </script>
 </body>
 </html>
