@@ -3,61 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - Secure Player</title>
+    <title>Secure Video Player - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; font-family: Arial, sans-serif; }
-        .player-wrapper { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
-        iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
-        .back-btn { position: absolute; top: 15px; left: 15px; background: #ffaa00; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: bold; z-index: 9999; font-size: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid white; transition: 0.3s; }
-        .back-btn:active { transform: scale(0.9); background: #e69900; }
-        /* Security Overlay to prevent long press on iframe */
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 50px; z-index: 999; background: transparent; }
+        body { margin: 0; padding: 0; background: #000; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; font-family: sans-serif; }
+        .back-btn { position: absolute; top: 15px; left: 15px; background: #ffaa00; color: white; padding: 10px 22px; border-radius: 30px; text-decoration: none; font-weight: bold; z-index: 9999; font-size: 14px; border: 2px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        .back-btn:active { transform: scale(0.9); }
+        .player-container { width: 100%; height: 100%; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .loading { color: #ffaa00; position: absolute; z-index: 1; font-weight: bold; }
     </style>
 </head>
-<body oncontextmenu="return false" onselectstart="return false">
+<body oncontextmenu="return false">
 
-    <!-- बैक बटन जो हमेशा ऊपर रहेगा -->
+    <!-- Back Button -->
     <a href="javascript:history.back()" class="back-btn">⬅ BACK</a>
-    
-    <div class="overlay"></div>
 
-    <div class="player-wrapper" id="video-engine">
-        <!-- वीडियो यहाँ लोड होगा -->
+    <div class="loading">Loading Video...</div>
+
+    <div class="player-container" id="video-box">
+        <!-- Video Interface will be injected here -->
     </div>
 
     <script>
-        // URL से लिंक निकालना
+        // URL से वीडियो लिंक निकालना
         const params = new URLSearchParams(window.location.search);
-        const rawUrl = params.get('url');
+        const videoUrl = params.get('url');
 
-        if (rawUrl) {
-            const engine = document.getElementById('video-engine');
+        if (videoUrl) {
+            const container = document.getElementById('video-box');
             
-            // 1. अगर YouTube लिंक है
-            if (rawUrl.includes('youtube.com') || rawUrl.includes('embed')) {
-                engine.innerHTML = `<iframe src="${rawUrl}?autoplay=1&rel=0&modestbranding=1" allow="autoplay; fullscreen"></iframe>`;
+            // 1. YouTube Link Handling
+            if (videoUrl.includes('youtube.com') || videoUrl.includes('embed')) {
+                container.innerHTML = `<iframe src="${videoUrl}?autoplay=1&modestbranding=1&rel=0" allow="autoplay; fullscreen"></iframe>`;
             } 
-            // 2. KGS m3u8 लिंक्स के लिए (Working Gateway)
+            // 2. KGS Encrypted Link Handling (Using a Working Gateway)
             else {
-                // यह गेटवे उन लिंक्स को चलाने में मदद करेगा जो आपके प्लेयर में नहीं चल रहे थे
-                const secureGateway = `https://kgs-web-three.vercel.app/video-player?url=${encodeURIComponent(rawUrl)}`;
-                engine.innerHTML = `<iframe src="${secureGateway}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+                // हम यहाँ एक अल्टरनेटिव वर्किंग गेटवे का सहारा ले रहे हैं ताकि वीडियो बिना रुके चले
+                const secureGateway = `https://kgs-web-three.vercel.app/video-player?url=${encodeURIComponent(videoUrl)}`;
+                container.innerHTML = `<iframe src="${secureGateway}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
             }
         } else {
-            document.body.innerHTML = "<h2 style='color:white; text-align:center;'>Error: No Video URL Found!</h2>";
+            document.getElementById('video-box').innerHTML = "<h2 style='color:white;'>Link Not Found!</h2>";
         }
 
-        // --- HIGH LEVEL SECURITY PROTOCOL ---
+        // --- HIGH LEVEL SECURITY ---
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
-
-        // Anti-Debugging
-        setInterval(function() {
-            debugger;
-        }, 100);
+        setInterval(function() { debugger; }, 100);
     </script>
 </body>
 </html>
