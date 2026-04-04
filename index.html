@@ -205,5 +205,41 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
         return JSON.parse(jsonPayload);
     }
 </script>
+  ... (आपका पुराना कोड)
+205         return JSON.parse(jsonPayload);
+206     }
+207 </script>
+
+<!-- यहाँ से आपको नया कोड पेस्ट करना है (</body> के ठीक ऊपर) -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
+        authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+        projectId: "only-hindi-ias-64e90",
+        appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) {
+            // अगर लॉगिन नहीं है, तो लॉगिन पेज पर भेज दो
+            window.location.href = "login.html";
+        }
+    });
+
+    // --- High-Level Security Protocol ---
+    document.oncontextmenu = () => false;
+    document.onselectstart = () => false;
+    document.ondragstart = () => false;
+    document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.keyCode == 85)) return false; };
+    setInterval(function() { debugger; }, 100);
+</script>
+<!-- यहाँ नया कोड ख़त्म -->
+
+</body>
+</html>
+
 </body>
 </html>
