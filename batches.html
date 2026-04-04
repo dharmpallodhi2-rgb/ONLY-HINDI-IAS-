@@ -20,13 +20,17 @@
         /* Subject Cards Area */
         #subjects-section { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
         .batch-grid { padding: 20px; }
-        .subject-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; }
+        .subject-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; position: relative; }
         .subject-card:active { transform: scale(0.97); }
         .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 4px solid #ffaa00; background: #f9f9f9; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
         .subject-info b { font-size: 15px; color: #333; }
         .play-badge { background: #eef2fb; color: #3b5098; padding: 6px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; }
 
+        /* New Batch Style Tag */
+        .new-tag { position: absolute; top: 10px; right: 10px; background: #d93838; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold; animation: pulse 1s infinite; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -48,8 +52,10 @@
         </div>
     </div>
 
-    <!-- Main Batch Card -->
+    <!-- Main Batches Interface -->
     <div class="batch-grid" id="main-batch-container">
+        
+        <!-- 1. Foundation Batch (Old) -->
         <div class="subject-card" onclick="checkAccess()">
             <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%;">
             <div style="padding:20px; text-align:center;">
@@ -57,67 +63,68 @@
                 <p style="font-size: 12px; color: #888; margin-top: 5px;">Password Protected 🔒</p>
             </div>
         </div>
+
+        <!-- 2. Indian Polity 2026 (New Batch - Separate Button) -->
+        <div class="subject-card" onclick="window.location.href='Polity2026.html'">
+            <div class="new-tag">NEW BATCH</div>
+            <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD.png" style="width:100%; border-bottom: 4px solid #ffaa00;">
+            <div style="padding:20px; text-align:center;">
+                <b style="color: #3b5098; font-size: 18px;">Indian Polity Batch 2026</b>
+                <p style="font-size: 12px; color: #d93838; margin-top: 5px; font-weight: bold;">Kumud Ranjan Sir ▶</p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Foundation Subject List -->
+    <!-- Foundation Subject List (Hidden until Unlocked) -->
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
-        <!-- 1. Science & Technology -->
         <div class="subject-card" onclick="window.location.href='st.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K.jpg"></div>
             <div class="subject-info"><div><b>🚀 Science & Technology</b><p style="font-size:11px; color:#999;">Sanjay Vishwakarma Sir</p></div><div class="play-badge">39 Lectures ▶</div></div>
         </div>
 
-        <!-- 2. International Relations -->
         <div class="subject-card" onclick="window.location.href='ir.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png"></div>
             <div class="subject-info"><div><b>🌍 International Relations</b><p style="font-size:11px; color:#999;">Nawab Sir</p></div><div class="play-badge">38 Lectures ▶</div></div>
         </div>
 
-        <!-- 3. Environment & Ecology -->
         <div class="subject-card" onclick="window.location.href='environment.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg"></div>
             <div class="subject-info"><div><b>🌿 Environment & Ecology</b><p style="font-size:11px; color:#999;">Shankar Jha Sir</p></div><div class="play-badge">27 Lectures ▶</div></div>
         </div>
 
-        <!-- 4. Indian Geography -->
         <div class="subject-card" onclick="window.location.href='indiangeography.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg"></div>
             <div class="subject-info"><div><b>🇮🇳 Indian Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">31 Lectures ▶</div></div>
         </div>
 
-        <!-- 5. World Geography -->
         <div class="subject-card" onclick="window.location.href='worldgeography.html'">
             <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
             <div class="subject-info"><div><b>🌍 World Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">7 Lectures ▶</div></div>
         </div>
 
-        <!-- 6. Indian Polity -->
         <div class="subject-card" onclick="window.location.href='polity.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
             <div class="subject-info"><div><b>⚖️ Indian Polity</b><p style="font-size:11px; color:#999;">Rajesh Mishra Sir</p></div><div class="play-badge">55 Lectures ▶</div></div>
         </div>
 
-        <!-- 7. Disaster Management -->
         <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg"></div>
             <div class="subject-info"><div><b>🌋 Disaster Management</b><p style="font-size:11px; color:#999;">Shankar Jha Sir</p></div><div class="play-badge">9 Lectures ▶</div></div>
         </div>
 
-        <!-- 8. General Geography -->
         <div class="subject-card" onclick="window.location.href='generalgeography.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg"></div>
             <div class="subject-info"><div><b>🗺️ General Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">26 Lectures ▶</div></div>
         </div>
 
-        <!-- 9. Hindi Compulsory -->
         <div class="subject-card" onclick="window.location.href='hindi.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/4uf7ydQqazA39yFeao6NO6mcFQotLIFW02IVgmCH.jpg"></div>
             <div class="subject-info"><div><b>✍️ Hindi Compulsory</b><p style="font-size:11px; color:#999;">Dr. Ajay Anurag Sir</p></div><div class="play-badge">6 Lectures ▶</div></div>
         </div>
 
-        <!-- 10. Indian Economy (Mains) - NEW ADDED -->
         <div class="subject-card" onclick="window.location.href='mnseconomy.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/Z4B3SVSWAoaXS8qiJzQ5TPtHyfgQF9B0zz3s0FnU.jpg"></div>
             <div class="subject-info"><div><b>💰 Indian Economy (Mains)</b><p style="font-size:11px; color:#999;">Rameshwar Sir</p></div><div class="play-badge">36 Lectures ▶</div></div>
@@ -174,4 +181,5 @@
         }
     </script>
 </body>
-</html>
+    </html>
+    
