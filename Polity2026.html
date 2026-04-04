@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Indian Polity 2026 - ONLY HINDI IAS</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .back-circle { background-color: #ffaa00; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; font-size: 18px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; border-bottom: 3px solid #ffaa00; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Indian Polity (Batch 2026)</b>
+            <span style="font-size: 10px; color: #ffaa00;">By Kumud Ranjan Sir</span>
+        </div>
+    </div>
+
+    <div class="grid" id="polity-2026-list"></div>
+
+    <script>
+        // --- MASTER SECURITY ---
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        setInterval(function() { debugger; }, 100);
+
+        const d = (s) => atob(s);
+
+        const lectures = [
+            { t: "Lecture 14 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjEzMTglMkZrZ3NzLTE3NjkzMTc4MjYtdjQ2MTMxOC5tM3U4", i: "QNjSNz5cAIL0dF21n5kDr29lar93wZlgs5bABO6X" },
+            { t: "Lecture 13 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjAxMTMlMkZrZ3NzLTE3NjkyNTM2ODEtdjQ2MDExMy5tM3U4", i: "rOGvDUKOAQyCy2fNc2y8WcmCp15E4pxD93PbyLDB" },
+            { t: "Lecture 12 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTk3ODQlMkZrZ3NzLTE3NjkxNjc0MTktdjQ1OTc4NC5tM3U4", i: "cx6RxVZzVOS7WWB4RAtP8rcL8logBA8PZ0rw4UJ1" },
+            { t: "Lecture 11 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTgxMDUlMkZrZ3NzLTE3NjkwODEwMzMtdjQ1ODEwNS5tM3U4", i: "pdWd6HmdVkHrxmEtnawGrGUBjpZ2jw3n2BnbFbNa" },
+            { t: "Lecture 10 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTY2ODAlMkZrZ3NzLTE3Njg5OTM5ODYtdjQ1NjY4MC5tM3U4", i: "AIPWGhkSvbXwGPTYWZsKRJq3P9ylum8YsElA79J1" },
+            { t: "Lecture 09 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTU1ODIlMkZrZ3NzLTE3Njg5MDgxMjctdjQ1NTU4Mi5tM3U4", i: "vUgzHQvRzTTocszzjwYlH9xXbT4w5eBqmBAVMFGc" },
+            { t: "Lecture 08 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTQyMTElMkZrZ3NzLTE3Njg4MjE5NjItdjQ1NDIxMS5tM3U4", i: "53XKaSdHut0pTBtT8WXFL28O7wH1UVwadEYDUhYW" },
+            { t: "Lecture 07 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTQyMTAlMkZrZ3NzLTE3Njg3MzQ2MzAtdjQ1NDIxMC5tM3U4", i: "2AHylI9Ce7PU3yhAXe1125k5qZIDqVUHRlKGBzci" },
+            { t: "Lecture 06 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTI4ODglMkZrZ3NzLTE3Njg2NDkwNzctdjQ1Mjg4OC5tM3U4", i: "DGkkSSkuOZ7bWmRMN80sT9pPUth5FoY4hfuK0lzG" },
+            { t: "Lecture 05 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTE5MTMlMkZrZ3NzLTE3Njg1NjE3NDAtdjQ1MTkxMy5tM3U4", i: "WMrMQFDnIsGWZ9EN1PqexJgcjsemWU4jzzlPao53" },
+            { t: "Lecture 04 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTA1OTUlMkZrZ3NzLTE3Njg0NzUyOTgtdjQ1MDU5NS5tM3U4", i: "PozkjiIiQa52I4WqXeBxLrBF0CRAl1HgZcCd8ytP" },
+            { t: "Lecture 03 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDk1NDElMkZrZ3NzLTE3NjgzODgyMDUtdjQ0OTU0MS5tM3U4", i: "k8yLIBve9iivyBy9jineAj34SSWi2lw9BXNlh1rV" },
+            { t: "Lecture 01 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDY0MjglMkZrZ3NzLTE3NjgyMTY3NTMtdjQ0NjQyOC5tM3U4", i: "Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD" }
+        ];
+
+        const list = document.getElementById('polity-2026-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${d(l.u)}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.png" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=Indian+Polity'">
+                    <div class="info">
+                        <span class="badge">BATCH 2026</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
