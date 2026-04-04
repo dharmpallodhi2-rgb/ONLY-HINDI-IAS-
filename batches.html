@@ -20,17 +20,13 @@
         /* Subject Cards Area */
         #subjects-section { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
         .batch-grid { padding: 20px; }
-        .subject-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; position: relative; }
+        .subject-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1); cursor: pointer; margin-bottom: 20px; border: 1px solid #eee; transition: 0.3s; }
         .subject-card:active { transform: scale(0.97); }
         .subject-banner img { width: 100%; height: auto; display: block; border-bottom: 4px solid #ffaa00; background: #f9f9f9; }
         .subject-info { padding: 15px; display: flex; justify-content: space-between; align-items: center;}
         .subject-info b { font-size: 15px; color: #333; }
         .play-badge { background: #eef2fb; color: #3b5098; padding: 6px 12px; border-radius: 15px; font-size: 11px; font-weight: bold; }
 
-        /* New Batch Style Tag */
-        .new-tag { position: absolute; top: 10px; right: 10px; background: #d93838; color: white; padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold; animation: pulse 1s infinite; }
-
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -52,31 +48,30 @@
         </div>
     </div>
 
-    <!-- Main Batches Interface -->
+    <!-- Main Batch Selection Grid -->
     <div class="batch-grid" id="main-batch-container">
         
-        <!-- 1. Foundation Batch (Old) -->
+        <!-- 1. Foundation Batch 2026 (Locked Menu) -->
         <div class="subject-card" onclick="checkAccess()">
-            <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%;">
+            <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; display: block;">
             <div style="padding:20px; text-align:center;">
                 <b style="color: #3b5098; font-size: 18px;">UPSC Foundation Batch 2026</b>
                 <p style="font-size: 12px; color: #888; margin-top: 5px;">Password Protected 🔒</p>
             </div>
         </div>
 
-        <!-- 2. Indian Polity 2026 (New Batch - Separate Button) -->
+        <!-- 2. New Polity Batch 2026 (Direct Access) -->
         <div class="subject-card" onclick="window.location.href='Polity2026.html'">
-            <div class="new-tag">NEW BATCH</div>
-            <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD.png" style="width:100%; border-bottom: 4px solid #ffaa00;">
+            <img src="e715c5ba-e3a0-4231-b90c-ee28d4fea405.jpg" style="width:100%; display: block; border-bottom: 4px solid #ffaa00;">
             <div style="padding:20px; text-align:center;">
-                <b style="color: #3b5098; font-size: 18px;">Indian Polity Batch 2026</b>
-                <p style="font-size: 12px; color: #d93838; margin-top: 5px; font-weight: bold;">Kumud Ranjan Sir ▶</p>
+                <b style="color: #3b5098; font-size: 18px;">UPSC Indian Polity 2026</b>
+                <p style="font-size: 12px; color: #d93838; margin-top: 5px; font-weight: bold;">Kumud Ranjan Sir Batch ▶</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Foundation Subject List (Hidden until Unlocked) -->
+    <!-- Foundation Subject List (Inner Menu) -->
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
         
@@ -134,13 +129,13 @@
     <script>
         const MASTER_CODE = "ONLYHINDI96";
 
-        // --- SECURITY ---
+        // --- SECURITY PROTOCOL ---
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
         };
         setInterval(function() { debugger; }, 100);
 
-        // --- ACCESS ---
+        // --- ACCESS LOGIC ---
         function checkAccess() {
             if (localStorage.getItem('batch_unlocked') === 'true') {
                 openFoundationMenu();
