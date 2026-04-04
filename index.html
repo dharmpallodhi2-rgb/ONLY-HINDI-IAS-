@@ -1,171 +1,172 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS - UPSC Preparation</title>
-    
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ONLY HINDI IAS - UPSC Preparation</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;--winner-gold:linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);}
-        body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);overflow-x:hidden; user-select: none; -webkit-user-select: none;}
-        
-        /* Login Overlay Styling */
-        #login-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: #fce34d; z-index: 10000; display: flex; align-items: center; justify-content: center; transition: 0.5s; }
-        .login-card { background: white; padding: 30px; border-radius: 25px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border: 2px solid var(--primary-teal); }
-        
-        .btn-google-pro { background: white; border: 1px solid #ddd; padding: 12px 20px; border-radius: 12px; width: 100%; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Poppins'; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
-        .btn-google-pro:active { transform: scale(0.98); background: #fafafa; }
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
 
-        /* Main Content Control */
-        #main-wrapper { display: none; opacity: 0; transition: opacity 0.8s ease-in; }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;--btn-shadow:0 4px 15px rgba(0,0,0,0.08);--winner-gold:linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);}
+body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);padding-bottom:20px;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
 
-        /* --- Your Original CSS Starts Here --- */
-        .header{background:var(--white);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;}
-        .header h1{margin:0;font-size:18px;font-weight:800;color:var(--primary-teal);letter-spacing:1px;}
-        .profile-logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--primary-teal);}
-        .banner-slider-box{margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;background:#eee;}
-        .banner-slider-box img{width:100%;height:auto;display:none;border-radius:15px;}
-        .banner-slider-box img.active{display:block;}
-        .live-quiz-section{margin:0 15px 20px;background:var(--primary-teal);border-radius:20px;padding:25px 15px;text-align:center;color:white;position:relative;overflow:hidden;}
-        .btn-live-quiz{background:var(--winner-gold);color:var(--primary-teal);padding:12px 35px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:900;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-        .news-container{background:var(--white);padding:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin-bottom:20px;overflow:hidden;}
-        .news-scroll{display:inline-block;white-space:nowrap;padding-left:100%;animation:newsSlide 18s linear infinite;}
-        @keyframes newsSlide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
-        .card-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-        .teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;box-shadow:0 4px 15px rgba(0,0,0,0.08);}
-        .teal-card span{font-size:30px;display:block;margin-bottom:8px;}
-        .teal-card p{margin:0;font-size:11px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;}
-        .section-title{padding:25px 20px 10px;font-size:12px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2px;}
-        .footer{text-align:center;padding:20px;background:var(--white);margin-top:20px;}
-    </style>
+/* Login Overlay Styles */
+#login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fce34d; z-index: 99999; display: flex; align-items: center; justify-content: center; visibility: visible; }
+.login-card { background: white; padding: 30px; border-radius: 20px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid var(--primary-teal); }
+.btn-google { background: white; border: 1px solid #ddd; padding: 12px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; font-family: 'Poppins'; }
+
+/* Main Content Hidden Initially */
+#main-wrapper { display: none; }
+
+.header{background:var(--white);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;}
+.header h1{margin:0;font-size:18px;font-weight:800;color:var(--primary-teal);letter-spacing:1px;}
+.profile-logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--primary-teal);}
+.banner-slider-box{margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;background:#eee;}
+.banner-slider-box img{width:100%;height:auto;display:none;border-radius:15px;}
+.banner-slider-box img.active{display:block;}
+.live-quiz-section{margin:0 15px 20px;background:var(--primary-teal);border-radius:20px;padding:25px 15px;text-align:center;color:white;position:relative;overflow:hidden;}
+.live-quiz-section::after{content:'LIVE';position:absolute;top:10px;right:10px;background:#ff0000;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;animation:blink 1s infinite;}
+@keyframes blink{50%{opacity:0;}}
+.btn-live-quiz{background:var(--winner-gold);color:var(--primary-teal);padding:12px 35px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:900;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.news-container{background:var(--white);padding:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin-bottom:20px;overflow:hidden;}
+.news-scroll{display:inline-block;white-space:nowrap;padding-left:100%;animation:newsSlide 18s linear infinite;}
+.news-scroll span{font-size:15px;font-weight:600;color:var(--primary-teal);}
+@keyframes newsSlide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+.card-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:15px;}
+.teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;box-shadow:var(--btn-shadow);position:relative;overflow:hidden;}
+.teal-card span{font-size:30px;display:block;margin-bottom:8px;}
+.teal-card p{margin:0;font-size:13px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;}
+.section-title{padding:25px 20px 10px;font-size:13px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2.5px;}
+.whats-new-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.wn-card{background:#fcf9f9;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;display:flex;flex-direction:column;}
+.wn-header{padding:10px 8px;font-size:11px;font-weight:800;color:white;}
+.wn-list{padding:10px 8px;flex:1;}
+.wn-text{font-size:11px;color:#333;font-style:italic;font-weight:600;line-height:1.4;}
+.gov-card{grid-column:span 2;display:flex;align-items:center;text-align:left;padding:15px;border-radius:18px;}
+.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;border:1px solid #ddd;object-fit:cover;}
+.btn-action{background:var(--primary-teal);color:white;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;display:inline-block;margin-top:8px;}
+.premium-card{border:2px solid var(--premium-gold)!important;background:linear-gradient(135deg,var(--white) 0%,#fffdf3 100%)!important;position:relative;overflow:hidden;}
+.premium-badge{position:absolute;top:10px;right:-25px;background:var(--premium-gold);color:white;font-size:9px;font-weight:900;padding:3px 30px;transform:rotate(45deg);}
+.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 15px;}
+.feature-card{background:var(--white);border-radius:12px;padding:15px 5px;text-align:center;border:1px solid #eee;box-shadow:var(--btn-shadow);text-decoration:none;display:block;}
+.feature-card p{margin:5px 0 0;font-size:10px;font-weight:bold;color:var(--primary-teal);}
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:10px 15px;}
+.comm-card{background:var(--white);border-radius:15px;padding:18px;text-align:center;text-decoration:none;box-shadow:var(--btn-shadow);border:1px solid #eee;display:block;}
+.comm-card img{width:32px;height:32px;margin-bottom:6px;display:inline-block;}
+.comm-card p{margin:0;font-size:12px;font-weight:bold;}
+.footer{text-align:center;padding:20px;margin-top:20px;border-top:1px solid #ddd;background:var(--white);}
+.footer a{color:var(--primary-teal);font-size:12px;font-weight:800;text-decoration:none;margin:0 8px;}
+.footer p{color:#666;font-size:10px;font-weight:600;margin-top:10px;}
+</style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- 1. Pro Login Screen -->
-    <div id="login-overlay">
-        <div class="login-card">
-            <img src="1766115476203(2).jpg" style="width: 70px; border-radius: 50%; border: 2px solid var(--primary-teal); margin-bottom: 15px;">
-            <h2 style="color: var(--primary-teal); margin: 0;">ONLY HINDI IAS</h2>
-            <p style="font-size: 12px; color: #666; margin-bottom: 25px;">UPSC तैयारी के लिए लॉगिन करें</p>
-            
-            <button class="btn-google-pro" onclick="proSignIn()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
-                Sign in with Google
-            </button>
-            <div id="loading-txt" style="display:none; margin-top:15px; font-size:11px; color:var(--primary-teal);">Verifying Access...</div>
+<!-- Login Overlay -->
+<div id="login-overlay">
+    <div class="login-card">
+        <img src="1766115476203(2).jpg" style="width: 80px; border-radius: 50%; border: 2px solid var(--primary-teal);">
+        <h2 style="color: var(--primary-teal); margin-top: 10px;">ONLY HINDI IAS</h2>
+        <p style="font-size: 12px; color: #666;">UPSC की तैयारी के लिए लॉगिन करें</p>
+        <button class="btn-google" onclick="googleSignIn()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+            Login with Google
+        </button>
+    </div>
+</div>
+
+<!-- Main Wrapper (आपका पूरा पुराना पेज) -->
+<div id="main-wrapper">
+    <div class="header">
+        <h1>ONLY HINDI IAS</h1>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button onclick="logout()" style="background:none; border:none; color:var(--primary-teal); font-size:10px; font-weight:800; cursor:pointer;">LOGOUT</button>
+            <img src="1766115476203(2).jpg" class="profile-logo" alt="ONLY HINDI IAS Logo">
         </div>
     </div>
 
-    <!-- 2. Main Page Content (Hidden until Login) -->
-    <div id="main-wrapper">
-        <div class="header">
-            <h1>ONLY HINDI IAS</h1>
-            <button onclick="proSignOut()" style="background:none; border:1px solid #ddd; padding:5px 10px; border-radius:8px; font-size:10px; font-weight:600; color:red; cursor:pointer;">Logout</button>
-        </div>
-
-        <div class="banner-slider-box">
-            <img src="1774704983075.jpg" class="active">
-            <img src="1774953818193.png">
-        </div>
-
-        <div class="live-quiz-section">
-            <h2>Daily Live Quiz ✍️</h2>
-            <p>सबसे पहले 10/10 स्कोर करें और ₹11 जीतें!</p>
-            <a href="https://forms.gle/TMvjj2TSUBKknptG7" class="btn-live-quiz">START LIVE QUIZ →</a>
-        </div>
-
-        <div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
-
-        <div class="section-title">⚡ QUICK ACCESS</div>
-        <div class="card-container">
-            <a href="batches.html" class="teal-card"><span>🎓</span><p>KGS Batches</p></a>
-            <div class="teal-card"><span>❤️</span><p>Favourites</p></div>
-            <div class="teal-card"><span>⌛</span><p>History</p></div>
-            <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
-        </div>
-
-        <div class="section-title">✍️ SUBJECT QUIZ</div>
-        <div style="padding:0 15px 20px;">
-            <a href="subjects.html" class="teal-card" style="display:flex;align-items:center;justify-content:space-between;padding:20px;text-decoration:none;">
-                <div style="display:flex;align-items:center;"><span style="font-size:30px;margin-right:15px;">📝</span><div><b style="color:var(--primary-teal);">Subject-wise Quiz</b><p style="margin:0;font-size:10px;color:#555;">History, Polity & more</p></div></div>
-                <b style="color:var(--primary-teal);">START →</b>
-            </a>
-        </div>
-
-        <!-- Add other original sections here similarly... -->
-
-        <div class="footer">
-            <p>© 2026 ONLY HINDI IAS. All Rights Reserved.</p>
-        </div>
+    <div class="banner-slider-box">
+        <img src="1774704983075.jpg" class="active" alt="UPSC Study Banner">
+        <img src="1774953818193.png" alt="Quiz Winner Banner">
     </div>
 
-    <script>
-        // --- Firebase Config (Using your unique keys) ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
-            authDomain: "only-hindi-ias-64e90.firebaseapp.com",
-            projectId: "only-hindi-ias-64e90",
-            appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
-        };
-        
-        firebase.initializeApp(firebaseConfig);
+    <div class="live-quiz-section">
+        <h2>Daily Live Quiz ✍️</h2>
+        <p>सबसे पहले 10/10 स्कोर करें और ₹11 जीतें!</p>
+        <a href="https://forms.gle/TMvjj2TSUBKknptG7" class="btn-live-quiz">START LIVE QUIZ →</a>
+        <p style="margin-top:10px; font-size:10px; font-style:italic; opacity:0.8;">Next Quiz: Today at 9:00 PM Sharp</p>
+    </div>
 
-        // Sign In Logic
-        function proSignIn() {
-            document.getElementById('loading-txt').style.display = 'block';
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider).then((result) => {
-                showContent();
-            }).catch((error) => {
-                document.getElementById('loading-txt').style.display = 'none';
-                alert("Login Failed: " + error.message);
-            });
+    <div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
+
+    <div class="section-title">⚡ QUICK ACCESS</div>
+    <div class="card-container">
+        <a href="batches.html" class="teal-card"><span>🎓</span><p>KGS Batches</p></a>
+        <div class="teal-card"><span>❤️</span><p>Favourites</p></div>
+        <div class="teal-card"><span>⌛</span><p>History</p></div>
+        <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
+    </div>
+
+    <!-- बाकी सारा फीडबैक और कंटेंट वैसा ही रहेगा... -->
+    <div class="section-title">🌟 STUDENTS FEEDBACK</div>
+    <div style="padding:0 15px;">
+        <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Very very very nice 👍👍 ⭐⭐⭐⭐⭐"</p><b>- Sonam (UPSC Aspirant)</b></div>
+        <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"नील सर आपकी वेबसाइट और ग्रुप से पढ़ाई में बहुत मदद मिलती है 🥰♥️🙏"</p><b>- Pushpa Raj (UPSC Aspirant)</b></div>
+    </div>
+
+    <div class="footer"><a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a><p>© 2026 ONLY HINDI IAS. All Rights Reserved.</p></div>
+</div>
+
+<script>
+    // --- FIREBASE CONFIGURATION ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
+        authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+        projectId: "only-hindi-ias-64e90",
+        appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Login Function
+    function googleSignIn() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then((result) => {
+            console.log("Logged In: ", result.user.email);
+        }).catch((err) => alert(err.message));
+    }
+
+    // Logout Function
+    function logout() {
+        firebase.auth().signOut().then(() => window.location.reload());
+    }
+
+    // Auth State Observer
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-wrapper').style.display = 'block';
+        } else {
+            document.getElementById('login-overlay').style.display = 'flex';
+            document.getElementById('main-wrapper').style.display = 'none';
         }
+    });
 
-        // Sign Out Logic
-        function proSignOut() {
-            firebase.auth().signOut().then(() => {
-                location.reload();
-            });
+    // Slider Logic
+    let slides = document.querySelectorAll('.banner-slider-box img');
+    let currentSlide = 0;
+    setInterval(() => {
+        if(slides.length > 0){
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
         }
+    }, 5000);
 
-        // Check Auth Status
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                showContent();
-            } else {
-                document.getElementById('login-overlay').style.display = 'flex';
-            }
-        });
-
-        function showContent() {
-            document.getElementById('login-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('main-wrapper').style.display = 'block';
-                setTimeout(() => { document.getElementById('main-wrapper').style.opacity = '1'; }, 50);
-            }, 500);
-        }
-
-        // Slider Logic
-        let slides = document.querySelectorAll('.banner-slider-box img');
-        let currentSlide = 0;
-        if(slides.length > 0) {
-            setInterval(() => {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 5000);
-        }
-
-        // Security
-        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
-    </script>
+    // Security Logic
+    document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+</script>
 </body>
 </html>
