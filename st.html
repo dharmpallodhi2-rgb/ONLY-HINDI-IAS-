@@ -3,72 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S&T - ONLY HINDI IAS</title>
+    <title>Science & Technology - ONLY HINDI IAS</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #fce34d; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
         .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
-        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; color: white; text-decoration: none; font-weight: bold; }
+        .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
         .card:active { transform: scale(0.96); }
-        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; border-bottom: 3px solid #ffaa00; }
-        .info { padding: 8px; text-align: center; }
-        .title { font-size: 11px; font-weight: bold; color: #222; height: 2.8em; overflow: hidden; line-height: 1.3; }
-        .btn-play { background: #3b5098; color: white; border: none; padding: 5px; border-radius: 5px; font-size: 10px; font-weight: bold; width: 100%; margin-top: 5px; cursor: pointer; }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
     </style>
 </head>
-<body oncontextmenu="return false">
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
     <div class="header">
         <a href="batches.html" class="back-circle">⬅</a>
         <div style="flex-grow: 1;">
             <b style="font-size: 14px; display: block;">Science & Technology</b>
-            <span style="font-size: 10px; color: #ffaa00;">By Sanjay Sir</span>
+            <span style="font-size: 10px; color: #ffaa00;">By Sanjay Vishwakarma Sir</span>
         </div>
     </div>
 
     <div class="grid" id="st-list"></div>
 
     <script>
-        // मास्टर डिकोडिंग फंक्शन
+        // --- HIGH-LEVEL SECURITY PROTOCOL ---
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
+        // Anti-Debugging Logic
+        setInterval(function() { debugger; }, 100);
+
+        // डिकोडिंग फंक्शन
         const d = (s) => atob(s);
 
+        // साइंस एंड टेक के सभी 39 लेक्चर्स (पुराने वर्किंग प्लेयर लिंक के साथ)
         const lectures = [
-            { t: "L 01 || अंतरिक्ष प्रौद्योगिकी-01", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzM4MjI3L2tnc3MtMTc1Njg5MjgxOC12MzM4MjI3Lm0zdTg=", i: "0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K" },
-            { t: "L 02 || अंतरिक्ष प्रौद्योगिकी-02", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvX0dYdmZOdGhEaG8=", i: "2XT684yqOaKVO9M7uR07V1sLbwosCVJ8M1KAKAWD" },
-            { t: "L 03 || अंतरिक्ष प्रौद्योगिकी-03", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzUzOTg3L2tnc3MtMTc1ODU0MzQ5Mi12MzUzOTg3Lm0zdTg=", i: "cH01ftedCkWJOcMKEpgnZgMvIqe7pPRsu31StjZl" },
-            { t: "L 04 || अंतरिक्ष प्रौद्योगिकी-04", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvc2VwLTIwMjUvMzU0NzMzL2tnc3MtMTc1ODYzMDM3My12MzU0NzMzLm0zdTg=", i: "1CpDfvEzJNyk4wt0YL0VZAqQfpka5GldIJJhiJS1" }
-            // बाकी 39 लेक्चर्स के लिंक भी इसी फॉर्मेट में यहाँ आएंगे
+            { t: "Lesson 39 || सूचना और संचार प्रौद्योगिकी - 04", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDIwMTklMkZrZ3NzLTE3NjQxNTI5NDItdjQwMjAxOS5tM3U4" , i: "o4TSDPp295VKmgnUtsCbNtiKPMZiO9GtvMKHyj8" },
+            { t: "Lesson 38 || सूचना और संचार प्रौद्योगिकी - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDEwNzYlMkZrZ3NzLTE3NjQwNjY0NDItdjQwMTA3Ni5tM3U4" , i: "0n7k7pYhUzJ7tmrYj1DZIxTnG9bqZNt74UCkb9fy" },
+            { t: "Lesson 37 || सूचना और संचार प्रौद्योगिकी - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC9SS2p3UDBibWs4MA==" , i: "z3Wl2aLNCnXYQA46qclkG98iOkEBqeCaBvW3IrpQ" },
+            { t: "Lesson 36 || सूचना और संचार प्रौद्योगिकी - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODcwMzclMkZrZ3NzLTE3NjI3NzU4MjctdjM4NzAzNy5tM3U4" , i: "gLjzLCdHFMENGeNvrOSBgI7YM9OMm6dkLlqMcz2c" },
+            { t: "Lesson 35 || जेनेटिक इंजीनियरिंग - 06", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODYxNDAlMkZrZ3NzLTE3NjI1ODc2MDItdjM4NjE0MC5tM3U4" , i: "tvUpi4igK2EToeGLZsJPIoiOFrlfpjesLOYdeB5O" },
+            { t: "Lesson 34 || जेनेटिक इंजीनियरिंग - 05", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC9OU0F2Ri1zNUlLST9yZWw9MA==" , i: "CrRqKLZNwfLv5134dz5YqEncwJXyfpv0TviVt4uE" },
+            { t: "Lesson 33 || जेनेटिक इंजीनियरिंग - 04", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODQzNzUlMkZrZ3NzLTE3NjI0MzAyNjYtdjM4NDM3NS5tM3U4" , i: "NuISAEXigBxPNkegRMkOuEliif5d4qyzf1Dn8cFs" },
+            { t: "Lesson 32 || जेनेटिक इंजीनियरिंग - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODM0MTIlMkZrZ3NzLTE3NjIzMjg0NTQtdjM4MzQxMi5tM3U4" , i: "rknVpeuaQan3ya1p0vMFt2kTtIIuC2lrsTbMSrxn" },
+            { t: "Lesson 31 || जेनेटिक इंजीनियरिंग - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODE0MTclMkZrZ3NzLTE3NjIyNTc0MzMtdjM4MTQxNy5tM3U4" , i: "ijMfChicq67OjFR4UpE63qREnItw62Pg4P6DYKvo" },
+            { t: "Lesson 30 || जेनेटिक इंजीनियरिंग - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODA5NjAlMkZrZ3NzLTE3NjIxNzA1NDYtdjM4MDk2MC5tM3U4" , i: "yucKGPWnzsOjD47jKBnyk6GVfgb1tv9E63q6bCtS" },
+            { t: "Lesson 29 || जैव प्रौद्योगिकी - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkYzODAxMjElMkZrZ3NzLTE3NjE5OTgwMzgtdjM4MDEyMS5tM3U4" , i: "SuWD6fKMoYZZiJ1irFkt91167QldVnxSbRil8SZl" },
+            { t: "Lesson 28 || जैव प्रौद्योगिकी - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzk1MTAlMkZrZ3NzLTE3NjE5MTIwMjAtdjM3OTUxMC5tM3U4" , i: "voZUoaoUBmgEke66f02ov6sCFrdFOE8Fzd9cHSsu" },
+            { t: "Lesson 27 || बौद्धिक संपदा अधिकार - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzg3MzYlMkZrZ3NzLTE3NjE4MjUyNzItdjM3ODczNi5tM3U4" , i: "9k94PjwZb14kEaECakhrtG8PuRoK0i6KsrjmycFw" },
+            { t: "Lesson 26 || बौद्धिक संपदा अधिकार - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzc5MDklMkZrZ3NzLTE3NjE3Mzg5MTUtdjM3NzkwOS5tM3U4" , i: "LP6mRXWrbisQc1AwKiau4e5XQr3xsO5TTBOQnzoT" },
+            { t: "Lesson 25 || रक्षा प्रौद्योगिकी - 04", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzc1NTAlMkZrZ3NzLTE3NjE2NTI1NDEtdjM3NzU1MC5tM3U4" , i: "2dfiCzVg6RUb64zrF5mzIzY0Oxhp04iQdGVQoEcK" },
+            { t: "Lesson 24 || रक्षा प्रौद्योगिकी - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzcwMDglMkZrZ3NzLTE3NjEzNzgyNjItdjM3NzAwOC5tM3U4" , i: "RMkUpyAjSy7DVW5fsh2hDMNr9NQf1eZVTVFFUt5L" },
+            { t: "Lesson 23 || रक्षा प्रौद्योगिकी - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzY2NjklMkZrZ3NzLTE3NjEzMDY5MjctdjM3NjY2OS5tM3U4" , i: "qRcYGZXk7AzLyOl2IsC0JccBdtUXVEdZRhIOxAfl" },
+            { t: "Lesson 22 || रक्षा प्रौद्योगिकी - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzYzMDclMkZrZ3NzLTE3NjEyMjA2MzctdjM3NjMwNy5tM3U4" , i: "OlkQFbRWXCg2Hrxm26Dg8oW9gyJJUcq0xFoMHauV" },
+            { t: "Lesson 21 || रोबोटिक्स - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC9BbEIwVUVtcTBJdz9yZWw9MA==" , i: "BEa4N75wgirAz10sZsD6ywr9vA2LZ2V53Cd2XRfa" },
+            { t: "Lesson 20 || रोबोटिक्स - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzMyNjIlMkZrZ3NzLTE3NjA2MDA2ODUtdjM3MzI2Mi5tM3U4" , i: "HRa8221yuX7Xo5DJyd949gmGEQUPIEffxGDZo3g6" },
+            { t: "Lesson 19 || नैनो प्रौद्योगिकी - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzIzMzUlMkZrZ3NzLTE3NjA1Mjk0NjMtdjM3MjMzNS5tM3U4" , i: "YzJGolknYSF4KEa3MwH66leeGiiaaDlNmtRR2Emy" },
+            { t: "Lesson 18 || नैनो प्रौद्योगिकी - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNzA2NTMlMkZrZ3NzLTE3NjA0NDMxMDAtdjM3MDY1My5tM3U4" , i: "BCcLsodRKUPPaaJiVN277WMKHrsvEzeZs6NheRYT" },
+            { t: "Lesson 17 || नैनो प्रौद्योगिकी - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjY5NTQlMkZrZ3NzLTE3NjAzNTY5MDMtdjM2Njk1NC5tM3U4" , i: "Ok18obhjyzz5qJ0zSwOytVpuUi8yJzlE760feRH9" },
+            { t: "Lesson 16 || ऊर्जा सेक्टर - 05", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjY1NjIlMkZrZ3NzLTE3NjAxODU1NzYtdjM2NjU2Mi5tM3U4" , i: "SAl7fCfhw2xrg9hYSVoRTS6UnOAJBWMwk6lAdr0b" },
+            { t: "Lesson 15 || ऊर्जा सेक्टर - 04", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjUzNzAlMkZrZ3NzLTE3NjAwOTkyMzUtdjM2NTM3MC5tM3U4" , i: "Ksy7an3dl4psWfv3vxxWZMxlNE4LqGQpNf9qtVBK" },
+            { t: "Lesson 14 || ऊर्जा सेक्टर - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjQxMzElMkZrZ3NzLTE3NjAwMTI3OTYtdjM2NDEzMS5tM3U4" , i: "aJZom1Dv0XgjI0SmsLKxH8FIl52OZdPjHPnV7d35" },
+            { t: "Lesson 13 || ऊर्जा सेक्टर - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjIwNTMlMkZrZ3NzLTE3NTk4Mzk0MjQtdjM2MjA1My5tM3U4" , i: "xkIaQWft3fZyrKfxVOdLH8AQZsg6IkhxYGPBDkJl" },
+            { t: "Lesson 12 || ऊर्जा सेक्टर - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjEzMTclMkZrZ3NzLTE3NTk3NTM1NzktdjM2MTMxNy5tM3U4" , i: "rRF4Vc63lUmnWVMTdk6bdiIBLQ7TjnkW7G4F6azb" },
+            { t: "Lesson 11 || भारतीय अंतरिक्ष प्रौद्योगिकी - 11", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjA4NjIlMkZrZ3NzLTE3NTk1ODA3NDAtdjM2MDg2Mi5tM3U4" , i: "rrxQ8fTr22nSJRZE8tIAOitR8PdtSU0bgKI83xDe" },
+            { t: "Lesson 10 || भारतीय अंतरिक्ष प्रौद्योगिकी - 10", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGb2N0LTIwMjUlMkYzNjA1NDclMkZrZ3NzLTE3NTk0OTQ0OTMtdjM2MDU0Ny5tM3U4" , i: "nkzAbzwBGfRMDdx680XLoMdlAIASalFcgtgQpLCn" },
+            { t: "Lesson 09 || भारतीय अंतरिक्ष प्रौद्योगिकी - 09", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTk5MDIlMkZrZ3NzLTE3NTkyMzQyMjgtdjM1OTkwMi5tM3U4" , i: "DTOq6EGwIGeQ8Qh3yNdTSXSmR1TprAzO8CyPpHfM" },
+            { t: "Lesson 08 || भारतीय अंतरिक्ष प्रौद्योगिकी - 08", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC9lYndpQ3NyZEZVUQ==" , i: "Y6WUBr66gSM9iBzeLqapoY3pZE6CEtiD1rrVCmzU" },
+            { t: "Lesson 07 || भारतीय अंतरिक्ष प्रौद्योगिकी - 07", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTc3NTAlMkZrZ3NzLTE3NTg4ODg5NjQtdjM1Nzc1MC5tM3U4" , i: "EiIlIX3cedxxEMycVkEvTpOW7EkQtiDyS6fMj7qq" },
+            { t: "Lesson 06 || भारतीय अंतरिक्ष प्रौद्योगिकी - 06", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTYzMzElMkZrZ3NzLTE3NTg4MDMwODAtdjM1NjMzMS5tM3U4" , i: "QJwEU766EMFyz37oOTdq8fTh92k3I2QGwutYYYYa" },
+            { t: "Lesson 05 || भारतीय अंतरिक्ष प्रौद्योगिकी - 05", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTU1NjklMkZrZ3NzLTE3NTg3MTY2NzAtdjM1NTU2OS5tM3U4" , i: "XSQm4L33DxZ8Mpe09q4TPZNaYUuR91cJVuP5ec6o" },
+            { t: "Lesson 04 || भारतीय अंतरिक्ष प्रौद्योगिकी - 04", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTQ3MzMlMkZrZ3NzLTE3NTg2MzAzNzMtdjM1NDczMy5tM3U4" , i: "1CpDfvEzJNyk4wt0YL0VZAqQfpka5GldIJJhiJS1" },
+            { t: "Lesson 03 || भारतीय अंतरिक्ष प्रौद्योगिकी - 03", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzNTM5ODclMkZrZ3NzLTE3NTg1NDM0OTItdjM1Mzk4Ny5tM3U4" , i: "cH01ftedCkWJOcMKEpgnZgMvIqe7pPRsu31StjZl" },
+            { t: "Lesson 02 || भारतीय अंतरिक्ष प्रौद्योगिकी - 02", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC9fR1h2Zk50aERobw==" , i: "2XT684yqOaKVO9M7uR07V1sLbwosCVJ8M1KAKAWD" },
+            { t: "Lesson 01 || भारतीय अंतरिक्ष प्रौद्योगिकी - 01", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGc2VwLTIwMjUlMkYzMzgyMjclMkZrZ3NzLTE3NTY4OTI4MTgtdjMzODIyNy5tM3U4" , i: "0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K" }
         ];
 
         const list = document.getElementById('st-list');
-
         lectures.forEach(l => {
-            const rawLink = d(l.u);
-            let finalPlayUrl = "";
-
-            // 1. अगर यूट्यूब है तो सीधा यूट्यूब पर भेजो
-            if (rawLink.includes("youtube.com") || rawLink.includes("embed")) {
-                finalPlayUrl = rawLink;
-            } 
-            // 2. अगर KGS m3u8 लिंक है, तो उसे एक 'Universal Online Player' पर भेजो
-            else {
-                // यह प्लेयर आपके वीडियो को किसी भी ब्राउज़र में चला देगा
-                finalPlayUrl = `https://m3u8-player.com/?url=${encodeURIComponent(rawLink)}`;
-            }
-
             list.innerHTML += `
-                <div class="card" onclick="window.open('${finalPlayUrl}', '_blank')">
-                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb">
+                <div class="card" onclick="window.location.href='${d(l.u)}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=Science+Tech'">
                     <div class="info">
+                        <span class="badge">▶ PLAY VIDEO</span>
                         <div class="title">${l.t}</div>
-                        <button class="btn-play">CLICK TO PLAY ▶</button>
                     </div>
                 </div>`;
         });
-
-        // सिक्योरिटी: इंस्पेक्ट एलिमेंट ब्लॉक
-        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
     </script>
 </body>
 </html>
