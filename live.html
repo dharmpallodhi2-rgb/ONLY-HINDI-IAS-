@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Live Class - ONLY HINDI IAS</title>
+    
+    <!-- HLS.js Library (यही वह जादू है जो m3u8 लाइव स्ट्रीम को चलाएगा) -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #0B2B40; /* डार्क प्रीमियम बैकग्राउंड */
+            color: white; 
+            font-family: 'Poppins', sans-serif;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            height: 100vh; 
+            user-select: none; 
+            -webkit-user-select: none; 
+        }
+
+        .header {
+            width: 100%;
+            background: #fce34d;
+            padding: 15px 0;
+            text-align: center;
+            color: #0B2B40;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .video-wrapper {
+            width: 95%;
+            max-width: 800px;
+            background: black;
+            border: 3px solid #b59410; /* प्रीमियम गोल्ड बॉर्डर */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* वीडियो प्लेयर की सेटिंग */
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            outline: none;
+        }
+
+        .class-title {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #fce34d;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<!-- एंटी-कॉपी प्रोटेक्शन: राइट-क्लिक और टेक्स्ट सेलेक्ट करना बंद -->
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+    <div class="header">
+        🔴 ONLY HINDI IAS - LIVE
+    </div>
+
+    <div class="video-wrapper">
+        <!-- वीडियो प्लेयर टैग -->
+        <video id="my-live-player" controls autoplay></video>
+    </div>
+
+    <div class="class-title">
+        Lecture 35 || Reasoning (CSAT) by Sanjeev Tiwari Sir
+    </div>
+
+    <script>
+        // स्टेप 1: वीडियो प्लेयर और असली लिंक को पहचानना
+        const video = document.getElementById('my-live-player');
+        
+        // यह आपका KGS वाला असली m3u8 लिंक है
+        const videoSrc = 'https://stream-kgs.akamaized.net/hls/kgss-1775293094-v525466.m3u8'; 
+
+        // स्टेप 2: HLS लाइब्रेरी की मदद से वीडियो को चलाना
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(videoSrc); // लिंक को लोड करना
+            hls.attachMedia(video);   // प्लेयर के साथ जोड़ना
+            
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play(); // जैसे ही वीडियो रेडी हो, अपने आप प्ले हो जाए
+            });
+        } 
+        // Apple Safari ब्राउज़र के लिए अलग सेटिंग (क्योंकि सफारी m3u8 सीधे चला लेता है)
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+
+        // --- हाई-लेवल सिक्योरिटी (DevTools Block) ---
+        // F12, Ctrl+Shift+I, Ctrl+U आदि को ब्लॉक करना
+        document.onkeydown = function(e) { 
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.keyCode == 85)) {
+                return false; 
+            }
+        };
+        // अगर कोई जबरदस्ती कंसोल खोलेगा तो ब्राउज़र हैंग हो जाएगा (एंटी-डीबगिंग)
+        setInterval(function() { debugger; }, 100);
+    </script>
+
+</body>
+</html>
