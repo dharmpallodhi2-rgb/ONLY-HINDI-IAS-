@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login - ONLY HINDI IAS</title>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #fce34d; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; user-select: none; -webkit-user-select: none; }
+        .login-card { background: white; padding: 40px 30px; border-radius: 20px; text-align: center; width: 85%; max-width: 340px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 2px solid #0B2B40; }
+        .login-logo { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #0B2B40; margin-bottom: 15px; object-fit: cover; }
+        .btn-google { background: white; border: 1px solid #ddd; padding: 12px 20px; border-radius: 12px; width: 100%; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; font-family: 'Poppins', sans-serif; color: #0B2B40; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+        .btn-google:active { transform: scale(0.96); }
+    </style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+    <div class="login-card">
+        <img src="1766115476203(2).jpg" class="login-logo" alt="ONLY HINDI IAS Logo" onerror="this.src='https://via.placeholder.com/90'">
+        <h2 style="color: #0B2B40; margin: 0; font-weight: 800; font-size: 22px;">ONLY HINDI IAS</h2>
+        <p style="margin: 5px 0 20px; font-size: 13px; color: #555;">UPSC की तैयारी के लिए लॉगिन करें</p>
+        
+        <button class="btn-google" onclick="signInWithFirebase()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+            Google से लॉगिन करें
+        </button>
+    </div>
+
+    <script>
+        // --- High-Level Security Protocol ---
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.keyCode == 85)) return false; };
+        setInterval(function() { debugger; }, 100);
+
+        // --- Firebase Config ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
+            authDomain: "only-hindi-ias-64e90.firebaseapp.com",
+            projectId: "only-hindi-ias-64e90",
+            appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function signInWithFirebase() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).catch(error => {
+                alert("Login Error: " + error.message);
+            });
+        }
+
+        // अगर यूजर लॉगिन हो जाता है, तो सीधा index.html पर भेज दो
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                window.location.href = "index.html"; 
+            }
+        });
+    </script>
+</body>
+</html>
