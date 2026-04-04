@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>History 2026 - ONLY HINDI IAS</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .back-circle { background-color: #ffaa00; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; font-size: 18px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.96); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #ddd; border-bottom: 3px solid #ffaa00; }
+        .info { padding: 8px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
+        .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+    </style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 14px; display: block;">Modern History (Batch 2026)</b>
+            <span style="font-size: 10px; color: #ffaa00;">By K. Shivesh Sir</span>
+        </div>
+    </div>
+
+    <div class="grid" id="history-2026-list"></div>
+
+    <script>
+        // --- MASTER SECURITY PROTOCOL ---
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        setInterval(function() { debugger; }, 100);
+
+        const d = (s) => atob(s);
+
+        const lectures = [
+            { t: "L 31 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0OTQyODAlMkZrZ3NzLTE3NzIxNzc5NzUtdjQ5NDI4MC5tM3U4", i: "gFJslfd8hdwkxdvHotYrlsHm3afsSeIP1pid6GXF" },
+            { t: "L 30 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0OTMyNDklMkZrZ3NzLTE3NzIwOTEyODAtdjQ5MzI0OS5tM3U4", i: "jFXegUH6mzbo46rqA0alXYH1RAP8Ym55IUf4juEr" },
+            { t: "L 29 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0OTI0MjQlMkZrZ3NzLTE3NzIwMDQ1ODEtdjQ5MjQyNC5tM3U4", i: "JCAAsyXcQ7oYFDBUoIEJGa56XwGSvnZZGwlFSEP4" },
+            { t: "L 28 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0OTExNzUlMkZrZ3NzLTE3NzE5MTg3NDItdjQ5MTE3NS5tM3U4", i: "r38IqMRgifN7I2s4GI0ZTndkKRg4fuEar5BrYh4O" },
+            { t: "L 27 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0OTA0MDIlMkZrZ3NzLTE3NzE4MzA2OTMtdjQ5MDQwMi5tM3U4", i: "IJHwsqBZhxKgoomJbXPq1zmRP3Az3bbAbLhGW4bM" },
+            { t: "L 26 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0ODk4NzglMkZrZ3NzLTE3NzE2NjAyNDQtdjQ4OTg3OC5tM3U4", i: "6BfssDiTYIMyDArJ6IEInOXSfuFqTsWcRuILKMih" },
+            { t: "L 25 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0ODg1MjclMkZrZ3NzLTE3NzE0ODYyNTgtdjQ4ODUyNy5tM3U4", i: "GqIHIS3pCR21dLdKfrMGqL25tJggBRN33k9FpDvB" },
+            { t: "L 24 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0ODc0ODklMkZrZ3NzLTE3NzE0MDA0NTItdjQ4NzQ4OS5tM3U4", i: "4maCS67aKaDrwQOrLNDPMzpI32rxkzEVd3jIBr7M" },
+            { t: "L 23 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3Y0LXN0YXRlLXBjcyUyRnVwcHNjLWNyYXNoLWNvdXJzZS05MjklMkZoaXMtc2hpdmVzaC1zaXIlMkZsLTIzJTJGaGlzLm0zdTg=", i: "zSEN66NsA4DvZlVepz6PR4HA28380JV7z2gXHtt1" },
+            { t: "L 22 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0ODIzNjAlMkZrZ3NzLTE3NzA4ODczNDAtdjQ4MjM2MC5tM3U4", i: "0RIZjyGsBjYifuLYPmWDzgGBL9x5VwM9tRAqGwqx" },
+            { t: "L 21 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0NzU5MzUlMkZrZ3NzLTE3NzA4MDE4NTQtdjQ3NTkzNS5tM3U4", i: "69Jw2GN8WbdLBvvuBtOBScXu7U0cO5koaC5VHKwq" },
+            { t: "L 20 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0NzQyNzElMkZrZ3NzLTE3NzA2MjkyMDktdjQ3NDI3MS5tM3U4", i: "yspAMRaYWJJz1kWwqZXG40zEFq8X6MqAdy2WHpMD" },
+            { t: "L 19 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0NzI5MjklMkZrZ3NzLTE3NzA0NTU0NTMtdjQ3MjkyOS5tM3U4", i: "HGReD4LzBEHOSo5ke88yc0f781b2upfWlzzMGboc" },
+            { t: "L 18 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0NzE2NzUlMkZrZ3NzLTE3NzAzNjg5NTYtdjQ3MTY3NS5tM3U4", i: "pRUieb95w56SURYrXHiCYu7DSr0nnxY4WwG88POG" },
+            { t: "L 17 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0NjkyNDQlMkZrZ3NzLTE3NzAxOTcyMDEtdjQ2OTI0NC5tM3U4", i: "NFjThv01Vg6BjOQcFnrs9f2QBqCLIi3iK0ZtHVZ6" },
+            { t: "L 16 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0Njg0NDYlMkZrZ3NzLTE3NzAxMTA3MjAtdjQ2ODQ0Ni5tM3U4", i: "0cKYuT0jEYVyxvHCJwJEjYGzi6ym9MyCSlsnRJdO" },
+            { t: "L 15 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0Njc2MDclMkZrZ3NzLTE3NzAwMjQyMDEtdjQ2NzYwNy5tM3U4", i: "Jxht17wNJfCmMmqkamdOomWQfphIYfBeGDzgznE6" },
+            { t: "L 14 || Modern History", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjY1NzIlMkZrZ3NzLTE3Njk4NDE1MjYtdjQ2NjU3Mi5tM3U4", i: "0wXGJqh9zPIo07RMsuBauGq00VXOZGtHPke9wbHE" },
+            { t: "L 13 || Revolutionary Events", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjI5NDYlMkZrZ3NzLTE3Njk3NjUwODgtdjQ2Mjk0Ni5tM3U4", i: "75IBXfNX4h4H0elgrud1QTKPTc9EqoO61FNqZvql" },
+            { t: "L 12 || Cabinet Mission", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjA4NjIlMkZrZ3NzLTE3Njk1OTA5MTktdjQ2MDg2Mi5tM3U4", i: "ySuuIzpfmiBh9StBDyBYgevbKyaibd9b8KFa4Rlj" },
+            { t: "L 11 || War In Burma", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTk2NjElMkZrZ3NzLTE3NjkxNTkyMzQtdjQ1OTY2MS5tM3U4", i: "WLKnw35eX2UvBVQI0HqrhG2BcHYL2lK7FY9yyjIl" },
+            { t: "L 10 || Karachi Session", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTgwNTAlMkZrZ3NzLTE3NjkwNzMyNTEtdjQ1ODA1MC5tM3U4", i: "jCCMdgHGZxQFfrLmt9BP8ZqQocmqzGRGgANXs5Cw" },
+            { t: "L 09 || Boycott", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTY2NjAlMkZrZ3NzLTE3Njg5ODU5MDMtdjQ1NjY2MC5tM3U4", i: "EhopLmyFN2XYCeR6dz2FXTwt4lNBvgo8ghJTsOSp" },
+            { t: "L 08 || Satyagrah", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTU2NjElMkZrZ3NzLTE3Njg5MDA5NDYtdjQ1NTY2MS5tM3U4", i: "dMARpPzZzZQ4pJDUh959eGY59r337TUEshQC1TIP" },
+            { t: "L 07 || Muslim League", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTQ1MzUlMkZrZ3NzLTE3Njg4MTM4MzktdjQ1NDUzNS5tM3U4", i: "AKxCu6ocaL6qsy6Ptkxh4bdF5ug94SJcQhzDESkS" },
+            { t: "L 06 || Nationalist Consciousness", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTMwNDMlMkZrZ3NzLTE3Njg2MzM5MDgtdjQ1MzA0My5tM3U4", i: "y1VDZI9K9bVTS1EjoDOAuvo6QPtSf5J5A6M0r46i" },
+            { t: "L 05 || Lord William Bentinck", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTE5ODclMkZrZ3NzLTE3Njg1NDY4MDAtdjQ1MTk4Ny5tM3U4", i: "5V3oLSAsIuht3hZqRWlLjwVDhY8XaRcFbV6wCiEK" },
+            { t: "L 04 || Freedom Of Press", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTA0ODYlMkZrZ3NzLTE3Njg0NjE4NTgtdjQ1MDQ4Ni5tM3U4", i: "3NX0W4efbKqwyeMlzIULhk5JIbULZG7DBh11RGMH" },
+            { t: "L 03 || Maratha Relations", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDkzODklMkZrZ3NzLTE3NjgzNzUxNzYtdjQ0OTM4OS5tM3U4", i: "lg6sPoVSXzltWPv3K7QsJnyQbUfqDnHfBpsUTpZB" },
+            { t: "L 02 || Treaty Of Alinagar", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDc2MjIlMkZrZ3NzLTE3NjgyODkxMDUtdjQ0NzYyMi5tM3U4", i: "vv7jcIrnGTXS5t01d61WPhfyjydl1GPMg1ZlOBhB" },
+            { t: "L 01 || Modern India Intro", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDY0MzQlMkZrZ3NzLTE3NjgyMDExODEmLW00NDY0MzQubTN1OA==", i: "V2Nsj3Qm2StIwUODa6v1HhdcoztdAEiA2jTCvE15" }
+        ];
+
+        const list = document.getElementById('history-2026-list');
+        lectures.forEach(l => {
+            list.innerHTML += `
+                <div class="card" onclick="window.location.href='${d(l.u)}'">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.png" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=History+2026'">
+                    <div class="info">
+                        <span class="badge">CRASH COURSE</span>
+                        <div class="title">${l.t}</div>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
