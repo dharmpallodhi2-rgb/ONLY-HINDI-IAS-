@@ -3,50 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player | ONLY HINDI IAS</title>
-    <!-- HLS.js Library for M3U8 Support -->
+    <title>Professional ONLY HINDI IAS Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { margin: 0; background: #000; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-        .player-header { background: #1a1a1a; padding: 15px; color: white; display: flex; align-items: center; border-bottom: 1px solid #333; }
-        .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; cursor: pointer; }
-        .brand { font-weight: bold; color: #ffaa00; font-size: 14px; }
-        #video-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; background: radial-gradient(circle, #222 0%, #000 100%); }
-        video { width: 100%; height: auto; max-height: 80% !important; outline: none; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        .watermark { position: absolute; top: 20px; right: 20px; color: rgba(255,255,255,0.3); font-size: 12px; pointer-events: none; }
+        body { margin: 0; background: #000; color: white; font-family: sans-serif; }
+        .player-wrapper { position: relative; width: 100%; max-width: 800px; margin: auto; }
+        video { width: 100%; display: block; }
+        
+        /* कंट्रोल पैनल */
+        .controls { background: #1a1a1a; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+        select, button { background: #333; color: white; border: 1px solid #555; padding: 8px; border-radius: 4px; cursor: pointer; }
+        .back-btn { background: #ffaa00; font-weight: bold; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="player-header">
-        <a href="javascript:history.back()" class="back-btn">⬅</a>
-        <div class="brand">ONLY HINDI IAS PLAYER</div>
-    </div>
+    <div class="player-wrapper">
+        <video id="video" controls playsinline></video>
+        
+        <div class="controls">
+            <button class="back-btn" onclick="history.back()">⬅ वापसी</button>
+            
+            <div>
+                <label>क्वालिटी:</label>
+                <select id="qualitySel"><option value="-1">Auto</option></select>
+            </div>
 
-    <div id="video-wrapper">
-        <div class="watermark">ONLY HINDI IAS</div>
-        <video id="video" controls autoplay playsinline></video>
+            <div>
+                <label>स्पीड:</label>
+                <select id="speedSel" onchange="document.getElementById('video').playbackRate = this.value">
+                    <option value="0.5">0.5x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Security Lock
-        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
-
         const video = document.getElementById('video');
+        const qualitySel = document.getElementById('qualitySel');
         const urlParams = new URLSearchParams(window.location.search);
         const videoSrc = urlParams.get('url');
 
-        if (videoSrc) {
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
-            } 
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoSrc;
-            }
+        if (Hls.isSupported() && videoSrc) {
+            const hls = new Hls();
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                hls.levels.forEach((level, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = index;
+                    opt.textContent = level.height + "p";
+                    qualitySel.appendChild(opt);
+                });
+            });
+            qualitySel.onchange = () => hls.currentLevel = parseInt(qualitySel.value);
         } else {
-            alert("वीडियो लिंक नहीं मिला!");
+            video.src = videoSrc;
         }
     </script>
 </body>
