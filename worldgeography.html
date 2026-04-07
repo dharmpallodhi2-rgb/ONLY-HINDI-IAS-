@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Geography Lectures</title>
+    <title>World Geography Lectures - ONLY HINDI IAS</title>
     <style>
         body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; }
@@ -21,7 +21,7 @@
 
     <div class="header">
         <a href="batches.html" class="back-circle">⬅</a>
-        <b style="font-size: 14px;">World Geography by Sachin Arora Sir</b>
+        <b style="font-size: 14px;">World Geography | ONLY HINDI IAS</b>
     </div>
 
     <div class="grid" id="geo-list"></div>
@@ -32,28 +32,27 @@
             const before = new Date().getTime();
             debugger;
             const after = new Date().getTime();
-            if (after - before > 100) {
-                window.location.reload();
-            }
+            if (after - before > 100) { window.location.reload(); }
         }, 100);
 
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || 
-                (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-                (e.ctrlKey && e.keyCode == 85)) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
             }
         };
 
+        // URL Masking: Using your custom domain/player name
+        const playerBase = "https://only-hindi-ias.vercel.app/video-player?url=";
+
         const geoLectures = [
-            { t: "Lecture 08 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fstream.kgs.live%2Fhls%2Fkgss-1775532663-v527169.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
-            { t: "Lecture 07 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F524849%2Fkgss-1775186780-v524849.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
-            { t: "Lecture 06 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F522993%2Fkgss-1775014146-v522993.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/tENygCFD8LLEWnTaf6Q994IQ8EHa8oGSHYcTvNZr.jpg" },
-            { t: "Lecture 05 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F522012%2Fkgss-1774928016-v522012.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
-            { t: "Lecture 04 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F521334%2Fkgss-1774841238-v521334.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/RZuHuxsdG8PbaIL6mVZHGrVWtfOG1t0Lsh9jGkNe.jpg" },
-            { t: "Lecture 03 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F519936%2Fkgss-1774581536-v519936.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
-            { t: "Lecture 02 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F519182%2Fkgss-1774495826-v519182.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
-            { t: "Lecture 01 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F518264%2Fkgss-1774409315-v518264.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" }
+            { t: "Lecture 08 || World Geography", u: playerBase + "https%3A%2F%2Fstream.kgs.live%2Fhls%2Fkgss-1775532663-v527169.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
+            { t: "Lecture 07 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F524849%2Fkgss-1775186780-v524849.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
+            { t: "Lecture 06 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F522993%2Fkgss-1775014146-v522993.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/tENygCFD8LLEWnTaf6Q994IQ8EHa8oGSHYcTvNZr.jpg" },
+            { t: "Lecture 05 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F522012%2Fkgss-1774928016-v522012.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
+            { t: "Lecture 04 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F521334%2Fkgss-1774841238-v521334.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/RZuHuxsdG8PbaIL6mVZHGrVWtfOG1t0Lsh9jGkNe.jpg" },
+            { t: "Lecture 03 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F519936%2Fkgss-1774581536-v519936.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
+            { t: "Lecture 02 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F519182%2Fkgss-1774495826-v519182.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
+            { t: "Lecture 01 || World Geography", u: playerBase + "https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F518264%2Fkgss-1774409315-v518264.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg" }
         ];
 
         const list = document.getElementById('geo-list');
@@ -64,7 +63,7 @@
             card.innerHTML = `
                 <img src="${l.i}" class="thumb" loading="lazy">
                 <div class="info">
-                    <span class="badge">▶ CLASS VIDEO</span>
+                    <span class="badge">▶ ONLY HINDI IAS VIDEO</span>
                     <div class="title">${l.t}</div>
                 </div>`;
             list.appendChild(card);
