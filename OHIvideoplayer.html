@@ -3,185 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pro Player | ONLY HINDI IAS</title>
-    <!-- HLS Engine for M3U8 Support -->
+    <title>ONLY HINDI IAS | YouTube Pro Player</title>
+    <!-- HLS.js for Adaptive Streaming (144p to 4K) -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #d93838; /* Red Theme */
-            --bg-light: #ffffff; 
-            --panel-dark: #0f172a; 
-            --text-white: #f8fafc;
-            --accent: #ffaa00; /* Gold */
-        }
+        :root { --youtube-red: #f00; --white: #fff; --black: #000; --overlay: rgba(0,0,0,0.6); }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; padding: 0; background: #0f0f0f; font-family: 'Roboto', Arial, sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        body { 
-            margin: 0; padding: 0; background: var(--bg-light); 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
-            user-select: none; -webkit-user-select: none; 
-            overflow: hidden; height: 100vh; display: flex; flex-direction: column; 
-        }
+        /* --- UI THEME (WHITE) --- */
+        .top-header { background: var(--white); color: var(--black); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 100; }
+        .back-btn { background: var(--youtube-red); color: white; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; font-weight: bold; margin-right: 15px; text-decoration: none; }
 
-        /* --- TOP NAVIGATION (WHITE THEME) --- */
-        .top-nav { 
-            background: var(--bg-light); padding: 12px 15px; 
-            display: flex; align-items: center; border-bottom: 1px solid #e2e8f0; 
-            z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .back-btn { 
-            background: var(--primary); color: white; border: none; 
-            width: 35px; height: 35px; border-radius: 8px; 
-            display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; text-decoration: none; font-weight: bold; margin-right: 12px;
-            box-shadow: 0 2px 4px rgba(217, 56, 56, 0.3);
-        }
-        .nav-title { font-size: 14px; font-weight: 700; color: #1e293b; }
+        /* --- PLAYER CONTAINER --- */
+        .video-container { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .video-container.fullscreen { width: 100vw; height: 100vh; }
+        video { width: 100%; height: auto; max-height: 100%; cursor: pointer; }
 
-        /* --- VIDEO AREA --- */
-        .video-box { 
-            flex: 1; background: #000; position: relative; 
-            display: flex; justify-content: center; align-items: center; 
-        }
-        video { width: 100%; height: auto; max-height: 100%; outline: none; }
+        /* --- CUSTOM CONTROLS OVERLAY --- */
+        .video-controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 10px 15px; opacity: 1; transition: opacity 0.3s; z-index: 10; pointer-events: auto; }
+        .video-container.paused .video-controls { opacity: 1; }
+        .video-container.hide-controls .video-controls { opacity: 0; pointer-events: none; }
 
-        /* --- BOTTOM CONTROL PANEL (DARK RED THEME) --- */
-        .control-panel { 
-            background: var(--panel-dark); padding: 20px; 
-            border-top: 3px solid var(--primary); color: var(--text-white);
-            max-height: 40vh; overflow-y: auto;
-        }
-        .status-pill { 
-            background: var(--primary); color: white; font-size: 10px; 
-            padding: 3px 10px; border-radius: 4px; font-weight: bold; 
-            margin-bottom: 10px; display: inline-block;
-        }
-        .lecture-heading { font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-white); }
+        /* Progress Bar */
+        .progress-area { height: 5px; width: 100%; background: rgba(255,255,255,0.2); cursor: pointer; margin-bottom: 10px; position: relative; border-radius: 5px; }
+        .progress-bar { height: 100%; width: 0%; background: var(--youtube-red); position: relative; border-radius: 5px; }
+        .progress-bar::before { content: ""; position: absolute; right: -7px; top: -5px; height: 15px; width: 15px; background: var(--youtube-red); border-radius: 50%; }
 
-        .section-label { 
-            font-size: 11px; color: #94a3b8; font-weight: bold; 
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block;
-        }
+        /* Buttons Row */
+        .controls-list { display: flex; align-items: center; justify-content: space-between; color: white; }
+        .left-controls, .right-controls { display: flex; align-items: center; gap: 15px; }
+        .material-icons { cursor: pointer; font-size: 28px; transition: scale 0.1s; }
+        .material-icons:active { scale: 0.9; }
+        .time-display { font-size: 13px; font-weight: 500; }
 
-        .btn-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .btn-opt { 
-            background: #1e293b; border: 1px solid #334155; color: white; 
-            padding: 8px 16px; border-radius: 8px; font-size: 12px; 
-            font-weight: 600; cursor: pointer; transition: 0.2s ease;
-        }
-        .btn-opt:active { transform: scale(0.95); }
-        .btn-opt.active { background: var(--primary); border-color: var(--primary); }
+        /* --- SETTINGS PANEL (SPEED & QUALITY) --- */
+        .bottom-panel { background: white; padding: 20px; border-top: 2px solid var(--youtube-red); }
+        .panel-label { font-size: 11px; color: #666; font-weight: bold; margin-bottom: 8px; display: block; text-transform: uppercase; }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .chip { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; background: white; }
+        .chip.active { background: var(--youtube-red); color: white; border-color: var(--youtube-red); }
 
-        .full-screen-trigger { 
-            background: #334155; color: white; border: none; padding: 12px; 
-            border-radius: 8px; font-size: 13px; font-weight: bold; width: 100%; 
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            display: flex; justify-content: center; align-items: center; gap: 8px;
-        }
-        .full-screen-trigger:hover { background: #475569; }
-
-        /* --- WATERMARK --- */
-        .watermark { 
-            position: absolute; top: 10%; left: 10%; font-size: 14px; 
-            color: rgba(255,255,255,0.2); pointer-events: none; z-index: 10; font-weight: bold;
-        }
+        /* Fullscreen Helper */
+        :-webkit-full-screen video { width: 100%; height: 100%; }
     </style>
 </head>
-<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+<body oncontextmenu="return false;">
 
-    <!-- Top Header -->
-    <div class="top-nav">
-        <a href="javascript:history.back()" class="back-btn">⬅</a>
-        <div class="nav-title">ONLY HINDI IAS Player</div>
+    <div class="top-header">
+        <button onclick="history.back()" class="back-btn">BACK</button>
+        <span style="font-weight: bold; font-size: 14px;">ONLY HINDI IAS - PRO PLAYER</span>
     </div>
 
-    <!-- Video Section -->
-    <div class="video-box" id="playerArea">
-        <div class="watermark">ONLY HINDI IAS</div>
-        <video id="mainVideo" autoplay playsinline crossorigin="anonymous"></video>
+    <!-- Main Player Area -->
+    <div class="video-container" id="mainContainer">
+        <video id="mainVideo" playsinline crossorigin="anonymous"></video>
+        
+        <!-- Controls Overlay -->
+        <div class="video-controls">
+            <div class="progress-area" id="progressArea">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="controls-list">
+                <div class="left-controls">
+                    <i class="material-icons" id="playPause">play_arrow</i>
+                    <i class="material-icons" onclick="seek(-10)">replay_10</i>
+                    <i class="material-icons" onclick="seek(10)">forward_10</i>
+                    <div class="time-display">
+                        <span id="current">0:00</span> / <span id="duration">0:00</span>
+                    </div>
+                </div>
+                <div class="right-controls">
+                    <i class="material-icons" id="volIcon">volume_up</i>
+                    <i class="material-icons" id="pipBtn">picture_in_picture_alt</i>
+                    <i class="material-icons" id="fullBtn">fullscreen</i>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Dark Control Panel -->
-    <div class="control-panel">
-        <span class="status-pill">PRO CONTENT</span>
-        <div class="lecture-heading" id="titleText">Loading Lecture Details...</div>
-
-        <!-- Speed Selector -->
-        <span class="section-label">Playback Speed</span>
-        <div class="btn-grid" id="speedGroup">
-            <button class="btn-opt" data-speed="0.5">0.5x</button>
-            <button class="btn-opt active" data-speed="1">Normal</button>
-            <button class="btn-opt" data-speed="1.25">1.25x</button>
-            <button class="btn-opt" data-speed="1.5">1.5x</button>
-            <button class="btn-opt" data-speed="2">2x</button>
+    <!-- Settings Panel (Red/White Theme) -->
+    <div class="bottom-panel">
+        <span class="panel-label">Playback Speed</span>
+        <div class="btn-row" id="speedGrid">
+            <div class="chip" data-speed="0.5">0.5x</div>
+            <div class="chip active" data-speed="1">Normal</div>
+            <div class="chip" data-speed="1.5">1.5x</div>
+            <div class="chip" data-speed="2">2x</div>
         </div>
 
-        <!-- Quality Selector (Auto-generated) -->
-        <span class="section-label">Video Quality</span>
-        <div class="btn-grid" id="qualityGroup">
-            <button class="btn-opt active" id="autoQuality">Auto</button>
+        <span class="panel-label">Video Quality</span>
+        <div class="btn-row" id="qualityGrid">
+            <div class="chip active" id="autoQual">Auto</div>
         </div>
-
-        <button class="full-screen-trigger" onclick="toggleFull()">⛶ Fullscreen Mode</button>
     </div>
 
     <script>
-        // --- MASTER SECURITY PROTOCOL ---
-        setInterval(() => { let b = Date.now(); debugger; if (Date.now() - b > 100) window.location.reload(); }, 100);
-        document.onkeydown = (e) => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        // --- PRO SECURITY ---
+        setInterval(() => { debugger; }, 100);
+        document.onkeydown = (e) => {
+            if(e.key === "f") toggleFull();
+            if(e.key === "m") toggleMute();
+            if(e.key === " " || e.key === "k") togglePlay();
+        };
 
+        const container = document.getElementById('mainContainer');
         const video = document.getElementById('mainVideo');
-        const speedGroup = document.getElementById('speedGroup');
-        const qualityGroup = document.getElementById('qualityGroup');
-        const titleText = document.getElementById('titleText');
+        const playBtn = document.getElementById('playPause');
+        const progBar = document.getElementById('progressBar');
+        const progArea = document.getElementById('progressArea');
+        const curTimeText = document.getElementById('current');
+        const durTimeText = document.getElementById('duration');
 
         const urlParams = new URLSearchParams(window.location.search);
         const streamUrl = urlParams.get('url');
 
-        // --- HLS LOGIC & QUALITY BUTTONS ---
+        // --- HLS INITIALIZATION ---
         if (Hls.isSupported() && streamUrl) {
             const hls = new Hls();
             hls.loadSource(streamUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                titleText.innerText = "Study Hard! Lecture is Active";
-                hls.levels.forEach((level, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'btn-opt';
-                    btn.innerText = level.height + 'p';
-                    btn.onclick = () => {
-                        hls.currentLevel = index;
-                        setActive(qualityGroup, btn);
+                // Populate Qualities
+                hls.levels.forEach((lvl, i) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'chip';
+                    chip.innerText = lvl.height + 'p';
+                    chip.onclick = () => {
+                        hls.currentLevel = i;
+                        updateChips('qualityGrid', chip);
                     };
-                    qualityGroup.appendChild(btn);
+                    document.getElementById('qualityGrid').appendChild(chip);
                 });
             });
-
-            document.getElementById('autoQuality').onclick = function() {
+            document.getElementById('autoQual').onclick = () => {
                 hls.currentLevel = -1;
-                setActive(qualityGroup, this);
+                updateChips('qualityGrid', document.getElementById('autoQual'));
             };
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamUrl;
         }
 
-        // --- SPEED CONTROL ---
-        speedGroup.querySelectorAll('.btn-opt').forEach(btn => {
-            btn.onclick = () => {
-                video.playbackRate = parseFloat(btn.getAttribute('data-speed'));
-                setActive(speedGroup, btn);
+        // --- CORE FUNCTIONS ---
+        function togglePlay() {
+            if(video.paused) { video.play(); playBtn.innerText = "pause"; }
+            else { video.pause(); playBtn.innerText = "play_arrow"; }
+        }
+        playBtn.onclick = togglePlay;
+        video.onclick = togglePlay;
+
+        function seek(time) { video.currentTime += time; }
+
+        video.ontimeupdate = (e) => {
+            const {currentTime, duration} = e.target;
+            let percent = (currentTime / duration) * 100;
+            progBar.style.width = percent + "%";
+            curTimeText.innerText = formatTime(currentTime);
+            durTimeText.innerText = formatTime(duration);
+        };
+
+        function formatTime(t) {
+            let m = Math.floor(t / 60);
+            let s = Math.floor(t % 60);
+            return `${m}:${s < 10 ? '0'+s : s}`;
+        }
+
+        progArea.onclick = (e) => {
+            video.currentTime = (e.offsetX / progArea.clientWidth) * video.duration;
+        };
+
+        // --- FULLSCREEN & PIP ---
+        function toggleFull() {
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => alert(err.message));
+                document.getElementById('fullBtn').innerText = "fullscreen_exit";
+            } else {
+                document.exitFullscreen();
+                document.getElementById('fullBtn').innerText = "fullscreen";
+            }
+        }
+        document.getElementById('fullBtn').onclick = toggleFull;
+        video.ondblclick = toggleFull;
+
+        document.getElementById('pipBtn').onclick = () => video.requestPictureInPicture();
+
+        // --- SETTINGS HELPERS ---
+        document.querySelectorAll('#speedGrid .chip').forEach(c => {
+            c.onclick = () => {
+                video.playbackRate = parseFloat(c.dataset.speed);
+                updateChips('speedGrid', c);
             };
         });
 
-        // --- UI HELPERS ---
-        function setActive(parent, activeBtn) {
-            parent.querySelectorAll('.btn-opt').forEach(b => b.classList.remove('active'));
-            activeBtn.classList.add('active');
+        function updateChips(parentId, activeChip) {
+            document.getElementById(parentId).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            activeChip.classList.add('active');
         }
 
-        function toggleFull() {
-            if (video.requestFullscreen) video.requestFullscreen();
-            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-        }
+        // Auto-Hide Controls
+        let timer;
+        container.onmousemove = () => {
+            container.classList.remove('hide-controls');
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if(!video.paused) container.classList.add('hide-controls');
+            }, 3000);
+        };
     </script>
 </body>
 </html>
