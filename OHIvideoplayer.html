@@ -3,118 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS | Advanced Player</title>
+    <title>ONLY HINDI IAS | Pro Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --red: #d93838; --white: #ffffff; --dark: #0f172a; }
+        :root { --primary: #d93838; --white: #ffffff; --black: #000000; --gray: #f1f3f4; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { margin: 0; padding: 0; background: var(--white); font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* Header Area */
-        .header { background: var(--white); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #eee; z-index: 10; }
-        .back-btn { background: var(--red); color: white; border: none; padding: 6px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; margin-right: 15px; }
+        /* HEADER */
+        .top-nav { background: var(--white); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 1000; }
+        .back-btn { background: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; margin-right: 12px; font-size: 13px; }
+        .brand { font-weight: bold; font-size: 14px; color: var(--black); }
 
-        /* Video Container */
-        .video-box { flex: 1; background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        video { width: 100%; height: auto; max-height: 100%; outline: none; }
+        /* VIDEO CONTAINER & FULLSCREEN FIX */
+        .video-box { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        video { width: 100%; height: auto; max-height: 100%; display: block; }
 
-        /* Fullscreen Controls Overlay */
-        .video-ui { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px; color: white; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
-        .video-ui * { pointer-events: auto; }
+        /* PSEUDO FULLSCREEN CLASS */
+        .pseudo-fullscreen { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 9999 !important; background: #000 !important; }
 
-        /* Bottom Settings Panel */
-        .settings-panel { background: var(--white); padding: 20px; border-top: 3px solid var(--red); }
-        .label { font-size: 11px; color: #666; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-        .btn { border: 1px solid #ccc; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; background: white; color: #333; transition: 0.2s; }
-        .btn.active { background: var(--red); color: white; border-color: var(--red); }
+        /* CONTROL PANEL */
+        .panel { background: var(--white); padding: 20px; border-top: 2px solid var(--primary); overflow-y: auto; }
+        .label { font-size: 11px; color: #5f6368; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .btn { background: var(--gray); border: 1px solid #dadce0; color: #3c4043; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        .full-btn-big { background: var(--dark); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .fs-toggle { background: #3c4043; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="header">
-        <button onclick="history.back()" class="back-btn">BACK</button>
-        <span style="font-weight: bold; color: #1e293b;">ONLY HINDI IAS PRO</span>
+    <div class="top-nav">
+        <a href="javascript:history.back()" class="back-btn">BACK</a>
+        <div class="brand">ONLY HINDI IAS PLAYER</div>
     </div>
 
-    <div class="video-box" id="container">
-        <video id="video" playsinline crossorigin="anonymous" controls></video>
+    <div class="video-box" id="vidWrapper">
+        <video id="videoPlayer" controls autoplay playsinline crossorigin="anonymous"></video>
     </div>
 
-    <div class="settings-panel">
+    <div class="panel">
         <span class="label">Playback Speed</span>
-        <div class="btn-row" id="speedGroup">
-            <button class="btn" onclick="setSpeed(0.5, this)">0.5x</button>
-            <button class="btn active" onclick="setSpeed(1, this)">Normal</button>
-            <button class="btn" onclick="setSpeed(1.5, this)">1.5x</button>
-            <button class="btn" onclick="setSpeed(2, this)">2x</button>
+        <div class="btn-group" id="speedGroup">
+            <div class="btn" data-v="0.5">0.5x</div>
+            <div class="btn active" data-v="1">Normal</div>
+            <div class="btn" data-v="1.5">1.5x</div>
+            <div class="btn" data-v="2">2x</div>
         </div>
 
         <span class="label">Video Quality</span>
-        <div class="btn-row" id="qualityGroup">
-            <button class="btn active" id="autoBtn">Auto</button>
+        <div class="btn-group" id="qualityGroup">
+            <div class="btn active" id="autoBtn">Auto</div>
         </div>
 
-        <button class="full-btn-big" onclick="goFull()">
-            <span class="material-icons">fullscreen</span> ENABLE FULLSCREEN
-        </button>
+        <button class="fs-toggle" id="fsBtn">⛶ Fullscreen</button>
     </div>
 
     <script>
-        // Security logic
-        setInterval(() => { debugger; }, 100);
+        // Security Lock
+        setInterval(() => { debugger; }, 500);
 
-        const video = document.getElementById('video');
-        const container = document.getElementById('container');
+        const video = document.getElementById('videoPlayer');
+        const wrapper = document.getElementById('vidWrapper');
+        const fsBtn = document.getElementById('fsBtn');
         const urlParams = new URLSearchParams(window.location.search);
-        const videoUrl = urlParams.get('url');
+        const m3u8Url = urlParams.get('url');
 
-        // Initializing Video
-        if (Hls.isSupported() && videoUrl) {
+        // HLS Logic
+        if (Hls.isSupported() && m3u8Url) {
             const hls = new Hls();
-            hls.loadSource(videoUrl);
+            hls.loadSource(m3u8Url);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
                 hls.levels.forEach((lvl, i) => {
-                    const b = document.createElement('button');
+                    const b = document.createElement('div');
                     b.className = 'btn';
                     b.innerText = lvl.height + 'p';
-                    b.onclick = () => { hls.currentLevel = i; updateActive('qualityGroup', b); };
+                    b.onclick = () => { hls.currentLevel = i; uiActive('qualityGroup', b); };
                     document.getElementById('qualityGroup').appendChild(b);
                 });
             });
-            document.getElementById('autoBtn').onclick = function() { hls.currentLevel = -1; updateActive('qualityGroup', this); };
-        } else {
-            video.src = videoUrl;
+            document.getElementById('autoBtn').onclick = () => { hls.currentLevel = -1; uiActive('qualityGroup', document.getElementById('autoBtn')); };
         }
 
-        // Fullscreen Logic for all devices
-        function goFull() {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen(); // Safari/iOS
-            } else if (video.webkitEnterFullscreen) {
-                video.webkitEnterFullscreen(); // Old iPhone
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen(); // IE11
-            } else {
-                alert("This device doesn't support fullscreen API, using browser default.");
+        // SMART FULLSCREEN LOGIC
+        fsBtn.onclick = () => {
+            if (video.requestFullscreen) { video.requestFullscreen(); }
+            else if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); } // iOS Fix
+            else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
+            else {
+                // Pseudo Fullscreen Fallback
+                wrapper.classList.toggle('pseudo-fullscreen');
             }
-        }
+        };
 
-        function setSpeed(s, b) {
-            video.playbackRate = s;
-            updateActive('speedGroup', b);
-        }
+        // Speed Control
+        document.querySelectorAll('#speedGroup .btn').forEach(b => {
+            b.onclick = () => { video.playbackRate = parseFloat(b.dataset.v); uiActive('speedGroup', b); };
+        });
 
-        function updateActive(id, activeBtn) {
-            const btns = document.getElementById(id).querySelectorAll('.btn');
-            btns.forEach(b => b.classList.remove('active'));
-            activeBtn.classList.add('active');
+        function uiActive(id, btn) {
+            document.getElementById(id).querySelectorAll('.btn').forEach(x => x.classList.remove('active'));
+            btn.classList.add('active');
         }
     </script>
 </body>
