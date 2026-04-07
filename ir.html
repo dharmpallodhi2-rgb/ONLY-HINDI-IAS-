@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>IR Lectures - ONLY HINDI IAS</title>
 <style>
+/* === मोबाइल फर्स्ट प्रीमियम UI === */
 :root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-gray:#f5f6f9;--white:#ffffff;--text-dark:#222}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
@@ -22,6 +23,8 @@ body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-s
 @media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
+
+<!-- हाई लेवल सिक्योरिटी: एंटी-कॉपी और एंटी-ड्रैग -->
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
 <header class="header">
@@ -35,11 +38,11 @@ body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-s
 <main class="grid" id="ir-list"></main>
 
 <script>
-/* --- HIGH-LEVEL SECURITY PROTOCOL --- */
+/* --- 1. HIGH-LEVEL SECURITY PROTOCOL --- */
 document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode==85))return false};
 setInterval(function(){debugger;},100);
 
-/* --- 38 LECTURES DATA (FRESH LINKS) --- */
+/* --- 2. 38 LECTURES DATA --- */
 const lectureLinks = [
 "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F401351%2Fkgss-1764048309-v401351.m3u8&title=Lecture+01+%7C%7C+Fundamental+Concepts-01&section=kgs&source_title=Lecture+01+%7C%7C+Fundamental+Concepts-01&parent_title=International+Relations+by+Nabab+Sir&item_id=401351&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png",
 "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F402280%2Fkgss-1764134541-v402280.m3u8&title=Lecture+02+%7C%7C+Fundamental+Concepts-02&section=kgs&source_title=Lecture+02+%7C%7C+Fundamental+Concepts-02&parent_title=International+Relations+by+Nabab+Sir&item_id=402284&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FOdP2poTXBZT2CtP9l1jT0TACPeUEpshCNK0RtQbD.png",
@@ -63,4 +66,4 @@ const lectureLinks = [
 "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F421427%2Fkgss-1765949158-v421427.m3u8&title=Lecture+20+%7C%7C%E0%A4%B8%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95+%E0%A4%95%E0%A5%80+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A4%BF%E0%A4%95%E0%A4%A4%E0%A4%BE+%E0%A4%94%E0%A4%B0+%E0%A4%AC%E0%A4%BF%E0%A4%AE%E0%A5%8D%E0%A4%B8%E0%A4%9F%E0%A5%87%E0%A4%95&section=kgs&source_title=Lecture+20+%7C%7C%E0%A4%B8%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95+%E0%A4%95%E0%A5%80+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A4%BF%E0%A4%95%E0%A4%A4%E0%A4%BE+%E0%A4%94%E0%A4%B0+%E0%A4%AC%E0%A4%BF%E0%A4%AE%E0%A5%8D%E0%A4%B8%E0%A4%9F%E0%A5%87%E0%A4%95&parent_title=International+Relations+by+Nabab+Sir&item_id=421433&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FjgcOeamnSE9hYUSEfBojBXx3n8Tr3u2nT4UNnbu5.png",
 "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F422557%2Fkgss-1766035612-v422557.m3u8&title=Lecture+21+%7C%7C%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&section=kgs&source_title=Lecture+21+%7C%7C%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&parent_title=International+Relations+by+Nabab+Sir&item_id=422559&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F5dfa43U2AhGVnZ4R60pB1pgQ3odL4kFC1h6GZX4K.png",
 "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F423689%2Fkgss-1766121537-v423689.m3u8&title=Lecture+22+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+02&section=kgs&source_title=Lecture+22+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+02&parent_title=International+Relations+by+Nabab+Sir&item_id=423695&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FdLFlCXr00BTGrYuDsdqOvqCwCOq54a7BUvuxuUhV.png",
-"https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F424715%2Fkgss-1766208310-v424715.m3u8&title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%A4%9C%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&section=kgs&source_title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%A4%9C%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&parent_title=International+Relations+by+Nabab+Sir&item_i
+"https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F424715%2Fkgss-1766208310-v424715.m3u8&title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%A4%9C%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&section=kgs&source_title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%A4%9C%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%A8+%E0%A4%B8%E0%A4%82%E
