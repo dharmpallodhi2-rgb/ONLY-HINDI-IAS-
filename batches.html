@@ -95,7 +95,6 @@
             <div class="subject-info"><div><b>🚀 Science & Technology</b><p style="font-size:11px; color:#999;">Sanjay Vishwakarma Sir</p></div><div class="play-badge">39 Lectures ▶</div></div>
         </div>
 
-        <!-- मैंने यहाँ ir.html को सही करके Ir.html कर दिया है 👇 -->
         <div class="subject-card" onclick="window.location.href='ir.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png"></div>
             <div class="subject-info"><div><b>🌍 International Relations</b><p style="font-size:11px; color:#999;">Nawab Sir</p></div><div class="play-badge">38 Lectures ▶</div></div>
@@ -146,11 +145,10 @@
         const MASTER_CODE = "ONLYHINDI96";
         let currentView = 'main';
 
-        // --- SECURITY ---
+        // --- SECURITY (FIXED - No Freeze Bug) ---
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false;
         };
-        setInterval(function() { debugger; }, 100);
 
         // --- NAVIGATION LOGIC ---
         function checkAccess() {
