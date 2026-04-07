@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Geography Lectures</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; }
+        body { margin: 0; padding: 0; background-color: #f5f6f9; font-family: Arial, sans-serif; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         .header { background-color: #3b5098; padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 100; }
         .back-circle { background-color: #ffaa00; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; }
-        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; }
+        .card:active { transform: scale(0.98); }
+        .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; -webkit-user-drag: none; }
         .info { padding: 10px; }
         .badge { color: #d93838; font-size: 8px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; }
         .title { font-size: 10px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 
     <div class="header">
         <a href="batches.html" class="back-circle">⬅</a>
@@ -26,7 +27,26 @@
     <div class="grid" id="geo-list"></div>
 
     <script>
+        // Security: Anti-Debugging & DevTools Blocking
+        setInterval(() => {
+            const before = new Date().getTime();
+            debugger;
+            const after = new Date().getTime();
+            if (after - before > 100) {
+                window.location.reload();
+            }
+        }, 100);
+
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || 
+                (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+                (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
         const geoLectures = [
+            { t: "Lecture 08 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fstream.kgs.live%2Fhls%2Fkgss-1775532663-v527169.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
             { t: "Lecture 07 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F524849%2Fkgss-1775186780-v524849.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
             { t: "Lecture 06 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2026%2F522993%2Fkgss-1775014146-v522993.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/tENygCFD8LLEWnTaf6Q994IQ8EHa8oGSHYcTvNZr.jpg" },
             { t: "Lecture 05 || World Geography", u: "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmar-2026%2F522012%2Fkgss-1774928016-v522012.m3u8", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/b325d63f-6352-415c-8b63-bdfafd9a19a2.jpg" },
@@ -38,14 +58,16 @@
 
         const list = document.getElementById('geo-list');
         geoLectures.forEach(l => {
-            list.innerHTML += `
-                <div class="card" onclick="window.location.href='${l.u}'">
-                    <img src="${l.i}" class="thumb">
-                    <div class="info">
-                        <span class="badge">▶ CLASS VIDEO</span>
-                        <div class="title">${l.t}</div>
-                    </div>
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.onclick = () => window.location.href = l.u;
+            card.innerHTML = `
+                <img src="${l.i}" class="thumb" loading="lazy">
+                <div class="info">
+                    <span class="badge">▶ CLASS VIDEO</span>
+                    <div class="title">${l.t}</div>
                 </div>`;
+            list.appendChild(card);
         });
     </script>
 </body>
