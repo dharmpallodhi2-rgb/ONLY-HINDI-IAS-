@@ -1,43 +1,61 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional ONLY HINDI IAS Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <title>Professional Video Player | ONLY HINDI IAS</title>
+    
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { margin: 0; background: #000; color: white; font-family: sans-serif; }
-        .player-wrapper { position: relative; width: 100%; max-width: 800px; margin: auto; }
-        video { width: 100%; display: block; }
+        :root { --primary: #ffaa00; --bg: #0d1117; --panel-bg: #161b22; --text: #f0f6fc; }
+        body { margin: 0; background: var(--bg); font-family: 'Segoe UI', sans-serif; color: var(--text); overflow: hidden; display: flex; flex-direction: column; height: 100vh; }
         
-        /* कंट्रोल पैनल */
-        .controls { background: #1a1a1a; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
-        select, button { background: #333; color: white; border: 1px solid #555; padding: 8px; border-radius: 4px; cursor: pointer; }
-        .back-btn { background: #ffaa00; font-weight: bold; }
+        /* HEADER (Top Controls) */
+        .player-header { position: absolute; top: 0; left: 0; width: 100%; padding: 15px; display: flex; align-items: center; z-index: 100; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); }
+        .back-btn { background: transparent; border: none; color: white; display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: 600; text-transform: uppercase; }
+        .back-btn:hover { color: var(--primary); }
+
+        /* VIDEO CONTAINER */
+        .video-container { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; background: #000; overflow: hidden; }
+        video { width: 100%; height: auto; max-height: 100%; aspect-ratio: 16/9; }
+
+        /* BOTTOM PANEL (Controls) */
+        .bottom-controls { background: var(--panel-bg); padding: 15px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #30363d; padding-bottom: env(safe-area-inset-bottom); }
+        .control-group { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .control-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        
+        select { background: #21262d; color: var(--text); border: 1px solid #30363d; padding: 6px 12px; border-radius: 6px; font-size: 13px; outline: none; transition: 0.2s; min-width: 100px; }
+        select:focus { border-color: var(--primary); }
+        select option { background: var(--panel-bg); }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false">
 
-    <div class="player-wrapper">
-        <video id="video" controls playsinline></video>
-        
-        <div class="controls">
-            <button class="back-btn" onclick="history.back()">⬅ वापसी</button>
-            
-            <div>
-                <label>क्वालिटी:</label>
-                <select id="qualitySel"><option value="-1">Auto</option></select>
-            </div>
+    <div class="player-header">
+        <a href="javascript:history.back()" class="back-btn">
+            <span>&#11013;</span> Back
+        </a>
+    </div>
 
-            <div>
-                <label>स्पीड:</label>
-                <select id="speedSel" onchange="document.getElementById('video').playbackRate = this.value">
-                    <option value="0.5">0.5x</option>
-                    <option value="1" selected>1x</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                </select>
-            </div>
+    <div class="video-container">
+        <video id="video" controls autoplay playsinline></video>
+    </div>
+
+    <div class="bottom-controls">
+        <div class="control-group">
+            <span class="control-label">Video Quality</span>
+            <select id="qualitySel">
+                <option value="-1">Auto (Best)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <span class="control-label">Playback Speed</span>
+            <select id="speedSel" onchange="document.getElementById('video').playbackRate = this.value">
+                <option value="1">1.0x (Normal)</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2.0x</option>
+            </select>
         </div>
     </div>
 
@@ -51,16 +69,21 @@
             const hls = new Hls();
             hls.loadSource(videoSrc);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+
+            // Populate Quality Menu from M3U8 manifest
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
                 hls.levels.forEach((level, index) => {
                     const opt = document.createElement('option');
                     opt.value = index;
-                    opt.textContent = level.height + "p";
+                    opt.innerHTML = level.height + "p";
                     qualitySel.appendChild(opt);
                 });
             });
-            qualitySel.onchange = () => hls.currentLevel = parseInt(qualitySel.value);
-        } else {
+
+            qualitySel.onchange = () => {
+                hls.currentLevel = parseInt(qualitySel.value);
+            };
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = videoSrc;
         }
     </script>
