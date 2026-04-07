@@ -7,9 +7,13 @@
     <style>
         :root { --primary-blue: #3b5098; --accent-yellow: #ffaa00; --bg-gray: #f5f6f9; }
         body { margin: 0; padding: 0; background-color: var(--bg-gray); font-family: 'Segoe UI', Arial, sans-serif; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* HEADER */
         .header { background-color: var(--primary-blue); padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 1000; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .back-circle { background-color: var(--accent-yellow); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; font-size: 18px; transition: transform 0.2s; }
         .back-circle:active { transform: scale(0.9); }
+        
+        /* GRID & CARDS */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
         .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
         .card:active { transform: scale(0.96); }
@@ -18,12 +22,12 @@
         .info { padding: 10px; flex-grow: 1; }
         .badge { color: #d93838; font-size: 9px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; text-transform: uppercase; }
         .title { font-size: 11px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
-    <!-- Header Section -->
     <header class="header">
         <a href="batches.html" class="back-circle">⬅</a>
         <div style="flex-grow: 1;">
@@ -32,29 +36,22 @@
         </div>
     </header>
 
-    <!-- Lectures Grid -->
     <main class="grid" id="hindi-list"></main>
 
     <script>
-        /**
-         * SECURITY & ANTI-THEFT PROTOCOL
+        /** 
+         * SECURITY PROTOCOL
          */
         document.onkeydown = (e) => {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) {
-                return false;
-            }
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
         };
+        setInterval(() => { debugger; }, 50);
 
-        // Anti-Debugging freeze logic
-        (function() {
-            setInterval(() => { debugger; }, 50);
-        })();
-
-        // Base64 डिकोडिंग फंक्शन
+        // Base64 Decoding Function
         const d = (s) => atob(s);
 
         /**
-         * LECTURE DATA (ENCODED FOR SECURITY)
+         * LECTURE DATA (ENCODED LINKS)
          */
         const lectures = [
             { t: "Lecture 06 || Hindi Compulsory", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL21hci0yMDI1LzIxMTE0MC9rZ3NzLTE3NDE2NzA1NjQtdjIxMTE0MC5tM3U4", i: "Qw5ZQdL4rzT3lv4lTn2zSOuFSy6sp0EHIeZvOBJT" },
@@ -71,12 +68,10 @@
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Link Masking & OHI Video Player Redirection
             card.onclick = () => {
-                const rawUrl = d(l.u);
-                // Extracting direct source if it was wrapped in another player
-                const finalUrl = rawUrl.includes('url=') ? decodeURIComponent(rawUrl.split('url=')[1]) : rawUrl;
-                window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
+                // Decoding URL and passing it to OHIvideoplayer.html
+                const decodedUrl = d(l.u);
+                window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(decodedUrl)}`;
             };
 
             card.innerHTML = `
@@ -90,9 +85,6 @@
             
             list.appendChild(card);
         });
-
-        // Prevention for keyboard copy
-        document.addEventListener('copy', (e) => e.preventDefault());
     </script>
 </body>
 </html>
