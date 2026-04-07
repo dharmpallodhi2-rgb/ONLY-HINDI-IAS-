@@ -116,8 +116,12 @@
                 // 3. फाइनल लिंक निकालना
                 const finalUrl = rawUrl.includes('url=') ? decodeURIComponent(rawUrl.split('url=')[1]) : rawUrl;
                 
-                // 4. सभी वीडियोस (चाहे यूट्यूब हो या m3u8) को OHIvideoplayer पर भेजना
-                window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
+                // 4. KGS Vercel प्लेयर का पूरा लिंक तैयार करना
+                // (यह हर लेक्चर के लिए अपने आप उस लेक्चर का नाम और फोटो ले लेगा)
+                const targetUrl = `https://kgs-web.vercel.app/video-player?url=${encodeURIComponent(finalUrl)}&title=${encodeURIComponent(l.t)}&section=kgs&source_title=${encodeURIComponent(l.t)}&parent_title=International+Relations+by+Nawab+Sir&thumb=${encodeURIComponent(thumb)}`;
+                
+                // 5. बच्चे को उस लिंक पर भेज देना
+                window.location.href = targetUrl;
             };
 
             card.innerHTML = `
