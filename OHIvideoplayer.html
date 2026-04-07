@@ -3,212 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS | YouTube Pro Player</title>
-    <!-- HLS.js for Adaptive Streaming (144p to 4K) -->
+    <title>ONLY HINDI IAS | Advanced Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --youtube-red: #f00; --white: #fff; --black: #000; --overlay: rgba(0,0,0,0.6); }
+        :root { --red: #d93838; --white: #ffffff; --dark: #0f172a; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; padding: 0; background: #0f0f0f; font-family: 'Roboto', Arial, sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* --- UI THEME (WHITE) --- */
-        .top-header { background: var(--white); color: var(--black); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 100; }
-        .back-btn { background: var(--youtube-red); color: white; border: none; border-radius: 4px; padding: 5px 12px; cursor: pointer; font-weight: bold; margin-right: 15px; text-decoration: none; }
+        /* Header Area */
+        .header { background: var(--white); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #eee; z-index: 10; }
+        .back-btn { background: var(--red); color: white; border: none; padding: 6px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; margin-right: 15px; }
 
-        /* --- PLAYER CONTAINER --- */
-        .video-container { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .video-container.fullscreen { width: 100vw; height: 100vh; }
-        video { width: 100%; height: auto; max-height: 100%; cursor: pointer; }
+        /* Video Container */
+        .video-box { flex: 1; background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        video { width: 100%; height: auto; max-height: 100%; outline: none; }
 
-        /* --- CUSTOM CONTROLS OVERLAY --- */
-        .video-controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); padding: 10px 15px; opacity: 1; transition: opacity 0.3s; z-index: 10; pointer-events: auto; }
-        .video-container.paused .video-controls { opacity: 1; }
-        .video-container.hide-controls .video-controls { opacity: 0; pointer-events: none; }
+        /* Fullscreen Controls Overlay */
+        .video-ui { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px; color: white; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+        .video-ui * { pointer-events: auto; }
 
-        /* Progress Bar */
-        .progress-area { height: 5px; width: 100%; background: rgba(255,255,255,0.2); cursor: pointer; margin-bottom: 10px; position: relative; border-radius: 5px; }
-        .progress-bar { height: 100%; width: 0%; background: var(--youtube-red); position: relative; border-radius: 5px; }
-        .progress-bar::before { content: ""; position: absolute; right: -7px; top: -5px; height: 15px; width: 15px; background: var(--youtube-red); border-radius: 50%; }
+        /* Bottom Settings Panel */
+        .settings-panel { background: var(--white); padding: 20px; border-top: 3px solid var(--red); }
+        .label { font-size: 11px; color: #666; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .btn { border: 1px solid #ccc; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; background: white; color: #333; transition: 0.2s; }
+        .btn.active { background: var(--red); color: white; border-color: var(--red); }
 
-        /* Buttons Row */
-        .controls-list { display: flex; align-items: center; justify-content: space-between; color: white; }
-        .left-controls, .right-controls { display: flex; align-items: center; gap: 15px; }
-        .material-icons { cursor: pointer; font-size: 28px; transition: scale 0.1s; }
-        .material-icons:active { scale: 0.9; }
-        .time-display { font-size: 13px; font-weight: 500; }
-
-        /* --- SETTINGS PANEL (SPEED & QUALITY) --- */
-        .bottom-panel { background: white; padding: 20px; border-top: 2px solid var(--youtube-red); }
-        .panel-label { font-size: 11px; color: #666; font-weight: bold; margin-bottom: 8px; display: block; text-transform: uppercase; }
-        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-        .chip { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; background: white; }
-        .chip.active { background: var(--youtube-red); color: white; border-color: var(--youtube-red); }
-
-        /* Fullscreen Helper */
-        :-webkit-full-screen video { width: 100%; height: 100%; }
+        .full-btn-big { background: var(--dark); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="top-header">
+    <div class="header">
         <button onclick="history.back()" class="back-btn">BACK</button>
-        <span style="font-weight: bold; font-size: 14px;">ONLY HINDI IAS - PRO PLAYER</span>
+        <span style="font-weight: bold; color: #1e293b;">ONLY HINDI IAS PRO</span>
     </div>
 
-    <!-- Main Player Area -->
-    <div class="video-container" id="mainContainer">
-        <video id="mainVideo" playsinline crossorigin="anonymous"></video>
-        
-        <!-- Controls Overlay -->
-        <div class="video-controls">
-            <div class="progress-area" id="progressArea">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="controls-list">
-                <div class="left-controls">
-                    <i class="material-icons" id="playPause">play_arrow</i>
-                    <i class="material-icons" onclick="seek(-10)">replay_10</i>
-                    <i class="material-icons" onclick="seek(10)">forward_10</i>
-                    <div class="time-display">
-                        <span id="current">0:00</span> / <span id="duration">0:00</span>
-                    </div>
-                </div>
-                <div class="right-controls">
-                    <i class="material-icons" id="volIcon">volume_up</i>
-                    <i class="material-icons" id="pipBtn">picture_in_picture_alt</i>
-                    <i class="material-icons" id="fullBtn">fullscreen</i>
-                </div>
-            </div>
-        </div>
+    <div class="video-box" id="container">
+        <video id="video" playsinline crossorigin="anonymous" controls></video>
     </div>
 
-    <!-- Settings Panel (Red/White Theme) -->
-    <div class="bottom-panel">
-        <span class="panel-label">Playback Speed</span>
-        <div class="btn-row" id="speedGrid">
-            <div class="chip" data-speed="0.5">0.5x</div>
-            <div class="chip active" data-speed="1">Normal</div>
-            <div class="chip" data-speed="1.5">1.5x</div>
-            <div class="chip" data-speed="2">2x</div>
+    <div class="settings-panel">
+        <span class="label">Playback Speed</span>
+        <div class="btn-row" id="speedGroup">
+            <button class="btn" onclick="setSpeed(0.5, this)">0.5x</button>
+            <button class="btn active" onclick="setSpeed(1, this)">Normal</button>
+            <button class="btn" onclick="setSpeed(1.5, this)">1.5x</button>
+            <button class="btn" onclick="setSpeed(2, this)">2x</button>
         </div>
 
-        <span class="panel-label">Video Quality</span>
-        <div class="btn-row" id="qualityGrid">
-            <div class="chip active" id="autoQual">Auto</div>
+        <span class="label">Video Quality</span>
+        <div class="btn-row" id="qualityGroup">
+            <button class="btn active" id="autoBtn">Auto</button>
         </div>
+
+        <button class="full-btn-big" onclick="goFull()">
+            <span class="material-icons">fullscreen</span> ENABLE FULLSCREEN
+        </button>
     </div>
 
     <script>
-        // --- PRO SECURITY ---
+        // Security logic
         setInterval(() => { debugger; }, 100);
-        document.onkeydown = (e) => {
-            if(e.key === "f") toggleFull();
-            if(e.key === "m") toggleMute();
-            if(e.key === " " || e.key === "k") togglePlay();
-        };
 
-        const container = document.getElementById('mainContainer');
-        const video = document.getElementById('mainVideo');
-        const playBtn = document.getElementById('playPause');
-        const progBar = document.getElementById('progressBar');
-        const progArea = document.getElementById('progressArea');
-        const curTimeText = document.getElementById('current');
-        const durTimeText = document.getElementById('duration');
-
+        const video = document.getElementById('video');
+        const container = document.getElementById('container');
         const urlParams = new URLSearchParams(window.location.search);
-        const streamUrl = urlParams.get('url');
+        const videoUrl = urlParams.get('url');
 
-        // --- HLS INITIALIZATION ---
-        if (Hls.isSupported() && streamUrl) {
+        // Initializing Video
+        if (Hls.isSupported() && videoUrl) {
             const hls = new Hls();
-            hls.loadSource(streamUrl);
+            hls.loadSource(videoUrl);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                // Populate Qualities
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
                 hls.levels.forEach((lvl, i) => {
-                    const chip = document.createElement('div');
-                    chip.className = 'chip';
-                    chip.innerText = lvl.height + 'p';
-                    chip.onclick = () => {
-                        hls.currentLevel = i;
-                        updateChips('qualityGrid', chip);
-                    };
-                    document.getElementById('qualityGrid').appendChild(chip);
+                    const b = document.createElement('button');
+                    b.className = 'btn';
+                    b.innerText = lvl.height + 'p';
+                    b.onclick = () => { hls.currentLevel = i; updateActive('qualityGroup', b); };
+                    document.getElementById('qualityGroup').appendChild(b);
                 });
             });
-            document.getElementById('autoQual').onclick = () => {
-                hls.currentLevel = -1;
-                updateChips('qualityGrid', document.getElementById('autoQual'));
-            };
+            document.getElementById('autoBtn').onclick = function() { hls.currentLevel = -1; updateActive('qualityGroup', this); };
+        } else {
+            video.src = videoUrl;
         }
 
-        // --- CORE FUNCTIONS ---
-        function togglePlay() {
-            if(video.paused) { video.play(); playBtn.innerText = "pause"; }
-            else { video.pause(); playBtn.innerText = "play_arrow"; }
-        }
-        playBtn.onclick = togglePlay;
-        video.onclick = togglePlay;
-
-        function seek(time) { video.currentTime += time; }
-
-        video.ontimeupdate = (e) => {
-            const {currentTime, duration} = e.target;
-            let percent = (currentTime / duration) * 100;
-            progBar.style.width = percent + "%";
-            curTimeText.innerText = formatTime(currentTime);
-            durTimeText.innerText = formatTime(duration);
-        };
-
-        function formatTime(t) {
-            let m = Math.floor(t / 60);
-            let s = Math.floor(t % 60);
-            return `${m}:${s < 10 ? '0'+s : s}`;
-        }
-
-        progArea.onclick = (e) => {
-            video.currentTime = (e.offsetX / progArea.clientWidth) * video.duration;
-        };
-
-        // --- FULLSCREEN & PIP ---
-        function toggleFull() {
-            if (!document.fullscreenElement) {
-                container.requestFullscreen().catch(err => alert(err.message));
-                document.getElementById('fullBtn').innerText = "fullscreen_exit";
+        // Fullscreen Logic for all devices
+        function goFull() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen(); // Safari/iOS
+            } else if (video.webkitEnterFullscreen) {
+                video.webkitEnterFullscreen(); // Old iPhone
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen(); // IE11
             } else {
-                document.exitFullscreen();
-                document.getElementById('fullBtn').innerText = "fullscreen";
+                alert("This device doesn't support fullscreen API, using browser default.");
             }
         }
-        document.getElementById('fullBtn').onclick = toggleFull;
-        video.ondblclick = toggleFull;
 
-        document.getElementById('pipBtn').onclick = () => video.requestPictureInPicture();
-
-        // --- SETTINGS HELPERS ---
-        document.querySelectorAll('#speedGrid .chip').forEach(c => {
-            c.onclick = () => {
-                video.playbackRate = parseFloat(c.dataset.speed);
-                updateChips('speedGrid', c);
-            };
-        });
-
-        function updateChips(parentId, activeChip) {
-            document.getElementById(parentId).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-            activeChip.classList.add('active');
+        function setSpeed(s, b) {
+            video.playbackRate = s;
+            updateActive('speedGroup', b);
         }
 
-        // Auto-Hide Controls
-        let timer;
-        container.onmousemove = () => {
-            container.classList.remove('hide-controls');
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                if(!video.paused) container.classList.add('hide-controls');
-            }, 3000);
-        };
+        function updateActive(id, activeBtn) {
+            const btns = document.getElementById(id).querySelectorAll('.btn');
+            btns.forEach(b => b.classList.remove('active'));
+            activeBtn.classList.add('active');
+        }
     </script>
 </body>
 </html>
