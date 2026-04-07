@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player | ONLY HINDI IAS</title>
+    <!-- HLS.js Library for M3U8 Support -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { margin: 0; background: #000; font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        .player-header { background: #1a1a1a; padding: 15px; color: white; display: flex; align-items: center; border-bottom: 1px solid #333; }
+        .back-btn { color: white; text-decoration: none; font-size: 20px; margin-right: 15px; cursor: pointer; }
+        .brand { font-weight: bold; color: #ffaa00; font-size: 14px; }
+        #video-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; background: radial-gradient(circle, #222 0%, #000 100%); }
+        video { width: 100%; height: auto; max-height: 80% !important; outline: none; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .watermark { position: absolute; top: 20px; right: 20px; color: rgba(255,255,255,0.3); font-size: 12px; pointer-events: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="player-header">
+        <a href="javascript:history.back()" class="back-btn">⬅</a>
+        <div class="brand">ONLY HINDI IAS PLAYER</div>
+    </div>
+
+    <div id="video-wrapper">
+        <div class="watermark">ONLY HINDI IAS</div>
+        <video id="video" controls autoplay playsinline></video>
+    </div>
+
+    <script>
+        // Security Lock
+        document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
+
+        const video = document.getElementById('video');
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoSrc = urlParams.get('url');
+
+        if (videoSrc) {
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+            } 
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoSrc;
+            }
+        } else {
+            alert("वीडियो लिंक नहीं मिला!");
+        }
+    </script>
+</body>
+</html>
