@@ -3,73 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONLY HINDI IAS | Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <title>ONLY HINDI IAS | Advanced Player</title>
+    <!-- Latest HLS.js for M3U8 Support -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10/dist/hls.min.js"></script>
     <style>
-        body { margin: 0; background: #000; font-family: sans-serif; color: white; display: flex; flex-direction: column; height: 100vh; }
+        body { margin: 0; background: #000; font-family: 'Segoe UI', sans-serif; color: white; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         
-        /* हेडर */
-        .player-header { padding: 15px; display: flex; align-items: center; background: #1a1a1a; }
-        .back-btn { background: #ffaa00; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; text-decoration: none; font-weight: bold; margin-right: 15px; }
-        
-        /* वीडियो एरिया */
-        .video-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; background: #000; }
-        video { width: 100%; max-height: 100%; outline: none; }
+        /* Header */
+        .player-header { padding: 12px 15px; display: flex; align-items: center; background: #111; border-bottom: 1px solid #333; }
+        .back-btn { background: #ffaa00; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; text-decoration: none; font-weight: bold; margin-right: 12px; border: none; }
+        .brand-text { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
 
-        /* कंट्रोल पैनल (ब्लैक बैकग्राउंड) */
-        .control-panel { background: #1a1a1a; padding: 15px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; }
-        .control-group { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .label { font-size: 10px; color: #ffaa00; text-transform: uppercase; }
-        select { background: #333; color: white; border: 1px solid #555; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        /* Video Container */
+        .video-container { flex: 1; display: flex; justify-content: center; align-items: center; background: #000; position: relative; }
+        video { width: 100%; height: auto; max-height: 100%; aspect-ratio: 16/9; background: #000; }
+
+        /* Custom Bottom Control Panel */
+        .bottom-controls { background: #111; padding: 15px; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; padding-bottom: env(safe-area-inset-bottom); }
+        .control-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .control-item label { font-size: 10px; color: #ffaa00; font-weight: bold; text-transform: uppercase; }
+        
+        select { background: #222; color: white; border: 1px solid #444; padding: 6px 12px; border-radius: 6px; font-size: 13px; outline: none; min-width: 100px; }
+        select:focus { border-color: #ffaa00; }
+
+        /* Error Message Overlay */
+        #status-msg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #ff4444; font-size: 14px; display: none; z-index: 5; background: rgba(0,0,0,0.8); padding: 15px; border-radius: 8px; }
     </style>
 </head>
 <body oncontextmenu="return false">
 
     <div class="player-header">
-        <a href="javascript:history.back()" class="back-btn">⬅</a>
-        <div style="font-weight: bold;">ONLY HINDI IAS PLAYER</div>
+        <button onclick="window.history.back()" class="back-btn">⬅</button>
+        <span class="brand-text">ONLY HINDI IAS PLAYER</span>
     </div>
 
-    <div class="video-wrapper">
-        <video id="video" controls autoplay playsinline></video>
+    <div class="video-container">
+        <div id="status-msg">वीडियो लोड हो रहा है, कृपया प्रतीक्षा करें...</div>
+        <video id="video" controls autoplay playsinline crossorigin="anonymous"></video>
     </div>
 
-    <div class="control-panel">
-        <div class="control-group">
-            <span class="label">Quality</span>
-            <select id="qualitySel"><option value="-1">Auto</option></select>
+    <div class="bottom-controls">
+        <!-- Quality Selection -->
+        <div class="control-item">
+            <label>Video Quality</label>
+            <select id="qualitySelect">
+                <option value="-1">Auto (Best)</option>
+            </select>
         </div>
-        <div class="control-group">
-            <span class="label">Speed</span>
-            <select id="speedSel" onchange="document.getElementById('video').playbackRate = this.value">
-                <option value="1">1x</option>
+
+        <!-- Playback Speed -->
+        <div class="control-item">
+            <label>Playback Speed</label>
+            <select id="speedSelect">
+                <option value="1">1.0x (Normal)</option>
                 <option value="1.25">1.25x</option>
                 <option value="1.5">1.5x</option>
-                <option value="2">2x</option>
+                <option value="1.75">1.75x</option>
+                <option value="2">2.0x</option>
             </select>
         </div>
     </div>
 
     <script>
         const video = document.getElementById('video');
-        const qualitySel = document.getElementById('qualitySel');
-        const urlParams = new URLSearchParams(window.location.search);
-        const videoSrc = urlParams.get('url');
+        const statusMsg = document.getElementById('status-msg');
+        const qualitySelect = document.getElementById('qualitySelect');
+        const speedSelect = document.getElementById('speedSelect');
 
-        if (Hls.isSupported() && videoSrc) {
-            const hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                hls.levels.forEach((level, index) => {
-                    const opt = document.createElement('option');
-                    opt.value = index;
-                    opt.innerHTML = level.height + "p";
-                    qualitySel.appendChild(opt);
+        // Get URL from browser address bar
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoUrl = urlParams.get('url');
+
+        if (!videoUrl) {
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = "Error: वीडियो का लिंक नहीं मिला!";
+        } else {
+            // Initialize HLS
+            if (Hls.isSupported()) {
+                const hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
                 });
-            });
-            qualitySel.onchange = () => { hls.currentLevel = parseInt(qualitySel.value); };
+
+                hls.loadSource(videoUrl);
+                hls.attachMedia(video);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    statusMsg.style.display = 'none';
+                    // Fill Quality Dropdown
+                    hls.levels.forEach((level, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.text = level.height + 'p';
+                        qualitySelect.appendChild(option);
+                    });
+                });
+
+                // Change Quality Logic
+                qualitySelect.onchange = () => {
+                    hls.currentLevel = parseInt(qualitySelect.value);
+                };
+
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        console.error("HLS Fatal Error:", data);
+                        statusMsg.style.display = 'block';
+                        statusMsg.innerText = "वीडियो चलाने में समस्या हो रही है। कृपया पेज रिफ्रेश करें।";
+                    }
+                });
+
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // For Safari (Native Support)
+                video.src = videoUrl;
+                statusMsg.style.display = 'none';
+            }
         }
+
+        // Change Playback Speed
+        speedSelect.onchange = () => {
+            video.playbackRate = parseFloat(speedSelect.value);
+        };
     </script>
 </body>
 </html>
