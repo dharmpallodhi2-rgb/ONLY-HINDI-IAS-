@@ -93,15 +93,19 @@
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Integrating OHI Video Player Redirection
+            // REDIRECTING TO YOUR ORIGINAL OHI PLAYER
             card.onclick = () => {
-                const encodedUrl = encodeURIComponent(l.u);
-                window.location.href = `OHIvideoplayer.html?url=${encodedUrl}`;
+                let finalUrl = l.u;
+                // क्लीनिंग यूआरएल: अगर इसमें पुराने प्लेयर का लिंक है तो उसे निकालें
+                if(finalUrl.includes('url=')) {
+                    finalUrl = decodeURIComponent(finalUrl.split('url=')[1]);
+                }
+                window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
             };
 
             card.innerHTML = `
                 <div class="thumb-container">
-                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb" alt="lecture-thumb">
+                    <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg" class="thumb" alt="lecture-thumb" loading="lazy">
                 </div>
                 <div class="info">
                     <span class="badge">▶ CLASS VIDEO</span>
