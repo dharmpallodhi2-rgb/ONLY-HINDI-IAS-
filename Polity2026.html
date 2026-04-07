@@ -23,42 +23,45 @@
         <a href="batches.html" class="back-circle">⬅</a>
         <div style="flex-grow: 1;">
             <b style="font-size: 14px; display: block;">Indian Polity (Batch 2026)</b>
-            <span style="font-size: 10px; color: #ffaa00;">By Kumud Ranjan Sir</span>
+            <span style="font-size: 10px; color: #ffaa00;">ONLY HINDI IAS • By Kumud Ranjan Sir</span>
         </div>
     </div>
 
     <div class="grid" id="polity-2026-list"></div>
 
     <script>
-        // --- MASTER SECURITY ---
-        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
+        // Security Lock
         setInterval(function() { debugger; }, 100);
+        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
 
+        // Decryption Logic for URLs
         const d = (s) => atob(s);
+        const PLAYER_FILE = "OHIvideoplayer.html?url=";
 
         const lectures = [
-            { t: "Lecture 14 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjEzMTglMkZrZ3NzLTE3NjkzMTc4MjYtdjQ2MTMxOC5tM3U4", i: "QNjSNz5cAIL0dF21n5kDr29lar93wZlgs5bABO6X" },
-            { t: "Lecture 13 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NjAxMTMlMkZrZ3NzLTE3NjkyNTM2ODEtdjQ2MDExMy5tM3U4", i: "rOGvDUKOAQyCy2fNc2y8WcmCp15E4pxD93PbyLDB" },
-            { t: "Lecture 12 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTk3ODQlMkZrZ3NzLTE3NjkxNjc0MTktdjQ1OTc4NC5tM3U4", i: "cx6RxVZzVOS7WWB4RAtP8rcL8logBA8PZ0rw4UJ1" },
-            { t: "Lecture 11 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTgxMDUlMkZrZ3NzLTE3NjkwODEwMzMtdjQ1ODEwNS5tM3U4", i: "pdWd6HmdVkHrxmEtnawGrGUBjpZ2jw3n2BnbFbNa" },
-            { t: "Lecture 10 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTY2ODAlMkZrZ3NzLTE3Njg5OTM5ODYtdjQ1NjY4MC5tM3U4", i: "AIPWGhkSvbXwGPTYWZsKRJq3P9ylum8YsElA79J1" },
-            { t: "Lecture 09 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTU1ODIlMkZrZ3NzLTE3Njg5MDgxMjctdjQ1NTU4Mi5tM3U4", i: "vUgzHQvRzTTocszzjwYlH9xXbT4w5eBqmBAVMFGc" },
-            { t: "Lecture 08 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTQyMTElMkZrZ3NzLTE3Njg4MjE5NjItdjQ1NDIxMS5tM3U4", i: "53XKaSdHut0pTBtT8WXFL28O7wH1UVwadEYDUhYW" },
-            { t: "Lecture 07 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTQyMTAlMkZrZ3NzLTE3Njg3MzQ2MzAtdjQ1NDIxMC5tM3U4", i: "2AHylI9Ce7PU3yhAXe1125k5qZIDqVUHRlKGBzci" },
-            { t: "Lecture 06 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTI4ODglMkZrZ3NzLTE3Njg2NDkwNzctdjQ1Mjg4OC5tM3U4", i: "DGkkSSkuOZ7bWmRMN80sT9pPUth5FoY4hfuK0lzG" },
-            { t: "Lecture 05 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTE5MTMlMkZrZ3NzLTE3Njg1NjE3NDAtdjQ1MTkxMy5tM3U4", i: "WMrMQFDnIsGWZ9EN1PqexJgcjsemWU4jzzlPao53" },
-            { t: "Lecture 04 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NTA1OTUlMkZrZ3NzLTE3Njg0NzUyOTgtdjQ1MDU5NS5tM3U4", i: "PozkjiIiQa52I4WqXeBxLrBF0CRAl1HgZcCd8ytP" },
-            { t: "Lecture 03 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDk1NDElMkZrZ3NzLTE3NjgzODgyMDUtdjQ0OTU0MS5tM3U4", i: "k8yLIBve9iivyBy9jineAj34SSWi2lw9BXNlh1rV" },
-            { t: "Lecture 01 || Indian Polity", u: "aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGamFuLTIwMjYlMkY0NDY0MjglMkZrZ3NzLTE3NjgyMTY3NTMtdjQ0NjQyOC5tM3U4", i: "Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD" }
+            { t: "Lecture 14 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDYxMzE4L2tnc3MtMTc2OTMxNzgyNi12NDYxMzE4Lm0zdTg=", i: "QNjSNz5cAIL0dF21n5kDr29lar93wZlgs5bABO6X" },
+            { t: "Lecture 13 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDYwMTEzL2tnc3MtMTc2OTI1MzY4MS12NDYwMTEzLm0zdTg=", i: "rOGvDUKOAQyCy2fNc2y8WcmCp15E4pxD93PbyLDB" },
+            { t: "Lecture 12 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU5Nzg0L2tnc3MtMTc2OTE2NzQxOS12NDU5Nzg0Lm0zdTg=", i: "cx6RxVZzVOS7WWB4RAtP8rcL8logBA8PZ0rw4UJ1" },
+            { t: "Lecture 11 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU4MTA1L2tnc3MtMTc2OTA4MTAzMy12NDU4MTA1Lm0zdTg=", i: "pdWd6HmdVkHrxmEtnawGrGUBjpZ2jw3n2BnbFbNa" },
+            { t: "Lecture 10 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU2NjgwL2tnc3MtMTc2ODk5Mzk4Ni12NDU2NjgwLm0zdTg=", i: "AIPWGhkSvbXwGPTYWZsKRJq3P9ylum8YsElA79J1" },
+            { t: "Lecture 09 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU1NTgyL2tnc3MtMTc2ODkwODEyNy12NDU1NTgyLm0zdTg=", i: "vUgzHQvRzTTocszzjwYlH9xXbT4w5eBqmBAVMFGc" },
+            { t: "Lecture 08 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU0MjExL2tnc3MtMTc2ODgyMTk2Mi12NDU0MjExLm0zdTg=", i: "53XKaSdHut0pTBtT8WXFL28O7wH1UVwadEYDUhYW" },
+            { t: "Lecture 07 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDU0MjEwL2tnc3MtMTc2ODczNDYzMC12NDU0MjEwLm0zdTg=", i: "2AHylI9Ce7PU3yhAXe1125k5qZIDqVUHRlKGBzci" },
+            { t: "Lecture 06 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDUyODg4L2tnc3MtMTc2ODY0OTA3Ny12NDUyODg4Lm0zdTg=", i: "DGkkSSkuOZ7bWmRMN80sT9pPUth5FoY4hfuK0lzG" },
+            { t: "Lecture 05 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDUxOTEzL2tnc3MtMTc2ODU2MTc0MC12NDUxOTEzLm0zdTg=", i: "WMrMQFDnIsGWZ9EN1PqexJgcjsemWU4jzzlPao53" },
+            { t: "Lecture 04 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDUwNTk1L2tnc3MtMTc2ODQ3NTI5OC12NDUwNTk1Lm0zdTg=", i: "PozkjiIiQa52I4WqXeBxLrBF0CRAl1HgZcCd8ytP" },
+            { t: "Lecture 03 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDQ5NTQxL2tnc3MtMTc2ODM4ODIwNS12NDQ5NTQxLm0zdTg=", i: "k8yLIBve9iivyBy9jineAj34SSWi2lw9BXNlh1rV" },
+            { t: "Lecture 01 || Indian Polity", u: "aHR0cHM6Ly9rZ3MtdjEuYWthbWFpemVkLm5ldC9rdjMvamFuLTIwMjYvNDQ2NDI4L2tnc3MtMTc2ODIxNjc1My12NDQ2NDI4Lm0zdTg=", i: "Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD" }
         ];
 
         const list = document.getElementById('polity-2026-list');
         lectures.forEach(l => {
+            const finalLink = PLAYER_FILE + encodeURIComponent(d(l.u));
             list.innerHTML += `
-                <div class="card" onclick="window.location.href='${d(l.u)}'">
+                <div class="card" onclick="window.location.href='${finalLink}'">
                     <img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.png" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=Indian+Polity'">
                     <div class="info">
-                        <span class="badge">BATCH 2026</span>
+                        <span class="badge">ONLY HINDI IAS</span>
                         <div class="title">${l.t}</div>
                     </div>
                 </div>`;
