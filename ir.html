@@ -103,25 +103,33 @@
             const card = document.createElement('div');
             card.className = 'card';
             
-            // Thumbnail Handling
             const thumb = l.i.includes('http') ? l.i : `https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg`;
 
             card.onclick = () => {
-                // 1. लिंक को डिकोड करना
                 let rawUrl = d(l.u);
                 
-                // 2. फिक्स: .m358 को हटाकर सही फॉर्मेट .m3u8 में बदलना
+                // === 🛠️ 3 जादुई फिल्टर (ऑटो-फिक्स) 🛠️ ===
+                
+                // 1. .m358 की गड़बड़ी को ठीक करके असली फॉर्मेट .m3u8 बनाना
                 rawUrl = rawUrl.replace('.m358', '.m3u8');
                 
-                // 3. फाइनल लिंक निकालना
+                // 2. ब्लॉक हो चुके सर्वर (spree.io) को हटाकर चालू सर्वर (akamaized.net) लगाना
+                rawUrl = rawUrl.replace('kgs-va.na.spree.io', 'kgs-v1.akamaized.net');
+                
+                // 3. फोल्डर के नाम में लगे फालतू 'V' को हटाना (जैसे 401351V/ को 401351/ करना)
+                rawUrl = rawUrl.replace(/(\d+)V\//g, '$1/');
+                
+                // ==========================================
+
                 const finalUrl = rawUrl.includes('url=') ? decodeURIComponent(rawUrl.split('url=')[1]) : rawUrl;
                 
-                // 4. KGS Vercel प्लेयर का पूरा लिंक तैयार करना
-                // (यह हर लेक्चर के लिए अपने आप उस लेक्चर का नाम और फोटो ले लेगा)
-                const targetUrl = `https://kgs-web.vercel.app/video-player?url=${encodeURIComponent(finalUrl)}&title=${encodeURIComponent(l.t)}&section=kgs&source_title=${encodeURIComponent(l.t)}&parent_title=International+Relations+by+Nawab+Sir&thumb=${encodeURIComponent(thumb)}`;
-                
-                // 5. बच्चे को उस लिंक पर भेज देना
-                window.location.href = targetUrl;
+                // अगर यूट्यूब वीडियो है, तो उसे प्लेयर में भेजने के बजाय डायरेक्ट खोलें ताकि क्रैश न हो
+                if(finalUrl.includes('youtube.com') || finalUrl.includes('youtu.be')) {
+                    window.location.href = finalUrl;
+                } else {
+                    const targetUrl = `https://kgs-web.vercel.app/video-player?url=${encodeURIComponent(finalUrl)}&title=${encodeURIComponent(l.t)}&section=kgs&source_title=${encodeURIComponent(l.t)}&parent_title=International+Relations+by+Nawab+Sir&thumb=${encodeURIComponent(thumb)}`;
+                    window.location.href = targetUrl;
+                }
             };
 
             card.innerHTML = `
