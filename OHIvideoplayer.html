@@ -1,112 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ONLY HINDI IAS | Pro Player</title>
+    <title>ONLY HINDI IAS | Ultimate Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --primary: #d93838; --white: #ffffff; --black: #000000; --gray: #f1f3f4; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; padding: 0; background: var(--white); font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        :root { --red: #d93838; --white: #ffffff; --dark: #1a1a1a; }
+        body { margin: 0; background: var(--white); font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
         /* HEADER */
-        .top-nav { background: var(--white); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 1000; }
-        .back-btn { background: var(--primary); color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; margin-right: 12px; font-size: 13px; }
-        .brand { font-weight: bold; font-size: 14px; color: var(--black); }
+        .header { background: var(--white); padding: 10px; display: flex; align-items: center; border-bottom: 1px solid #ddd; }
+        .btn-back { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none; margin-right: 10px; font-size: 12px; }
 
-        /* VIDEO CONTAINER & FULLSCREEN FIX */
-        .video-box { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        video { width: 100%; height: auto; max-height: 100%; display: block; }
+        /* VIDEO BOX - THE MAGIC AREA */
+        #video-container { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; }
+        video { width: 100%; height: auto; max-height: 100%; display: block; object-fit: contain; }
 
-        /* PSEUDO FULLSCREEN CLASS */
-        .pseudo-fullscreen { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 9999 !important; background: #000 !important; }
+        /* FORCE FULLSCREEN CLASS */
+        .force-fs { position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; z-index: 999999 !important; background: #000 !important; display: flex !important; align-items: center !important; }
 
         /* CONTROL PANEL */
-        .panel { background: var(--white); padding: 20px; border-top: 2px solid var(--primary); overflow-y: auto; }
-        .label { font-size: 11px; color: #5f6368; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; }
-        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .btn { background: var(--gray); border: 1px solid #dadce0; color: #3c4043; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .panel { padding: 20px; background: var(--white); border-top: 2px solid var(--red); box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        .label { font-size: 11px; color: #666; font-weight: bold; margin-bottom: 10px; display: block; text-transform: uppercase; }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .btn-opt { background: #f0f0f0; border: 1px solid #ccc; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        .btn-opt.active { background: var(--red); color: white; border-color: var(--red); }
 
-        .fs-toggle { background: #3c4043; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 5px; }
+        /* BIG FULLSCREEN BUTTON */
+        .fs-button { background: #333; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 14px; }
+        .fs-button:active { background: var(--red); }
+        
+        /* CLOSE FS BUTTON (Visible only in Fullscreen) */
+        #close-fs { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.3); color: white; border: none; padding: 10px; border-radius: 5px; display: none; z-index: 1000000; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="top-nav">
-        <a href="javascript:history.back()" class="back-btn">BACK</a>
-        <div class="brand">ONLY HINDI IAS PLAYER</div>
+    <div class="header" id="main-header">
+        <a href="javascript:history.back()" class="btn-back">BACK</a>
+        <b style="font-size: 14px;">ONLY HINDI IAS PLAYER</b>
     </div>
 
-    <div class="video-box" id="vidWrapper">
-        <video id="videoPlayer" controls autoplay playsinline crossorigin="anonymous"></video>
+    <div id="video-container">
+        <button id="close-fs" onclick="exitFluidFS()">✕ Close Fullscreen</button>
+        <video id="player" controls autoplay playsinline crossorigin="anonymous"></video>
     </div>
 
-    <div class="panel">
-        <span class="label">Playback Speed</span>
-        <div class="btn-group" id="speedGroup">
-            <div class="btn" data-v="0.5">0.5x</div>
-            <div class="btn active" data-v="1">Normal</div>
-            <div class="btn" data-v="1.5">1.5x</div>
-            <div class="btn" data-v="2">2x</div>
+    <div class="panel" id="controls-panel">
+        <span class="label">Speed Control</span>
+        <div class="btn-group" id="speed-group">
+            <button class="btn-opt" data-v="0.5">0.5x</button>
+            <button class="btn-opt active" data-v="1">1x</button>
+            <button class="btn-opt" data-v="1.5">1.5x</button>
+            <button class="btn-opt" data-v="2">2x</button>
         </div>
 
         <span class="label">Video Quality</span>
-        <div class="btn-group" id="qualityGroup">
-            <div class="btn active" id="autoBtn">Auto</div>
+        <div class="btn-group" id="quality-group">
+            <button class="btn-opt active" id="auto-btn">Auto</button>
         </div>
 
-        <button class="fs-toggle" id="fsBtn">⛶ Fullscreen</button>
+        <button class="fs-button" onclick="enterFluidFS()">⛶ FULL SCREEN MODE</button>
     </div>
 
     <script>
-        // Security Lock
+        // --- Security ---
         setInterval(() => { debugger; }, 500);
 
-        const video = document.getElementById('videoPlayer');
-        const wrapper = document.getElementById('vidWrapper');
-        const fsBtn = document.getElementById('fsBtn');
+        const video = document.getElementById('player');
+        const container = document.getElementById('video-container');
         const urlParams = new URLSearchParams(window.location.search);
-        const m3u8Url = urlParams.get('url');
+        const videoUrl = urlParams.get('url');
 
-        // HLS Logic
-        if (Hls.isSupported() && m3u8Url) {
+        // --- HLS Setup ---
+        if (Hls.isSupported() && videoUrl) {
             const hls = new Hls();
-            hls.loadSource(m3u8Url);
+            hls.loadSource(videoUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
                 hls.levels.forEach((lvl, i) => {
-                    const b = document.createElement('div');
-                    b.className = 'btn';
+                    const b = document.createElement('button');
+                    b.className = 'btn-opt';
                     b.innerText = lvl.height + 'p';
-                    b.onclick = () => { hls.currentLevel = i; uiActive('qualityGroup', b); };
-                    document.getElementById('qualityGroup').appendChild(b);
+                    b.onclick = () => { hls.currentLevel = i; markActive('quality-group', b); };
+                    document.getElementById('quality-group').appendChild(b);
                 });
             });
-            document.getElementById('autoBtn').onclick = () => { hls.currentLevel = -1; uiActive('qualityGroup', document.getElementById('autoBtn')); };
+            document.getElementById('auto-btn').onclick = () => { hls.currentLevel = -1; markActive('quality-group', document.getElementById('auto-btn')); };
         }
 
-        // SMART FULLSCREEN LOGIC
-        fsBtn.onclick = () => {
-            if (video.requestFullscreen) { video.requestFullscreen(); }
-            else if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); } // iOS Fix
-            else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
-            else {
-                // Pseudo Fullscreen Fallback
-                wrapper.classList.toggle('pseudo-fullscreen');
-            }
-        };
-
-        // Speed Control
-        document.querySelectorAll('#speedGroup .btn').forEach(b => {
-            b.onclick = () => { video.playbackRate = parseFloat(b.dataset.v); uiActive('speedGroup', b); };
+        // --- SPEED LOGIC ---
+        document.querySelectorAll('#speed-group .btn-opt').forEach(btn => {
+            btn.onclick = () => { video.playbackRate = parseFloat(btn.dataset.v); markActive('speed-group', btn); };
         });
 
-        function uiActive(id, btn) {
-            document.getElementById(id).querySelectorAll('.btn').forEach(x => x.classList.remove('active'));
+        function markActive(id, btn) {
+            document.getElementById(id).querySelectorAll('.btn-opt').forEach(x => x.classList.remove('active'));
             btn.classList.add('active');
         }
+
+        // --- THE SECOND METHOD: FLUID FULLSCREEN ---
+        function enterFluidFS() {
+            // First try Native
+            if (video.requestFullscreen) { video.requestFullscreen(); }
+            else if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); }
+            else {
+                // If native fails, use Fluid Fill
+                container.classList.add('force-fs');
+                document.getElementById('close-fs').style.display = 'block';
+            }
+        }
+
+        function exitFluidFS() {
+            container.classList.remove('force-fs');
+            document.getElementById('close-fs').style.display = 'none';
+        }
+
+        // Handle ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") exitFluidFS();
+        });
     </script>
 </body>
 </html>
