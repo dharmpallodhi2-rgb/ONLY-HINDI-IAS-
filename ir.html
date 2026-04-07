@@ -116,14 +116,8 @@
                 // 3. फाइनल लिंक निकालना
                 const finalUrl = rawUrl.includes('url=') ? decodeURIComponent(rawUrl.split('url=')[1]) : rawUrl;
                 
-                // 4. फिक्स: YouTube लिंक्स और m3u8 लिंक्स को अलग-अलग प्ले करना
-                if(finalUrl.includes('youtube.com') || finalUrl.includes('youtu.be')) {
-                    // अगर यूट्यूब वीडियो है, तो सीधे ओपन कर दो (प्लेयर क्रैश नहीं होगा)
-                    window.location.href = finalUrl;
-                } else {
-                    // अगर KGS का m3u8 वीडियो है, तो अपने प्लेयर में भेज दो
-                    window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
-                }
+                // 4. सभी वीडियोस (चाहे यूट्यूब हो या m3u8) को OHIvideoplayer पर भेजना
+                window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
             };
 
             card.innerHTML = `
