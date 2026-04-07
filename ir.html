@@ -1,98 +1,142 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>IR Lectures - ONLY HINDI IAS</title>
-<style>
-:root{--primary:#3b5098;--accent:#ffaa00;--bg:#f5f6f9;--white:#ffffff;--text:#222}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;padding:0;background:var(--bg);font-family:sans-serif;user-select:none;-webkit-user-select:none}
-.header{background:var(--primary);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
-.back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
-.card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.05);cursor:pointer;border:1px solid #eee;display:flex;flex-direction:column;transition:transform 0.2s}
-.card:active{transform:scale(0.96)}
-.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#ddd}
-.thumb{width:100%;height:100%;object-fit:cover;border-bottom:3px solid var(--accent)}
-.info{padding:10px;flex-grow:1}
-.badge{color:#d93838;font-size:9px;font-weight:bold;border:1px solid #d93838;padding:2px 6px;border-radius:4px;background:#fdf0f0;display:inline-block;margin-bottom:6px;text-transform:uppercase}
-.title{font-size:11px;font-weight:bold;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-@media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Relations - ONLY HINDI IAS</title>
+    <style>
+        :root { --primary-blue: #3b5098; --accent-yellow: #ffaa00; --bg-gray: #f5f6f9; }
+        body { margin: 0; padding: 0; background-color: var(--bg-gray); font-family: 'Segoe UI', Arial, sans-serif; user-select: none; -webkit-user-select: none; }
+        
+        /* HEADER */
+        .header { background-color: var(--primary-blue); padding: 15px; display: flex; align-items: center; color: white; position: sticky; top: 0; z-index: 1000; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .back-circle { background-color: var(--accent-yellow); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-right: 15px; font-weight: bold; color: white; text-decoration: none; font-size: 18px; transition: transform 0.2s; }
+        .back-circle:active { transform: scale(0.9); }
+        
+        /* GRID & CARDS */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.06); cursor: pointer; border: 1px solid #eee; display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
+        .card:active { transform: scale(0.96); }
+        .thumb-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #ddd; }
+        .thumb { width: 100%; height: 100%; object-fit: cover; }
+        .info { padding: 10px; flex-grow: 1; }
+        .badge { color: #d93838; font-size: 9px; font-weight: bold; border: 1px solid #d93838; padding: 2px 6px; border-radius: 4px; background: #fdf0f0; display: inline-block; margin-bottom: 5px; text-transform: uppercase; }
+        .title { font-size: 11px; font-weight: bold; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; }
+
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
-<header class="header">
-<a href="batches.html" class="back-btn">⬅</a>
-<div style="flex-grow:1">
-<b style="font-size:16px;display:block">International Relations</b>
-<span style="font-size:11px;color:var(--accent)">By Nawab Sir</span>
-</div>
-</header>
+    <header class="header">
+        <a href="batches.html" class="back-circle">⬅</a>
+        <div style="flex-grow: 1;">
+            <b style="font-size: 16px; display: block;">International Relations</b>
+            <span style="font-size: 11px; color: var(--accent-yellow);">By Nawab Sir</span>
+        </div>
+    </header>
 
-<main class="grid" id="ir-list"></main>
+    <main class="grid" id="ir-list"></main>
 
-<script>
-/** SECURITY LOGIC **/
-const SEC=()=>{
-document.onkeydown=(e)=>{if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode==85))return false};
-setInterval(()=>{debugger},50)
-};SEC();
+    <script>
+        /** 
+         * HIGH-LEVEL SECURITY PROTOCOL 
+         */
+        document.onkeydown = (e) => {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
 
-const D=(s)=>atob(s);
+        (function() {
+            setInterval(() => { debugger; }, 50);
+        })();
 
-/** FULL IR LECTURE DATA (L01 - L38) **/
-const L=[
-{t:"L 38 || International Relations",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZmViLTIwMjYlMkY0Njc1OTclMkZrZ3NzLTE3NzAwMTA4MzMtdjQ2NzU5Ny5tM3U4",i:"https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png"},
-{t:"L 37 || International Relations",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJKamFuLTIwMjYlMkY0NjY1NzUlMkZrZ3NzLTE3Njk4MzgwNjYtdjQ2NjU3NS5tM3U4",i:"oXc64CpHlAuxKOXfxQnzN9R6qwzLKgNRnTY3Vmhs"},
-{t:"L 36 || भारत और मध्य एशियाई संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJKamFuLTIwMjYlMkY0NjU3NzglMkZrZ3NzLTE3Njk3NTE4MDktdjQ2NTc3OC5tM3U4",i:"tS0tRE6EzhzXi2zFPgqDRiRu4jgss2mLcJSK1wZ6"},
-{t:"L 35 || भारत रूस संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJKamFuLTIwMjYlMkY0NjIyODklMkZrZ3NzLTE3Njk2NjUxMDgtdjQ2MjI4OS5tM3U4",i:"1uY45PzhRTbbozIG28gI1wUl6MmhzITrhSuFhJzi"},
-{t:"L 34 || भारत रूस संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJKamFuLTIwMjYlMkY0MzkzNjIlMkZrZ3NzLTE3Njc0MTgwNzAtdjQzOTM2Mi5tM3U4",i:"DzeH5jZYBGN4YRA4MSNVpvN6TMc3wgmgz1WmyH4M"},
-{t:"L 33 || भारत यूरोपीय संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJKamFuLTIwMjYlMkY0MzgzNTElMkZrZ3NzLTE3NjczMzE2NTItdjQzODM1MS5tM3U4",i:"uCjsOPm5TYulMTy2AMCOoYqv93JENIbUbbwOeqoH"},
-{t:"L 32 || भारत यूरोपीय संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0Mzc2ODUlMkZrZ3NzLTE3NjcxNTcxNzktdjQzNzY4NS5tM3U4",i:"hrjx4a5tuPLxDZ3IcOeeqipmwRtJ9ME3TARq8dVa"},
-{t:"L 31 || भारत अमेरिका सहयोग",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MzU5OTUlMkZrZ3NzLTE3NjcwNzI1MDQtdjQzNTk5NS5tM3U4",i:"XrROhq21Xc9e0TLN9tPQCzrCHG8HvBDuZUUOBuSg"},
-{t:"L 30 || वर्तमान वैश्विक परिस्थितियां",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MzM4NzUlMkZrZ3NzLTE3NjY5ODYxNDgtdjQzMzg3NS5tM3U4",i:"SpWFVMmzcbEKnfQpPDXmAwH0MbiqeZhgr1whfuu2"},
-{t:"L 29 || भारत लैटिन अमेरिका",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MzI3NjYlMkZrZ3NzLTE3NjY4MTMyNjItdjQzMjc2Ni5tM3U4",i:"3hNznUcAEOcO9lK4Q3B0vhrcUukl4FYuBE5H8cQ6"},
-{t:"L 28 || भारत अफ्रीका संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MzE4MjclMkZrZ3NzLTE3NjY3MjY5MTctdjQzMTgyOS5tM3U4",i:"SkezWL72Fp79nthnd26YKqbIvuJ5XJP9y6Iorh7m"},
-{t:"L 27 || भारत अफ्रीका संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MzA2MDglMkZrZ3NzLTE3NjY2NDAzNzEtdjQzMDYxMC5tM3U4",i:"v4d53eYEbuUtmolCrDJmw2VuBBrr9jEaE4MnAqFb"},
-{t:"L 26 || पूरब की ओर देखो नीति",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0Mjg4MTUlMkZrZ3NzLTE3NjY1NTM5MjctdjQyODgxNy5tM3U4",i:"WUad1LxqO3YheAD2H6D8SaEyqBCS3TXmHCRgmhOX"},
-{t:"L 25 || भारत एवं दक्षिण कोरिया",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjczOTIlMkZrZ3NzLTE3NjY0Njc2ODYtdjQyNzM5NS5tM3U4",i:"OeKIhH8jG1Pdxw4IGZql3iDDfAjgHGhPSfs9qkRO"},
-{t:"L 24 || भारत जापान संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjYxODElMkZrZ3NzLTE3NjYzODEyMjYtdjQyNjE4My5tM3U4",i:"43XuZIZ7LWjqHr60hjV0krJOFHYSnhbt66jx09fT"},
-{t:"L 23 || भारत जापान संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjQ3MTUlMkZrZ3NzLTE3NjYyMDgzMTAtdjQyNDcxOC5tM3U4",i:"IpV9d5yQmlBY3CejUB1oAXVKy3BN1NAxQFOLjRgC"},
-{t:"L 22 || भारत चीन संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjM2ODklMkZrZ3NzLTE3NjYxMjE1MzctdjQyMzY5NS5tM3U4",i:"dLFlCXr00BTGrYuDsdqOvqCwCOq54a7BUvuxuUhV"},
-{t:"L 21 || भारत चीन संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjI1NTclMkZrZ3NzLTE3NjYwMzU2MTItdjQyMjU1OS5tM3U4",i:"5dfa43U2AhGVnZ4R60pB1pgQ3odL4kFC1h6GZX4K"},
-{t:"L 20 || सार्क की प्रासंगिकता और बिम्सटेक",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MjE0MjclMkZrZ3NzLTE3NjU5NDkxNTgtdjQyMTQzMy5tM3U4",i:"jgcOeamnSE9hYUSEfBojBXx3n8Tr3u2nT4UNnbu5"},
-{t:"L 19 || नेबुरफर्स्ट पॉलिसी",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTk5NTglMkZrZ3NzLTE3NjU4NjI3MzctdjQxOTk2MS5tM3U4",i:"6Hmk0iHmFNo4aBxiRl6ucIFReFHZXaEilhqDlHvi"},
-{t:"L 18 || भारत-मालदीव संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTgxMzklMkZrZ3NzLTE3NjU3NzY0NjUtdjQxODE0Ny5tM3U4",i:"sjUy1D5JDPO3njLcKCE3lYbRLgIAEh6Q1TP0DyKB"},
-{t:"L 17 || भारत श्रीलंका संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTYxNzktdjQxNjE4MS5tM3U4",i:"XBitnKFW1ewWg0ShGWlMSvbqwEHPRoOFD3mLNogh"},
-{t:"L 16 || भारत - बांग्लादेश संबंध 3",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTU0MzQtdjQxNTQzNi5tM3U4",i:"0bfoODYRNeeBbVJ0a0ErHMknFMKvaHaR6V6DEQyz"},
-{t:"L 15 || भारत - बांग्लादेश संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTQzODctdjQxNDM5MS5tM3U4",i:"QyfQUdUvbZS8a9iMafDxqRIaBGaW612BNkFZnPkF"},
-{t:"L 14 || भारत-बांग्लादेश संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTMzMzItdjQxMzMzNi5tM3U4",i:"PUt9xbUC0NHzaNNfTS6ieSn8bLF5fyDoxTqAIcJN"},
-{t:"L 13 || भारत-म्यांमार संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTIyNTMtdjQxMjI1NS5tM3U4",i:"r6v8FXQ4TKpWns7Yi480sQGYfnacrGsdWeez7tzO"},
-{t:"L 12 || भारत- भूटान संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MTE0MDQtdjQxMTQwNy5tM3U4",i:"j1XxDDHBG8zmJqh5IHAYCVXvrLAemSRp2VLOdqRn"},
-{t:"L 11 || भारत-अफगान, नेपाल संबंध",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzLXVwc2MvdXBzYy1oaW4tYmF0Y2gtMDUvaW50ZXItcmVsYXQtbmF3YWItc2lyL2wtMTEvaW50ZXIubTM1OA==",i:"jruhBjexgUtzGMDgtQUb0IAogaVd57bvXbepr4k7"},
-{t:"L 10 || भारत-पाकिस्तान संबंध 3",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MDk2MjItdjQwOTYyNC5tM3U4",i:"325B2myHUFYKwJvGgQ1ao4K6eo3K1rcNb2FnHJ8K"},
-{t:"L 09 || भारत-पाकिस्तान संबंध 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MDg4NjctdjQwMDg4NjkubTM1OA==",i:"NccxK78ZvpNpKunhYHfMztbhGN6yBHrM5JaaPo6f"},
-{t:"L 08 || भारत-पाकिस्तान संबंध 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MDc4OTEtdjQwNzg5My5tM3U4",i:"QEOVrAFOVk4EWrci1izbZlWiR5w6KJiAMNJOj0Yb"},
-{t:"L 07 || भारत विदेश नीति क्षेत्रगत",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MDYyNzgtdjQwNjI4MC5tM3U4",i:"de4MtIDT0xdPI7FoLbcvuNagT3TSXxu0IHwA02Tm"},
-{t:"L 06 || भारत विदेश नीति विषयगत 3",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGZGVjLTIwMjUlMkY0MDUxNjYtdjQwNTE2OC5tM3U4",i:"MrJgAZYSw3WM3r1i0Er9KFIcVfx0wrPaZHqWrYIQ"},
-{t:"L 05 || भारत विदेश नीति विषयगत 2",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRnd3dy55b3V0dWJlLmNvbS9lbWJlZC92LTl4MVQ3eGl0dw==",i:"jRKCW5akSPlQUjPqGpu9VGxErzkvqwcLs6m9A2jo"},
-{t:"L 04 || भारत विदेश नीति विषयगत 1",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDM0MTYtdjQwMzQxOC5tM3U4",i:"w8a6QZfRir01Ge1ATfr7BELBvYrVwDYIVqY4Ymf3"},
-{t:"L 03 || भारत की विदेश नीति",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDI2NDAtdjQwMjY0Mi5tM3U4",i:"vC6JfUHHLCyr5GJJcsQCH693s41TNLSfOC4HrnLq"},
-{t:"L 02 || Fundamental Concepts-02",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDIyODAtdjQwMjI4NC5tM3U4",i:"OdP2poTXBZT2CtP9l1jT0TACPeUEpshCNK0RtQbD"},
-{t:"L 01 || Fundamental Concepts-01",u:"aHR0cHM6Ly9rZ3Mtd2ViLnZlcmNlbC5hcHAvdmlkZW8tcGxheWVyP3VybD1odHRwcyUzQSUyRiUyRmtncy12MS5ha2FtYWl6ZWQubmV0JTJGa3YzJTJGbm92LTIwMjUlMkY0MDEzNTEtdjQwMTM1MS5tM3U4",i:"8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN"}
-];
+        // Decoding Function
+        const d = (s) => atob(s);
 
-const list=document.getElementById('ir-list');
-L.forEach(l=>{
-const card=document.createElement('div');
-card.className='card';
-card.onclick=()=>window.location.href=D(l.u);
-const img=l.i.includes('http')?l.i:`https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg`;
-card.innerHTML=`<div class="thumb-box"><img src="${img}" class="thumb" loading="lazy"></div><div class="info"><span class="badge">WATCH VIDEO</span><div class="title">${l.t}</div></div>`;
-list.appendChild(card);
-});
-</script>
+        /**
+         * LECTURE DATA
+         */
+        const lectures = [
+            { t: "L 38 || International Relations", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2ZlYi0yMDI2LzQ2NzU5Ny9rZ3NzLTE3NzAwMTA4MzMtdjQ2NzU5Ny5tM3U4", i: "https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png" },
+            { t: "L 37 || International Relations", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2phbi0yMDI2LzQ2NjU3NS9rZ3NzLTE3Njk4MzgwNjYtdjQ2NjU3NS5tM3U4", i: "oXc64CpHlAuxKOXfxQnzN9R6qwzLKgNRnTY3Vmhs" },
+            { t: "L 36 || भारत और मध्य एशियाई संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2phbi0yMDI2LzQ2NTc3OC9rZ3NzLTE3Njk3NTE4MDktdjQ2NTc3OC5tM3U4", i: "tS0tRE6EzhzXi2zFPgqDRiRu4jgss2mLcJSK1wZ6" },
+            { t: "L 35 || भारत रूस संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2phbi0yMDI2LzQ2MjI4OS9rZ3NzLTE3Njk2NjUxMDgtdjQ2MjI4OS5tM3U4", i: "1uY45PzhRTbbozIG28gI1wUl6MmhzITrhSuFhJzi" },
+            { t: "L 34 || भारत रूस संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2phbi0yMDI2LzQzOTM2Mi9rZ3NzLTE3Njc0MTgwNzAtdjQzOTM2Mi5tM3U4", i: "DzeH5jZYBGN4YRA4MSNVpvN6TMc3wgmgz1WmyH4M" },
+            { t: "L 33 || भारत यूरोपीय संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2phbi0yMDI2LzQzODM1MS9rZ3NzLTE3NjczMzE2NTItdjQzODM1MS5tM3U4", i: "uCjsOPm5TYulMTy2AMCOoYqv93JENIbUbbwOeqoH" },
+            { t: "L 32 || भारत यूरोपीय संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzNzY4NS9rZ3NzLTE3NjcxNTcxNzktdjQzNzY4NS5tM3U4", i: "hrjx4a5tuPLxDZ3IcOeeqipmwRtJ9ME3TARq8dVa" },
+            { t: "L 31 || भारत अमेरिका सहयोग", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzNTk5NS9rZ3NzLTE3NjcwNzI1MDQtdjQzNTk5NS5tM3U4", i: "XrROhq21Xc9e0TLN9tPQCzrCHG8HvBDuZUUOBuSg" },
+            { t: "L 30 || वर्तमान वैश्विक परिस्थितियां", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzMzg3NS9rZ3NzLTE3NjY5ODYxNDgtdjQzMzg3NS5tM3U4", i: "SpWFVMmzcbEKnfQpPDXmAwH0MbiqeZhgr1whfuu2" },
+            { t: "L 29 || भारत लैटिन अमेरिका", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzMjc2Ni9rZ3NzLTE3NjY4MTMyNjItdjQzMjc2Ni5tM3U4", i: "3hNznUcAEOcO9lK4Q3B0vhrcUukl4FYuBE5H8cQ6" },
+            { t: "L 28 || भारत अफ्रीका संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzMTgyNy9rZ3NzLTE3NjY3MjY5MTctdjQzMTgyOS5tM3U4", i: "SkezWL72Fp79nthnd26YKqbIvuJ5XJP9y6Iorh7m" },
+            { t: "L 27 || भारत अफ्रीका संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQzMDYwOC9rZ3NzLTE3NjY2NDAzNzEtdjQzMDYxMC5tM3U4", i: "v4d53eYEbuUtmolCrDJmw2VuBBrr9jEaE4MnAqFb" },
+            { t: "L 26 || पूरब की ओर देखो नीति", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyODgxNS9rZ3NzLTE3NjY1NTM5MjctdjQyODgxNy5tM3U4", i: "WUad1LxqO3YheAD2H6D8SaEyqBCS3TXmHCRgmhOX" },
+            { t: "L 25 || भारत एवं दक्षिण कोरिया", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyNzM5Mi9rZ3NzLTE3NjY0Njc2ODYtdjQyNzM5NS5tM3U4", i: "OeKIhH8jG1Pdxw4IGZql3iDDfAjgHGhPSfs9qkRO" },
+            { t: "L 24 || भारत जापान संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyNjE4MS9rZ3NzLTE3NjYzODEyMjYtdjQyNjE4My5tM3U4", i: "43XuZIZ7LWjqHr60hjV0krJOFHYSnhbt66jx09fT" },
+            { t: "L 23 || भारत जापान संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyNDcxNS9rZ3NzLTE3NjYyMDgzMTAtdjQyNDcxOC5tM3U4", i: "IpV9d5yQmlBY3CejUB1oAXVKy3BN1NAxQFOLjRgC" },
+            { t: "L 22 || भारत चीन संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyMzY4OS9rZ3NzLTE3NjYxMjE1MzctdjQyMzY5NS5tM3U4", i: "dLFlCXr00BTGrYuDsdqOvqCwCOq54a7BUvuxuUhV" },
+            { t: "L 21 || भारत चीन संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyMjU1Ny9rZ3NzLTE3NjYwMzU2MTItdjQyMjU1OS5tM3U4", i: "5dfa43U2AhGVnZ4R60pB1pgQ3odL4kFC1h6GZX4K" },
+            { t: "L 20 || सार्क की प्रासंगिकता और बिम्सटेक", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQyMTQyNy9rZ3NzLTE3NjU5NDkxNTgtdjQyMTQzMy5tM3U4", i: "jgcOeamnSE9hYUSEfBojBXx3n8Tr3u2nT4UNnbu5" },
+            { t: "L 19 || नेबुरफर्स्ट पॉलिसी", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxOTk1OC9rZ3NzLTE3NjU4NjI3MzctdjQxOTk2MS5tM3U4", i: "6Hmk0iHmFNo4aBxiRl6ucIFReFHZXaEilhqDlHvi" },
+            { t: "L 18 || भारत-मालदीव संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxODEzOVYva2dzcy0xNzY1Nzc2NDY1LXY0MTgxNDcubTM1OA==", i: "sjUy1D5JDPO3njLcKCE3lYbRLgIAEh6Q1TP0DyKB" },
+            { t: "L 17 || भारत श्रीलंका संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxNjE3OVYva2dzcy0xNzY1NjAyOTYzLXY0MTYxODEubTM1OA==", i: "XBitnKFW1ewWg0ShGWlMSvbqwEHPRoOFD3mLNogh" },
+            { t: "L 16 || भारत - बांग्लादेश संबंध 3", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxNTQzNFYva2dzcy0xNzY1NTE3MTUzLXY0MTU0MzYubTM1OA==", i: "0bfoODYRNeeBbVJ0a0ErHMknFMKvaHaR6V6DEQyz" },
+            { t: "L 15 || भारत - बांग्लादेश संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxNDM4N1Yva2dzcy0xNzY1NDMwNzYwLXY0MTQzOTEubTM1OA==", i: "QyfQUdUvbZS8a9iMafDxqRIaBGaW612BNkFZnPkF" },
+            { t: "L 14 || भारत-बांग्लादेश संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxMzMzMlYva2dzcy0xNzY1MzQ0MjM2LXY0MTMzMzYubTM1OA==", i: "PUt9xbUC0NHzaNNfTS6ieSn8bLF5fyDoxTqAIcJN" },
+            { t: "L 13 || भारत-म्यांमार संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxMjI1M1Yva2dzcy0xNzY1MjU4MDE2LXY0MTIyNTUubTM1OA==", i: "r6v8FXQ4TKpWns7Yi480sQGYfnacrGsdWeez7tzO" },
+            { t: "L 12 || भारत- भूटान संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQxMTQwNFYva2dzcy0xNzY1MTY0MjA1LXY0MTE0MDcubTM1OA==", i: "j1XxDDHBG8zmJqh5IHAYCVXvrLAemSRp2VLOdqRn" },
+            { t: "L 11 || भारत-अफगान, नेपाल संबंध", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzLXVwc2MvdXBzYy1oaW4tYmF0Y2gtMDUvaW50ZXItcmVsYXQtbmF3YWItc2lyL2wtMTEvaW50ZXIubTM1OA==", i: "jruhBjexgUtzGMDgtQUb0IAogaVd57bvXbepr4k7" },
+            { t: "L 10 || भारत-पाकिस्तान संबंध 3", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQwOTYyMlYva2dzcy0xNzY0OTEyMjQ4LXY0MDk2MjQubTM1OA==", i: "325B2myHUFYKwJvGgQ1ao4K6eo3K1rcNb2FnHJ8K" },
+            { t: "L 09 || भारत-पाकिस्तान संबंध 2", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQwODg2N1Yva2dzcy0xNzY0ODI2MDA1LXY0MDg4NjkubTM1OA==", i: "NccxK78ZvpNpKunhYHfMztbhGN6yBHrM5JaaPo6f" },
+            { t: "L 08 || भारत-पाकिस्तान संबंध 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQwNzg5MVYva2dzcy0xNzY0NzM5Mzc0LXY0MDc4OTMubTM1OA==", i: "QEOVrAFOVk4EWrci1izbZlWiR5w6KJiAMNJOj0Yb" },
+            { t: "L 07 || भारत विदेश नीति क्षेत्रगत", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQwNjI3OFYva2dzcy0xNzY0NjUzNTAzLXY0MDYyODAubTM1OA==", i: "de4MtIDT0xdPI7FoLbcvuNagT3TSXxu0IHwA02Tm" },
+            { t: "L 06 || भारत विदेश नीति विषयगत 3", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL2RlYy0yMDI1LzQwNTE2NlYva2dzcy0xNzY0NTY3MDM1LXY0MDUxNjgubTM1OA==", i: "MrJgAZYSw3WM3r1i0Er9KFIcVfx0wrPaZHqWrYIQ" },
+            { t: "L 05 || भारत विदेश नीति विषयगत 2", u: "aHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvdi05eDFUN3hpdHc=", i: "jRKCW5akSPlQUjPqGpu9VGxErzkvqwcLs6m9A2jo" },
+            { t: "L 04 || भारत विदेश नीति विषयगत 1", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL25vdi0yMDI1LzQwMzQxNlYva2dzcy0xNzY0MzA3ODAwLXY0MDM0MTgubTM1OA==", i: "w8a6QZfRir01Ge1ATfr7BELBvYrVwDYIVqY4Ymf3" },
+            { t: "L 03 || भारत की विदेश नीति", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL25vdi0yMDI1LzQwMjY0MFYva2dzcy0xNzY0MjIxMDgzLXY0MDI2NDIubTM1OA==", i: "vC6JfUHHLCyr5GJJcsQCH693s41TNLSfOC4HrnLq" },
+            { t: "L 02 || Fundamental Concepts-02", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL25vdi0yMDI1LzQwMjI4MFYva2dzcy0xNzY0MTM0NTQxLXY0MDIyODQubTM1OA==", i: "OdP2poTXBZT2CtP9l1jT0TACPeUEpshCNK0RtQbD" },
+            { t: "L 01 || Fundamental Concepts-01", u: "aHR0cHM6Ly9rZ3MtdmEubmEuc3ByZWUuaW8va3YzL25vdi0yMDI1LzQwMTM1MVYva2dzcy0xNzY0MDQ4MzA5LXY0MDEzNTEubTM1OA==", i: "8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN" }
+        ];
+
+        const list = document.getElementById('ir-list');
+        
+        lectures.forEach(l => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // Thumbnail Handling
+            const thumb = l.i.includes('http') ? l.i : `https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/${l.i}.jpg`;
+
+            card.onclick = () => {
+                // 1. लिंक को डिकोड करना
+                let rawUrl = d(l.u);
+                
+                // 2. फिक्स: .m358 को हटाकर सही फॉर्मेट .m3u8 में बदलना
+                rawUrl = rawUrl.replace('.m358', '.m3u8');
+                
+                // 3. फाइनल लिंक निकालना
+                const finalUrl = rawUrl.includes('url=') ? decodeURIComponent(rawUrl.split('url=')[1]) : rawUrl;
+                
+                // 4. फिक्स: YouTube लिंक्स और m3u8 लिंक्स को अलग-अलग प्ले करना
+                if(finalUrl.includes('youtube.com') || finalUrl.includes('youtu.be')) {
+                    // अगर यूट्यूब वीडियो है, तो सीधे ओपन कर दो (प्लेयर क्रैश नहीं होगा)
+                    window.location.href = finalUrl;
+                } else {
+                    // अगर KGS का m3u8 वीडियो है, तो अपने प्लेयर में भेज दो
+                    window.location.href = `OHIvideoplayer.html?url=${encodeURIComponent(finalUrl)}`;
+                }
+            };
+
+            card.innerHTML = `
+                <div class="thumb-box">
+                    <img src="${thumb}" class="thumb" onerror="this.src='https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png'" loading="lazy">
+                </div>
+                <div class="info">
+                    <span class="badge">▶ CLASS VIDEO</span>
+                    <div class="title">${l.t}</div>
+                </div>`;
+            
+            list.appendChild(card);
+        });
+    </script>
 </body>
 </html>
