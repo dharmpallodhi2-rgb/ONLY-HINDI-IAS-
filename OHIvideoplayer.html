@@ -1,133 +1,187 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Only Hindi IAS Player</title>
-    
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pro Player | ONLY HINDI IAS</title>
+    <!-- HLS Engine for M3U8 Support -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        :root { --primary: #ffaa00; --bg: #ffffff; --text: #000000; --panel-bg: #f8f9fa; --border: #e0e0e0; }
-        body { margin: 0; padding: 0; background-color: var(--bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text); -webkit-user-select: none; user-select: none; }
-        
-        /* हेडर (Top Controls) */
-        .player-header { padding: 12px 15px; display: flex; align-items: center; border-bottom: 1px solid var(--border); background-color: var(--bg); position: sticky; top: 0; z-index: 100; }
-        .back-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: bold; text-decoration: none; color: var(--text); }
-        
-        /* वीडियो एरिया */
-        .video-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        video { max-width: 100%; max-height: 100%; }
+        :root { 
+            --primary: #d93838; /* Red Theme */
+            --bg-light: #ffffff; 
+            --panel-dark: #0f172a; 
+            --text-white: #f8fafc;
+            --accent: #ffaa00; /* Gold */
+        }
 
-        /* कंट्रोल पैनल (KGS Style, White Theme) */
-        .control-panel { padding: 15px; background-color: var(--panel-bg); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom); }
-        .info-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; gap: 10px; }
-        .title { font-size: 14px; font-weight: bold; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .full-screen-btn { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        body { 
+            margin: 0; padding: 0; background: var(--bg-light); 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            user-select: none; -webkit-user-select: none; 
+            overflow: hidden; height: 100vh; display: flex; flex-direction: column; 
+        }
 
-        .control-group { margin-bottom: 15px; }
-        .control-label { font-size: 11px; color: #5f6368; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; display: block; }
-        .btn-list { display: flex; flex-wrap: wrap; gap: 6px; }
-        .btn-list button { background-color: white; border: 1px solid var(--border); color: var(--text); padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; }
-        .btn-list button:hover { border-color: #333; background-color: #f1f1f1; }
-        .btn-list button.active { background-color: var(--primary); color: white; border-color: var(--primary); }
+        /* --- TOP NAVIGATION (WHITE THEME) --- */
+        .top-nav { 
+            background: var(--bg-light); padding: 12px 15px; 
+            display: flex; align-items: center; border-bottom: 1px solid #e2e8f0; 
+            z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .back-btn { 
+            background: var(--primary); color: white; border: none; 
+            width: 35px; height: 35px; border-radius: 8px; 
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; text-decoration: none; font-weight: bold; margin-right: 12px;
+            box-shadow: 0 2px 4px rgba(217, 56, 56, 0.3);
+        }
+        .nav-title { font-size: 14px; font-weight: 700; color: #1e293b; }
 
+        /* --- VIDEO AREA --- */
+        .video-box { 
+            flex: 1; background: #000; position: relative; 
+            display: flex; justify-content: center; align-items: center; 
+        }
+        video { width: 100%; height: auto; max-height: 100%; outline: none; }
+
+        /* --- BOTTOM CONTROL PANEL (DARK RED THEME) --- */
+        .control-panel { 
+            background: var(--panel-dark); padding: 20px; 
+            border-top: 3px solid var(--primary); color: var(--text-white);
+            max-height: 40vh; overflow-y: auto;
+        }
+        .status-pill { 
+            background: var(--primary); color: white; font-size: 10px; 
+            padding: 3px 10px; border-radius: 4px; font-weight: bold; 
+            margin-bottom: 10px; display: inline-block;
+        }
+        .lecture-heading { font-size: 16px; font-weight: 600; margin-bottom: 20px; color: var(--text-white); }
+
+        .section-label { 
+            font-size: 11px; color: #94a3b8; font-weight: bold; 
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block;
+        }
+
+        .btn-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .btn-opt { 
+            background: #1e293b; border: 1px solid #334155; color: white; 
+            padding: 8px 16px; border-radius: 8px; font-size: 12px; 
+            font-weight: 600; cursor: pointer; transition: 0.2s ease;
+        }
+        .btn-opt:active { transform: scale(0.95); }
+        .btn-opt.active { background: var(--primary); border-color: var(--primary); }
+
+        .full-screen-trigger { 
+            background: #334155; color: white; border: none; padding: 12px; 
+            border-radius: 8px; font-size: 13px; font-weight: bold; width: 100%; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .full-screen-trigger:hover { background: #475569; }
+
+        /* --- WATERMARK --- */
+        .watermark { 
+            position: absolute; top: 10%; left: 10%; font-size: 14px; 
+            color: rgba(255,255,255,0.2); pointer-events: none; z-index: 10; font-weight: bold;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-    <div class="player-header">
-        <a href="javascript:history.back()" class="back-btn">
-            <span>&#11013;</span> BACK
-        </a>
+    <!-- Top Header -->
+    <div class="top-nav">
+        <a href="javascript:history.back()" class="back-btn">⬅</a>
+        <div class="nav-title">ONLY HINDI IAS Player</div>
     </div>
 
-    <div class="video-wrapper">
-        <video id="video" autoplay playsinline crossorigin="anonymous"></video>
+    <!-- Video Section -->
+    <div class="video-box" id="playerArea">
+        <div class="watermark">ONLY HINDI IAS</div>
+        <video id="mainVideo" autoplay playsinline crossorigin="anonymous"></video>
     </div>
 
+    <!-- Dark Control Panel -->
     <div class="control-panel">
-        <div class="info-header">
-            <div class="title" id="lectureTitle">Video Loading...</div>
-            <button class="full-screen-btn" onclick="toggleFullScreen()">FULL SCREEN</button>
+        <span class="status-pill">PRO CONTENT</span>
+        <div class="lecture-heading" id="titleText">Loading Lecture Details...</div>
+
+        <!-- Speed Selector -->
+        <span class="section-label">Playback Speed</span>
+        <div class="btn-grid" id="speedGroup">
+            <button class="btn-opt" data-speed="0.5">0.5x</button>
+            <button class="btn-opt active" data-speed="1">Normal</button>
+            <button class="btn-opt" data-speed="1.25">1.25x</button>
+            <button class="btn-opt" data-speed="1.5">1.5x</button>
+            <button class="btn-opt" data-speed="2">2x</button>
         </div>
 
-        
-<div class="control-group">
-            <span class="control-label">SPEED</span>
-            <div class="btn-list" id="speedList">
-                <button value="0.5">0.5x</button>
-                <button value="1" class="active">1x</button>
-                <button value="1.5">1.5x</button>
-                <button value="2">2x</button>
-            </div>
+        <!-- Quality Selector (Auto-generated) -->
+        <span class="section-label">Video Quality</span>
+        <div class="btn-grid" id="qualityGroup">
+            <button class="btn-opt active" id="autoQuality">Auto</button>
         </div>
 
-        
-<div class="control-group">
-            <span class="control-label">QUALITY</span>
-            <div class="btn-list" id="qualityList">
-                <button value="-1" class="active">Auto</button>
-            </div>
-        </div>
+        <button class="full-screen-trigger" onclick="toggleFull()">⛶ Fullscreen Mode</button>
     </div>
 
     <script>
-        // --- MASTER SECURITY ---
+        // --- MASTER SECURITY PROTOCOL ---
         setInterval(() => { let b = Date.now(); debugger; if (Date.now() - b > 100) window.location.reload(); }, 100);
-        document.onkeydown = (e) => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+        document.onkeydown = (e) => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false; };
 
-        const video = document.getElementById('video');
-        const lectureTitle = document.getElementById('lectureTitle');
-        const qualityList = document.getElementById('qualityList');
-        const speedList = document.getElementById('speedList');
+        const video = document.getElementById('mainVideo');
+        const speedGroup = document.getElementById('speedGroup');
+        const qualityGroup = document.getElementById('qualityGroup');
+        const titleText = document.getElementById('titleText');
 
         const urlParams = new URLSearchParams(window.location.search);
-        const videoSrc = urlParams.get('url');
+        const streamUrl = urlParams.get('url');
 
-        if (Hls.isSupported() && videoSrc) {
+        // --- HLS LOGIC & QUALITY BUTTONS ---
+        if (Hls.isSupported() && streamUrl) {
             const hls = new Hls();
-            hls.loadSource(videoSrc);
+            hls.loadSource(streamUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                lectureTitle.innerText = "Enjoy Your ONLY HINDI IAS Lecture";
-                // Populate Quality Menus
+                titleText.innerText = "Study Hard! Lecture is Active";
                 hls.levels.forEach((level, index) => {
                     const btn = document.createElement('button');
-                    btn.value = index;
-                    btn.textContent = level.height + "p";
+                    btn.className = 'btn-opt';
+                    btn.innerText = level.height + 'p';
                     btn.onclick = () => {
                         hls.currentLevel = index;
-                        setActiveButton(qualityList, btn);
+                        setActive(qualityGroup, btn);
                     };
-                    qualityList.appendChild(btn);
+                    qualityGroup.appendChild(btn);
                 });
             });
-            qualityList.querySelector('button[value="-1"]').onclick = () => {
-                hls.currentLevel = -1; // Auto
-                setActiveButton(qualityList, qualityList.querySelector('button[value="-1"]'));
+
+            document.getElementById('autoQuality').onclick = function() {
+                hls.currentLevel = -1;
+                setActive(qualityGroup, this);
             };
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
+            video.src = streamUrl;
         }
 
-        // --- SPEEDS HANDLING ---
-        Array.from(speedList.getElementsByTagName('button')).forEach(btn => {
+        // --- SPEED CONTROL ---
+        speedGroup.querySelectorAll('.btn-opt').forEach(btn => {
             btn.onclick = () => {
-                video.playbackRate = parseFloat(btn.value);
-                setActiveButton(speedList, btn);
+                video.playbackRate = parseFloat(btn.getAttribute('data-speed'));
+                setActive(speedGroup, btn);
             };
         });
 
-        // --- HELPERS ---
-        const setActiveButton = (list, activeButton) => {
-            Array.from(list.getElementsByTagName('button')).forEach(b => b.classList.remove('active'));
-            activeButton.classList.add('active');
-        };
+        // --- UI HELPERS ---
+        function setActive(parent, activeBtn) {
+            parent.querySelectorAll('.btn-opt').forEach(b => b.classList.remove('active'));
+            activeBtn.classList.add('active');
+        }
 
-        const toggleFullScreen = () => {
-            if (document.fullscreenElement) { document.exitFullscreen(); }
-            else { video.requestFullscreen(); }
-        };
+        function toggleFull() {
+            if (video.requestFullscreen) video.requestFullscreen();
+            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+        }
     </script>
 </body>
 </html>
