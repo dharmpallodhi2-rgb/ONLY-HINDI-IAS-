@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Advanced Player | ONLY HINDI IAS</title>
-    <!-- HLS Library -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root { --red: #ff0000; --white: #ffffff; --black: #0d1117; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none; }
+        body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
         /* HEADER */
         .top-nav { background: var(--white); padding: 10px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 1000; }
@@ -18,14 +17,12 @@
 
         /* VIDEO AREA */
         .player-box { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        video { width: 100%; height: auto; max-height: 100%; }
-        iframe { width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0; }
+        video { width: 100%; height: auto; max-height: 100%; pointer-events: none; }
 
         /* UI OVERLAY */
-        .ui-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 15px; z-index: 10; pointer-events: none; }
-        .ui-overlay * { pointer-events: auto; }
+        .ui-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 15px; z-index: 10; }
 
-        /* PROGRESS BAR */
+        /* PROGRESS BAR (DRAGGABLE) */
         .seek-container { height: 20px; width: 100%; display: flex; align-items: center; cursor: pointer; margin-bottom: 10px; }
         .seek-bg { height: 5px; width: 100%; background: rgba(255,255,255,0.3); border-radius: 5px; position: relative; }
         .seek-fill { height: 100%; width: 0%; background: var(--red); border-radius: 5px; position: relative; }
@@ -36,13 +33,12 @@
         .material-icons { cursor: pointer; font-size: 30px; }
 
         /* BOTTOM PANEL */
-        .settings { padding: 20px; background: var(--white); border-top: 3px solid var(--red); overflow-y: auto; max-height: 250px; }
+        .settings { padding: 20px; background: var(--white); border-top: 3px solid var(--red); overflow-y: auto; }
         .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
         .chip { background: #f1f3f4; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; }
         .chip.active { background: var(--red); color: white; border-color: var(--red); }
         
         .rotate-btn { background: #202124; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
-        #yt-msg { color: #666; font-size: 11px; margin-top: 5px; font-style: italic; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -53,14 +49,18 @@
     </div>
 
     <div class="player-box" id="pBox">
-        <video id="vPlayer" playsinline crossorigin="anonymous" preload="auto"></video>
-        <!-- YouTube Iframe placeholder -->
-        <div id="ytPlayerContainer"></div>
+        <video id="vPlayer" playsinline crossorigin="anonymous"></video>
 
-        <div class="ui-overlay" id="customUI">
+        <div class="ui-overlay">
+            <!-- DRAGGABLE PROGRESS BAR -->
             <div class="seek-container" id="seekArea">
-                <div class="seek-bg"><div class="seek-fill" id="seekFill"><div class="seek-handle"></div></div></div>
+                <div class="seek-bg">
+                    <div class="seek-fill" id="seekFill">
+                        <div class="seek-handle"></div>
+                    </div>
+                </div>
             </div>
+            
             <div class="controls">
                 <div class="btn-group">
                     <i class="material-icons" id="playIcon">play_arrow</i>
@@ -74,11 +74,10 @@
         </div>
     </div>
 
-    <div class="settings" id="settingsPanel">
+    <div class="settings">
         <span style="font-size: 10px; font-weight: bold; color: #666; display: block; margin-bottom: 8px;">SPEED & QUALITY</span>
         <div class="chip-group" id="speedGrid">
             <div class="chip active" data-v="1">1x</div>
-            <div class="chip" data-v="1.25">1.25x</div>
             <div class="chip" data-v="1.5">1.5x</div>
             <div class="chip" data-v="2">2x</div>
         </div>
@@ -88,71 +87,57 @@
         <button class="rotate-btn" id="fullRotate">
             <i class="material-icons">screen_lock_rotation</i> LANDSCAPE MODE
         </button>
-        <div id="yt-msg">YouTube वीडियो के लिए YouTube प्लेयर के कंट्रोल्स का उपयोग करें।</div>
     </div>
 
     <script>
         const video = document.getElementById('vPlayer');
         const seekArea = document.getElementById('seekArea');
         const seekFill = document.getElementById('seekFill');
-        const customUI = document.getElementById('customUI');
-        const ytContainer = document.getElementById('ytPlayerContainer');
-        const settingsPanel = document.getElementById('settingsPanel');
-        
         const urlParams = new URLSearchParams(window.location.search);
-        let rawUrl = urlParams.get('url');
+        const m3u8 = urlParams.get('url');
 
-        if (rawUrl) {
-            const m3u8 = decodeURIComponent(rawUrl);
-
-            // 1. Check if it's YouTube
-            if (m3u8.includes('youtube.com') || m3u8.includes('youtu.be')) {
-                let embedUrl = m3u8.replace("watch?v=", "embed/").replace("youtu.be/", "youtube.com/embed/");
-                ytContainer.innerHTML = `<iframe src="${embedUrl}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
-                video.style.display = "none";
-                customUI.style.display = "none"; // Hide custom UI for YT
-                document.getElementById('qualGrid').style.display = "none";
-            } 
-            // 2. Handle HLS (.m3u8)
-            else if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(m3u8);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    hls.levels.forEach((l, i) => {
-                        const c = document.createElement('div');
-                        c.className = 'chip'; c.innerText = l.height + 'p';
-                        c.onclick = () => { hls.currentLevel = i; updateActive('qualGrid', c); };
-                        document.getElementById('qualGrid').appendChild(c);
-                    });
+        // HLS Logic
+        if (Hls.isSupported() && m3u8) {
+            const hls = new Hls();
+            hls.loadSource(m3u8);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                hls.levels.forEach((l, i) => {
+                    const c = document.createElement('div');
+                    c.className = 'chip'; c.innerText = l.height + 'p';
+                    c.onclick = () => { hls.currentLevel = i; updateActive('qualGrid', c); };
+                    document.getElementById('qualGrid').appendChild(c);
                 });
-                document.getElementById('autoB').onclick = () => { hls.currentLevel = -1; updateActive('qualGrid', document.getElementById('autoB')); };
-            } 
-            // 3. Simple Video Fallback
-            else {
-                video.src = m3u8;
-            }
+            });
+            document.getElementById('autoB').onclick = () => { hls.currentLevel = -1; updateActive('qualGrid', document.getElementById('autoB')); };
         }
 
-        // --- SEEK LOGIC ---
+        // --- DRAGGABLE SEEK LOGIC (हाथ से खिसकाना) ---
         let isDragging = false;
+
         const updateSeek = (e) => {
             const rect = seekArea.getBoundingClientRect();
-            let x = (e.pageX || (e.touches ? e.touches[0].pageX : 0)) - rect.left;
+            let x = (e.pageX || e.touches[0].pageX) - rect.left;
             let percent = Math.min(Math.max(0, x / rect.width), 1);
             seekFill.style.width = (percent * 100) + "%";
-            if (isDragging) video.currentTime = percent * video.duration;
+            if (isDragging) {
+                // वीडियो को साथ-साथ खिसकाएँ
+                video.currentTime = percent * video.duration;
+            }
         };
 
         seekArea.addEventListener('mousedown', (e) => { isDragging = true; updateSeek(e); });
         seekArea.addEventListener('touchstart', (e) => { isDragging = true; updateSeek(e); });
+        
         window.addEventListener('mousemove', (e) => { if(isDragging) updateSeek(e); });
         window.addEventListener('touchmove', (e) => { if(isDragging) updateSeek(e); });
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('touchend', () => isDragging = false);
+        
+        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('touchend', () => { isDragging = false; });
 
+        // Video Time Update
         video.ontimeupdate = () => {
-            if(!isDragging && video.duration) {
+            if(!isDragging) {
                 const p = (video.currentTime / video.duration) * 100;
                 seekFill.style.width = p + "%";
                 document.getElementById('cur').innerText = fmt(video.currentTime);
@@ -165,25 +150,32 @@
             return `${m}:${sc < 10 ? '0'+sc : sc}`; 
         }
 
-        // --- CONTROLS ---
+        // --- LANDSCAPE & FULLSCREEN (बटन से रोटेट) ---
+        const toggleFS = () => {
+            if (!document.fullscreenElement) {
+                document.getElementById('pBox').requestFullscreen().catch(() => {
+                    video.webkitEnterFullscreen(); // iOS Fix
+                });
+                // स्क्रीन रोटेट की कोशिश (Android)
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => {});
+                }
+            } else {
+                document.exitFullscreen();
+            }
+        };
+        
+        document.getElementById('fsIcon').onclick = toggleFS;
+        document.getElementById('fullRotate').onclick = toggleFS;
+        document.getElementById('rotateIcon').onclick = toggleFS;
+
+        // Play/Pause
         document.getElementById('playIcon').onclick = () => {
             if(video.paused) { video.play(); document.getElementById('playIcon').innerText = "pause"; }
             else { video.pause(); document.getElementById('playIcon').innerText = "play_arrow"; }
         };
 
-        const toggleRotation = () => {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                document.getElementById('pBox').requestFullscreen().catch(() => video.webkitEnterFullscreen());
-                if(screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(()=>{});
-            }
-        };
-
-        document.getElementById('fsIcon').onclick = toggleRotation;
-        document.getElementById('rotateIcon').onclick = toggleRotation;
-        document.getElementById('fullRotate').onclick = toggleRotation;
-
+        // Speed
         document.querySelectorAll('#speedGrid .chip').forEach(c => {
             c.onclick = () => { video.playbackRate = parseFloat(c.dataset.v); updateActive('speedGrid', c); };
         });
@@ -192,11 +184,6 @@
             document.getElementById(id).querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
             active.classList.add('active');
         }
-
-        // DevTools Security
-        document.onkeydown = (e) => {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
-        };
     </script>
 </body>
 </html>
