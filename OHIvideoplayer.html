@@ -3,224 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ultimate Pro Player | ONLY HINDI IAS</title>
-    <!-- HLS.js for Adaptive Streaming -->
+    <title>Advanced Player | ONLY HINDI IAS</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <!-- Material Icons for Professional UI -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        :root { --youtube-red: #ff0000; --white: #ffffff; --black: #0d1117; --gray: #f1f3f4; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        :root { --red: #ff0000; --white: #ffffff; --black: #0d1117; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* HEADER */
+        .top-nav { background: var(--white); padding: 10px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 1000; }
+        .back-btn { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; margin-right: 12px; font-size: 13px; }
+
+        /* VIDEO AREA */
+        .player-box { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        video { width: 100%; height: auto; max-height: 100%; pointer-events: none; }
+
+        /* UI OVERLAY */
+        .ui-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 15px; z-index: 10; }
+
+        /* PROGRESS BAR (DRAGGABLE) */
+        .seek-container { height: 20px; width: 100%; display: flex; align-items: center; cursor: pointer; margin-bottom: 10px; }
+        .seek-bg { height: 5px; width: 100%; background: rgba(255,255,255,0.3); border-radius: 5px; position: relative; }
+        .seek-fill { height: 100%; width: 0%; background: var(--red); border-radius: 5px; position: relative; }
+        .seek-handle { position: absolute; right: -8px; top: -6px; height: 18px; width: 18px; background: var(--red); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+
+        .controls { display: flex; align-items: center; justify-content: space-between; color: white; }
+        .btn-group { display: flex; align-items: center; gap: 15px; }
+        .material-icons { cursor: pointer; font-size: 30px; }
+
+        /* BOTTOM PANEL */
+        .settings { padding: 20px; background: var(--white); border-top: 3px solid var(--red); overflow-y: auto; }
+        .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+        .chip { background: #f1f3f4; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        .chip.active { background: var(--red); color: white; border-color: var(--red); }
         
-        body { margin: 0; background: var(--white); font-family: 'Segoe UI', Roboto, sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* --- HEADER --- */
-        .top-nav { background: var(--white); padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #e0e0e0; z-index: 1000; }
-        .back-btn { background: var(--youtube-red); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; text-decoration: none; margin-right: 15px; font-size: 13px; transition: 0.2s; }
-        .back-btn:active { transform: scale(0.95); }
-        .brand-name { font-weight: 800; font-size: 15px; color: var(--black); letter-spacing: 0.5px; }
-
-        /* --- VIDEO CONTAINER (MASTER FS LOGIC) --- */
-        .player-container { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: 0.3s; }
-        video { width: 100%; height: auto; max-height: 100%; object-fit: contain; }
-
-        /* CUSTOM CONTROLS OVERLAY */
-        .controls-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 15px; opacity: 1; transition: opacity 0.4s; z-index: 10; visibility: visible; }
-        .player-container.hide-ui .controls-overlay { opacity: 0; visibility: hidden; }
-
-        /* Progress Bar */
-        .progress-area { height: 5px; width: 100%; background: rgba(255,255,255,0.2); cursor: pointer; margin-bottom: 15px; border-radius: 10px; position: relative; }
-        .progress-bar { height: 100%; width: 0%; background: var(--youtube-red); border-radius: 10px; position: relative; }
-        .progress-bar::after { content: ""; position: absolute; right: -7px; top: -5px; height: 15px; width: 15px; background: var(--youtube-red); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-
-        /* Buttons List */
-        .control-btns { display: flex; align-items: center; justify-content: space-between; color: white; }
-        .btn-group { display: flex; align-items: center; gap: 20px; }
-        .material-icons { cursor: pointer; font-size: 30px; transition: 0.1s; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
-        .material-icons:active { transform: scale(0.85); }
-        .time-label { font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
-
-        /* --- SETTINGS PANEL (WHITE THEME) --- */
-        .settings-panel { padding: 20px; background: var(--white); border-top: 3px solid var(--youtube-red); overflow-y: auto; max-height: 40vh; }
-        .section-title { font-size: 11px; color: #5f6368; font-weight: bold; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        .chip-box { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
-        .chip { background: var(--gray); border: 1px solid #dadce0; padding: 10px 20px; border-radius: 25px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .chip.active { background: var(--youtube-red); color: white; border-color: var(--youtube-red); box-shadow: 0 4px 10px rgba(255,0,0,0.2); }
-
-        /* FULLSCREEN SMART BUTTON */
-        .master-fs-btn { background: #202124; color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        
-        /* GESTURE ANIMATIONS (Double Tap) */
-        .tap-hint { position: absolute; top: 50%; transform: translateY(-50%); width: 30%; height: 60%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; opacity: 0; pointer-events: none; z-index: 5; transition: 0.5s; }
-        .tap-left { left: 5%; }
-        .tap-right { right: 5%; }
-        .tap-active { opacity: 1; }
-
+        .rotate-btn { background: #202124; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div class="top-nav">
         <a href="javascript:history.back()" class="back-btn">BACK</a>
-        <div class="brand-name">ONLY HINDI IAS • PRO</div>
+        <b style="font-size: 14px;">ONLY HINDI IAS PLAYER</b>
     </div>
 
-    <div class="player-container" id="playerWrapper">
-        <!-- Tap Hints for Mobile -->
-        <div class="tap-hint tap-left" id="hintLeft"><i class="material-icons">replay_10</i></div>
-        <div class="tap-hint tap-right" id="hintRight"><i class="material-icons">forward_10</i></div>
-        
-        <video id="mainVideo" playsinline crossorigin="anonymous"></video>
+    <div class="player-box" id="pBox">
+        <video id="vPlayer" playsinline crossorigin="anonymous"></video>
 
-        <!-- Controls Overlay -->
-        <div class="controls-overlay" id="uiOverlay">
-            <div class="progress-area" id="progArea">
-                <div class="progress-bar" id="progBar"></div>
+        <div class="ui-overlay">
+            <!-- DRAGGABLE PROGRESS BAR -->
+            <div class="seek-container" id="seekArea">
+                <div class="seek-bg">
+                    <div class="seek-fill" id="seekFill">
+                        <div class="seek-handle"></div>
+                    </div>
+                </div>
             </div>
-            <div class="control-btns">
+            
+            <div class="controls">
                 <div class="btn-group">
-                    <i class="material-icons" id="playToggle">play_arrow</i>
-                    <i class="material-icons" onclick="skip(-10)">replay_10</i>
-                    <i class="material-icons" onclick="skip(10)">forward_10</i>
-                    <div class="time-label"><span id="cur">0:00</span> / <span id="dur">0:00</span></div>
+                    <i class="material-icons" id="playIcon">play_arrow</i>
+                    <span style="font-size: 12px;"><span id="cur">0:00</span> / <span id="dur">0:00</span></span>
                 </div>
                 <div class="btn-group">
-                    <i class="material-icons" id="pipToggle">picture_in_picture_alt</i>
-                    <i class="material-icons" id="fsToggle">fullscreen</i>
+                    <i class="material-icons" id="rotateIcon">screen_rotation</i>
+                    <i class="material-icons" id="fsIcon">fullscreen</i>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Professional Settings Panel -->
-    <div class="settings-panel">
-        <span class="section-title">Playback Speed</span>
-        <div class="chip-box" id="speedGrid">
-            <div class="chip" data-val="0.5">0.5x</div>
-            <div class="chip active" data-val="1">Normal</div>
-            <div class="chip" data-val="1.5">1.5x</div>
-            <div class="chip" data-val="2">2x</div>
+    <div class="settings">
+        <span style="font-size: 10px; font-weight: bold; color: #666; display: block; margin-bottom: 8px;">SPEED & QUALITY</span>
+        <div class="chip-group" id="speedGrid">
+            <div class="chip active" data-v="1">1x</div>
+            <div class="chip" data-v="1.5">1.5x</div>
+            <div class="chip" data-v="2">2x</div>
         </div>
-
-        <span class="section-title">Video Quality</span>
-        <div class="chip-box" id="qualityGrid">
-            <div class="chip active" id="autoBtn">Auto (Smart)</div>
+        <div class="chip-group" id="qualGrid">
+            <div class="chip active" id="autoB">Auto</div>
         </div>
-
-        <button class="master-fs-btn" id="smartFS">
-            <i class="material-icons">screen_rotation</i> Toggle Fullscreen Mode
+        <button class="rotate-btn" id="fullRotate">
+            <i class="material-icons">screen_lock_rotation</i> LANDSCAPE MODE
         </button>
     </div>
 
     <script>
-        // --- SECURITY & ANTI-THEFT ---
-        setInterval(() => { debugger; }, 500);
-
-        const video = document.getElementById('mainVideo');
-        const container = document.getElementById('playerWrapper');
-        const ui = document.getElementById('uiOverlay');
-        const progBar = document.getElementById('progBar');
-        const progArea = document.getElementById('progArea');
+        const video = document.getElementById('vPlayer');
+        const seekArea = document.getElementById('seekArea');
+        const seekFill = document.getElementById('seekFill');
         const urlParams = new URLSearchParams(window.location.search);
-        const videoSrc = urlParams.get('url');
+        const m3u8 = urlParams.get('url');
 
-        // --- HLS CORE ENGINE ---
-        if (Hls.isSupported() && videoSrc) {
-            const hls = new Hls({ enableWorker: true });
-            hls.loadSource(videoSrc);
+        // HLS Logic
+        if (Hls.isSupported() && m3u8) {
+            const hls = new Hls();
+            hls.loadSource(m3u8);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                hls.levels.forEach((lvl, i) => {
-                    const chip = document.createElement('div');
-                    chip.className = 'chip';
-                    chip.innerText = lvl.height + 'p';
-                    chip.onclick = () => { hls.currentLevel = i; updateUI('qualityGrid', chip); };
-                    document.getElementById('qualityGrid').appendChild(chip);
+                hls.levels.forEach((l, i) => {
+                    const c = document.createElement('div');
+                    c.className = 'chip'; c.innerText = l.height + 'p';
+                    c.onclick = () => { hls.currentLevel = i; updateActive('qualGrid', c); };
+                    document.getElementById('qualGrid').appendChild(c);
                 });
             });
-            document.getElementById('autoBtn').onclick = () => { hls.currentLevel = -1; updateUI('qualityGrid', document.getElementById('autoBtn')); };
+            document.getElementById('autoB').onclick = () => { hls.currentLevel = -1; updateActive('qualGrid', document.getElementById('autoB')); };
         }
 
-        // --- CORE CONTROLS ---
-        function togglePlay() {
-            if(video.paused) { video.play(); document.getElementById('playToggle').innerText = "pause"; }
-            else { video.pause(); document.getElementById('playToggle').innerText = "play_arrow"; }
-        }
-        document.getElementById('playToggle').onclick = togglePlay;
-        video.onclick = togglePlay;
+        // --- DRAGGABLE SEEK LOGIC (हाथ से खिसकाना) ---
+        let isDragging = false;
 
-        function skip(t) { video.currentTime += t; }
-
-        video.ontimeupdate = () => {
-            const p = (video.currentTime / video.duration) * 100;
-            progBar.style.width = p + "%";
-            document.getElementById('cur').innerText = fmt(video.currentTime);
-            document.getElementById('dur').innerText = fmt(video.duration);
+        const updateSeek = (e) => {
+            const rect = seekArea.getBoundingClientRect();
+            let x = (e.pageX || e.touches[0].pageX) - rect.left;
+            let percent = Math.min(Math.max(0, x / rect.width), 1);
+            seekFill.style.width = (percent * 100) + "%";
+            if (isDragging) {
+                // वीडियो को साथ-साथ खिसकाएँ
+                video.currentTime = percent * video.duration;
+            }
         };
 
-        function fmt(s) {
-            const m = Math.floor(s / 60);
-            const sec = Math.floor(s % 60);
-            return `${m}:${sec < 10 ? '0'+sec : sec}`;
-        }
+        seekArea.addEventListener('mousedown', (e) => { isDragging = true; updateSeek(e); });
+        seekArea.addEventListener('touchstart', (e) => { isDragging = true; updateSeek(e); });
+        
+        window.addEventListener('mousemove', (e) => { if(isDragging) updateSeek(e); });
+        window.addEventListener('touchmove', (e) => { if(isDragging) updateSeek(e); });
+        
+        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('touchend', () => { isDragging = false; });
 
-        progArea.onclick = (e) => { video.currentTime = (e.offsetX / progArea.clientWidth) * video.duration; };
-
-        // --- MOBILE GESTURES (Double Tap) ---
-        let lastTap = 0;
-        video.addEventListener('touchstart', (e) => {
-            const now = Date.now();
-            const tapX = e.touches[0].clientX;
-            const width = window.innerWidth;
-            if (now - lastTap < 300) {
-                if (tapX < width / 2) { skip(-10); showHint('hintLeft'); }
-                else { skip(10); showHint('hintRight'); }
+        // Video Time Update
+        video.ontimeupdate = () => {
+            if(!isDragging) {
+                const p = (video.currentTime / video.duration) * 100;
+                seekFill.style.width = p + "%";
+                document.getElementById('cur').innerText = fmt(video.currentTime);
+                document.getElementById('dur').innerText = fmt(video.duration);
             }
-            lastTap = now;
-        });
+        };
 
-        function showHint(id) {
-            const h = document.getElementById(id);
-            h.classList.add('tap-active');
-            setTimeout(() => h.classList.remove('tap-active'), 500);
+        function fmt(s) { 
+            const m = Math.floor(s/60); const sc = Math.floor(s%60); 
+            return `${m}:${sc < 10 ? '0'+sc : sc}`; 
         }
 
-        // --- MASTER FULLSCREEN LOGIC (Cross-Browser) ---
-        const fsToggle = () => {
+        // --- LANDSCAPE & FULLSCREEN (बटन से रोटेट) ---
+        const toggleFS = () => {
             if (!document.fullscreenElement) {
-                if (container.requestFullscreen) container.requestFullscreen();
-                else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen(); // iOS Fix
-                else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+                document.getElementById('pBox').requestFullscreen().catch(() => {
+                    video.webkitEnterFullscreen(); // iOS Fix
+                });
+                // स्क्रीन रोटेट की कोशिश (Android)
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => {});
+                }
             } else {
                 document.exitFullscreen();
             }
         };
-        document.getElementById('fsToggle').onclick = fsToggle;
-        document.getElementById('smartFS').onclick = fsToggle;
-        video.ondblclick = fsToggle;
+        
+        document.getElementById('fsIcon').onclick = toggleFS;
+        document.getElementById('fullRotate').onclick = toggleFS;
+        document.getElementById('rotateIcon').onclick = toggleFS;
 
-        // --- SPEED CONTROL ---
+        // Play/Pause
+        document.getElementById('playIcon').onclick = () => {
+            if(video.paused) { video.play(); document.getElementById('playIcon').innerText = "pause"; }
+            else { video.pause(); document.getElementById('playIcon').innerText = "play_arrow"; }
+        };
+
+        // Speed
         document.querySelectorAll('#speedGrid .chip').forEach(c => {
-            c.onclick = () => { video.playbackRate = parseFloat(c.dataset.val); updateUI('speedGrid', c); };
+            c.onclick = () => { video.playbackRate = parseFloat(c.dataset.v); updateActive('speedGrid', c); };
         });
 
-        function updateUI(id, active) {
-            document.getElementById(id).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        function updateActive(id, active) {
+            document.getElementById(id).querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
             active.classList.add('active');
         }
-
-        // UI Auto-Hide
-        let timer;
-        const resetTimer = () => {
-            container.classList.remove('hide-ui');
-            clearTimeout(timer);
-            if(!video.paused) timer = setTimeout(() => container.classList.add('hide-ui'), 3000);
-        };
-        container.onmousemove = resetTimer;
-        container.ontouchstart = resetTimer;
-
-        // PiP Support
-        document.getElementById('pipToggle').onclick = () => video.requestPictureInPicture();
     </script>
 </body>
 </html>
