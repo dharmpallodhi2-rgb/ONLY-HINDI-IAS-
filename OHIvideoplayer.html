@@ -10,57 +10,36 @@
         :root { --red: #ff0000; --white: #ffffff; --black: #0d1117; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; background: var(--white); font-family: sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-
-        /* HEADER */
         .top-nav { background: var(--white); padding: 10px; display: flex; align-items: center; border-bottom: 1px solid #ddd; z-index: 1000; }
         .back-btn { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; text-decoration: none; margin-right: 12px; font-size: 13px; }
-
-        /* VIDEO AREA */
         .player-box { position: relative; width: 100%; background: #000; flex: 1; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         video { width: 100%; height: auto; max-height: 100%; pointer-events: none; }
-
-        /* UI OVERLAY */
         .ui-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 15px; z-index: 10; }
-
-        /* PROGRESS BAR (DRAGGABLE) */
         .seek-container { height: 20px; width: 100%; display: flex; align-items: center; cursor: pointer; margin-bottom: 10px; }
         .seek-bg { height: 5px; width: 100%; background: rgba(255,255,255,0.3); border-radius: 5px; position: relative; }
         .seek-fill { height: 100%; width: 0%; background: var(--red); border-radius: 5px; position: relative; }
         .seek-handle { position: absolute; right: -8px; top: -6px; height: 18px; width: 18px; background: var(--red); border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-
         .controls { display: flex; align-items: center; justify-content: space-between; color: white; }
         .btn-group { display: flex; align-items: center; gap: 15px; }
         .material-icons { cursor: pointer; font-size: 30px; }
-
-        /* BOTTOM PANEL */
         .settings { padding: 20px; background: var(--white); border-top: 3px solid var(--red); overflow-y: auto; }
         .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
         .chip { background: #f1f3f4; border: 1px solid #ddd; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; }
         .chip.active { background: var(--red); color: white; border-color: var(--red); }
-        
         .rotate-btn { background: #202124; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; }
     </style>
 </head>
 <body oncontextmenu="return false;">
-
     <div class="top-nav">
         <a href="javascript:history.back()" class="back-btn">BACK</a>
         <b style="font-size: 14px;">ONLY HINDI IAS PLAYER</b>
     </div>
-
     <div class="player-box" id="pBox">
         <video id="vPlayer" playsinline crossorigin="anonymous"></video>
-
         <div class="ui-overlay">
-            <!-- DRAGGABLE PROGRESS BAR -->
             <div class="seek-container" id="seekArea">
-                <div class="seek-bg">
-                    <div class="seek-fill" id="seekFill">
-                        <div class="seek-handle"></div>
-                    </div>
-                </div>
+                <div class="seek-bg"><div class="seek-fill" id="seekFill"><div class="seek-handle"></div></div></div>
             </div>
-            
             <div class="controls">
                 <div class="btn-group">
                     <i class="material-icons" id="playIcon">play_arrow</i>
@@ -73,7 +52,6 @@
             </div>
         </div>
     </div>
-
     <div class="settings">
         <span style="font-size: 10px; font-weight: bold; color: #666; display: block; margin-bottom: 8px;">SPEED & QUALITY</span>
         <div class="chip-group" id="speedGrid">
@@ -84,98 +62,50 @@
         <div class="chip-group" id="qualGrid">
             <div class="chip active" id="autoB">Auto</div>
         </div>
-        <button class="rotate-btn" id="fullRotate">
-            <i class="material-icons">screen_lock_rotation</i> LANDSCAPE MODE
-        </button>
+        <button class="rotate-btn" id="fullRotate">LANDSCAPE MODE</button>
     </div>
 
     <script>
         const video = document.getElementById('vPlayer');
-        const seekArea = document.getElementById('seekArea');
         const seekFill = document.getElementById('seekFill');
         const urlParams = new URLSearchParams(window.location.search);
-        const m3u8 = urlParams.get('url');
+        let m3u8 = urlParams.get('url');
 
-        // HLS Logic
-        if (Hls.isSupported() && m3u8) {
-            const hls = new Hls();
-            hls.loadSource(m3u8);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                hls.levels.forEach((l, i) => {
-                    const c = document.createElement('div');
-                    c.className = 'chip'; c.innerText = l.height + 'p';
-                    c.onclick = () => { hls.currentLevel = i; updateActive('qualGrid', c); };
-                    document.getElementById('qualGrid').appendChild(c);
+        if (m3u8) {
+            m3u8 = decodeURIComponent(m3u8);
+            // अगर लिंक के अंदर दूसरा प्लेयर का यूआरएल है, तो उसे साफ करें
+            if(m3u8.includes('url=')) {
+                m3u8 = decodeURIComponent(m3u8.split('url=')[1]);
+            }
+
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(m3u8);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    hls.levels.forEach((l, i) => {
+                        const c = document.createElement('div');
+                        c.className = 'chip'; c.innerText = l.height + 'p';
+                        c.onclick = () => { hls.currentLevel = i; updateActive('qualGrid', c); };
+                        document.getElementById('qualGrid').appendChild(c);
+                    });
                 });
-            });
-            document.getElementById('autoB').onclick = () => { hls.currentLevel = -1; updateActive('qualGrid', document.getElementById('autoB')); };
+            } else { video.src = m3u8; }
         }
 
-        // --- DRAGGABLE SEEK LOGIC (हाथ से खिसकाना) ---
-        let isDragging = false;
-
-        const updateSeek = (e) => {
-            const rect = seekArea.getBoundingClientRect();
-            let x = (e.pageX || e.touches[0].pageX) - rect.left;
-            let percent = Math.min(Math.max(0, x / rect.width), 1);
-            seekFill.style.width = (percent * 100) + "%";
-            if (isDragging) {
-                // वीडियो को साथ-साथ खिसकाएँ
-                video.currentTime = percent * video.duration;
-            }
-        };
-
-        seekArea.addEventListener('mousedown', (e) => { isDragging = true; updateSeek(e); });
-        seekArea.addEventListener('touchstart', (e) => { isDragging = true; updateSeek(e); });
-        
-        window.addEventListener('mousemove', (e) => { if(isDragging) updateSeek(e); });
-        window.addEventListener('touchmove', (e) => { if(isDragging) updateSeek(e); });
-        
-        window.addEventListener('mouseup', () => { isDragging = false; });
-        window.addEventListener('touchend', () => { isDragging = false; });
-
-        // Video Time Update
-        video.ontimeupdate = () => {
-            if(!isDragging) {
-                const p = (video.currentTime / video.duration) * 100;
-                seekFill.style.width = p + "%";
-                document.getElementById('cur').innerText = fmt(video.currentTime);
-                document.getElementById('dur').innerText = fmt(video.duration);
-            }
-        };
-
-        function fmt(s) { 
-            const m = Math.floor(s/60); const sc = Math.floor(s%60); 
-            return `${m}:${sc < 10 ? '0'+sc : sc}`; 
-        }
-
-        // --- LANDSCAPE & FULLSCREEN (बटन से रोटेट) ---
-        const toggleFS = () => {
-            if (!document.fullscreenElement) {
-                document.getElementById('pBox').requestFullscreen().catch(() => {
-                    video.webkitEnterFullscreen(); // iOS Fix
-                });
-                // स्क्रीन रोटेट की कोशिश (Android)
-                if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock('landscape').catch(() => {});
-                }
-            } else {
-                document.exitFullscreen();
-            }
-        };
-        
-        document.getElementById('fsIcon').onclick = toggleFS;
-        document.getElementById('fullRotate').onclick = toggleFS;
-        document.getElementById('rotateIcon').onclick = toggleFS;
-
-        // Play/Pause
+        // --- Basic Controls ---
         document.getElementById('playIcon').onclick = () => {
             if(video.paused) { video.play(); document.getElementById('playIcon').innerText = "pause"; }
             else { video.pause(); document.getElementById('playIcon').innerText = "play_arrow"; }
         };
 
-        // Speed
+        video.ontimeupdate = () => {
+            const p = (video.currentTime / video.duration) * 100;
+            seekFill.style.width = p + "%";
+            document.getElementById('cur').innerText = Math.floor(video.currentTime/60) + ":" + Math.floor(video.currentTime%60).toString().padStart(2,'0');
+            document.getElementById('dur').innerText = Math.floor(video.duration/60) + ":" + Math.floor(video.duration%60).toString().padStart(2,'0');
+        };
+
         document.querySelectorAll('#speedGrid .chip').forEach(c => {
             c.onclick = () => { video.playbackRate = parseFloat(c.dataset.v); updateActive('speedGrid', c); };
         });
@@ -184,6 +114,10 @@
             document.getElementById(id).querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
             active.classList.add('active');
         }
+
+        const goFS = () => { if(video.requestFullscreen) video.requestFullscreen(); else video.webkitEnterFullscreen(); };
+        document.getElementById('fsIcon').onclick = goFS;
+        document.getElementById('fullRotate').onclick = goFS;
     </script>
 </body>
 </html>
