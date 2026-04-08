@@ -5,26 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>IR Lectures - ONLY HINDI IAS</title>
 <style>
-/* === मोबाइल फर्स्ट प्रीमियम UI === */
-:root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-gray:#f5f6f9;--white:#ffffff;--text-dark:#222}
+/* === KGS ओरिजिनल ऐप जैसा प्रीमियम UI === */
+:root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-app:#fcf9f2;--white:#ffffff;--text-dark:#111}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
+body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
 .header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
-.back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px;transition:transform 0.2s}
+.back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px}
 .back-btn:active{transform:scale(0.9)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
-.card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.05);cursor:pointer;border:1px solid #eee;display:flex;flex-direction:column;transition:transform 0.2s}
-.card:active{transform:scale(0.96)}
-.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#ddd}
-.thumb{width:100%;height:100%;object-fit:cover;border-bottom:3px solid var(--accent-yellow)}
-.info{padding:10px;flex-grow:1}
-.badge{color:var(--primary-blue);font-size:9px;font-weight:bold;border:1px solid var(--primary-blue);padding:2px 6px;border-radius:4px;background:#eef2fb;display:inline-block;margin-bottom:6px}
-.title{font-size:11px;font-weight:bold;color:var(--text-dark);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:transform 0.2s}
+.card:active{transform:scale(0.97)}
+.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
+.thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent-yellow)}
+.info{padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
+.badge{color:#d97706;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#fff3e0;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
+.title{font-size:12px;font-weight:bold;color:var(--text-dark);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.date-pill{background:#f3f4f6;color:#6b7280;font-size:10px;font-weight:700;padding:6px 10px;border-radius:20px;display:flex;align-items:center;width:100%}
 @media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
-
-<!-- हाई लेवल सिक्योरिटी: एंटी-कॉपी और एंटी-ड्रैग -->
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
 <header class="header">
@@ -38,10 +37,11 @@ body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-s
 <main class="grid" id="ir-list"></main>
 
 <script>
-/* --- 1. SECURITY PROTOCOL (WITHOUT FREEZE BUG) --- */
+/* --- SECURITY PROTOCOL --- */
 document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode==85))return false};
+setInterval(()=>{console.clear();},1000);
 
-/* --- 2. 38 LECTURES DATA --- */
+/* --- 38 IR LECTURES DATA --- */
 const lectureLinks = [
     "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F401351%2Fkgss-1764048309-v401351.m3u8&title=Lecture+01+%7C%7C+Fundamental+Concepts-01&section=kgs&source_title=Lecture+01+%7C%7C+Fundamental+Concepts-01&parent_title=International+Relations+by+Nabab+Sir&item_id=401351&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png",
     "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F402280%2Fkgss-1764134541-v402280.m3u8&title=Lecture+02+%7C%7C+Fundamental+Concepts-02&section=kgs&source_title=Lecture+02+%7C%7C+Fundamental+Concepts-02&parent_title=International+Relations+by+Nabab+Sir&item_id=402284&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FOdP2poTXBZT2CtP9l1jT0TACPeUEpshCNK0RtQbD.png",
@@ -65,4 +65,4 @@ const lectureLinks = [
     "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F421427%2Fkgss-1765949158-v421427.m3u8&title=Lecture+20+%7C%7C%E0%A4%B8%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95+%E0%A4%95%E0%A5%80+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A4%BF%E0%A4%95%E0%A4%A4%E0%A4%BE+%E0%A4%94%E0%A4%B0+%E0%A4%AC%E0%A4%BF%E0%A4%AE%E0%A5%8D%E0%A4%B8%E0%A4%9F%E0%A5%87%E0%A4%95&section=kgs&source_title=Lecture+20+%7C%7C%E0%A4%B8%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%95+%E0%A4%95%E0%A5%80+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A4%BF%E0%A4%95%E0%A4%A4%E0%A4%BE+%E0%A4%94%E0%A4%B0+%E0%A4%AC%E0%A4%BF%E0%A4%AE%E0%A5%8D%E0%A4%B8%E0%A4%9F%E0%A5%87%E0%A4%95&parent_title=International+Relations+by+Nabab+Sir&item_id=421433&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FjgcOeamnSE9hYUSEfBojBXx3n8Tr3u2nT4UNnbu5.png",
     "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F422557%2Fkgss-1766035612-v422557.m3u8&title=Lecture+21+%7C%7C%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&section=kgs&source_title=Lecture+21+%7C%7C%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&parent_title=International+Relations+by+Nabab+Sir&item_id=422559&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F5dfa43U2AhGVnZ4R60pB1pgQ3odL4kFC1h6GZX4K.png",
     "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F423689%2Fkgss-1766121537-v423689.m3u8&title=Lecture+22+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+02&section=kgs&source_title=Lecture+22+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%9A%E0%A5%80%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+02&parent_title=International+Relations+by+Nabab+Sir&item_id=423695&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FdLFlCXr00BTGrYuDsdqOvqCwCOq54a7BUvuxuUhV.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F424715%2Fkgss-1766208310-v424715.m3u8&title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%A4%9C%E0%A4%BE%E0%A4%AA%E0%A4%BE%E0%A4%A8+%E0%A4%B8%E0%A4%82%E0%A4%AC%E0%A4%82%E0%A4%A7+-+01&section=kgs&source_title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+-+%E0%
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F424715%2Fkgss-1766208310-v424715.m3u8&title=Lecture+23+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0
