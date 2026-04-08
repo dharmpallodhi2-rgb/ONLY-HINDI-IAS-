@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Post Independence - ONLY HINDI IAS</title>
+<style>
+/* === मोबाइल फर्स्ट प्रीमियम UI === */
+:root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-gray:#f5f6f9;--white:#ffffff;--text-dark:#222}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0;background-color:var(--bg-gray);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
+.header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px;transition:transform 0.2s}
+.back-btn:active{transform:scale(0.9)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
+.card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.05);cursor:pointer;border:1px solid #eee;display:flex;flex-direction:column;transition:transform 0.2s}
+.card:active{transform:scale(0.96)}
+.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#ddd}
+.thumb{width:100%;height:100%;object-fit:cover;border-bottom:3px solid var(--accent-yellow)}
+.info{padding:10px;flex-grow:1}
+.badge{color:var(--primary-blue);font-size:9px;font-weight:bold;border:1px solid var(--primary-blue);padding:2px 6px;border-radius:4px;background:#eef2fb;display:inline-block;margin-bottom:6px}
+.title{font-size:11px;font-weight:bold;color:var(--text-dark);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+
+<!-- हाई लेवल सिक्योरिटी: एंटी-कॉपी और एंटी-ड्रैग -->
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+<header class="header">
+<a href="batches.html" class="back-btn">⬅</a>
+<div style="flex-grow:1">
+<b style="font-size:16px;display:block">Post Independence</b>
+<span style="font-size:11px;color:var(--accent-yellow)">By Sujeet Sir</span>
+</div>
+</header>
+
+<main class="grid" id="lecture-list"></main>
+
+<script>
+/* --- 1. SECURITY PROTOCOL --- */
+document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey&&[73,74,67].includes(e.keyCode))||(e.ctrlKey&&e.keyCode==85))return false};
+
+/* --- 2. LECTURES DATA --- */
+const lectureLinks = [
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F231148%2Fkgss-1745300123-v231148.m3u8&title=Lecture+1+%7C%7C+%E0%A4%86%E0%A4%9C%E0%A4%BE%E0%A4%A6%E0%A5%80+%E0%A4%95%E0%A5%87+%E0%A4%AC%E0%A4%BE%E0%A4%A6+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4&section=kgs&source_title=Lecture+1+%7C%7C+%E0%A4%86%E0%A4%9C%E0%A4%BE%E0%A4%A6%E0%A5%80+%E0%A4%95%E0%A5%87+%E0%A4%AC%E0%A4%BE%E0%A4%A6+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4&parent_title=Post+Independence+by+Sujeet+Sir&item_id=231156&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fresized_thumbs%2F687a6ba606cd5.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F231482%2Fkgss-1745386614-v231482.m3u8&title=Lecture+02+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%AF+%E0%A4%86%E0%A4%82%E0%A4%A6%E0%A5%8B%E0%A4%B2%E0%A4%A8+%E0%A4%95%E0%A5%80+%E0%A4%B5%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%A4&section=kgs&source_title=Lecture+02+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%AF+%E0%A4%86%E0%A4%82%E0%A4%A6%E0%A5%8B%E0%A4%B2%E0%A4%A8+%E0%A4%95%E0%A5%80+%E0%A4%B5%E0%A4%BF%E0%A4%B0%E0%A4%BE%E0%A4%B8%E0%A4%A4&parent_title=Post+Independence+by+Sujeet+Sir&item_id=231496&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FxZMKTtd6sfEuQD74of4Y9XDA4O5NAhQ3IFJdr9sk.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F233069%2Fkgss-1745473334-v233069.m3u8&title=Lecture+03+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0+%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%A3&section=kgs&source_title=Lecture+03+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%B7%E0%A5%8D%E0%A4%9F%E0%A5%8D%E0%A4%B0+%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%A3&parent_title=Post+Independence+by+Sujeet+Sir&item_id=233069&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2F5DV2KX1DJBdmX1rkLPWt5xaBXM0ok7Q0INTNNI3v.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F233557%2Fkgss-1745559730-v233557.m3u8&title=Lecture+04+%7C%7C+%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%B8%E0%A4%A4%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%B5%E0%A4%BF%E0%A4%B2%E0%A4%AF&section=kgs&source_title=Lecture+04+%7C%7C+%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%B8%E0%A4%A4%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%B5%E0%A4%BF%E0%A4%B2%E0%A4%AF&parent_title=Post+Independence+by+Sujeet+Sir&item_id=233609&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FGDT5RNHaZBi1erlf8P9Jppexvt0VBJqmTO2iwWQH.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F233987%2Fkgss-1745634194-v233987.m3u8&title=Lecture+05+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%AA%E0%A5%81%E0%A4%A8%E0%A4%B0%E0%A5%8D%E0%A4%97%E0%A4%A0%E0%A4%A8+%28+%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE+%E0%A4%95%E0%A5%87+%E0%A4%86%E0%A4%A7%E0%A4%BE%E0%A4%B0+%E0%A4%AA%E0%A4%B0+%29&section=kgs&source_title=Lecture+05+%7C%7C+%E0%A4%B0%E0%A4%BE%E0%A4%9C%E0%A5%8D%E0%A4%AF%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%AA%E0%A5%81%E0%A4%A8%E0%A4%B0%E0%A5%8D%E0%A4%97%E0%A4%A0%E0%A4%A8+%28+%E0%A4%AD%E0%A4%BE%E0%A4%B7%E0%A4%BE+%E0%A4%95%E0%A5%87+%E0%A4%86%E0%A4%A7%E0%A4%BE%E0%A4%B0+%E0%A4%AA%E0%A4%B0+%29&parent_title=Post+Independence+by+Sujeet+Sir&item_id=233990&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FcI3qKMH5bDtKJjsI4aw1ITdxMpZXPJ2eQssNJiKJ.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F234537%2Fkgss-1745818703-v234537.m3u8&title=Lecture+06+%7C%7C+%E0%A4%9C%E0%A4%A8%E0%A4%9C%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%AF+%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A5%87%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%8F%E0%A4%95%E0%A5%80%E0%A4%95%E0%A4%B0%E0%A4%A3&section=kgs&source_title=Lecture+06+%7C%7C+%E0%A4%9C%E0%A4%A8%E0%A4%9C%E0%A4%BE%E0%A4%A4%E0%A5%80%E0%A4%AF+%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A5%87%E0%A4%A4%E0%A5%8D%E0%A4%B0%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%8F%E0%A4%95%E0%A5%80%E0%A4%95%E0%A4%B0%E0%A4%A3&parent_title=Post+Independence+by+Sujeet+Sir&item_id=234535&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FweZkM1xGN3jrAw4DA0XY0oCTB5t2U5Yz9ybt1B04.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fapr-2025%2F235200%2Fkgss-1745904870-v235200.m3u8&title=Lecture+07+%7C%7C+%E0%A4%86%E0%A4%AA%E0%A4%BE%E0%A4%A4%E0%A4%95%E0%A4%BE%E0%A4%B2+%28+%E0%A4%9C%E0%A5%82%E0%A4%A8+%2C1975+%29&section=kgs&source_title=Lecture+07+%7C%7C+%E0%A4%86%E0%A4%AA%E0%A4%BE%E0%A4%A4%E0%A4%95%E0%A4%BE%E0%A4%B2+%28+%E0%A4%9C%E0%A5%82%E0%A4%A8+%2C1975+%29&parent_title=Post+Independence+by+Sujeet+Sir&item_id=235203&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2FnLWkEg8IcJoWpys3z3JKWogTIbZDovqPeexuu6Eh.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F241106%2Fkgss-1746078035-v241106.m3u8&title=Lecture+08+%7C%7C+%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B6%E0%A4%95%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%AF%E0%A5%8B%E0%A4%82+%E0%A4%B8%E0%A5%87+%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AC%E0%A4%A8%E0%A5%8D%E0%A4%A7&section=kgs&source_title=Lecture+08+%7C%7C+%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B6%E0%A4%95%E0%A5%8D%E0%A4%A4%E0%A4%BF%E0%A4%AF%E0%A5%8B%E0%A4%82+%E0%A4%B8%E0%A5%87+%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AC%E0%A4%A8%E0%A5%8D%E0%A4%A7&parent_title=Post+Independence+by+Sujeet+Sir&item_id=241106&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fl7BBfzCTK9ejJqcJ8MTyVmljvJy0hVdbr6vbqwlT.jpg",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fmay-2025%2F242434%2Fkgss-1746164608-v242434.m3u8&title=Lecture+09+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%95%E0%A5%87+%E0%A4%AF%E0%A5%81%E0%A4%A6%E0%A5%8D%E0%A4%A7&section=kgs&source_title=Lecture+09+%7C%7C+%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4+%E0%A4%95%E0%A5%87+%E0%A4%AF%E0%A5%81%E0%A4%A6%E0%A5%8D%E0%A4%A7&parent_title=Post+Independence+by+Sujeet+Sir&item_id=242434&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fkb9ffHJrPSGe5dVIlkyko3GGiYaMWoEeohqmrGR3.jpg"
+];
+
+/* --- 3. CRASH-PROOF CARD GENERATOR --- */
+const listContainer = document.getElementById('lecture-list');
+
+lectureLinks.forEach(function(fullLink, index) {
+    let cardTitle = "Lecture " + (index + 1);
+    let cardThumb = "https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png"; // Default Image
+
+    // स्मार्ट डिकोडिंग - लिंक से अपने आप नाम और फोटो निकालना
+    try {
+        if (fullLink.includes('title=')) {
+            cardTitle = decodeURIComponent(fullLink.split('title=')[1].split('&')[0].replace(/\+/g, ' '));
+        }
+        if (fullLink.includes('thumb=')) {
+            cardThumb = decodeURIComponent(fullLink.split('thumb=')[1].split('&')[0]);
+        }
+    } catch(e) {
+        console.log("Fallback");
+    }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = function() { window.location.href = fullLink; };
+
+    card.innerHTML = `
+        <div class="thumb-box">
+            <img src="${cardThumb}" class="thumb" onerror="this.src='https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png'" loading="lazy">
+        </div>
+        <div class="info">
+            <span class="badge">▶ CLASS VIDEO</span>
+            <div class="title">${cardTitle}</div>
+        </div>`;
+    
+    listContainer.appendChild(card);
+});
+</script>
+</body>
+</html>
