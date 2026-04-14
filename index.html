@@ -86,6 +86,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 <div class="header">
     <h1>ONLY HINDI IAS</h1>
     <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- Google Sign-In Button -->
         <div id="g_id_onload"
              data-client_id="373006333922-oarhs996asj1o36b4jtvguufmve64inv.apps.googleusercontent.com"
              data-context="signin"
@@ -94,6 +95,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
              data-auto_prompt="false">
         </div>
         <div class="g_id_signin" data-type="icon" data-shape="circle" data-theme="outline" data-size="large"></div>
+        
         <img src="1766115476203(2).jpg" class="profile-logo" alt="ONLY HINDI IAS Logo">
     </div>
 </div>
@@ -172,12 +174,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Thanku ye bhot achha h study k liye 🙏🏻⭐⭐⭐⭐⭐"</p><b>- Kajal (UPSC Aspirant)</b></div>
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत अच्छी है, नोट्स और क्विज़ दोनों ही बहुत मददगार हैं! ⭐⭐⭐⭐⭐"</p><b>- Sanjana (UPSC Aspirant)</b></div>
 
-<!-- New Feedbacks Added Below -->
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"Very nice and useful platform for UPSC"</p><b>- Raj Rajput (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Thank you so much for your help sir ji"</p><b>- Soni Singh Rathore (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"Apki har notes padhaya hua so nice working class related"</p><b>- Soni Singh (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Vary vary nice work 😊"</p><b>- Soni Singh (UPSC Aspirant)</b></div>
-
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScyij3uscJI2L36ZM6xKM3Y78V0oJmzWDE4BVPrzOW1vnkIog/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--premium-gold);padding:12px;border-radius:12px;display:block;margin:10px auto;box-sizing:border-box;">⭐ वेबसाइट को रेटिंग दें (RATINGS)</a>
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfRiKQFP2WemSN9G2LGGt4Vk_qKwqDMYGbWKcCLiXucVPtWuw/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--white);color:var(--primary-teal);border:2px dashed var(--primary-teal);padding:12px;border-radius:12px;display:block;box-sizing:border-box;">📝 GIVE YOUR FEEDBACK</a>
 </div>
@@ -193,9 +189,11 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
         slides[currentSlide].classList.add('active');
     }, 5000);
 
+    // Google Sign-In Logic
     function handleSignInResponse(response) {
         const responsePayload = parseJwt(response.credential);
         alert("नमस्ते " + responsePayload.name + "! आप सफलतापूर्वक लॉगिन हो गए हैं।");
+        console.log("User Email: " + responsePayload.email);
     }
 
     function parseJwt(token) {
@@ -207,31 +205,5 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
         return JSON.parse(jsonPayload);
     }
 </script>
-
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyCsa9eNrn5UDK4ShPFvDIxyd5cmWLuHsEQ",
-        authDomain: "only-hindi-ias-64e90.firebaseapp.com",
-        projectId: "only-hindi-ias-64e90",
-        appId: "1:1039198714535:web:55d1c9365ac11ec08fb982"
-    };
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged(user => {
-        if (!user) {
-            window.location.href = "login.html";
-        }
-    });
-
-    document.oncontextmenu = () => false;
-    document.onselectstart = () => false;
-    document.ondragstart = () => false;
-    document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey) || (e.ctrlKey && e.keyCode == 85)) return false; };
-    setInterval(function() { debugger; }, 100);
-</script>
-
 </body>
-                                                            </html>
-  
+</html>
