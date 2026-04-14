@@ -8,7 +8,7 @@
 :root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-app:#fcf9f2;--white:#ffffff;--text-dark:#111}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
-.header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px}
 .back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
 .card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:0.2s}
@@ -57,20 +57,22 @@ const lectureLinks = [
 const listContainer = document.getElementById('lecture-list');
 
 lectureLinks.forEach(function(fullLink) {
-    let finalLink = "";
+    let finalActionUrl = "";
     
-    // अगर लिंक YouTube का है, तो उसे सीधा खोलें
-    if (fullLink.includes('youtube.com') || fullLink.includes('youtu.be')) {
-        // YouTube embed URL निकालने का तरीका
-        if (fullLink.includes('url=')) {
-            finalLink = decodeURIComponent(fullLink.split('url=')[1].split('&')[0]);
+    // --- स्मार्ट लिंक डिटेक्टर (Smart Link Detector) ---
+    if (fullLink.toLowerCase().includes("youtube.com") || fullLink.toLowerCase().includes("youtu.be")) {
+        // अगर लिंक में यूट्यूब है:
+        // 1. अगर यह kgs-web के साथ है, तो सिर्फ यूट्यूब वाला हिस्सा बाहर निकालो
+        if (fullLink.includes("url=")) {
+            let extracted = decodeURIComponent(fullLink.split("url=")[1].split("&")[0]);
+            // इसे असली यूट्यूब वीडियो लिंक में बदलो (embed को watch में बदलो ताकि यूट्यूब पर चले)
+            finalActionUrl = extracted.replace("embed/", "watch?v=");
         } else {
-            finalLink = fullLink;
+            finalActionUrl = fullLink;
         }
-    } 
-    // अगर लिंक KGS का है, तो आपके नए प्लेयर (OHIvideoplayer) में खोलें
-    else {
-        finalLink = fullLink.replace("https://kgs-web.vercel.app/video-player", "https://only-hindi-ias.vercel.app/OHIvideoplayer.html");
+    } else {
+        // अगर यूट्यूब नहीं है, तो आपके OHI प्लेयर में भेजो
+        finalActionUrl = fullLink.replace("https://kgs-web.vercel.app/video-player", "https://only-hindi-ias.vercel.app/OHIvideoplayer.html");
     }
 
     let cardTitle = "Lecture Video";
@@ -87,7 +89,7 @@ lectureLinks.forEach(function(fullLink) {
 
     const card = document.createElement('div');
     card.className = 'card';
-    card.onclick = function() { window.location.href = finalLink; };
+    card.onclick = function() { window.location.href = finalActionUrl; };
 
     card.innerHTML = `
         <div class="thumb-box">
@@ -95,10 +97,10 @@ lectureLinks.forEach(function(fullLink) {
         </div>
         <div class="info">
             <div>
-                <span class="badge">▶ CLASS VIDEO</span>
+                <span class="badge">${fullLink.includes("youtube") ? "▶ YOUTUBE VIDEO" : "▶ CLASS VIDEO"}</span>
                 <div class="title">${cardTitle}</div>
             </div>
-            <div class="date-pill">🕒 Sachin Sir • Recorded</div>
+            <div class="date-pill">🕒 Recorded • Sachin Sir</div>
         </div>`;
     
     listContainer.appendChild(card);
