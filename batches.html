@@ -39,24 +39,16 @@
 
     <div id="lock-modal">
         <div class="lock-box">
-            <h2 id="lock-title">🔒 Secure Access</h2>
+            <h2>🔒 Secure Access</h2>
             <p style="font-size: 12px; color: #666;">अंदर जाने के लिए अपना एक्सेस कोड डालें</p>
             <input type="password" id="access-key" placeholder="Enter Code Here...">
-            <button id="verify-btn" onclick="verifyKey()">Unlock Now</button>
+            <button onclick="verifyKey()">Unlock Now</button>
             <p id="error-msg" style="color: #d93838; font-size: 12px; margin-top: 15px; display: none; font-weight: bold;">❌ गलत कोड! एडमिन से संपर्क करें।</p>
         </div>
     </div>
 
     <div class="batch-grid" id="main-batch-container">
         
-        <div class="subject-card" onclick="checkGeoAccess()">
-            <img src="IMG_20260414_173549_337.jpg" style="width:100%; border-bottom: 4px solid #00a8ff;">
-            <div style="padding:20px; text-align:center;">
-                <b style="color: #3b5098; font-size: 18px;">Geography Optional (Hindi Medium)</b>
-                <p style="font-size: 13px; color: #2ecc71; margin-top: 5px; font-weight: bold;">Start: 07 Jan 2026 🔒</p>
-            </div>
-        </div>
-
         <div class="subject-card" onclick="checkAccess()">
             <img src="b4055760-9313-4a64-b55b-f5784001f48b.jpg" style="width:100%; border-bottom: 4px solid #3b5098;">
             <div style="padding:20px; text-align:center;">
@@ -73,14 +65,24 @@
             </div>
         </div>
 
+        <div class="subject-card" onclick="checkGeoAccess()">
+            <img src="IMG_20260414_173549_337.jpg" style="width:100%; border-bottom: 4px solid #d93838;">
+            <div style="padding:20px; text-align:center;">
+                <b style="color: #3b5098; font-size: 18px;">Geography optional (Hindi Medium)</b>
+                <p style="font-size: 13px; color: #d93838; margin-top: 5px; font-weight: bold;">Start: 07 Jan 2026 🔒</p>
+            </div>
+        </div>
+
     </div>
 
     <div id="crash-course-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Crash Course Subjects</h2>
+        
         <div class="subject-card" onclick="window.location.href='Polity2026.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/Uqr1zGPd3BCKQ2Y38K0kbHwMTnf45sSsX4JcEIYD.png"></div>
             <div class="subject-info"><div><b>⚖️ Indian Polity 2026</b><p style="font-size:11px; color:#999;">Kumud Ranjan Sir</p></div><div class="play-badge">14 Lectures ▶</div></div>
         </div>
+
         <div class="subject-card" onclick="window.location.href='History2026.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/V2Nsj3Qm2StIwUODa6v1HhdcoztdAEiA2jTCvE15.png"></div>
             <div class="subject-info"><div><b>📜 Modern History 2026</b><p style="font-size:11px; color:#999;">K. Shivesh Sir</p></div><div class="play-badge">31 Lectures ▶</div></div>
@@ -89,68 +91,121 @@
 
     <div id="subjects-section">
         <h2 style="font-size: 16px; margin: 0 0 15px 5px; color: #3b5098; font-weight: bold;">Foundation Subjects</h2>
+        
         <div class="subject-card" onclick="window.location.href='st.html'">
             <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/0oybr1Z97nJ7Khi0ucM6isUhD1sNtTjdstWCuJ2K.jpg"></div>
             <div class="subject-info"><div><b>🚀 Science & Technology</b><p style="font-size:11px; color:#999;">Sanjay Vishwakarma Sir</p></div><div class="play-badge">39 Lectures ▶</div></div>
         </div>
         <div class="subject-card" onclick="window.location.href='ir.html'">
-            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png"></div>
-            <div class="subject-info"><div><b>🌍 International Relations</b><p style="font-size:11px; color:#999;">Nawab Sir</p></div><div class="play-badge">38 Lectures ▶</div></div>
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/8eVWLJGu2dqte3Up65aLWVtx15oKqFhZ18kr82HN.png" alt="IR Thumbnail"></div>
+            <div class="subject-info"><div><b>🌍 International Relations</b><p style="font-size:11px; color:#999; margin-top:2px;">Nawab Sir</p></div><div class="play-badge">38 Lectures ▶</div></div>
         </div>
+
+        <div class="subject-card" onclick="window.location.href='environment.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/W2B8ASFCF3ohW5VYLq9N3iD6WxDQroQHyb1h10nc.jpg"></div>
+            <div class="subject-info"><div><b>🌿 Environment & Ecology</b><p style="font-size:11px; color:#999;">Shankar Jha Sir</p></div><div class="play-badge">27 Lectures ▶</div></div>
         </div>
+
+        <div class="subject-card" onclick="window.location.href='indiangeography.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/fyAS6ObKWqyVUobZVQHO1ak56W5e4vslDFgQkgQf.jpg"></div>
+            <div class="subject-info"><div><b>🇮🇳 Indian Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">31 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='worldgeography.html'">
+            <div class="subject-banner"><img src="HzAdXJpTo7xOWGJDH3Ex3nvQfy1XsQYdXEVYTFIO.jpg"></div>
+            <div class="subject-info"><div><b>🌍 World Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">7 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='polity.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/7Jug6dz5vcbyvY1dcFUego3Bsyh2E1Hwr38J15h5.jpg"></div>
+            <div class="subject-info"><div><b>⚖️ Indian Polity</b><p style="font-size:11px; color:#999;">Rajesh Mishra Sir</p></div><div class="play-badge">55 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='disastermanagement.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs/video-thumbs/thumb/uploads/TPANXvYReTar01aCJhuWFb5847nciezwvIhaFir2.jpg"></div>
+            <div class="subject-info"><div><b>🌋 Disaster Management</b><p style="font-size:11px; color:#999;">Shankar Jha Sir</p></div><div class="play-badge">9 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='generalgeography.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/resized_thumbs/680a0c928dddc.jpg"></div>
+            <div class="subject-info"><div><b>🗺️ General Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">26 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='hindi.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/4uf7ydQqazA39yFeao6NO6mcFQotLIFW02IVgmCH.jpg"></div>
+            <div class="subject-info"><div><b>✍️ Hindi Compulsory</b><p style="font-size:11px; color:#999;">Dr. Ajay Anurag Sir</p></div><div class="play-badge">6 Lectures ▶</div></div>
+        </div>
+
+        <div class="subject-card" onclick="window.location.href='mnseconomy.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/Z4B3SVSWAoaXS8qiJzQ5TPtHyfgQF9B0zz3s0FnU.jpg"></div>
+            <div class="subject-info"><div><b>💰 Indian Economy (Mains)</b><p style="font-size:11px; color:#999;">Rameshwar Sir</p></div><div class="play-badge">36 Lectures ▶</div></div>
+        </div>
+        
+        <div class="subject-card" onclick="window.location.href='post-independence.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/xZMKTtd6sfEuQD74of4Y9XDA4O5NAhQ3IFJdr9sk.jpg"></div>
+            <div class="subject-info"><div><b>🇮🇳 Post Independence</b><p style="font-size:11px; color:#999;">Sujeet Sir</p></div><div class="play-badge">9 Lectures ▶</div></div>
+        </div>
+        
+        <div class="subject-card" onclick="window.location.href='Basic-geography.html'">
+            <div class="subject-banner"><img src="https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/QPCDXUaxQsM0qfB5XtWhwQcXE2OFBuym7vSaW3ks.jpg"></div>
+            <div class="subject-info"><div><b>🗺️ Basic Geography</b><p style="font-size:11px; color:#999;">Sachin Arora Sir</p></div><div class="play-badge">11 Lectures ▶</div></div>
+        </div>
+
+    </div>
 
     <script>
         const MASTER_CODE = "ONLYHINDI96";
-        const GEO_CODE = "GEO500"; // Geography Optional का मास्टर कोड
+        const GEO_PAID_CODE = "GEO500"; // ₹500 वाला नया पासवर्ड
+        
         let currentView = 'main';
-        let activeLockType = ''; 
+        let currentLockTarget = '';
 
         // --- SECURITY ---
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false;
         };
 
-        // --- GEOGRAPHY ACCESS ---
-        function checkGeoAccess() {
-            if (localStorage.getItem('geo_unlocked') === 'true') {
-                window.location.href = 'geooptional.html';
-            } else {
-                activeLockType = 'geo';
-                document.getElementById('lock-title').innerText = "🔒 Geography Optional Access";
-                document.getElementById('lock-modal').style.display = 'flex';
-            }
-        }
-
-        // --- FOUNDATION ACCESS ---
+        // --- NAVIGATION LOGIC ---
         function checkAccess() {
             if (localStorage.getItem('batch_unlocked') === 'true') {
                 openFoundationMenu();
             } else {
-                activeLockType = 'foundation';
-                document.getElementById('lock-title').innerText = "🔒 Foundation Access";
+                currentLockTarget = 'foundation';
                 document.getElementById('lock-modal').style.display = 'flex';
+                document.getElementById('error-msg').style.display = 'none';
+            }
+        }
+
+        // Geography Optional Lock Logic
+        function checkGeoAccess() {
+            if (localStorage.getItem('geo_unlocked') === 'true') {
+                window.location.href = 'geooptional.html';
+            } else {
+                currentLockTarget = 'geography';
+                document.getElementById('lock-modal').style.display = 'flex';
+                document.getElementById('error-msg').style.display = 'none';
             }
         }
 
         function verifyKey() {
             const pin = document.getElementById('access-key').value;
-            const errorElement = document.getElementById('error-msg');
             
-            if (activeLockType === 'geo') {
-                if (pin === GEO_CODE) {
-                    localStorage.setItem('geo_unlocked', 'true');
-                    document.getElementById('lock-modal').style.display = 'none';
-                    window.location.href = 'geooptional.html';
-                } else {
-                    errorElement.style.display = 'block';
-                }
-            } else {
+            if (currentLockTarget === 'foundation') {
                 if (pin === MASTER_CODE) {
                     localStorage.setItem('batch_unlocked', 'true');
                     document.getElementById('lock-modal').style.display = 'none';
                     openFoundationMenu();
                 } else {
-                    errorElement.style.display = 'block';
+                    document.getElementById('error-msg').style.display = 'block';
+                }
+            } 
+            else if (currentLockTarget === 'geography') {
+                if (pin === GEO_PAID_CODE) {
+                    localStorage.setItem('geo_unlocked', 'true');
+                    document.getElementById('lock-modal').style.display = 'none';
+                    window.location.href = 'geooptional.html';
+                } else {
+                    document.getElementById('error-msg').style.display = 'block';
                 }
             }
         }
