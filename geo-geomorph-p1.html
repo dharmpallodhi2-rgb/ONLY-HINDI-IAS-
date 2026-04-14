@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>प्राथमिक भू-आकृति विज्ञान - ONLY HINDI IAS</title>
+<style>
+/* === KGS ओरिजिनल ऐप जैसा प्रीमियम UI === */
+:root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-app:#fcf9f2;--white:#ffffff;--text-dark:#111}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
+.header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px}
+.back-btn:active{transform:scale(0.9)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
+.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:0.2s}
+.card:active{transform:scale(0.97)}
+.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
+.thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent-yellow)}
+.info{padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
+.badge{color:#d97706;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#fff3e0;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
+.title{font-size:12px;font-weight:bold;color:var(--text-dark);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.date-pill{background:#f3f4f6;color:#6b7280;font-size:10px;font-weight:700;padding:6px 10px;border-radius:20px;display:flex;align-items:center;width:100%}
+@media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+<header class="header">
+<a href="geooptional.html" class="back-btn">⬅</a>
+<div style="flex-grow:1">
+<b style="font-size:16px;display:block">प्राथमिक भू-आकृति विज्ञान</b>
+<span style="font-size:11px;color:var(--accent-yellow)">Geography Optional • सचिन सर</span>
+</div>
+</header>
+
+<main class="grid" id="lecture-list"></main>
+
+<script>
+/* --- SECURITY PROTOCOL --- */
+document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey))return false};
+
+/* --- 2. LECTURE DATA (21 LECTURES) --- */
+const lectureLinks = [
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F377527%2Fkgss-1761656091-v377527.m3u8&title=Lecture+26+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%9A%E0%A4%AF+%E0%A4%8F%E0%A4%B5%E0%A4%82+%E0%A4%AE%E0%A5%8C%E0%A4%B2%E0%A4%BF%E0%A4%95+%E0%A4%85%E0%A4%B5%E0%A4%A7%E0%A4%BE%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%8F%E0%A4%82&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FIkJgMLrbBupTJdbALBxdvXdJ6quFiKwXmsotgnwk.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F378067%2Fkgss-1761739951-v378067.m3u8&title=Lecture+27+%7C%7C+%E0%A4%AD%E0%A5%82%E0%A4%97%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AD%E0%A4%BF%E0%A4%95+%E0%A4%B8%E0%A4%AE%E0%A4%AF+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A3%E0%A4%BE%E0%A4%B2%E0%A5%80&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F734vhcmEDkedxQQoBy4kQOQQsx2XXPPq8YsJxtf0.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Foct-2025%2F378716%2Fkgss-1761825751-v378716.m3u8&title=Lecture+28+%7C%7C+%E0%A4%AD%E0%A5%82-%E0%A4%86%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%95+%E0%A4%B5%E0%A4%BF%E0%A4%9C%E0%A5%8D%E0%A4%9E%E0%A4%BE%E0%A4%A8&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FkCylbuNn3OqDQ4KHf7KldAqeQ6swHBnUVk7HxtzI.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F380870%2Fkgss-1762167069-v380870.m3u8&title=Lecture+29+%7C%7C+%E0%A4%AC%E0%A4%B9%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%9C%E0%A4%BE%E0%A4%A4+%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%8F%E0%A4%82&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FIJMsRxjfPmgTjAEw8wKS04yDdfoaHY5aqq0CM2Cx.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F381938%2Fkgss-1762260583-v381938.m3u8&title=Lecture+30+%7C%7C+%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B2%E0%A4%BE%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%81+%28Part-1%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FmB7fXWc3KABMtbWX5lYUioHRxnEAyuRl1N5ouQu0.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F384222%2Fkgss-1762432928-v384222.m3u8&title=Lecture+31+%7C%7C+%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B2%E0%A4%BE%E0%A4%95%E0%A5%83%E0%A4%A4%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%81+%28Part-2%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F83Vl9oX8fyeFhyFLBI0WYxlnHd5XCMZH6uqwV6TX.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F385228%2Fkgss-1762519072-v385228.m3u8&title=Lecture+32+%7C%7C+%E0%A4%AD%E0%A5%8C%E0%A4%AE+%E0%A4%9C%E0%A4%B2&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2F62fdYPtguWat33F2yC4PW4aqtq66V2UPFRfbEQ5Z.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F388314%2Fkgss-1762861328-v388314.m3u8&title=Lecture+33+%7C%7C+%E0%A4%AA%E0%A5%83%E0%A4%A5%E0%A5%8D%E0%A4%B5%E0%A5%80+%E0%A4%95%E0%A5%80+%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A4%BF&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FH4l3IiG6c8b9U8FN0vWKjFwE7w6sL0fRsovWv9lQ.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F394522%2Fkgss-1763383809-v394522.m3u8&title=Lecture+34+%7C%7C+%E0%A4%AA%E0%A5%83%E0%A4%A5%E0%A5%8D%E0%A4%B5%E0%A5%80+%E0%A4%95%E0%A5%80+%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%AA%E0%A4%9F%E0%A5%80&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FP5k8560fvWOEW7CSg4mK2wIsGCM8tzZgC6h2bieC.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F396251%2Fkgss-1763558353-v396251.m3u8&title=Lecture+35+%7C%7C+%E0%A4%AA%E0%A5%83%E0%A4%A5%E0%A5%8D%E0%A4%B5%E0%A5%80+%E0%A4%95%E0%A5%80+%E0%A4%82%E0%A4%BE%E0%A4%A4%E0%A4%B0%E0%A4%BF%E0%A4%95+%E0%A4%B8%E0%A4%82%E0%A4%B0%E0%A4%9A%E0%A4%A8%E0%A4%BE&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FHS5ZBvzrkVhaTfhE9EvDi9yo7ipF243ptyGtZyqm.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2F729_-XM7xes&title=Lecture+36+%7C%7C+%E0%A4%AD%E0%A5%82-%E0%A4%9A%E0%A5%81%E0%A4%82%E0%A4%AC%E0%A4%95%E0%A4%A4%E0%A5%8D%E0%A4%B5&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FZIYPvt1gT1Ig5lfWfnUPvJTuK3m8rgG83DqrUptx.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F398152%2Fkgss-1763701542-v398152.m3u8&title=Lecture+37+%7C%7C+%E0%A4%AD%E0%A5%82-%E0%A4%97%E0%A4%A4%E0%A4%BF%E0%A4%B6%E0%A5%80%E0%A4%B2%E0%A4%A4%E0%A4%BE&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FcGWjEeqWOwBkzjr3Jj7LoIRlmMBOFHwbRDEjwjA8.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FElzxgQnf0bQ&title=Lecture+38+%7C%7C+%E0%A4%AE%E0%A4%B9%E0%A4%BE%E0%A4%B8%E0%A4%BE%E0%A4%97%E0%A4%B0%E0%A5%80%E0%A4%AF+%E0%A4%85%E0%A4%A7%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%B6%E0%A5%88%E0%A4%B2&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FsssoAlG8gKCKdQOl1eywmzZEItwZVyBiZ4TQkFmO.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F401272%2Fkgss-1764048771-v401272.m3u8&title=Lecture+39+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%87%E0%A4%9F+%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A4%A8%E0%A4%BF%E0%A4%95%E0%A5%80&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FL4pT1rPFKLZBxdIHH8grAJBCloxj1RuJsUFQgAZJ.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FW43On6x9LXQ&title=Lecture+40+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%87%E0%A4%9F%E0%A5%8B%E0%A4%82+%E0%A4%95%E0%A4%BE+%E0%A4%A6%E0%A5%8B%E0%A4%B9%E0%A4%B0%E0%A4%BE%E0%A4%B5&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FEH6g969S8KR6hHfeIYpCP3zr6Vx9d25g7oX3UVoc.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fnov-2025%2F403898%2Fkgss-1764307188-v403898.m3u8&title=Lecture+41+%7C%7C+%E0%A4%AA%E0%A5%8D%E0%A4%B2%E0%A5%87%E0%A4%9F+%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A4%A8%E0%A4%BF%E0%A4%95%E0%A5%80+%28Part-2%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FdOdAQCSsXhMUJFcC51YczlHjt6ogKny3XNU7YVPg.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F405346%2Fkgss-1764566482-v405346.m3u8&title=Lecture+42+%7C%7C+%E0%A4%B8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BF%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%80+%28Part-1%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FRSON9vMytxqblYnwZbpZKG6gBr5gLAWhslgj0gxr.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FMNTOAVWFW54&title=Lecture+43+%7C%7C+%E0%A4%B8%E0%A4%AE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%BF%E0%A4%A4%E0%A4%BF%E0%A4%95%E0%A5%80+%28Part-2%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FQPDwK7Cm7g4IHqaNjk5RKUOYkGWFeAPDrcUd8KuH.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F406389%2Fkgss-1764652188-v406389.m3u8&title=Lecture+44+%7C%7C+%E0%A4%AD%E0%A5%82%E0%A4%B8%E0%A4%A8%E0%A5%8D%E0%A4%A8%E0%A4%A4%E0%A4%BF&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2FdI1KFfeIAGHuZTOXc1PFOjKHi2WXeXTl7eheU9wl.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fkgs-v1.akamaized.net%2Fkv3%2Fdec-2025%2F412543%2Fkgss-1765257915-v412543.m3u8&title=Lecture+45+%7C%7C+%E0%A4%AA%E0%A4%B0%E0%A5%8D%E0%A4%B2%E0%A4%B5%E0%A4%A4+%E0%A4%A8%E0%A4%BF%E0%A4%B0%E0%A5%8D%E0%A4%AE%E0%A4%BE%E0%A4%A3&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2Fex98lOG7heV15CcM8iJVB0J4qHe84Dl9p6TysRrD.png",
+    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FIr85NyU84dw&title=Lecture+46+%7C%7C+%E0%A4%9C%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B2%E0%A4%BE%E0%A4%AE%E0%A5%81%E0%A4%96%E0%A5%80%E0%A4%AF&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs%2Fvideo-thumbs%2Fthumb%2Fuploads%2Fq2Cb0aB4bQMryqWyU4dRCGIAsrQK0HRpYNesKC6L.png"
+];
+
+const listContainer = document.getElementById('lecture-list');
+
+lectureLinks.forEach(function(oldLink) {
+    // ऑटो प्लेयर स्विच (KGS -> OHI)
+    const newLink = oldLink.replace("https://kgs-web.vercel.app/video-player", "https://only-hindi-ias.vercel.app/OHIvideoplayer.html");
+
+    let cardTitle = "Lecture Video";
+    let cardThumb = "https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png";
+    let dateText = "🕒 Oct-Nov 2025 • Recorded";
+
+    try {
+        if (newLink.includes('title=')) {
+            cardTitle = decodeURIComponent(newLink.split('title=')[1].split('&')[0].replace(/\+/g, ' '));
+        }
+        if (newLink.includes('thumb=')) {
+            cardThumb = decodeURIComponent(newLink.split('thumb=')[1].split('&')[0]);
+        }
+        // महीना और साल निकालने के लिए
+        let dMatch = newLink.match(/(oct|nov|dec)-202\d/i);
+        if (dMatch) {
+            dateText = "🕒 " + dMatch[0].toUpperCase() + " • Recorded";
+        }
+    } catch(e) { }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = function() { window.location.href = newLink; };
+
+    card.innerHTML = `
+        <div class="thumb-box">
+            <img src="${cardThumb}" class="thumb" loading="lazy">
+        </div>
+        <div class="info">
+            <div>
+                <span class="badge">▶ CLASS VIDEO</span>
+                <div class="title">${cardTitle}</div>
+            </div>
+            <div class="date-pill">${dateText}</div>
+        </div>`;
+    
+    listContainer.appendChild(card);
+});
+</script>
+</body>
+</html>
