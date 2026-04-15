@@ -9,10 +9,9 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
 .header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px;transition:0.2s}
-.back-btn:active{transform:scale(0.9)}
+.back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
-.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:transform 0.2s}
+.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:0.2s}
 .card:active{transform:scale(0.97)}
 .thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
 .thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent)}
@@ -29,7 +28,7 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 <a href="geooptional.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
 <b style="font-size:16px;display:block">प्राथमिक जलवायु विज्ञान</b>
-<span style="font-size:11px;color:var(--accent)">VIP Player Mode • 100% Secure</span>
+<span style="font-size:11px;color:var(--accent)">YouTube Live Series • OHI Player</span>
 </div>
 </header>
 
@@ -39,30 +38,32 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 /* --- SECURITY --- */
 document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey))return false};
 
-/* --- LECTURE DATA --- */
+/* --- यूट्यूब लाइव लेक्चर्स डाटा --- */
 const lectureData = [
-    { title: "Lecture 01 || वायुमंडल की उत्पत्ति", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/XHYerwLEu25eTAKwmV8ZKZ4V6lkLgfM7t26qBNwc.png" },
-    { title: "Lecture 02 || वायुमंडल की संरचना", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/PkIHyzIjD91bWwjSDwM2Xon1EwO5vEYi5Vg49hmM.png" },
-    { title: "Lecture 03 || सूर्यताप व तापमान", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/VkwlJAKl5BuUmrHvpAQ8JiWbZf5EmbzkW6QeMRRX.png" },
-    { title: "Lecture 04 || वायुमंडलीय तापमान वितरण", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/tGCB0UtEtkD3uoH7a4AUNGby2WXW6gychzTM3wAE.png" },
-    { title: "Lecture 05 || ऊष्मा बजट", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/gnEjI8c0hfpYPch5KR5PHiQNH5LX35xlqdvJ87RT.png" },
-    { title: "Lecture 06 || वायुदाब", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/55F0YjQFt7uYORqLbxLZQ7mkqHGq3cH5ZykfoSqN.png" },
-    { title: "Lecture 07 || वायुमंडलीय दाब", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/v1qHrdQOiR5LHxStAsWCs6kB7dJbH9h5HdmwDwkZ.png" },
-    { title: "Lecture 08 || हेडली मॉडल", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/6KjWKG6oqjsxzh4KyLuzSkwlpbdfM3fYF5LMnpen.png" },
-    { title: "Lecture 09 || वायुमंडलीय परिसंचरण P1", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/xY9bPTfUTJVjMoiwTZ7L6z97tDIcqX0v5CsVhWUv.png" },
-    { title: "Lecture 10 || वायुमंडलीय परिसंचरण P2", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/chNg99rXe41AdXkgOAZNUBCfQQmU0zzh6ezPbYKl.png" },
-    { title: "Specimen Class (Youtube)", url: "https://www.youtube.com/embed/6ktx6jca710", thumb: "https://i.ytimg.com/vi/6ktx6jca710/hqdefault.jpg" }
+    { title: "जलवायु विज्ञान - Lecture 01", url: "https://www.youtube.com/live/wd4LV6SUaew", thumb: "https://i.ytimg.com/vi/wd4LV6SUaew/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 02", url: "https://www.youtube.com/live/DGxAwttSXLM", thumb: "https://i.ytimg.com/vi/DGxAwttSXLM/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 03", url: "https://www.youtube.com/live/6Rkg2qJiGO0", thumb: "https://i.ytimg.com/vi/6Rkg2qJiGO0/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 04", url: "https://www.youtube.com/live/C9n7eH3btlE", thumb: "https://i.ytimg.com/vi/C9n7eH3btlE/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 05", url: "https://www.youtube.com/live/U5hHKKqmFwM", thumb: "https://i.ytimg.com/vi/U5hHKKqmFwM/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 06", url: "https://www.youtube.com/live/Md8gJvXXu9I", thumb: "https://i.ytimg.com/vi/Md8gJvXXu9I/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 07", url: "https://www.youtube.com/live/zXvvW7wHAnc", thumb: "https://i.ytimg.com/vi/zXvvW7wHAnc/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 08", url: "https://www.youtube.com/live/YM_GLDg0GNs", thumb: "https://i.ytimg.com/vi/YM_GLDg0GNs/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 09", url: "https://www.youtube.com/live/E9DNfFA3zx0", thumb: "https://i.ytimg.com/vi/E9DNfFA3zx0/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 10", url: "https://www.youtube.com/live/_jrJjQuOtes", thumb: "https://i.ytimg.com/vi/_jrJjQuOtes/hqdefault.jpg" }
 ];
 
 const listContainer = document.getElementById('lecture-list');
 
 lectureData.forEach(function(item) {
-    // यहाँ नया VIP Player लिंक सेट हो रहा है
-    const finalUrl = "vipplayer.html?url=" + encodeURIComponent(item.url);
+    // यूट्यूब लाइव लिंक को एम्बेड लिंक में बदलना ताकि प्लेयर में चले
+    let finalVideoUrl = item.url.replace("youtube.com/live/", "youtube.com/embed/");
+    
+    // आपके पुराने OHI प्लेयर के थ्रू लिंक भेजना
+    const playerUrl = "OHIvideoplayer.html?url=" + encodeURIComponent(finalVideoUrl);
 
     const card = document.createElement('div');
     card.className = 'card';
-    card.onclick = () => { window.location.href = finalUrl; };
+    card.onclick = () => { window.location.href = playerUrl; };
 
     card.innerHTML = `
         <div class="thumb-box">
@@ -70,10 +71,10 @@ lectureData.forEach(function(item) {
         </div>
         <div class="info">
             <div>
-                <span class="badge">▶ CLASS VIDEO</span>
+                <span class="badge">▶ OHI LIVE PLAYER</span>
                 <div class="title">${item.title}</div>
             </div>
-            <div class="date-pill">🕒 Recorded • Sachin Sir</div>
+            <div class="date-pill">🕒 YouTube Live • Sachin Sir</div>
         </div>`;
     
     listContainer.appendChild(card);
