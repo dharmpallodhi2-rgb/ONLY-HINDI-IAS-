@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>प्राथमिक जलवायु विज्ञान - ONLY HINDI IAS</title>
+<title>Lectures - ONLY HINDI IAS</title>
 <style>
-:root{--primary-blue:#3b5098;--accent-yellow:#ffaa00;--bg-app:#fcf9f2;--white:#ffffff;--text-dark:#111}
+:root{--primary:#3b5098;--accent:#ffaa00;--bg:#fcf9f2;--white:#ffffff;--text:#111}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
-.header{background:var(--primary-blue);padding:15px;display:flex;align-items:center;color:var(--white);position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px}
-.back-btn{background:var(--accent-yellow);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;font-weight:bold;color:var(--white);text-decoration:none;font-size:18px}
+body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
+.header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px}
+.back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
 .card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:0.2s}
 .card:active{transform:scale(0.97)}
 .thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
-.thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent-yellow)}
+.thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent)}
 .info{padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
 .badge{color:#d97706;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#fff3e0;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
-.title{font-size:12px;font-weight:bold;color:var(--text-dark);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.title{font-size:12px;font-weight:bold;color:var(--text);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .date-pill{background:#f3f4f6;color:#6b7280;font-size:10px;font-weight:700;padding:6px 10px;border-radius:20px;display:flex;align-items:center;width:100%}
 @media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
@@ -27,8 +27,8 @@ body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-se
 <header class="header">
 <a href="geooptional.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
-<b style="font-size:16px;display:block">प्राथमिक जलवायु विज्ञान</b>
-<span style="font-size:11px;color:var(--accent-yellow)">10 Lectures • सचिन सर</span>
+<b style="font-size:16px;display:block">Geography Lectures</b>
+<span style="font-size:11px;color:var(--accent)">सचि‍न अरोड़ा सर • Paid Batch</span>
 </div>
 </header>
 
@@ -38,71 +38,95 @@ body{margin:0;padding:0;background-color:var(--bg-app);font-family:Arial,sans-se
 /* --- SECURITY --- */
 document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey))return false};
 
-/* --- आपके सभी 10 लेक्चर्स --- */
-const lectureLinks = [
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+01+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2+%E0%A4%95%E0%A5%80+%E0%A4%89%E0%A4%A4%E0%A5%8D%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%A4%E0%A4%BF&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FXHYerwLEu25eTAKwmV8ZKZ4V6lkLgfM7t26qBNwc.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+02+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2+%E0%A4%95%E0%A5%80+%E0%A4%B8%E0%A4%82%E0%A4%B0%E0%A4%9A%E0%A4%A8%E0%A4%BE&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FPkIHyzIjD91bWwjSDwM2Xon1EwO5vEYi5Vg49hmM.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+03+%7C%7C+%E0%A4%B8%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%A4%E0%A4%AA+%E0%A4%B5+%E0%A4%A4%E0%A4%BE%E0%A4%AA%E0%A4%AE%E0%A4%BE%E0%A4%A8&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FVkwlJAKl5BuUmrHvpAQ8JiWbZf5EmbzkW6QeMRRX.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+04+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%A4%E0%A4%BE%E0%A4%AA%E0%A4%AE%E0%A4%BE%E0%A4%A8+%E0%A4%95%E0%A4%BE+%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A5%88%E0%A4%A4%E0%A4%BF%E0%A4%9C%E0%A4%BF%E0%A4%95+%E0%A4%B5%E0%A4%BF%E0%A4%A4%E0%A4%B0%E0%A4%A3&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FtGCB0UtEtkD3uoH7a4AUNGby2WXW6gychzTM3wAE.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+05+%7C%7C+%E0%A4%8A%E0%A4%B7%E0%A5%8D%E0%A4%AE%E0%A4%BE+%E0%A4%AC%E0%A4%9C%E0%A4%9F&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FgnEjI8c0hfpYPch5KR5PHiQNH5LX35xlqdvJ87RT.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+06+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%A6%E0%A4%BE%E0%A4%AC&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2F55F0YjQFt7uYORqLbxLZQ7mkqHGq3cH5ZykfoSqN.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+07+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%A6%E0%A4%BE%E0%A4%AC&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2Fv1qHrdQOiR5LHxStAsWCs6kB7dJbH9h5HdmwDwkZ.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+08+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%A6%E0%A4%BE%E0%A4%AC+%E0%A4%B5+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%82%E0%A4%9A%E0%A4%B0%E0%A4%A3&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2F6KjWKG6oqjsxzh4KyLuzSkwlpbdfM3fYF5LMnpen.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+09+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%82%E0%A4%9A%E0%A4%B0%E0%A4%A3+%28Part-1%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FxY9bPTfUTJVjMoiwTZ7L6z97tDIcqX0v5CsVhWUv.png",
-    "https://kgs-web.vercel.app/video-player?url=https%3A%2F%2Fsunnyji01.github.io%2FStudymate%2Fpaid.html&title=Lecture+10+%7C%7C+%E0%A4%B5%E0%A4%BE%E0%A4%AF%E0%A5%81%E0%A4%AE%E0%A4%82%E0%A4%A1%E0%A4%B2%E0%A5%80%E0%A4%AF+%E0%A4%AA%E0%A4%B0%E0%A4%BF%E0%A4%B8%E0%A4%82%E0%A4%9A%E0%A4%B0%E0%A4%A3+%28Part-2%29&thumb=https%3A%2F%2Fkgs-v2.akamaized.net%2Fkgs%2Fkgs-do%2Fvideo-thumbs%2Fthumb%2Fuploads%2FchNg99rXe41AdXkgOAZNUBCfQQmU0zzh6ezPbYKl.png"
+/* --- डाटा की लिस्ट (Link List) --- */
+const lectureData = [
+    {
+        title: "Lecture 01 || वायुमंडल की उत्पत्ति",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/XHYerwLEu25eTAKwmV8ZKZ4V6lkLgfM7t26qBNwc.png"
+    },
+    {
+        title: "Lecture 02 || वायुमंडल की संरचना",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/PkIHyzIjD91bWwjSDwM2Xon1EwO5vEYi5Vg49hmM.png"
+    },
+    {
+        title: "Lecture 03 || सूर्यताप व तापमान",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/VkwlJAKl5BuUmrHvpAQ8JiWbZf5EmbzkW6QeMRRX.png"
+    },
+    {
+        title: "Lecture 04 || वायुमंडलीय तापमान वितरण",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/tGCB0UtEtkD3uoH7a4AUNGby2WXW6gychzTM3wAE.png"
+    },
+    {
+        title: "Lecture 05 || ऊष्मा बजट",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/gnEjI8c0hfpYPch5KR5PHiQNH5LX35xlqdvJ87RT.png"
+    },
+    {
+        title: "Lecture 06 || वायुदाब",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/55F0YjQFt7uYORqLbxLZQ7mkqHGq3cH5ZykfoSqN.png"
+    },
+    {
+        title: "Lecture 07 || वायुमंडलीय दाब",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/v1qHrdQOiR5LHxStAsWCs6kB7dJbH9h5HdmwDwkZ.png"
+    },
+    {
+        title: "Lecture 08 || हेडली मॉडल",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/6KjWKG6oqjsxzh4KyLuzSkwlpbdfM3fYF5LMnpen.png"
+    },
+    {
+        title: "Lecture 09 || वायुमंडलीय परिसंचरण P1",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/xY9bPTfUTJVjMoiwTZ7L6z97tDIcqX0v5CsVhWUv.png"
+    },
+    {
+        title: "Lecture 10 || वायुमंडलीय परिसंचरण P2",
+        url: "https://sunnyji01.github.io/Studymate/paid.html",
+        thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/chNg99rXe41AdXkgOAZNUBCfQQmU0zzh6ezPbYKl.png"
+    },
+    {
+        title: "YouTube Specimen Class",
+        url: "https://www.youtube.com/watch?v=6ktx6jca710",
+        thumb: "https://i.ytimg.com/vi/6ktx6jca710/hqdefault.jpg"
+    }
 ];
 
 const listContainer = document.getElementById('lecture-list');
 
-lectureLinks.forEach(function(fullLink) {
-    let finalActionUrl = "";
-    let isYoutube = false;
+lectureData.forEach(function(item) {
+    let finalUrl = "";
+    let isYT = item.url.includes("youtube.com") || item.url.includes("youtu.be");
 
-    // 1. लिंक को खंगालकर असली वीडियो यूआरएल निकालें
-    let extractedUrl = fullLink;
-    if (fullLink.includes("url=")) {
-        extractedUrl = decodeURIComponent(fullLink.split("url=")[1].split("&")[0]);
-    }
-
-    // 2. चेक करें कि लिंक YouTube है या म3यू8 (KGS)
-    if (extractedUrl.includes("youtube.com") || extractedUrl.includes("youtu.be")) {
-        isYoutube = true;
-        // यूट्यूब लिंक को असली वॉच लिंक में बदलें
-        finalActionUrl = extractedUrl.replace("embed/", "watch?v=");
+    if (isYT) {
+        // यूट्यूब है तो सीधा भेजो
+        finalUrl = item.url;
     } else {
-        // बाकी सब ओएचआई प्लेयर में भेजें
-        finalActionUrl = "https://only-hindi-ias.vercel.app/OHIvideoplayer.html?url=" + encodeURIComponent(extractedUrl);
+        // म3यू8 या अन्य है तो आपके प्लेयर में भेजो
+        finalUrl = "https://only-hindi-ias.vercel.app/OHIvideoplayer.html?url=" + encodeURIComponent(item.url);
     }
-
-    // कार्ड की जानकारी निकालें
-    let cardTitle = "Lecture Video";
-    let cardThumb = "https://kgs-v2.akamaized.net/kgs/kgs/posts/c97f7e70-2ff3-4981-aadf-9a2723e6076b.png";
-
-    try {
-        if (fullLink.includes('title=')) {
-            cardTitle = decodeURIComponent(fullLink.split('title=')[1].split('&')[0].replace(/\+/g, ' '));
-        }
-        if (fullLink.includes('thumb=')) {
-            cardThumb = decodeURIComponent(fullLink.split('thumb=')[1].split('&')[0]);
-        }
-    } catch(e) {}
 
     const card = document.createElement('div');
     card.className = 'card';
-    card.onclick = function() { window.location.href = finalActionUrl; };
+    card.onclick = () => { window.location.href = finalUrl; };
 
     card.innerHTML = `
         <div class="thumb-box">
-            <img src="${cardThumb}" class="thumb" loading="lazy">
+            <img src="${item.thumb}" class="thumb" loading="lazy">
         </div>
         <div class="info">
             <div>
-                <span class="badge" style="${isYoutube ? 'background:#ffebee;color:#c62828' : ''}">
-                    ${isYoutube ? '▶ YOUTUBE VIDEO' : '▶ CLASS VIDEO'}
+                <span class="badge" style="${isYT ? 'background:#ffebee;color:#c62828' : ''}">
+                    ${isYT ? '▶ YOUTUBE' : '▶ CLASS VIDEO'}
                 </span>
-                <div class="title">${cardTitle}</div>
+                <div class="title">${item.title}</div>
             </div>
-            <div class="date-pill">🕒 Sachin Sir • Recorded</div>
+            <div class="date-pill">🕒 Recorded • 2025-26</div>
         </div>`;
     
     listContainer.appendChild(card);
