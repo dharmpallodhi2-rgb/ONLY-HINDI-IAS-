@@ -28,7 +28,7 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 <a href="geooptional.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
 <b style="font-size:16px;display:block">प्राथमिक जलवायु विज्ञान</b>
-<span style="font-size:11px;color:var(--accent)">Direct Video Links • 100% Working</span>
+<span style="font-size:11px;color:var(--accent)">Running on OHI Player 📺</span>
 </div>
 </header>
 
@@ -38,7 +38,7 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 /* --- SECURITY --- */
 document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey))return false};
 
-/* --- DIRECT LINKS DATA --- */
+/* --- LECTURE DATA --- */
 const lectureData = [
     { title: "Lecture 01 || वायुमंडल की उत्पत्ति", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/XHYerwLEu25eTAKwmV8ZKZ4V6lkLgfM7t26qBNwc.png" },
     { title: "Lecture 02 || वायुमंडल की संरचना", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/PkIHyzIjD91bWwjSDwM2Xon1EwO5vEYi5Vg49hmM.png" },
@@ -50,17 +50,18 @@ const lectureData = [
     { title: "Lecture 08 || हेडली मॉडल", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/6KjWKG6oqjsxzh4KyLuzSkwlpbdfM3fYF5LMnpen.png" },
     { title: "Lecture 09 || वायुमंडलीय परिसंचरण P1", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/xY9bPTfUTJVjMoiwTZ7L6z97tDIcqX0v5CsVhWUv.png" },
     { title: "Lecture 10 || वायुमंडलीय परिसंचरण P2", url: "https://sunnyji01.github.io/Studymate/paid.html", thumb: "https://kgs-v2.akamaized.net/kgs/kgs-do/video-thumbs/thumb/uploads/chNg99rXe41AdXkgOAZNUBCfQQmU0zzh6ezPbYKl.png" },
-    { title: "Special Class (YouTube)", url: "https://www.youtube.com/watch?v=6ktx6jca710", thumb: "https://i.ytimg.com/vi/6ktx6jca710/hqdefault.jpg" }
+    { title: "Special Class (YouTube)", url: "https://www.youtube.com/embed/6ktx6jca710", thumb: "https://i.ytimg.com/vi/6ktx6jca710/hqdefault.jpg" }
 ];
 
 const listContainer = document.getElementById('lecture-list');
 
 lectureData.forEach(function(item) {
+    // यहाँ जादू है: हर लिंक को आपके OHI प्लेयर के थ्रू भेज रहे हैं
+    const finalUrl = "https://only-hindi-ias.vercel.app/OHIvideoplayer.html?url=" + encodeURIComponent(item.url);
+
     const card = document.createElement('div');
     card.className = 'card';
-    
-    // सीधा लिंक पर ले जाने वाला कोड
-    card.onclick = () => { window.location.href = item.url; };
+    card.onclick = () => { window.location.href = finalUrl; };
 
     card.innerHTML = `
         <div class="thumb-box">
@@ -68,10 +69,10 @@ lectureData.forEach(function(item) {
         </div>
         <div class="info">
             <div>
-                <span class="badge">▶ OPEN VIDEO</span>
+                <span class="badge">▶ CLASS VIDEO</span>
                 <div class="title">${item.title}</div>
             </div>
-            <div class="date-pill">🕒 Direct Link • Sachin Sir</div>
+            <div class="date-pill">🕒 OHI Player • Sachin Sir</div>
         </div>`;
     
     listContainer.appendChild(card);
