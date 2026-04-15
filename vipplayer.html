@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP Player - ONLY HINDI IAS</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
+        .player-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; position: relative; }
+        video { width: 100%; height: 100%; background: #000; outline: none; }
+        iframe { width: 100%; height: 100%; border: none; background: #000; }
+        .loading { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ffaa00; font-weight: bold; z-index: 10; }
+        
+        /* Back Button on Player */
+        .back-btn { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); color: white; border: 1px solid #ffaa00; padding: 8px 15px; border-radius: 20px; cursor: pointer; text-decoration: none; z-index: 100; font-size: 14px; }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <a href="javascript:history.back()" class="back-btn">⬅ Back</a>
+    <div id="status" class="loading">Loading Video...</div>
+
+    <div class="player-container" id="container">
+        </div>
+
+    <script>
+        // URL से लिंक निकालना
+        const urlParams = new URLSearchParams(window.location.search);
+        let videoUrl = urlParams.get('url');
+
+        if (!videoUrl) {
+            document.getElementById('status').innerText = "Error: No Video Link Found!";
+        } else {
+            videoUrl = decodeURIComponent(videoUrl);
+            loadSmartPlayer(videoUrl);
+        }
+
+        function loadSmartPlayer(url) {
+            const container = document.getElementById('container');
+            document.getElementById('status').style.display = 'none';
+
+            // 1. अगर YouTube लिंक है
+            if (url.includes("youtube.com") || url.includes("youtu.be")) {
+                let vidId = "";
+                if (url.includes("v=")) vidId = url.split("v=")[1].split("&")[0];
+                else if (url.includes("embed/")) vidId = url.split("embed/")[1].split("?")[0];
+                else vidId = url.split("/").pop();
+
+                container.innerHTML = `<iframe src="https://www.youtube.com/embed/${vidId}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+            } 
+            
+            // 2. अगर M3U8 (KGS) लिंक है
+            else if (url.includes(".m3u8")) {
+                const video = document.createElement('video');
+                video.controls = true;
+                video.autoplay = true;
+                container.appendChild(video);
+
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(url);
+                    hls.attachMedia(video);
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = url;
+                }
+            } 
+            
+            // 3. अगर कोई अन्य पेज या HTML लिंक है
+            else {
+                container.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+            }
+        }
+
+        // --- SECURITY ---
+        document.onkeydown = (e) => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey)) return false;
+        };
+    </script>
+</body>
+</html>
