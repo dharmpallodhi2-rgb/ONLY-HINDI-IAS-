@@ -16,7 +16,7 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 .thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
 .thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent)}
 .info{padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
-.badge{color:#d97706;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#fff3e0;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
+.badge{color:#c62828;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#ffebee;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
 .title{font-size:12px;font-weight:bold;color:var(--text);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .date-pill{background:#f3f4f6;color:#6b7280;font-size:10px;font-weight:700;padding:6px 10px;border-radius:20px;display:flex;align-items:center;width:100%}
 @media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -28,7 +28,7 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 <a href="geooptional.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
 <b style="font-size:16px;display:block">प्राथमिक जलवायु विज्ञान</b>
-<span style="font-size:11px;color:var(--accent)">YouTube Live Series • OHI Player</span>
+<span style="font-size:11px;color:var(--accent)">Direct YouTube Live Series</span>
 </div>
 </header>
 
@@ -40,30 +40,26 @@ document.onkeydown=function(e){if(e.keyCode==123||(e.ctrlKey&&e.shiftKey))return
 
 /* --- यूट्यूब लाइव लेक्चर्स डाटा --- */
 const lectureData = [
-    { title: "जलवायु विज्ञान - Lecture 01", url: "https://www.youtube.com/live/wd4LV6SUaew", thumb: "https://i.ytimg.com/vi/wd4LV6SUaew/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 02", url: "https://www.youtube.com/live/DGxAwttSXLM", thumb: "https://i.ytimg.com/vi/DGxAwttSXLM/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 03", url: "https://www.youtube.com/live/6Rkg2qJiGO0", thumb: "https://i.ytimg.com/vi/6Rkg2qJiGO0/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 04", url: "https://www.youtube.com/live/C9n7eH3btlE", thumb: "https://i.ytimg.com/vi/C9n7eH3btlE/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 05", url: "https://www.youtube.com/live/U5hHKKqmFwM", thumb: "https://i.ytimg.com/vi/U5hHKKqmFwM/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 06", url: "https://www.youtube.com/live/Md8gJvXXu9I", thumb: "https://i.ytimg.com/vi/Md8gJvXXu9I/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 07", url: "https://www.youtube.com/live/zXvvW7wHAnc", thumb: "https://i.ytimg.com/vi/zXvvW7wHAnc/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 08", url: "https://www.youtube.com/live/YM_GLDg0GNs", thumb: "https://i.ytimg.com/vi/YM_GLDg0GNs/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 09", url: "https://www.youtube.com/live/E9DNfFA3zx0", thumb: "https://i.ytimg.com/vi/E9DNfFA3zx0/hqdefault.jpg" },
-    { title: "जलवायु विज्ञान - Lecture 10", url: "https://www.youtube.com/live/_jrJjQuOtes", thumb: "https://i.ytimg.com/vi/_jrJjQuOtes/hqdefault.jpg" }
+    { title: "जलवायु विज्ञान - Lecture 01", url: "https://www.youtube.com/watch?v=wd4LV6SUaew", thumb: "https://i.ytimg.com/vi/wd4LV6SUaew/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 02", url: "https://www.youtube.com/watch?v=DGxAwttSXLM", thumb: "https://i.ytimg.com/vi/DGxAwttSXLM/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 03", url: "https://www.youtube.com/watch?v=6Rkg2qJiGO0", thumb: "https://i.ytimg.com/vi/6Rkg2qJiGO0/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 04", url: "https://www.youtube.com/watch?v=C9n7eH3btlE", thumb: "https://i.ytimg.com/vi/C9n7eH3btlE/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 05", url: "https://www.youtube.com/watch?v=U5hHKKqmFwM", thumb: "https://i.ytimg.com/vi/U5hHKKqmFwM/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 06", url: "https://www.youtube.com/watch?v=Md8gJvXXu9I", thumb: "https://i.ytimg.com/vi/Md8gJvXXu9I/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 07", url: "https://www.youtube.com/watch?v=zXvvW7wHAnc", thumb: "https://i.ytimg.com/vi/zXvvW7wHAnc/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 08", url: "https://www.youtube.com/watch?v=YM_GLDg0GNs", thumb: "https://i.ytimg.com/vi/YM_GLDg0GNs/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 09", url: "https://www.youtube.com/watch?v=E9DNfFA3zx0", thumb: "https://i.ytimg.com/vi/E9DNfFA3zx0/hqdefault.jpg" },
+    { title: "जलवायु विज्ञान - Lecture 10", url: "https://www.youtube.com/watch?v=_jrJjQuOtes", thumb: "https://i.ytimg.com/vi/_jrJjQuOtes/hqdefault.jpg" }
 ];
 
 const listContainer = document.getElementById('lecture-list');
 
 lectureData.forEach(function(item) {
-    // यूट्यूब लाइव लिंक को एम्बेड लिंक में बदलना ताकि प्लेयर में चले
-    let finalVideoUrl = item.url.replace("youtube.com/live/", "youtube.com/embed/");
-    
-    // आपके पुराने OHI प्लेयर के थ्रू लिंक भेजना
-    const playerUrl = "OHIvideoplayer.html?url=" + encodeURIComponent(finalVideoUrl);
-
     const card = document.createElement('div');
     card.className = 'card';
-    card.onclick = () => { window.location.href = playerUrl; };
+    
+    // क्लिक करने पर सीधा यूट्यूब लिंक पर ले जाएगा
+    card.onclick = () => { window.location.href = item.url; };
 
     card.innerHTML = `
         <div class="thumb-box">
@@ -71,7 +67,7 @@ lectureData.forEach(function(item) {
         </div>
         <div class="info">
             <div>
-                <span class="badge">▶ OHI LIVE PLAYER</span>
+                <span class="badge">▶ WATCH ON YOUTUBE</span>
                 <div class="title">${item.title}</div>
             </div>
             <div class="date-pill">🕒 YouTube Live • Sachin Sir</div>
