@@ -13,7 +13,6 @@
         
         .grid{padding:15px;display:grid;grid-template-columns:1fr;gap:12px}
         
-        /* एनिमेटेड चैप्टर कार्ड */
         .chapter-card{
             background:white;
             border-radius:12px;
@@ -24,23 +23,17 @@
             border-left:6px solid var(--accent);
             cursor:pointer;
             transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            opacity: 0; /* JS से एनिमेट होगा */
+            opacity: 0;
             transform: translateY(20px);
         }
 
         .chapter-card:active{transform:scale(0.96); background:#f9f9f9}
-        
-        .chapter-info b{font-size:15px;color:var(--primary);display:block;line-height:1.4}
-        .chapter-info p{font-size:11px;color:#777;margin-top:4px;font-weight:bold}
+        .chapter-info b{font-size:14px;color:var(--primary);display:block;line-height:1.4}
+        .chapter-info p{font-size:10px;color:#777;margin-top:4px;font-weight:bold;text-transform:uppercase}
         .play-icon{margin-left:auto;color:var(--accent);font-size:18px; transition: 0.3s}
-        
         .chapter-card:hover .play-icon { transform: translateX(5px); color: var(--primary); }
 
-        /* एनीमेशन क्लास */
-        .show-card {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
+        .show-card { opacity: 1 !important; transform: translateY(0) !important; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -55,76 +48,40 @@
 
     <main class="grid">
         
-        <div class="chapter-card" onclick="window.location.href='geo-basics.html'">
-            <div class="chapter-info"><b>आधारभूत शास्त्र</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
+        <div class="chapter-card" onclick="location.href='geo-basics.html'"><div class="chapter-info"><b>आधारभूत शास्त्र</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-geomorph-p1.html'"><div class="chapter-info"><b>प्राथमिक भू-आकृति विज्ञान</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-geomorph-p2.html'"><div class="chapter-info"><b>उच्च स्तरीय भू-आकृति विज्ञान</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-climatology-p1.html'"><div class="chapter-info"><b>प्राथमिक जलवायु विज्ञान</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-climatology-p2.html'"><div class="chapter-info"><b>उच्च स्तरीय जलवायु विज्ञान</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-oceanography.html'"><div class="chapter-info"><b>समुद्र विज्ञान (Oceanography)</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-biogeography.html'"><div class="chapter-info"><b>जैव भूगोल (Biogeography)</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-environment.html'"><div class="chapter-info"><b>पर्यावरण भूगोल (Environment)</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
 
-        <div class="chapter-card" onclick="window.location.href='geo-geomorph-p1.html'">
-            <div class="chapter-info"><b>प्राथमिक भू-आकृति विज्ञान</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
+        <div class="chapter-card" onclick="location.href='geo-human.html'"><div class="chapter-info"><b>मानव भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-economic.html'"><div class="chapter-info"><b>आर्थिक भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-agriculture.html'"><div class="chapter-info"><b>कृषि भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-population.html'"><div class="chapter-info"><b>जनसंख्या भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-settlement.html'"><div class="chapter-info"><b>बस्ती भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-political.html'"><div class="chapter-info"><b>राजनीतिक भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        
+        <div class="chapter-card" onclick="location.href='geo-regional-planning.html'"><div class="chapter-info"><b>प्रादेशिक आयोजन</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-regional-development.html'"><div class="chapter-info"><b>क्षेत्रीय विकास</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
+        <div class="chapter-card" onclick="location.href='geo-transport-communication-trade.html'"><div class="chapter-info"><b>परिवहन, संचार एवं व्यापार भूगोल</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
 
-        <div class="chapter-card" onclick="window.location.href='geo-geomorph-p2.html'">
-            <div class="chapter-info"><b>उच्च स्तरीय भू-आकृति विज्ञान</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-climatology-p1.html'">
-            <div class="chapter-info"><b>प्राथमिक जलवायु विज्ञान</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-climatology-p2.html'">
-            <div class="chapter-info"><b>उच्च स्तरीय जलवायु विज्ञान</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-oceanography.html'">
-            <div class="chapter-info"><b>समुद्र विज्ञान (Oceanography)</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-biogeography.html'">
-            <div class="chapter-info"><b>जैव भूगोल (Biogeography)</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-environment.html'">
-            <div class="chapter-info"><b>पर्यावरण भूगोल (Environment)</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-human.html'">
-            <div class="chapter-info"><b>मानव भूगोल (Human Geography)</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
-
-        <div class="chapter-card" onclick="window.location.href='geo-india-physical.html'">
-            <div class="chapter-info"><b>भारत का भौतिक विन्यास</b><p>Lectures: View List ▶</p></div>
-            <div class="play-icon">📂</div>
-        </div>
+        <div class="chapter-card" onclick="location.href='geo-india-physical.html'"><div class="chapter-info"><b>भारत का भौतिक विन्यास</b><p>Lectures: View List ▶</p></div><div class="play-icon">📂</div></div>
 
     </main>
 
     <script>
-        // कार्ड्स को एक-एक करके दिखाने के लिए एनीमेशन स्क्रिप्ट
         document.addEventListener("DOMContentLoaded", function() {
             const cards = document.querySelectorAll('.chapter-card');
             cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('show-card');
-                }, index * 100); // 100ms के गैप पर कार्ड्स प्रकट होंगे
+                setTimeout(() => { card.classList.add('show-card'); }, index * 60);
             });
         });
-
-        // Security: Right Click & F12 Block
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67) || e.keyCode == 85))) {
-                return false;
-            }
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67) || e.keyCode == 85))) return false;
         };
     </script>
-
 </body>
 </html>
