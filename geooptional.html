@@ -6,15 +6,41 @@
     <title>Geography Optional Chapters - ONLY HINDI IAS</title>
     <style>
         :root{--primary:#3b5098;--accent:#ffaa00;--bg:#f5f6f9;--white:#ffffff}
-        body{margin:0;padding:0;background:var(--bg);font-family:sans-serif;user-select:none;-webkit-user-select:none}
-        .header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px}
+        body{margin:0;padding:0;background:var(--bg);font-family:sans-serif;user-select:none;-webkit-user-select:none;overflow-x:hidden}
+        
+        .header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow: 0 4px 12px rgba(0,0,0,0.1)}
         .back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-weight:bold}
+        
         .grid{padding:15px;display:grid;grid-template-columns:1fr;gap:12px}
-        .chapter-card{background:white;border-radius:12px;display:flex;align-items:center;padding:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);border-left:6px solid var(--accent);cursor:pointer;transition:0.2s}
-        .chapter-card:active{transform:scale(0.98)}
+        
+        /* एनिमेटेड चैप्टर कार्ड */
+        .chapter-card{
+            background:white;
+            border-radius:12px;
+            display:flex;
+            align-items:center;
+            padding:15px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
+            border-left:6px solid var(--accent);
+            cursor:pointer;
+            transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0; /* JS से एनिमेट होगा */
+            transform: translateY(20px);
+        }
+
+        .chapter-card:active{transform:scale(0.96); background:#f9f9f9}
+        
         .chapter-info b{font-size:15px;color:var(--primary);display:block;line-height:1.4}
         .chapter-info p{font-size:11px;color:#777;margin-top:4px;font-weight:bold}
-        .play-icon{margin-left:auto;color:#ccc;font-size:18px}
+        .play-icon{margin-left:auto;color:var(--accent);font-size:18px; transition: 0.3s}
+        
+        .chapter-card:hover .play-icon { transform: translateX(5px); color: var(--primary); }
+
+        /* एनीमेशन क्लास */
+        .show-card {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -55,17 +81,22 @@
         </div>
 
         <div class="chapter-card" onclick="window.location.href='geo-oceanography.html'">
-            <div class="chapter-info"><b>समुद्र विज्ञान</b><p>Lectures: View List ▶</p></div>
+            <div class="chapter-info"><b>समुद्र विज्ञान (Oceanography)</b><p>Lectures: View List ▶</p></div>
             <div class="play-icon">📂</div>
         </div>
 
         <div class="chapter-card" onclick="window.location.href='geo-biogeography.html'">
-            <div class="chapter-info"><b>जैव भूगोल</b><p>Lectures: View List ▶</p></div>
+            <div class="chapter-info"><b>जैव भूगोल (Biogeography)</b><p>Lectures: View List ▶</p></div>
             <div class="play-icon">📂</div>
         </div>
 
         <div class="chapter-card" onclick="window.location.href='geo-environment.html'">
-            <div class="chapter-info"><b>पर्यावरण भूगोल</b><p>Lectures: View List ▶</p></div>
+            <div class="chapter-info"><b>पर्यावरण भूगोल (Environment)</b><p>Lectures: View List ▶</p></div>
+            <div class="play-icon">📂</div>
+        </div>
+
+        <div class="chapter-card" onclick="window.location.href='geo-human.html'">
+            <div class="chapter-info"><b>मानव भूगोल (Human Geography)</b><p>Lectures: View List ▶</p></div>
             <div class="play-icon">📂</div>
         </div>
 
@@ -75,6 +106,25 @@
         </div>
 
     </main>
+
+    <script>
+        // कार्ड्स को एक-एक करके दिखाने के लिए एनीमेशन स्क्रिप्ट
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.chapter-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('show-card');
+                }, index * 100); // 100ms के गैप पर कार्ड्स प्रकट होंगे
+            });
+        });
+
+        // Security: Right Click & F12 Block
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67) || e.keyCode == 85))) {
+                return false;
+            }
+        };
+    </script>
 
 </body>
 </html>
