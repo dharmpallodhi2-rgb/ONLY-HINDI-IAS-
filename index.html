@@ -88,8 +88,9 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .geo-features{list-style:none;padding:0;margin:0;}
 .geo-features li{font-size:12px;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
 .geo-features li::before{content:'✅';font-size:10px;}
-.payment-section{background:white;border-radius:15px;padding:15px;display:flex;align-items:center;gap:15px;margin-top:10px;box-shadow:inset 0 2px 10px rgba(0,0,0,0.1);}
-.qr-img{width:110px;height:110px;border-radius:10px;border:2px solid var(--primary-teal);padding:5px;}
+.payment-section{background:white;border-radius:15px;padding:15px;display:flex;align-items:center;gap:15px;margin-top:10px;box-shadow:inset 0 2px 10px rgba(0,0,0,0.1);position:relative;overflow:hidden;}
+.qr-img{width:110px;height:110px;border-radius:10px;border:2px solid var(--primary-teal);padding:5px;cursor:pointer;}
+.corner-banner{position:absolute;top:0;right:0;width:80px;height:auto;border-bottom-left-radius:10px;}
 .pay-btn{background:#0088cc;color:white;padding:10px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;animation:pulse 2s infinite;}
 @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.02);}100%{transform:scale(1);}}
 </style>
@@ -152,9 +153,12 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
         </div>
 
         <div class="payment-section">
-            <img src="IMG_20260417_095552_767.jpg" class="qr-img" alt="Payment QR Code">
+            <img src="1776398621424.png" class="corner-banner" alt="Special Offer">
+            <a href="upi://pay?pa=9685026772@ptsbi&pn=ONLY%20HINDI%20IAS&am=500&cu=INR" style="text-decoration:none;">
+                <img src="IMG_20260417_095552_767.jpg" class="qr-img" alt="Scan or Tap to Pay">
+            </a>
             <div style="flex:1;">
-                <p style="color:var(--primary-teal); font-size:11px; font-weight:800; margin:0;">1. QR कोड स्कैन करें</p>
+                <p style="color:var(--primary-teal); font-size:11px; font-weight:800; margin:0;">1. QR कोड पर क्लिक करें</p>
                 <p style="color:var(--primary-teal); font-size:11px; font-weight:800; margin:5px 0;">2. ₹500 पेमेंट करें</p>
                 <p style="color:#d32f2f; font-size:9px; font-weight:900; line-height:1.2;">पेमेंट का स्क्रीनशॉट हमें टेलीग्राम पर भेजें</p>
             </div>
@@ -243,14 +247,4 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
     }
 
     function parseJwt(token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    }
-</script>
-</body>
-              </html>
-  
+        var base64Url 
