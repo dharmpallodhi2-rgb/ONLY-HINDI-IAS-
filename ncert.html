@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCERT Batch - ONLY HINDI IAS</title>
+    <title>NCERT Batch Access - ONLY HINDI IAS</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
-        .login-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 300px; }
-        input { padding: 12px; width: 100%; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { background: #0B2B40; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
+        body { font-family: sans-serif; background: #f5f8fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; user-select:none; }
+        .lock-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 300px; border-top: 5px solid #0B2B40; }
+        input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; font-size: 16px; }
+        button { background: #0B2B40; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:active { transform: scale(0.95); }
     </style>
 </head>
-<body>
-<div id="lock" class="login-box">
-    <img src="30b5b4cd-a1cf-40a9-b7c1-b8a55c01383b.jpg" style="width:100%; border-radius:10px;">
-    <h3>Page Protected</h3>
-    <input type="password" id="psw" placeholder="Enter Password">
-    <button onclick="check()">Unlock</button>
+<body oncontextmenu="return false;">
+
+<div class="lock-box">
+    <img src="30b5b4cd-a1cf-40a9-b7c1-b8a55c01383b.jpg" style="width:100%; border-radius:10px; margin-bottom:15px; border: 1px solid #eee;">
+    <h3 style="color:#0B2B40; margin-bottom:5px;">NCERT Foundation 2026</h3>
+    <p style="font-size: 12px; color: #666; margin-bottom: 20px;">This page is password protected.</p>
+    
+    <input type="password" id="psw" placeholder="Enter Batch Password">
+    <button onclick="check()">UNLOCK BATCH</button>
 </div>
+
 <script>
     function check() {
-        if(document.getElementById("psw").value === "mission968") {
-            alert("Success! Lectures coming soon.");
-            window.location.href = "index.html";
-        } else { alert("Wrong Password!"); }
+        var p = document.getElementById("psw").value;
+        // पासवर्ड 'mission968' है
+        if(p === "mission968") {
+            window.location.href = "Ncert_history.html"; 
+        } else { 
+            alert("Wrong Password! Please contact Neel Sir."); 
+        }
     }
+    // Security: F12 Block
+    document.onkeydown = function(e) { if (e.keyCode == 123) return false; };
 </script>
+
 </body>
 </html>
-
