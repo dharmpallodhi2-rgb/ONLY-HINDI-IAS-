@@ -1,1 +1,31 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERT Batch - ONLY HINDI IAS</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f0f2f5; }
+        .login-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; width: 300px; }
+        input { padding: 12px; width: 100%; margin: 15px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { background: #0B2B40; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div id="lock" class="login-box">
+    <img src="30b5b4cd-a1cf-40a9-b7c1-b8a55c01383b.jpg" style="width:100%; border-radius:10px;">
+    <h3>Page Protected</h3>
+    <input type="password" id="psw" placeholder="Enter Password">
+    <button onclick="check()">Unlock</button>
+</div>
+<script>
+    function check() {
+        if(document.getElementById("psw").value === "mission968") {
+            alert("Success! Lectures coming soon.");
+            window.location.href = "index.html";
+        } else { alert("Wrong Password!"); }
+    }
+</script>
+</body>
+</html>
 
