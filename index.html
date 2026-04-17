@@ -92,9 +92,33 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .qr-link-box{width:100px;height:100px;flex-shrink:0;cursor:pointer;}
 .qr-img-style{width:100%;height:100%;border-radius:8px;border:1px solid #ddd;}
 .pay-btn-tele{background:#0088cc;color:white;padding:10px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 15px 15px;text-align:center;}
+
+/* पेमेंट गेटवे पॉप-अप */
+.pay-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;}
+.pay-modal{background:white;width:85%;border-radius:20px;padding:20px;text-align:center;animation:slideUp 0.3s ease;}
+@keyframes slideUp{from{transform:translateY(100px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.pay-option{display:flex;align-items:center;gap:15px;padding:15px;border:1px solid #eee;border-radius:12px;margin-bottom:10px;text-decoration:none;color:var(--primary-teal);font-weight:700;}
+.pay-option img{width:30px;}
 </style>
 </head>
 <body oncontextmenu="return false;">
+
+<div class="pay-overlay" id="payModal">
+    <div class="pay-modal">
+        <h3 style="margin-top:0; font-size:16px;">Select Payment App</h3>
+        <a href="phonepe://pay?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR" class="pay-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/PhonePe_Logo.svg" alt="PhonePe"> PhonePe
+        </a>
+        <a href="intent://pay?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" class="pay-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Pay_Logo.svg" alt="GPay"> Google Pay
+        </a>
+        <a href="paytmmp://cash_wallet?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR" class="pay-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" alt="Paytm"> Paytm
+        </a>
+        <button onclick="closeModal()" style="background:#eee; border:none; padding:10px 20px; border-radius:10px; margin-top:10px; font-weight:700;">Close</button>
+    </div>
+</div>
+
 <div class="header">
     <h1>ONLY HINDI IAS</h1>
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -154,7 +178,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
     </div>
 
     <div class="payment-white-box">
-        <div class="qr-link-box" onclick="payNow()">
+        <div class="qr-link-box" onclick="openModal()">
             <img src="IMG_20260417_095552_767.jpg" class="qr-img-style" alt="Payment QR">
         </div>
         <div style="flex:1;">
@@ -224,35 +248,4 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Thanku ye bhot achha h study k liye 🙏🏻⭐⭐⭐⭐⭐"</p><b>- Kajal (UPSC Aspirant)</b></div>
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत अच्छी है, नोट्स और क्विज़ दोनों ही बहुत मददगार हैं! ⭐⭐⭐⭐⭐"</p><b>- Sanjana (UPSC Aspirant)</b></div>
 
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScyij3uscJI2L36ZM6xKM3Y78V0oJmzWDE4BVPrzOW1vnkIog/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--premium-gold);padding:12px;border-radius:12px;display:block;margin:10px auto;box-sizing:border-box;">⭐ वेबसाइट को रेटिंग दें (RATINGS)</a>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSfRiKQFP2WemSN9G2LGGt4Vk_qKwqDMYGbWKcCLiXucVPtWuw/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--white);color:var(--primary-teal);border:2px dashed var(--primary-teal);padding:12px;border-radius:12px;display:block;box-sizing:border-box;">📝 GIVE YOUR FEEDBACK</a>
-</div>
-
-<div class="footer"><a href="about.html">About Us</a> | <a href="contact.html">Contact Us</a> | <a href="privacy.html">Privacy Policy</a><p>© 2026 ONLY HINDI IAS. All Rights Reserved.</p></div>
-
-<script>
-    // पेमेंट फंक्शन: एरर से बचने के लिए
-    function payNow() {
-        const upiUrl = "upi://pay?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR&tn=GeographyOptional";
-        // मोबाइल चेक करें और सीधा यूआरएल ट्रिगर करें
-        window.location.href = upiUrl;
-        
-        // अगर 2 सेकंड में ऐप नहीं खुला तो बैकअप के रूप में अलर्ट दिखाएं
-        setTimeout(function() {
-            if (document.hasFocus()) {
-                alert("अगर पेमेंट ऐप नहीं खुला है, तो कृपया QR कोड का स्क्रीनशॉट लेकर मैन्युअली पेमेंट करें।");
-            }
-        }, 2000);
-    }
-
-    let slides = document.querySelectorAll('.banner-slider-box img');
-    let currentSlide = 0;
-    setInterval(() => {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }, 5000);
-
-    function handleSignInResponse(response) {
-        const responsePayload = parseJwt(response.credential);
-        alert("नमस
+<a href="https://docs.google.com/forms/d/e/1FAIpQLScyij3uscJI2L36ZM6xKM3Y78V0oJmzWDE4BVPrzOW1vnkIog/viewform" target="_blank" class="btn-action" style="width:100%;text-
