@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>जनसंख्या भूगोल - ONLY HINDI IAS</title>
+<style>
+:root{--primary:#3b5098;--accent:#ffaa00;--bg:#fcf9f2;--white:#ffffff;--text:#111}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;user-select:none;-webkit-user-select:none}
+
+/* Header Section */
+.header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;border-bottom-left-radius:15px;border-bottom-right-radius:15px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px}
+
+/* Secure Player Wrapper */
+#player-wrapper { display:none; background:#000; position:sticky; top:65px; z-index:999; width:100%; aspect-ratio:16/9; box-shadow:0 4px 15px rgba(0,0,0,0.3); overflow:hidden; }
+.player-overlay { position:absolute; top:0; left:0; width:100%; height:60px; z-index:10; background:transparent; }
+#video-frame { width:100%; height:100%; border:none; position:relative; z-index:5; }
+
+/* Grid & Cards */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
+.card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;display:flex;flex-direction:column;transition:0.2s}
+.card:active{transform:scale(0.97)}
+.thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#eee}
+.thumb{width:100%;height:100%;object-fit:cover;border-bottom:2px solid var(--accent)}
+.info{padding:12px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
+.badge{color:#c62828;font-size:9px;font-weight:800;padding:4px 6px;border-radius:4px;background:#ffebee;display:inline-flex;align-items:center;margin-bottom:8px;width:fit-content;text-transform:uppercase}
+.title{font-size:11px;font-weight:bold;color:var(--text);line-height:1.4;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.date-pill{background:#f3f4f6;color:#6b7280;font-size:9px;font-weight:700;padding:5px 8px;border-radius:20px;display:flex;align-items:center;width:100%}
+
+@media(min-width:768px){.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+<header class="header">
+<a href="geo-optional.html" class="back-btn">⬅</a>
+<div style="flex-grow:1">
+<b style="font-size:16px;display:block">जनसंख्या भूगोल (Population Geography)</b>
+<span style="font-size:11px;color:var(--accent)">Recorded Full Batch • Sachin Sir</span>
+</div>
+</header>
+
+<div id="player-wrapper">
+    <div class="player-overlay"></div>
+    <iframe id="video-frame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
+
+<main class="grid" id="lecture-list"></main>
+
+<script>
+/* --- SECURITY PROTOCOL --- */
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67) || e.keyCode == 85))) {
+        return false;
+    }
+};
+
+/* --- POPULATION GEOGRAPHY LECTURE DATA --- */
+const populationData = [
+    { title: "Population Geo - Lec 01", id: "xjO2g1aIhcI" },
+    { title: "Population Geo - Lec 02", id: "LdIGmvHGtJ8" },
+    { title: "Population Geo - Lec 03", id: "gcYBGQVO7_A" },
+    { title: "Population Geo - Lec 04", id: "DyJm55tHDLA" },
+    { title: "Population Geo - Lec 05", id: "l4P5iTksOw4" },
+    { title: "Population Geo - Lec 06", id: "xXr5R53iFck" },
+    { title: "Population Geo - Lec 07", id: "En_OjsEaZes" },
+    { title: "Population Geo - Lec 08", id: "SBY_apH-2wo" },
+    { title: "Population Geo - Lec 09", id: "YnikjXEeHsg" },
+    { title: "Population Geo - Lec 10", id: "USDK-2z45IM" },
+    { title: "Population Geo - Lec 11", id: "qTgZ68Y8YgA" },
+    { title: "Population Geo - Lec 12", id: "GoMspdFBx4w" },
+    { title: "Population Geo - Lec 13", id: "Hw7VbDlH9CY" }
+];
+
+const listContainer = document.getElementById('lecture-list');
+const playerWrapper = document.getElementById('player-wrapper');
+const videoFrame = document.getElementById('video-frame');
+
+populationData.forEach(function(item) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    card.onclick = () => { 
+        playerWrapper.style.display = 'block';
+        videoFrame.src = "https://www.youtube.com/embed/" + item.id + "?autoplay=1&rel=0&modestbranding=1&showinfo=0";
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+
+    card.innerHTML = `
+        <div class="thumb-box">
+            <img src="https://i.ytimg.com/vi/${item.id}/hqdefault.jpg" class="thumb" loading="lazy">
+        </div>
+        <div class="info">
+            <div>
+                <span class="badge">▶ SECURE PLAYER</span>
+                <div class="title">${item.title}</div>
+            </div>
+            <div class="date-pill">🕒 Population Geo • Sachin Sir</div>
+        </div>`;
+    
+    listContainer.appendChild(card);
+});
+</script>
+</body>
+</html>
