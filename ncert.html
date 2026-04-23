@@ -5,36 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCERT Batch Access - ONLY HINDI IAS</title>
     <style>
-        body { font-family: sans-serif; background: #f5f8fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; user-select:none; }
-        .lock-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 300px; border-top: 5px solid #0B2B40; }
-        input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; font-size: 16px; }
-        button { background: #0B2B40; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        :root { --primary: #0B2B40; --accent: #ffaa00; --bg: #fcf9f2; }
+        body { font-family: sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; user-select:none; -webkit-user-select:none; }
+        .lock-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 320px; border-top: 5px solid var(--primary); }
+        input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; width: 100%; box-sizing: border-box; text-align: center; font-size: 16px; outline: none; }
+        input:focus { border-color: var(--accent); }
+        button { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; cursor: pointer; font-weight: bold; transition: 0.3s; }
         button:active { transform: scale(0.95); }
+        
+        /* Subject Selection - Initially Hidden */
+        #selection-box { display: none; }
+        .subject-btn { background: white; border: 1px solid #eee; padding: 15px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; text-decoration: none; color: var(--primary); transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .subject-btn:active { background: #f9f9f9; transform: scale(0.98); }
+        .icon { background: var(--accent); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 18px; }
+        .info { text-align: left; }
+        .info b { display: block; font-size: 14px; }
+        .info span { font-size: 10px; color: #777; }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 
-<div class="lock-box">
+<div class="lock-box" id="login-box">
     <img src="30b5b4cd-a1cf-40a9-b7c1-b8a55c01383b.jpg" style="width:100%; border-radius:10px; margin-bottom:15px; border: 1px solid #eee;">
     <h3 style="color:#0B2B40; margin-bottom:5px;">NCERT Foundation 2026</h3>
-    <p style="font-size: 12px; color: #666; margin-bottom: 20px;">This page is password protected.</p>
+    <p style="font-size: 12px; color: #666; margin-bottom: 20px;">This batch is password protected.</p>
     
     <input type="password" id="psw" placeholder="Enter Batch Password">
     <button onclick="check()">UNLOCK BATCH</button>
 </div>
 
+<div class="lock-box" id="selection-box">
+    <h3 style="color:#0B2B40; margin-bottom:20px;">Select Subject</h3>
+    
+    <a href="history_ncert.html" class="subject-btn">
+        <div class="icon">📜</div>
+        <div class="info">
+            <b>NCERT History</b>
+            <span>By Shubham Gupta Sir</span>
+        </div>
+    </a>
+
+    <a href="polity_ncert.html" class="subject-btn">
+        <div class="icon">⚖️</div>
+        <div class="info">
+            <b>NCERT Polity</b>
+            <span>By Sanjay Thakur Sir</span>
+        </div>
+    </a>
+    
+    <p style="font-size: 10px; color: #999; margin-top: 15px;">ONLY HINDI IAS • Secured Access</p>
+</div>
+
 <script>
+    // --- SECURITY PROTOCOL ---
+    const lockDevTools = () => {
+        setInterval(() => { debugger; }, 100);
+        document.onkeydown = (e) => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+    };
+    lockDevTools();
+
+    // --- PASSWORD LOGIC ---
     function check() {
         var p = document.getElementById("psw").value;
-        // पासवर्ड 'mission968' है
         if(p === "mission968") {
-            window.location.href = "Ncert_history.html"; 
+            // पासवर्ड सही होने पर लॉगिन बॉक्स छुपाएं और सिलेक्शन बॉक्स दिखाएं
+            document.getElementById("login-box").style.display = "none";
+            document.getElementById("selection-box").style.display = "block";
         } else { 
             alert("Wrong Password! Please contact Neel Sir."); 
         }
     }
-    // Security: F12 Block
-    document.onkeydown = function(e) { if (e.keyCode == 123) return false; };
 </script>
 
 </body>
