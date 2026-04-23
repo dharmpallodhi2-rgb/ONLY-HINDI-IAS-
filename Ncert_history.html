@@ -13,16 +13,9 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 .header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
 .back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px;font-weight:bold}
 
-/* Video Player Box - Highly Secured */
-#player-wrapper { display:none; background:#000; position:sticky; top:65px; z-index:999; width:100%; aspect-ratio:16/9; box-shadow:0 4px 15px rgba(0,0,0,0.5); overflow:hidden; border-bottom:3px solid var(--accent); }
-.player-overlay { position:absolute; top:0; left:0; width:100%; height:100%; z-index:10; background:transparent; pointer-events: none; }
-/* Top Overlay to block YouTube Title/Share links */
-.block-top { position:absolute; top:0; left:0; width:100%; height:50px; z-index:11; background:transparent; }
-#video-frame { width:100%; height:100%; border:none; position:relative; z-index:5; }
-
 /* Grid Layout */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
-.card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;transition:0.3s}
+.card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;transition:0.3s;display:flex;flex-direction:column}
 .card:active{transform:scale(0.96)}
 .thumb-box{position:relative;width:100%;aspect-ratio:16/9;background:#333}
 .thumb{width:100%;height:100%;object-fit:cover;opacity:0.9}
@@ -41,51 +34,49 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 <a href="ncert.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
 <b style="font-size:15px;display:block">NCERT History Batch 2026</b>
-<span style="font-size:10px;color:var(--accent)">Secured Player • No Sharing Allowed</span>
+<span style="font-size:10px;color:var(--accent)">Secured Player • Sachin Arora Sir</span>
 </div>
 </header>
-
-<div id="player-wrapper">
-    <div class="block-top"></div> <div class="player-overlay"></div>
-    <iframe id="video-frame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div>
 
 <main class="grid" id="lecture-list"></main>
 
 <script>
-/* 1. एंटी-कॉपी और देवटूल्स ब्लॉकिंग (Security) */
-document.onkeydown = function(e) {
-    if (e.keyCode == 123 || (e.ctrlKey && (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67) || e.keyCode == 85))) {
-        alert("Security Alert: Action Blocked!");
-        return false;
-    }
+/* 1. सुरक्षा प्रोटोकॉल (Security) */
+const lockDevTools = () => {
+    setInterval(() => { let b = Date.now(); debugger; if (Date.now() - b > 100) window.location.reload(); }, 100);
+    document.onkeydown = (e) => {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
 };
+lockDevTools();
 
-/* 2. वीडियो डेटा (यहाँ आपके लिंक हैं) */
+/* 2. वीडियो डेटा (New Lectures Added) */
+const PLAYER_PATH = "OHIvideoplayer.html?url=";
 const ncertHistoryData = [
-    { title: "Class 01: NCERT इतिहास का परिचय", id: "ztSaeTpzZxk" },
-    { title: "Class 02: प्रारंभिक समाज और संस्कृति", id: "CI8rdy8GyTU" }
+    { title: "Lecture 06 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/O8BpnWISDIQ", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 05 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/jSNllNpz7NI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 04 || History by Shubham Gupta Sir", url: "https://kgs-v1.akamaized.net/kv3/apr-2026/540602/kgss-1776743470-v540602.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 03 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/RW1OBzjfQhI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/ecd0babe-fddf-48b1-9549-072b7aba68bd.jpg" },
+    { title: "Lecture 02 || प्रारंभिक समाज और संस्कृति", url: "https://www.youtube.com/embed/CI8rdy8GyTU", thumb: "https://i.ytimg.com/vi/CI8rdy8GyTU/hqdefault.jpg" },
+    { title: "Lecture 01 || NCERT इतिहास का परिचय", url: "https://www.youtube.com/embed/ztSaeTpzZxk", thumb: "https://i.ytimg.com/vi/ztSaeTpzZxk/hqdefault.jpg" }
 ];
 
 const listContainer = document.getElementById('lecture-list');
-const playerWrapper = document.getElementById('player-wrapper');
-const videoFrame = document.getElementById('video-frame');
 
 /* 3. रेंडर लेक्चर लिस्ट */
 ncertHistoryData.forEach(function(item) {
     const card = document.createElement('div');
     card.className = 'card';
     
+    // लिंक को मास्क और एनकोड करके OHI Player पर भेजना
+    const encodedUrl = encodeURIComponent(item.url);
     card.onclick = () => { 
-        playerWrapper.style.display = 'block';
-        /* YouTube Player Parameters to hide controls and links */
-        videoFrame.src = `https://www.youtube.com/embed/${item.id}?autoplay=1&rel=0&modestbranding=1&controls=1&showinfo=0&disablekb=1&iv_load_policy=3`;
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.location.href = `${PLAYER_PATH}${encodedUrl}`;
     };
 
     card.innerHTML = `
         <div class="thumb-box">
-            <img src="https://i.ytimg.com/vi/${item.id}/hqdefault.jpg" class="thumb" loading="lazy">
+            <img src="${item.thumb}" class="thumb" loading="lazy">
             <div class="play-icon">▶</div>
         </div>
         <div class="info">
@@ -95,26 +86,6 @@ ncertHistoryData.forEach(function(item) {
     
     listContainer.appendChild(card);
 });
-
-/* 4. एंटी-डीबगिंग (कंसोल रोकने के लिए) */
-setInterval(function() {
-    (function() {
-        (function a() {
-            try {
-                (function b(i) {
-                    if (('' + (i / i)).length !== 1 || i % 20 === 0) {
-                        (function() {}).constructor('debugger')();
-                    } else {
-                        debugger;
-                    }
-                    b(++i);
-                })(0);
-            } catch (e) {
-                setTimeout(a, 5000);
-            }
-        })();
-    })();
-}, 5000);
 </script>
 
 </body>
