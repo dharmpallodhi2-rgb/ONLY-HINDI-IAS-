@@ -92,6 +92,12 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .qr-link-box{width:100px;height:100px;flex-shrink:0;cursor:pointer;}
 .qr-img-style{width:100%;height:100%;border-radius:8px;border:1px solid #ddd;}
 .pay-btn-tele{background:#0088cc;color:white;padding:10px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 15px 15px;text-align:center;}
+
+/* नया KGS Button Style */
+.kgs-maha-offer{background:linear-gradient(135deg, #ff6b6b, #ff8e8e, #ff6b6b);border-radius:20px;margin:0 15px 20px;padding:20px;text-align:center;color:white;box-shadow:0 8px 25px rgba(255,107,107,0.4);border:3px solid #fff;position:relative;overflow:hidden;}
+.kgs-maha-offer::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent, rgba(255,255,255,0.4), transparent);animation:shine 2s infinite;}
+@keyframes shine{0%{left:-100%;}100%{left:100%;}}
+.kgs-btn-free{background:#fff;color:#ff6b6b;padding:15px 30px;border-radius:50px;font-size:18px;font-weight:900;text-decoration:none;display:inline-block;box-shadow:0 6px 20px rgba(0,0,0,0.2);border:3px solid #fff;letter-spacing:1px;text-transform:uppercase;}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -121,6 +127,13 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
     <p>सबसे पहले 10/10 स्कोर करें और ₹11 जीतें!</p>
     <a href="https://forms.gle/TMvjj2TSUBKknptG7" class="btn-live-quiz">START LIVE QUIZ →</a>
     <p style="margin-top:10px; font-size:10px; font-style:italic; opacity:0.8;">Next Quiz: Today at 9:00 PM Sharp</p>
+</div>
+
+<!-- नया KGS Maha Bumper Offer Button यहाँ add किया गया है -->
+<div class="kgs-maha-offer">
+    <h3 style="margin:0 0 10px 0; font-size:20px; font-weight:900;">🎉 KGS All Batches FREE for 3 Day</h3>
+    <p style="margin:0 0 15px 0; font-size:14px; font-weight:600;">MAHA BUMPER OFFER 🚀</p>
+    <a href="https://kgs-web.vercel.app/batches" class="kgs-btn-free" target="_blank">🚀 CLAIM FREE ACCESS NOW</a>
 </div>
 
 <div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
@@ -244,9 +257,4 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"बहुत-बहुत धन्यवाद 🙏हमें upsc सामग्री प्रदान करने के लिए शुक्रिया 👍"</p><b>- Aditi Singh (UPSC Aspirant)</b></div>
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"Aapka content saral, spasht aur poori tarah UPSC-oriented hai. Dhanyavaad 🙏"</p><b>- Muskan (UPSC Aspirant)</b></div>
 <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"super h"</p><b>- Abhi (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"यह बेबसाइट बहुत अच्छी है धन्यवाद"</p><b>- आराधना यादव (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"useful site thanks"</p><b>- Mohan</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Thanku ye bhot achha h study k liye 🙏🏻⭐⭐⭐⭐⭐"</p><b>- Kajal (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत अच्छी है, नोट्स और क्विज़ दोनों ही बहुत मददगार हैं! ⭐⭐⭐⭐⭐"</p><b>- Sanjana (UPSC Aspirant)</b></div>
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScyij3uscJI2L36ZM6xKM3Y78V0oJmzWDE4BVPrzOW1vnkIog/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--premium-gold);padding:12px;border-radius:12px;display:block;margin:10px au
+<div class="teal-card" style="text-align:left;padding:1
