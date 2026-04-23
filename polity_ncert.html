@@ -9,111 +9,112 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--primary); color: var(--text); user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* Header Section */
-        .header { background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .header h1 { font-size: 1.5rem; color: #fff; }
+        /* Header */
+        .header { background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .header h1 { font-size: 1.3rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Video Player Area */
-        #player-container { display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 1000; aspect-ratio: 16/9; }
+        /* Secured Player */
+        #player-container { display: none; width: 100%; background: #000; aspect-ratio: 16/9; position: sticky; top: 60px; z-index: 999; border-bottom: 2px solid var(--accent); }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Lecture List Grid */
-        .container { padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .card:active { transform: scale(0.98); }
+        /* Grid System */
+        .container { padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .card { background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; position: relative; }
+        .card:active { transform: scale(0.96); }
         
-        .thumb-box { position: relative; width: 100%; aspect-ratio: 16/9; }
-        .thumb { width: 100%; height: 100%; object-fit: cover; }
-        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: var(--accent); opacity: 0.8; }
+        .thumb-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
+        .thumb { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,152,0,0.9); color: #fff; padding: 10px 15px; border-radius: 50%; font-size: 20px; }
         
         .info { padding: 12px; }
-        .title { font-size: 1rem; font-weight: 600; line-height: 1.4; margin-bottom: 5px; color: #e6f1ff; }
-        .status { font-size: 0.8rem; color: #8892b0; display: flex; align-items: center; gap: 5px; }
-        .status::before { content: "●"; color: #00ff00; }
+        .title { font-size: 0.95rem; font-weight: 600; color: #ccd6f6; line-height: 1.4; }
+        .badge { display: inline-block; margin-top: 8px; font-size: 0.7rem; background: rgba(0,255,0,0.1); color: #00ff00; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0,255,0,0.2); }
 
-        /* Loader */
-        #loader { text-align: center; padding: 50px; font-weight: bold; color: var(--accent); }
+        /* Loading Animation */
+        #loader { text-align: center; margin-top: 100px; color: var(--accent); font-size: 1.2rem; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.3;} 100% {opacity: 1;} }
     </style>
 </head>
-<body oncontextmenu="return false" ondragstart="return false">
-
-    <div id="player-container">
-        <iframe id="video-iframe" src="" allowfullscreen></iframe>
-    </div>
+<body oncontextmenu="return false">
 
     <header class="header">
-        <h1>Polity NCERT (Live Batch 406)</h1>
+        <h1>Polity Live Batch - ID 406</h1>
     </header>
 
-    <div id="loader">लेक्चर्स लोड हो रहे हैं...</div>
+    <div id="player-container">
+        <iframe id="video-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+
+    <div id="loader">सनी के सर्वर से डेटा आ रहा है...</div>
     <div class="container" id="lecture-list"></div>
 
     <script>
-    /* 1. SECURITY ENGINE (Anti-Copy & DevTools Blocking) */
-    (function protect() {
-        setInterval(() => { debugger; }, 100);
-        document.onkeydown = (e) => {
+    /* 1. HIGH-LEVEL SECURITY PROTOCOL */
+    (function secure() {
+        // Disable DevTools & Inspection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = e => {
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67, 85].includes(e.keyCode))) return false;
         };
+        // Infinite Debugger Loop to freeze console
+        setInterval(() => { debugger; }, 500);
     })();
 
-    /* 2. LIVE DATA ENGINE (सनी की API से डेटा खींचना) */
-    async function loadLiveLectures() {
-        const listContainer = document.getElementById('lecture-list');
+    /* 2. AUTOMATED DATA FETCHING ENGINE */
+    async function syncBatchData() {
+        const list = document.getElementById('lecture-list');
         const loader = document.getElementById('loader');
-        const playerContainer = document.getElementById('player-container');
-        const videoIframe = document.getElementById('video-iframe');
+        const player = document.getElementById('player-container');
+        const iframe = document.getElementById('video-iframe');
 
-        // सनी की API का असली रास्ता
-        const apiLink = "https://kgs-web.vercel.app/api/classroom/406";
+        // सनी की मास्टर API (Batch ID: 406)
+        const targetUrl = "https://kgs-web.vercel.app/api/classroom/406";
+        
+        // सुरक्षा बाईपास करने के लिए प्रॉक्सी का उपयोग
+        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(targetUrl);
 
         try {
-            // नोट: अगर सीधे फेच ब्लॉक हो, तो हम Proxy का इस्तेमाल करेंगे
-            const response = await fetch(apiLink, {
-                method: 'GET',
-                headers: {
-                    'X-Sunny-Req': 'sunny', // मास्टर चाबी
-                    'Accept': 'application/json'
-                }
-            });
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error("Connection Error");
 
-            if (!response.ok) throw new Error("CORS_BLOCKED");
+            const wrapper = await response.json();
+            const data = JSON.parse(wrapper.contents); // प्रॉक्सी डेटा को असली JSON में बदलना
 
-            const data = await response.json();
             loader.style.display = 'none';
-            listContainer.innerHTML = '';
+            list.innerHTML = '';
 
-            // डेटा को वेबसाइट पर सजाना
-            data.topics.forEach(lecture => {
+            // लेक्चर्स को वेबसाइट पर सजाना
+            data.topics.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.onclick = () => {
-                    playerContainer.style.display = 'block';
-                    videoIframe.src = lecture.video_url; // वीडियो लिंक सीधा आपके प्लेयर में
+                    player.style.display = 'block';
+                    iframe.src = item.video_url; // सीधा सनी का वीडियो आपके प्लेयर में
                     window.scrollTo({top: 0, behavior: 'smooth'});
                 };
-                
+
                 card.innerHTML = `
                     <div class="thumb-box">
-                        <img src="${lecture.thumbnail}" class="thumb" alt="Thumbnail">
-                        <div class="play-icon">▶</div>
+                        <img src="${item.thumbnail}" class="thumb">
+                        <div class="play-btn">▶</div>
                     </div>
                     <div class="info">
-                        <div class="title">${lecture.title}</div>
-                        <div class="status">LIVE FROM SERVER</div>
+                        <div class="title">${item.title}</div>
+                        <div class="badge">SECURED SERVER SYNC</div>
                     </div>
                 `;
-                listContainer.appendChild(card);
+                list.appendChild(card);
             });
 
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            loader.innerHTML = "डेटा लोड करने में समस्या आ रही है। कृपया रिफ्रेश करें या इंटरनेट चेक करें।";
+        } catch (err) {
+            console.error(err);
+            loader.innerHTML = "सनी ने रास्ता ब्लॉक कर दिया है! <br><br> Eruda खोलकर <b>X-Sunny-Req</b> चाबी चेक करें।";
+            loader.style.color = "red";
         }
     }
 
-    // पेज खुलते ही डेटा लोड करें
-    window.onload = loadLiveLectures;
+    // पेज लोड होते ही जासूसी शुरू करें
+    window.onload = syncBatchData;
     </script>
 </body>
 </html>
