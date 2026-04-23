@@ -1,63 +1,119 @@
-<script>
-/* 1. मास्टर सुरक्षा प्रोटोकॉल (Copy/DevTools Block) */
-const lockSecurity = () => {
-    setInterval(() => { debugger; }, 100);
-    document.onkeydown = (e) => {
-        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode))) return false;
-    };
-};
-lockSecurity();
-
-/* 2. LIVE DATA FETCHING LOGIC */
-async function loadLiveLectures() {
-    const listContainer = document.getElementById('lecture-list');
-    const playerContainer = document.getElementById('player-container');
-    const videoIframe = document.getElementById('video-iframe');
-
-    // सनी की वेबसाइट से डेटा खींचने का लिंक (Batch ID: 406)
-    const apiLink = "https://kgs-web.vercel.app/api/classroom/406";
-
-    try {
-        const response = await fetch(apiLink, {
-            method: 'GET',
-            headers: {
-                'X-Sunny-Req': 'sunny', // आपकी जादुई चाबी
-                'Accept': 'application/json'
-            }
-        });
-
-        if (!response.ok) throw new Error("Blocked");
-        const data = await response.json();
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Polity NCERT - ONLY HINDI IAS</title>
+    <style>
+        :root { --primary: #0a192f; --accent: #ff9800; --text: #ffffff; --card-bg: #112240; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--primary); color: var(--text); user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        // पुरानी लिस्ट साफ करके नया लाइव डेटा भरना
-        listContainer.innerHTML = '';
-        
-        // डेटा को सजाना (Loop)
-        data.topics.forEach(video => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.onclick = () => {
-                playerContainer.style.display = 'block';
-                videoIframe.src = video.video_url; // आपके प्लेयर में सनी का वीडियो
-                window.scrollTo({top:0, behavior:'smooth'});
-            };
-            card.innerHTML = `
-                <div class="thumb-box">
-                    <img src="${video.thumbnail}" class="thumb" loading="lazy">
-                    <div class="play-icon">▶</div>
-                </div>
-                <div class="info">
-                    <div class="title">${video.title}</div>
-                    <div class="status">● LIVE: SYNCED FROM SERVER</div>
-                </div>`;
-            listContainer.appendChild(card);
-        });
+        /* Header Section */
+        .header { background: linear-gradient(90deg, #1a2a6c, #b21f1f, #fdbb2d); padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .header h1 { font-size: 1.5rem; color: #fff; }
 
-    } catch (error) {
-        console.log("CORS या Security Error!");
-        // अगर सनी ब्लॉक करे, तो यहाँ आप अपना पुराना 'Manual' डेटा दिखा सकते हैं
+        /* Video Player Area */
+        #player-container { display: none; width: 100%; background: #000; position: sticky; top: 0; z-index: 1000; aspect-ratio: 16/9; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Lecture List Grid */
+        .container { padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .card:active { transform: scale(0.98); }
+        
+        .thumb-box { position: relative; width: 100%; aspect-ratio: 16/9; }
+        .thumb { width: 100%; height: 100%; object-fit: cover; }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: var(--accent); opacity: 0.8; }
+        
+        .info { padding: 12px; }
+        .title { font-size: 1rem; font-weight: 600; line-height: 1.4; margin-bottom: 5px; color: #e6f1ff; }
+        .status { font-size: 0.8rem; color: #8892b0; display: flex; align-items: center; gap: 5px; }
+        .status::before { content: "●"; color: #00ff00; }
+
+        /* Loader */
+        #loader { text-align: center; padding: 50px; font-weight: bold; color: var(--accent); }
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false">
+
+    <div id="player-container">
+        <iframe id="video-iframe" src="" allowfullscreen></iframe>
+    </div>
+
+    <header class="header">
+        <h1>Polity NCERT (Live Batch 406)</h1>
+    </header>
+
+    <div id="loader">लेक्चर्स लोड हो रहे हैं...</div>
+    <div class="container" id="lecture-list"></div>
+
+    <script>
+    /* 1. SECURITY ENGINE (Anti-Copy & DevTools Blocking) */
+    (function protect() {
+        setInterval(() => { debugger; }, 100);
+        document.onkeydown = (e) => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67, 85].includes(e.keyCode))) return false;
+        };
+    })();
+
+    /* 2. LIVE DATA ENGINE (सनी की API से डेटा खींचना) */
+    async function loadLiveLectures() {
+        const listContainer = document.getElementById('lecture-list');
+        const loader = document.getElementById('loader');
+        const playerContainer = document.getElementById('player-container');
+        const videoIframe = document.getElementById('video-iframe');
+
+        // सनी की API का असली रास्ता
+        const apiLink = "https://kgs-web.vercel.app/api/classroom/406";
+
+        try {
+            // नोट: अगर सीधे फेच ब्लॉक हो, तो हम Proxy का इस्तेमाल करेंगे
+            const response = await fetch(apiLink, {
+                method: 'GET',
+                headers: {
+                    'X-Sunny-Req': 'sunny', // मास्टर चाबी
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!response.ok) throw new Error("CORS_BLOCKED");
+
+            const data = await response.json();
+            loader.style.display = 'none';
+            listContainer.innerHTML = '';
+
+            // डेटा को वेबसाइट पर सजाना
+            data.topics.forEach(lecture => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => {
+                    playerContainer.style.display = 'block';
+                    videoIframe.src = lecture.video_url; // वीडियो लिंक सीधा आपके प्लेयर में
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                
+                card.innerHTML = `
+                    <div class="thumb-box">
+                        <img src="${lecture.thumbnail}" class="thumb" alt="Thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="info">
+                        <div class="title">${lecture.title}</div>
+                        <div class="status">LIVE FROM SERVER</div>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            loader.innerHTML = "डेटा लोड करने में समस्या आ रही है। कृपया रिफ्रेश करें या इंटरनेट चेक करें।";
+        }
     }
-}
 
-window.onload = loadLiveLectures;
-</script>
+    // पेज खुलते ही डेटा लोड करें
+    window.onload = loadLiveLectures;
+    </script>
+</body>
+</html>
