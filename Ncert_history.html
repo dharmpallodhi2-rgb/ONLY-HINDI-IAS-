@@ -13,6 +13,15 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 .header{background:var(--primary);padding:15px;display:flex;align-items:center;color:white;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
 .back-btn{background:var(--accent);width:35px;height:35px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;margin-right:15px;color:white;text-decoration:none;font-size:18px;font-weight:bold}
 
+/* Secured Video Player Area */
+#player-container { display:none; background:#000; position:sticky; top:65px; z-index:999; width:100%; aspect-ratio:16/9; box-shadow:0 4px 15px rgba(0,0,0,0.5); border-bottom:4px solid var(--accent); }
+.overlay-shield { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1001; background:transparent; pointer-events:none; }
+/* Top & Side block to hide YouTube Share/More info buttons */
+.blocker { position:absolute; background:transparent; z-index:1002; }
+.block-top { top:0; width:100%; height:60px; } 
+
+#video-iframe { width:100%; height:100%; border:none; position:relative; z-index:998; }
+
 /* Grid Layout */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:15px}
 .card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.06);cursor:pointer;border:1px solid #f0f0f0;transition:0.3s;display:flex;flex-direction:column}
@@ -34,44 +43,58 @@ body{margin:0;padding:0;background-color:var(--bg);font-family:Arial,sans-serif;
 <a href="ncert.html" class="back-btn">⬅</a>
 <div style="flex-grow:1">
 <b style="font-size:15px;display:block">NCERT History Batch 2026</b>
-<span style="font-size:10px;color:var(--accent)">Secured Player • Sachin Arora Sir</span>
+<span style="font-size:10px;color:var(--accent)">Secured Player • No Sharing Mode</span>
 </div>
 </header>
+
+<div id="player-container">
+    <div class="blocker block-top"></div>
+    <div class="overlay-shield"></div>
+    <iframe id="video-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
 
 <main class="grid" id="lecture-list"></main>
 
 <script>
-/* 1. सुरक्षा प्रोटोकॉल (Security) */
-const lockDevTools = () => {
+/* 1. सुरक्षा: राइट क्लिक और देवटूल्स ब्लॉक */
+const lockSecurity = () => {
     setInterval(() => { let b = Date.now(); debugger; if (Date.now() - b > 100) window.location.reload(); }, 100);
     document.onkeydown = (e) => {
         if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && e.keyCode == 85)) return false;
     };
 };
-lockDevTools();
+lockSecurity();
 
-/* 2. वीडियो डेटा (New Lectures Added) */
-const PLAYER_PATH = "OHIvideoplayer.html?url=";
+/* 2. ओरिजिनल डेटा (YouTube के लिए पैरामीटर्स के साथ) */
 const ncertHistoryData = [
-    { title: "Lecture 06 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/O8BpnWISDIQ", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
-    { title: "Lecture 05 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/jSNllNpz7NI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
-    { title: "Lecture 04 || History by Shubham Gupta Sir", url: "https://kgs-v1.akamaized.net/kv3/apr-2026/540602/kgss-1776743470-v540602.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
-    { title: "Lecture 03 || History by Shubham Gupta Sir", url: "https://www.youtube.com/embed/RW1OBzjfQhI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/ecd0babe-fddf-48b1-9549-072b7aba68bd.jpg" },
-    { title: "Lecture 02 || प्रारंभिक समाज और संस्कृति", url: "https://www.youtube.com/embed/CI8rdy8GyTU", thumb: "https://i.ytimg.com/vi/CI8rdy8GyTU/hqdefault.jpg" },
-    { title: "Lecture 01 || NCERT इतिहास का परिचय", url: "https://www.youtube.com/embed/ztSaeTpzZxk", thumb: "https://i.ytimg.com/vi/ztSaeTpzZxk/hqdefault.jpg" }
+    { title: "Lecture 06 || History by Shubham Gupta Sir", link: "https://www.youtube.com/embed/O8BpnWISDIQ", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 05 || History by Shubham Gupta Sir", link: "https://www.youtube.com/embed/jSNllNpz7NI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 04 || History by Shubham Gupta Sir", link: "https://kgs-v1.akamaized.net/kv3/apr-2026/540602/kgss-1776743470-v540602.m3u8", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/46d2ce49-0392-4cbd-9d86-715e386ca6e3.jpg" },
+    { title: "Lecture 03 || History by Shubham Gupta Sir", link: "https://www.youtube.com/embed/RW1OBzjfQhI", thumb: "https://kgs-v2.akamaized.net/kgs/kgs/posts/ecd0babe-fddf-48b1-9549-072b7aba68bd.jpg" },
+    { title: "Lecture 02 || प्रारंभिक समाज और संस्कृति", link: "https://www.youtube.com/embed/CI8rdy8GyTU", thumb: "https://i.ytimg.com/vi/CI8rdy8GyTU/hqdefault.jpg" },
+    { title: "Lecture 01 || NCERT इतिहास का परिचय", link: "https://www.youtube.com/embed/ztSaeTpzZxk", thumb: "https://i.ytimg.com/vi/ztSaeTpzZxk/hqdefault.jpg" }
 ];
 
 const listContainer = document.getElementById('lecture-list');
+const playerContainer = document.getElementById('player-container');
+const videoIframe = document.getElementById('video-iframe');
 
-/* 3. रेंडर लेक्चर लिस्ट */
+/* 3. रेंडर लिस्ट और प्लेयर लॉजिक */
 ncertHistoryData.forEach(function(item) {
     const card = document.createElement('div');
     card.className = 'card';
     
-    // लिंक को मास्क और एनकोड करके OHI Player पर भेजना
-    const encodedUrl = encodeURIComponent(item.url);
     card.onclick = () => { 
-        window.location.href = `${PLAYER_PATH}${encodedUrl}`;
+        playerContainer.style.display = 'block';
+        
+        // अगर यूट्यूब लिंक है तो एक्स्ट्रा सिक्योरिटी जोड़ें
+        let finalUrl = item.link;
+        if(finalUrl.includes('youtube.com')) {
+            finalUrl += "?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&disablekb=1&iv_load_policy=3";
+        }
+        
+        videoIframe.src = finalUrl;
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     card.innerHTML = `
@@ -87,6 +110,5 @@ ncertHistoryData.forEach(function(item) {
     listContainer.appendChild(card);
 });
 </script>
-
 </body>
 </html>
