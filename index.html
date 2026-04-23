@@ -38,8 +38,8 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GGTXK0V93Z');</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;--btn-shadow:0 4px 15px rgba(0,0,0,0.08);--winner-gold:linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);}
-body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);padding-bottom:20px;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;--btn-shadow:0 4px 15px rgba(0,0,0,0.08);--winner-gold:linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);--offer-red:#d32f2f;}
+body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);padding-bottom:20px;overflow-x:hidden;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}
 .header{background:var(--white);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;}
 .header h1{margin:0;font-size:18px;font-weight:800;color:var(--primary-teal);letter-spacing:1px;}
 .profile-logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--primary-teal);}
@@ -50,31 +50,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .live-quiz-section::after{content:'LIVE';position:absolute;top:10px;right:10px;background:#ff0000;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;animation:blink 1s infinite;}
 @keyframes blink{50%{opacity:0;}}
 .btn-live-quiz{background:var(--winner-gold);color:var(--primary-teal);padding:12px 35px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:900;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-
-/* --- स्पेशल लकी बटन डिजाइन --- */
-.lucky-batch-btn {
-    margin: 15px;
-    background: linear-gradient(135deg, #ff4500, #ff8c00);
-    border-radius: 15px;
-    padding: 18px;
-    text-align: center;
-    color: white;
-    text-decoration: none;
-    display: block;
-    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
-    border: 2px solid #fff;
-    position: relative;
-    overflow: hidden;
-    animation: pulse-border 2s infinite;
-}
-.lucky-batch-btn b { font-size: 18px; display: block; text-transform: uppercase; letter-spacing: 1px; }
-.lucky-batch-btn span { font-size: 11px; background: rgba(0,0,0,0.2); padding: 2px 10px; border-radius: 50px; margin-top: 5px; display: inline-block; font-weight: 600; }
-@keyframes pulse-border {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
 .news-container{background:var(--white);padding:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin-bottom:20px;overflow:hidden;}
 .news-scroll{display:inline-block;white-space:nowrap;padding-left:100%;animation:newsSlide 18s linear infinite;}
 .news-scroll span{font-size:15px;font-weight:600;color:var(--primary-teal);}
@@ -84,6 +59,18 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .teal-card span{font-size:30px;display:block;margin-bottom:8px;}
 .teal-card p{margin:0;font-size:13px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;}
 .section-title{padding:25px 20px 10px;font-size:13px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2.5px;}
+
+/* KGS PRO BUTTON STYLE */
+.kgs-bumper-container {margin: 10px 15px; perspective: 1000px;}
+.kgs-bumper-btn {background: linear-gradient(135deg, #d32f2f 0%, #ff5252 100%); color: white; display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-radius: 18px; text-decoration: none; box-shadow: 0 10px 20px rgba(211,47,47,0.3); border: 2px solid rgba(255,255,255,0.2); transition: transform 0.3s ease; position: relative; overflow: hidden;}
+.kgs-bumper-btn:active {transform: scale(0.96);}
+.kgs-content {display: flex; flex-direction: column; z-index: 2;}
+.kgs-label {font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+.kgs-main-text {font-size: 16px; font-weight: 800; text-transform: uppercase;}
+.kgs-icon-box {background: white; width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 2;}
+.kgs-shimmer {position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: kgs-shimmer 3s infinite; z-index: 1;}
+@keyframes kgs-shimmer {0% {left: -100%;} 100% {left: 150%;}}
+
 .whats-new-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
 .wn-card{background:#fcf9f2;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;display:flex;flex-direction:column;}
 .wn-header{padding:10px 8px;font-size:11px;font-weight:800;color:white;}
@@ -105,7 +92,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .footer a{color:var(--primary-teal);font-size:12px;font-weight:800;text-decoration:none;margin:0 8px;}
 .footer p{color:#666;font-size:10px;font-weight:600;margin-top:10px;}
 
-/* ज्योग्राफी सेक्शन मास्टर स्टाइल */
 .geo-promo-box{margin:15px;background:#0B2B40;border-radius:20px;padding:0;color:white;position:relative;overflow:hidden;display:flex;flex-direction:row;min-height:220px;}
 .geo-left-text{flex:1.2;padding:20px;z-index:5;display:flex;flex-direction:column;justify-content:center;}
 .geo-right-banner{flex:1.5;position:relative;}
@@ -119,7 +105,7 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 .pay-btn-tele{background:#0088cc;color:white;padding:10px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 15px 15px;text-align:center;}
 </style>
 </head>
-<body oncontextmenu="return false;">
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 <div class="header">
     <h1>ONLY HINDI IAS</h1>
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -131,7 +117,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
              data-auto_prompt="false">
         </div>
         <div class="g_id_signin" data-type="icon" data-shape="circle" data-theme="outline" data-size="large"></div>
-        
         <img src="1766115476203(2).jpg" class="profile-logo" alt="ONLY HINDI IAS Logo">
     </div>
 </div>
@@ -148,11 +133,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
     <p style="margin-top:10px; font-size:10px; font-style:italic; opacity:0.8;">Next Quiz: Today at 9:00 PM Sharp</p>
 </div>
 
-<a href="https://kgs-web.vercel.app/batches" class="lucky-batch-btn">
-    <b>🔥 KGS All Batches FREE</b>
-    <span>🎉 केवल 3 दिन के लिए लकी ऑफर - ONLY HINDI IAS स्पेशल</span>
-</a>
-
 <div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
 
 <div class="section-title">⚡ QUICK ACCESS</div>
@@ -162,7 +142,19 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
 <div class="teal-card"><span>⌛</span><p>History</p></div>
 <div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
 </div>
-  <div class="section-title">🚀 NCERT FOUNDATION 2026</div>
+
+<div class="section-title">🔥 BUMPER OFFER</div>
+<div class="kgs-bumper-container">
+    <a href="https://kgs-web.vercel.app/batches" class="kgs-bumper-btn">
+        <div class="kgs-shimmer"></div>
+        <div class="kgs-content">
+            <span class="kgs-label">Special Access</span>
+            <span class="kgs-main-text">KGS all batches free 3 day's</span>
+        </div>
+        <div class="kgs-icon-box">🎁</div>
+    </a>
+</div>
+<div class="section-title">🚀 NCERT FOUNDATION 2026</div>
 <div style="background:linear-gradient(135deg, #1a4a6e 0%, #0B2B40 100%); border-radius:20px; margin:0 15px; overflow:hidden; border:2px solid var(--premium-gold);">
     <div class="geo-promo-box" style="margin:0; background:transparent;">
         <div class="geo-left-text">
@@ -186,7 +178,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
         <a href="ncert.html" class="btn-live-quiz" style="width:100%; box-sizing:border-box; background:var(--winner-gold); text-decoration:none; display:block; border-radius:10px; padding:10px; font-weight:900; color:var(--primary-teal);">ENROLL NOW - JOIN BATCH →</a>
     </div>
 </div>
-  
 
 <div class="section-title">🔥 GEOGRAPHY OPTIONAL BATCH</div>
 <div style="background:#0B2B40; border-radius:20px; margin:0 15px; overflow:hidden;">
@@ -207,7 +198,6 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
             <img src="1776398621424.png" alt="Batch Banner">
         </div>
     </div>
-
     <div class="payment-white-box">
         <a href="upi://pay?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR" class="qr-link-box">
             <img src="IMG_20260417_095552_767.jpg" class="qr-img-style" alt="Payment QR">
@@ -218,61 +208,34 @@ body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);
             <p style="color:#d32f2f; font-size:9px; font-weight:900; line-height:1.2;">पेमेंट का स्क्रीनशॉट हमें टेलीग्राम पर भेजें</p>
         </div>
     </div>
-
     <a href="https://t.me/mission968" class="pay-btn-tele">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="18">
-        SEND SCREENSHOT ON TELEGRAM
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="18"> SEND SCREENSHOT ON TELEGRAM
     </a>
-    
     <a href="geo-optional.html" class="btn-live-quiz" style="width:calc(100% - 30px); margin:0 15px 15px; text-align:center; padding:10px 0; font-size:13px; box-sizing:border-box;">VIEW CHAPTER LIST →</a>
 </div>
 
-<div class="section-title">Recent updates on ONLY HINDI IAS</div>
-<div class="whats-new-container">
-<div class="wn-card"><div class="wn-header" style="background:#8B85E8;">☆ What's New</div><div class="wn-list"><div class="wn-text">📅 1 April: Economy notes soon<br>📅 30 March: GS-1 2025 Test</div></div></div>
-<div class="wn-card"><div class="wn-header" style="background:#DEB887;">☆ नया क्या है?</div><div class="wn-list"><div class="wn-text">📅 1 April: अर्थव्यवस्था नोट्स जल्द<br>📅 30 March: GS-1 टेस्ट सीरीज</div></div></div>
+<div class="footer">
+    <a href="#">Privacy Policy</a> | <a href="#">Terms</a>
+    <p>© 2026 ONLY HINDI IAS - Developed by Neel Rajput</p>
 </div>
 
-<div class="section-title">✍️ DAILY PRACTICE QUIZ</div>
-<div style="padding:0 15px 20px;"><a href="subjects.html" class="teal-card" style="display:flex;align-items:center;justify-content:space-between;padding:20px;text-decoration:none;">
-    <div style="display:flex;align-items:center;"><span style="font-size:30px;margin-right:15px;">📝</span><div><b style="color:var(--primary-teal);">UPSC Subject-wise Quiz</b><p style="margin:0;font-size:12px;color:#555;">History, Polity, Economy & more</p></div></div>
-    <b style="color:var(--primary-teal);">START →</b>
-</a></div>
-
-<div class="section-title">💎 PREMIUM STUDY MATERIAL</div>
-<div class="card-container">
-<div class="teal-card gov-card premium-card">
-<div class="premium-badge">PREMIUM</div>
-<img src="IMG_20260329_082203_932.jpg" alt="Ancient History Notes UPSC">
-<div class="gov-text"><b>Ancient History (Handwritten)</b><p style="margin:3px 0;font-size:12px;color:var(--premium-gold);font-weight:800;">Price: ₹59</p><a href="https://wa.me/919685026772" class="btn-action" style="background:var(--premium-gold);">🔒 BUY NOW</a></div>
-</div>
-</div>
-
-<div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
-<div class="card-container"><div class="teal-card gov-card"><img src="IMG_20260319_163412_254.jpg" alt="UPSC Governance Notes"><div class="gov-text"><b>GS Paper 2 Dossier</b><p style="margin:0;font-size:11px;color:#555;">Governance Notes & Theory</p><a href="governance.pdf" class="btn-action">📄 OPEN PDF</a></div></div></div>
-
-<div class="section-title">✨ MORE FEATURES</div>
-<div class="features-grid">
-    <div class="feature-card">🏅<p>Exams</p></div>
-    <div class="feature-card">💡<p>Gyan Bindu</p></div>
-    <a href="https://ncert.nic.in/" class="feature-card">📖<p style="color:#0088cc;">NCERT Books</p></a>
-</div>
-
-<div class="section-title">🤝 CONNECT WITH US</div>
-<div class="comm-grid">
-    <a href="https://t.me/mission968" class="comm-card" style="border-bottom:3px solid #0088cc;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Join ONLY HINDI IAS Telegram"><p style="color:#0088cc;">Telegram</p></a>
-    <a href="https://wa.me/" class="comm-card" style="border-bottom:3px solid #25d366;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="Contact ONLY HINDI IAS WhatsApp"><p style="color:#25d366;">WhatsApp</p></a>
-</div>
-
-<div class="section-title">🌟 STUDENTS FEEDBACK</div>
-<div style="padding:0 15px;">
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Very very very nice 👍👍 ⭐⭐⭐⭐⭐"</p><b>- Sonam (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"very nice ⭐⭐⭐⭐⭐"</p><b>- Harish (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"नील सर आपकी वेबसाइट और ग्रुप से पढ़ाई में बहुत मदद मिलती है 🥰♥️🙏"</p><b>- Pushpa Raj (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत ही यूज़फुल है 🥰"</p><b>- Komal (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"ONLY HINDI IAS की वेबसाइट बहुत ही सरल और उपयोगी है। सर आपके नोट्स से UPSC की तैयारी बहुत आसान हो गई!"</p><b>- Priya Singh (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"बहुत-बहुत धन्यवाद 🙏हमें upsc सामग्री प्रदान करने के लिए शुक्रिया 👍"</p><b>- Aditi Singh (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"Aapka content saral, spasht aur poori tarah UPSC-oriented hai. Dhanyavaad 🙏"</p><b>- Muskan (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"super h"</p><b>- Abhi (UPSC Aspirant)</b></div>
-<div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"यह बेबसाइट बहुत अच्छी है धन्यवाद"</p><b>- आराधना यादव (UPSC Aspirant)</b></div>
-<div c
+<script>
+// Anti-Debugging / DevTools Blocking
+(function() {
+    function devtoolsCheck() {
+        if (window.outerHeight - window.innerHeight > 160 || window.outerWidth - window.innerWidth > 160) {
+            document.body.innerHTML = "<h1>Security Alert: Inspection Tool Detected</h1>";
+        }
+    }
+    setInterval(devtoolsCheck, 1000);
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+</body>
+          </html>
+          
