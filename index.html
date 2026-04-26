@@ -1,240 +1,259 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONLY HINDI IAS | Premier Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* प्रोफेशनल डार्क-प्रीमियम थीम */
+        :root {
+            --brand: #f97316;
+            --dark-core: #0f172a;
+            --panel: rgba(255, 255, 255, 0.98);
+        }
 
-<title>ONLY HINDI IAS - UPSC Hindi Medium Preparation & Daily Live Quiz</title>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+        body {
+            background: #f1f5f9;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            user-select: none;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-<meta name="description" content="ONLY HINDI IAS offers high-quality UPSC Hindi medium notes, Daily Live Quizzes, and Civil Services preparation material. Join Neel Sir for expert guidance.">
-<meta name="keywords" content="ONLY HINDI IAS, UPSC Hindi Medium, Daily Live Quiz, Civil Services Preparation, Hindi Medium Notes, Neel Sir UPSC, IAS Preparation Hindi, UPSC Quiz Today">
-<meta name="author" content="Neel Rajput">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://hindi-ias.vercel.app/">
+        /* फिक्स्ड स्प्लैश स्क्रीन */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #1e293b, #0f172a);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
 
-<meta property="og:title" content="ONLY HINDI IAS - UPSC Hindi Medium Preparation">
-<meta property="og:description" content="तैयारी जीत की! जॉइन करें डेली लाइव क्विज़ और पाएँ बेहतरीन UPSC नोट्स।">
-<meta property="og:image" content="1766115476203(2).jpg">
-<meta property="og:url" content="https://hindi-ias.vercel.app/">
-<meta property="og:type" content="website">
+        .brand-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -1px;
+            animation: pulse 2s infinite;
+        }
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
-  "name": "ONLY HINDI IAS",
-  "url": "https://hindi-ias.vercel.app/",
-  "logo": "1766115476203(2).jpg",
-  "founder": "Neel Rajput",
-  "description": "Best platform for UPSC Hindi Medium aspirants.",
-  "sameAs": [
-    "https://t.me/mission968"
-  ]
-}
-</script>
-<meta name="google-site-verification" content="97CNlmOLOH2t9a1UZsJR5uhwdRrWfgInoJGsbxtB4Sw" />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GGTXK0V93Z"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GGTXK0V93Z');</script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--primary-teal:#0B2B40;--premium-gold:#b59410;--white:#ffffff;--light-bg:#f5f8fa;--btn-shadow:0 4px 15px rgba(0,0,0,0.08);--winner-gold:linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);}
-body{margin:0;font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--primary-teal);padding-bottom:20px;overflow-x:hidden;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;}
-.header{background:var(--white);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);position:sticky;top:0;z-index:1000;}
-.header h1{margin:0;font-size:18px;font-weight:800;color:var(--primary-teal);letter-spacing:1px;}
-.profile-logo{width:40px;height:40px;border-radius:50%;border:1px solid var(--primary-teal);}
-.banner-slider-box{margin:15px;border-radius:15px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;background:#eee;}
-.banner-slider-box img{width:100%;height:auto;display:none;border-radius:15px;}
-.banner-slider-box img.active{display:block;}
-.live-quiz-section{margin:0 15px 20px;background:var(--primary-teal);border-radius:20px;padding:25px 15px;text-align:center;color:white;position:relative;overflow:hidden;}
-.live-quiz-section::after{content:'LIVE';position:absolute;top:10px;right:10px;background:#ff0000;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:900;animation:blink 1s infinite;}
-@keyframes blink{50%{opacity:0;}}
-.btn-live-quiz{background:var(--winner-gold);color:var(--primary-teal);padding:12px 35px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:900;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-.news-container{background:var(--white);padding:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin-bottom:20px;overflow:hidden;}
-.news-scroll{display:inline-block;white-space:nowrap;padding-left:100%;animation:newsSlide 18s linear infinite;}
-.news-scroll span{font-size:15px;font-weight:600;color:var(--primary-teal);}
-@keyframes newsSlide{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
-.card-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:15px;}
-.teal-card{background:var(--white);border:1px solid #eaeaea;border-radius:16px;padding:22px 12px;text-align:center;text-decoration:none;display:block;box-shadow:var(--btn-shadow);position:relative;overflow:hidden;}
-.teal-card span{font-size:30px;display:block;margin-bottom:8px;}
-.teal-card p{margin:0;font-size:13px;font-weight:700;color:var(--primary-teal);text-transform:uppercase;}
-.section-title{padding:25px 20px 10px;font-size:13px;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:2.5px;}
-.whats-new-container{padding:0 15px;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
-.wn-card{background:#fcf9f2;border-radius:4px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);border:1px solid #f0eaeb;display:flex;flex-direction:column;}
-.wn-header{padding:10px 8px;font-size:11px;font-weight:800;color:white;}
-.wn-list{padding:10px 8px;flex:1;}
-.wn-text{font-size:11px;color:#333;font-style:italic;font-weight:600;line-height:1.4;}
-.gov-card{grid-column:span 2;display:flex;align-items:center;text-align:left;padding:15px;border-radius:18px;}
-.gov-card img{width:70px;height:70px;border-radius:10px;margin-right:15px;border:1px solid #ddd;object-fit:cover;}
-.btn-action{background:var(--primary-teal);color:white;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:800;text-decoration:none;display:inline-block;margin-top:8px;}
-.premium-card{border:2px solid var(--premium-gold)!important;background:linear-gradient(135deg,var(--white) 0%,#fffdf3 100%)!important;position:relative;overflow:hidden;}
-.premium-badge{position:absolute;top:10px;right:-25px;background:var(--premium-gold);color:white;font-size:9px;font-weight:900;padding:3px 30px;transform:rotate(45deg);}
-.features-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 15px;}
-.feature-card{background:var(--white);border-radius:12px;padding:15px 5px;text-align:center;border:1px solid #eee;box-shadow:var(--btn-shadow);text-decoration:none;display:block;}
-.feature-card p{margin:5px 0 0;font-size:10px;font-weight:bold;color:var(--primary-teal);}
-.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:10px 15px;}
-.comm-card{background:var(--white);border-radius:15px;padding:18px;text-align:center;text-decoration:none;box-shadow:var(--btn-shadow);border:1px solid #eee;display:block;}
-.comm-card img{width:32px;height:32px;margin-bottom:6px;display:inline-block;}
-.comm-card p{margin:0;font-size:12px;font-weight:bold;}
-.footer{text-align:center;padding:20px;margin-top:20px;border-top:1px solid #ddd;background:var(--white);}
-.footer a{color:var(--primary-teal);font-size:12px;font-weight:800;text-decoration:none;margin:0 8px;}
-.footer p{color:#666;font-size:10px;font-weight:600;margin-top:10px;}
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
 
-.geo-promo-box{margin:15px;background:#0B2B40;border-radius:20px;padding:0;color:white;position:relative;overflow:hidden;display:flex;flex-direction:row;min-height:220px;}
-.geo-left-text{flex:1.2;padding:20px;z-index:5;display:flex;flex-direction:column;justify-content:center;}
-.geo-right-banner{flex:1.5;position:relative;}
-.geo-right-banner img{width:100%;height:100%;object-fit:cover;}
-.geo-tag{background:var(--winner-gold);color:var(--primary-teal);padding:4px 10px;border-radius:50px;font-size:9px;font-weight:900;display:inline-block;margin-bottom:10px;}
-.geo-features{list-style:none;padding:0;margin:10px 0;font-size:10px;font-weight:600;}
-.geo-features li{margin-bottom:4px;display:flex;align-items:center;gap:5px;}
-.payment-white-box{background:white;border-radius:15px;margin:15px;padding:12px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-.qr-link-box{width:100px;height:100px;flex-shrink:0;cursor:pointer;}
-.qr-img-style{width:100%;height:100%;border-radius:8px;border:1px solid #ddd;}
-.pay-btn-tele{background:#0088cc;color:white;padding:10px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin:0 15px 15px;text-align:center;}
-</style>
+        .loader-line {
+            width: 240px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            height: 100%;
+            background: var(--brand);
+            width: 0%;
+            animation: grow 3s cubic-bezier(0.1, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes grow { to { width: 100%; } }
+
+        /* प्रोफेशनल कार्ड डिजाइन */
+        .glass-dashboard {
+            background: var(--panel);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .opt-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #f1f5f9;
+        }
+
+        .opt-card:hover:not([disabled]) {
+            border-color: var(--brand);
+            transform: translateY(-2px);
+            background: #fffaf5;
+        }
+
+        .correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+<body oncontextmenu="return false;">
 
-<div class="header">
-    <h1>ONLY HINDI IAS</h1>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <div id="g_id_onload"
-             data-client_id="373006333922-oarhs996asj1o36b4jtvguufmve64inv.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="handleSignInResponse"
-             data-auto_prompt="false">
+    <div id="splash-screen">
+        <div class="brand-logo uppercase">ONLY <span class="text-orange-500">HINDI</span> IAS</div>
+        <p class="text-slate-500 text-[10px] tracking-[0.4em] font-bold mt-2 uppercase">Official Learning App</p>
+        <div class="loader-line"><div class="loader-progress"></div></div>
+    </div>
+
+    <main id="app-main" class="max-w-xl mx-auto p-4 md:p-6 hidden">
+        
+        <header class="flex justify-between items-center mb-8 glass-dashboard p-5 rounded-[2rem]">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-900 rounded-2xl flex items-center justify-center text-white text-lg">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <h2 class="text-sm font-black text-slate-800 tracking-tighter uppercase">ONLY HINDI IAS</h2>
+            </div>
+            <div id="top-score" class="text-orange-600 font-black text-xs bg-orange-50 px-4 py-2 rounded-xl">SCORE: 0</div>
+        </header>
+
+        <div id="home-dashboard" class="fade-in">
+            <div class="glass-dashboard rounded-[2.5rem] p-10 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-5 text-9xl"><i class="fa-solid fa-landmark"></i></div>
+                <h1 class="text-3xl font-black text-slate-900 leading-tight">GS Paper 1<br><span class="text-orange-500">Practice Set 2026</span></h1>
+                <p class="text-slate-400 text-xs mt-4 mb-10 font-bold uppercase tracking-widest">UPSC Standard Questions with Explanations</p>
+                <button onclick="initQuiz()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-5 rounded-[1.5rem] shadow-2xl shadow-orange-500/30 transition-all active:scale-95 text-lg">
+                    क्विज़ शुरू करें <i class="fa-solid fa-play ml-2"></i>
+                </button>
+            </div>
         </div>
-        <div class="g_id_signin" data-type="icon" data-shape="circle" data-theme="outline" data-size="large"></div>
-        <img src="1766115476203(2).jpg" class="profile-logo" alt="ONLY HINDI IAS Logo">
-    </div>
-</div>
 
-<div class="banner-slider-box">
-    <img src="1774704983075.jpg" class="active" alt="UPSC Study Banner">
-    <img src="1774953818193.png" alt="Quiz Winner Banner">
-</div>
+        <div id="quiz-panel" class="hidden fade-in">
+            <div class="mb-4 flex items-center gap-4">
+                <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div id="bar" class="h-full bg-orange-500 transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <span id="q-count" class="text-[10px] font-black text-slate-400 uppercase">1/20</span>
+            </div>
 
-<div class="live-quiz-section">
-    <h2>Daily Live Quiz ✍️</h2>
-    <p>सबसे पहले 10/10 स्कोर करें और ₹11 जीतें!</p>
-    <a href="https://forms.gle/TMvjj2TSUBKknptG7" class="btn-live-quiz">START LIVE QUIZ →</a>
-    <p style="margin-top:10px; font-size:10px; font-style:italic; opacity:0.8;">Next Quiz: Today at 9:00 PM Sharp</p>
-</div>
+            <div class="glass-dashboard rounded-3xl p-6 mb-4">
+                <h3 id="q-text" class="text-lg font-bold text-slate-800 leading-snug"></h3>
+            </div>
+            
+            <div id="opt-grid" class="grid gap-3"></div>
 
-<div class="news-container"><div class="news-scroll"><span>𝐎𝐍𝐋𝐘 𝐇𝐈𝐍𝐃𝐈 𝐈𝐀𝐒 में आपका स्वागत है.&nbsp;&nbsp;&nbsp;&nbsp;</span></div></div>
-
-<div class="section-title">⚡ QUICK ACCESS</div>
-<div class="card-container">
-<a href="batches.html" class="teal-card"><span>🎓</span><p>KGS Batches</p></a>
-<div class="teal-card"><span>❤️</span><p>Favourites</p></div>
-<div class="teal-card"><span>⌛</span><p>History</p></div>
-<div class="teal-card"><span>⬇️</span><p>Downloads</p></div>
-</div>
-
-<div class="section-title">🚀 NCERT FOUNDATION 2026</div>
-<div style="background:linear-gradient(135deg, #1a4a6e 0%, #0B2B40 100%); border-radius:20px; margin:0 15px; overflow:hidden; border:2px solid var(--premium-gold);">
-    <div class="geo-promo-box" style="margin:0; background:transparent;">
-        <div class="geo-left-text">
-            <div class="geo-tag" style="background:#ff0000; color:white;">HURRY! ONLY 10 SEATS LEFT</div>
-            <b style="font-size:15px; line-height:1.2; color:white;">NCERT Foundation Batch 2026</b>
-            <p style="margin:5px 0; font-size:10px; color:#ffaa00; font-weight:800;">Start: 15 Apr 2026 (Hindi Medium)</p>
-            <ul class="geo-features">
-                <li>✅ Complete 6-12 NCERT Coverage</li>
-                <li>✅ Detailed Concept Building</li>
-                <li>✅ NCERT Based Practice MCQ</li>
-            </ul>
-            <div style="font-size:16px; font-weight:900; margin-top:5px; color:white;">Price: <span style="color:#25d366;">₹500 ONLY</span></div>
+            <div id="exp-panel" class="mt-6 glass-dashboard rounded-3xl p-6 border-l-[6px] border-orange-500 hidden">
+                <div class="flex items-center gap-2 mb-3 text-orange-600 font-black text-[10px] uppercase">
+                    <i class="fa-solid fa-circle-check"></i> विवरण और व्याख्या
+                </div>
+                <p id="exp-text" class="text-sm text-slate-600 leading-relaxed italic"></p>
+                <button onclick="handleStep()" class="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold uppercase text-xs tracking-widest">
+                    Next Question <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                </button>
+            </div>
         </div>
-        <div class="geo-right-banner"><img src="30b5b4cd-a1cf-40a9-b7c1-b8a55c01383b.jpg" alt="NCERT Batch"></div>
-    </div>
-    <div style="padding:15px; background:rgba(255,255,255,0.05); text-align:center;">
-        <a href="ncert.html" class="btn-live-quiz" style="width:100%; box-sizing:border-box;">ENROLL NOW - JOIN BATCH →</a>
-    </div>
-</div>
 
-<div class="section-title">🔥 GEOGRAPHY OPTIONAL BATCH</div>
-<div style="background:#0B2B40; border-radius:20px; margin:0 15px; overflow:hidden;">
-    <div class="geo-promo-box">
-        <div class="geo-left-text">
-            <div class="geo-tag">LIMITED OFFER</div>
-            <b style="font-size:15px; line-height:1.2;">Geography Optional <br>(Hindi Medium)</b>
-            <p style="margin:5px 0; font-size:10px; color:#ffaa00; font-weight:800;">By Sachin Arora Sir</p>
-            <ul class="geo-features">
-                <li>✅ 200+ HD Lectures</li>
-                <li>✅ Video & PDF Notes</li>
-            </ul>
-            <div style="font-size:16px; font-weight:900; margin-top:5px;">Price: <span style="text-decoration:line-through; font-size:10px; opacity:0.6;">₹5000</span> ₹500</div>
+        <div id="result-hub" class="hidden glass-dashboard rounded-[2.5rem] p-10 text-center">
+            <i class="fa-solid fa-trophy text-orange-500 text-6xl mb-4"></i>
+            <h2 class="text-2xl font-black text-slate-900">क्विज़ संपन्न</h2>
+            <p class="text-slate-400 text-xs font-bold uppercase mt-1">आपका प्रदर्शन स्कोर</p>
+            <div class="my-10 text-8xl font-black text-slate-900" id="final-res">0</div>
+            <button onclick="location.reload()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold">Try Again</button>
         </div>
-        <div class="geo-right-banner"><img src="1776398621424.png" alt="Batch Banner"></div>
-    </div>
-    <div class="payment-white-box">
-        <a href="upi://pay?pa=9685026772@ybl&pn=ONLY%20HINDI%20IAS&am=500&cu=INR" class="qr-link-box">
-            <img src="IMG_20260417_095552_767.jpg" class="qr-img-style" alt="Payment QR">
-        </a>
-        <div style="flex:1;">
-            <p style="color:#0B2B40; font-size:11px; font-weight:800; margin:0;">1. QR कोड पर टच करें</p>
-            <p style="color:#0B2B40; font-size:11px; font-weight:800; margin:4px 0;">2. ₹500 पेमेंट करें</p>
-            <p style="color:#d32f2f; font-size:9px; font-weight:900; line-height:1.2;">पेमेंट का स्क्रीनशॉट टेलीग्राम पर भेजें</p>
-        </div>
-    </div>
-    <a href="https://t.me/mission968" class="pay-btn-tele">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" width="18"> SEND SCREENSHOT ON TELEGRAM
-    </a>
-    <a href="geo-optional.html" class="btn-live-quiz" style="width:calc(100% - 30px); margin:0 15px 15px; text-align:center; padding:10px 0; font-size:13px; box-sizing:border-box;">VIEW CHAPTER LIST →</a>
-</div>
+    </main>
 
-<div class="section-title">Recent updates on ONLY HINDI IAS</div>
-<div class="whats-new-container">
-<div class="wn-card"><div class="wn-header" style="background:#8B85E8;">☆ What's New</div><div class="wn-list"><div class="wn-text">📅 1 April: Economy notes soon<br>📅 30 March: GS-1 2025 Test</div></div></div>
-<div class="wn-card"><div class="wn-header" style="background:#DEB887;">☆ नया क्या है?</div><div class="wn-list"><div class="wn-text">📅 1 April: अर्थव्यवस्था नोट्स जल्द<br>📅 30 March: GS-1 टेस्ट सीरीज</div></div></div>
-</div>
+    <script>
+        // 20 Questions Data from GS Paper 1
+        const quizRepo = [
+            { q: "सिक्किम से गुजरने वाला अक्षांश निम्नलिखित में से किस एक से भी होकर गुजरता है?", options: ["राजस्थान", "पंजाब", "हिमाचल प्रदेश", "जम्मू-कश्मीर"], correct: 0, exp: "मानचित्र के अनुसार, 27° उत्तरी अक्षांश सिक्किम और उत्तरी राजस्थान दोनों से होकर गुजरता है।" },
+            { q: "लूनी नदी (Luni River) के संदर्भ में कौन-सा कथन सही है?", options: ["खम्भात की खाड़ी में गिरती है", "कच्छ की खाड़ी में गिरती है", "सिंधु की सहायक नदी है", "कच्छ के रन में लुप्त हो जाती है"], correct: 3, exp: "लूनी नदी एक अंतःस्थलीय अपवाह का उदाहरण है जो कच्छ के रन की दलदली भूमि में लुप्त हो जाती है।" },
+            { q: "लाल मिट्टी (Red Soil) के रंग का मुख्य कारण क्या है?", options: ["मैग्नीशियम", "फेरिक ऑक्साइड", "ह्यूमस", "फॉस्फेट"], correct: 1, exp: "फेरिक ऑक्साइड (Ferric Oxide) की उपस्थिति के कारण मिट्टी का रंग लाल होता है।" },
+            { q: "निम्नलिखित में से किसका एल्बीडो (Albedo) सबसे अधिक है?", options: ["बालू मरुस्थल", "धान की भूमि", "ताजी बर्फ (Fresh Snow)", "प्रेअरी भूमि"], correct: 2, exp: "ताजी गिरी बर्फ सूर्य के प्रकाश को सबसे अधिक (80-90%) परावर्तित करती है।" },
+            { q: "ओशनसैट-2 (Oceansat-2) उपग्रह का मुख्य कार्य क्या है?", options: ["शिक्षा", "मानसून का पूर्वानुमान", "रक्षा", "बैंकिंग"], correct: 1, exp: "यह उपग्रह समुद्र के ऊपर हवा की गति और मानसून की भविष्यवाणी में सहायक है।" },
+            { q: "सुनहरा चावल (Golden Rice) में किसकी प्रचुरता होती है?", options: ["विटामिन सी", "विटामिन ए", "विटामिन डी", "विटामिन बी"], correct: 1, exp: "इसे विटामिन ए (प्रो-विटामिन ए) की कमी को पूरा करने के लिए तैयार किया गया है।" },
+            { q: "अनुच्छेद 143 के तहत सुप्रीम कोर्ट से सलाह कौन ले सकता है?", options: ["प्रधानमंत्री", "राष्ट्रपति", "मुख्य न्यायाधीश", "राज्यपाल"], correct: 1, exp: "राष्ट्रपति को सार्वजनिक महत्व के कानूनी प्रश्नों पर सुप्रीम कोर्ट से परामर्श लेने का अधिकार है।" },
+            { q: "अम्ल वर्षा (Acid Rain) के लिए जिम्मेदार गैसें हैं:", options: ["CO2-O2", "NOx और SO2", "Helium", "Methane"], correct: 1, exp: "नाइट्रोजन और सल्फर के ऑक्साइड वर्षा के जल के साथ मिलकर अम्ल वर्षा का कारण बनते हैं।" },
+            { q: "मक्का (Maize) की फसल से क्या उत्पादित किया जा सकता है?", options: ["डीजल", "एथेनॉल (Ethanol)", "केरोसिन", "कोयला"], correct: 1, exp: "मक्का एक ऊर्जा फसल है जिसका उपयोग एथेनॉल के उत्पादन में किया जाता है।" },
+            { q: "गांधीजी को चंपारण आने का निमंत्रण किसने दिया था?", options: ["राजेंद्र प्रसाद", "राजकुमार शुक्ल", "नेहरू", "पटेल"], correct: 1, exp: "राजकुमार शुक्ल ने किसानों की समस्या के लिए गांधीजी को चंपारण बुलाया था।" },
+            { q: "भारत में थोक मूल्य सूचकांक (WPI) कौन जारी करता है?", options: ["RBI", "नीति आयोग", "वाणिज्य एवं उद्योग मंत्रालय", "वित्त मंत्रालय"], correct: 2, exp: "WPI डेटा वाणिज्य एवं उद्योग मंत्रालय द्वारा मासिक आधार पर जारी किया जाता है।" },
+            { q: "कोलेरू झील (Kolleru Lake) कहाँ स्थित है?", options: ["केरल", "तमिलनाडु", "आंध्र प्रदेश", "ओडिशा"], correct: 2, exp: "कोलेरू झील आंध्र प्रदेश में कृष्णा और गोदावरी नदियों के बीच स्थित है।" },
+            { q: "1942 के भारत छोड़ो आंदोलन का मुख्य नारा क्या था?", options: ["जय हिन्द", "करो या मरो", "स्वराज", "दिल्ली चलो"], correct: 1, exp: "महात्मा गांधी ने 1942 में 'करो या मरो' का नारा दिया था।" },
+            { q: "साइबरनाइफ (Cyberknife) तकनीक किसके उपचार में प्रयुक्त होती है?", options: ["हृदय", "कैंसर (Cancer)", "किडनी", "मस्तिष्क"], correct: 1, exp: "यह कैंसर ट्यूमर के सटीक रेडियोसर्जरी उपचार के लिए एक रोबोटिक तकनीक है।" },
+            { q: "एशिया में शहरीकरण की दर सबसे तीव्र कहाँ रही है?", options: ["दक्षिण एशिया", "पूर्वी एशिया", "दक्षिण-पूर्व एशिया", "पश्चिम एशिया"], correct: 1, exp: "UN रिपोर्ट के अनुसार पूर्वी एशिया में शहरीकरण की दर विगत दशकों में बहुत तीव्र रही है।" },
+            { q: "भूमध्यसागरीय जलवायु (Mediterranean Climate) की विशेषता है:", options: ["शुष्क शीतकाल", "आर्द्र शीतकाल (Wet Winter)", "वर्ष भर वर्षा", "कोई नहीं"], correct: 1, exp: "यहाँ सर्दियाँ सुहावनी और आर्द्र होती हैं जबकि गर्मियाँ शुष्क रहती हैं।" },
+            { q: "इनमें से कौन-सा जीवाणु तेल रिसाव को साफ करने में सहायक है?", options: ["Clostridium", "Pseudomonas", "Agrobacterium", "Nitrosomonas"], correct: 1, exp: "स्यूडोमोनास पुटीडा का उपयोग समुद्र में बिखरे तेल के निवारण के लिए किया जाता है।" },
+            { q: "WTO का मुख्यालय (Headquarters) कहाँ है?", options: ["पेरिस", "जिनेवा (Geneva)", "न्यूयॉर्क", "वियना"], correct: 1, exp: "विश्व व्यापार संगठन का मुख्यालय स्विट्जरलैंड के जिनेवा शहर में स्थित है।" },
+            { q: "राष्ट्रमंडल (Commonwealth) का सचिवालय कहाँ स्थित है?", options: ["न्यूयॉर्क", "लंदन (London)", "पेरिस", "नई दिल्ली"], correct: 1, exp: "राष्ट्रमंडल का सचिवालय लंदन में स्थित है।" },
+            { q: "1905 के स्वदेशी आंदोलन का मुख्य कारण क्या था?", options: ["अकाल", "बंगाल विभाजन", "कर वृद्धि", "तिलक की गिरफ्तारी"], correct: 1, exp: "लॉर्ड कर्जन द्वारा किया गया बंगाल विभाजन स्वदेशी आंदोलन का मुख्य कारण था।" }
+        ];
 
-<div class="section-title">✍️ DAILY PRACTICE QUIZ</div>
-<div style="padding:0 15px 20px;"><a href="subjects.html" class="teal-card" style="display:flex;align-items:center;justify-content:space-between;padding:20px;text-decoration:none;">
-    <div style="display:flex;align-items:center;"><span style="font-size:30px;margin-right:15px;">📝</span><div><b style="color:var(--primary-teal);">UPSC Subject-wise Quiz</b><p style="margin:0;font-size:12px;color:#555;">History, Polity, Economy & more</p></div></div>
-    <b style="color:var(--primary-teal);">START →</b>
-</a></div>
+        let idx = 0; let score = 0;
 
-<div class="section-title">💎 PREMIUM STUDY MATERIAL</div>
-<div class="card-container">
-<div class="teal-card gov-card premium-card">
-<div class="premium-badge">PREMIUM</div>
-<img src="IMG_20260329_082203_932.jpg" alt="Ancient History Notes UPSC">
-<div class="gov-text"><b>Ancient History (Handwritten)</b><p style="margin:3px 0;font-size:12px;color:var(--premium-gold);font-weight:800;">Price: ₹59</p><a href="https://wa.me/919685026772" class="btn-action" style="background:var(--premium-gold);">🔒 BUY NOW</a></div>
-</div>
-</div>
+        // फिक्स्ड ऑटो-लोडिंग
+        window.onload = () => {
+            setTimeout(() => {
+                const sp = document.getElementById('splash-screen');
+                sp.style.opacity = '0';
+                setTimeout(() => {
+                    sp.classList.add('hidden');
+                    document.getElementById('app-main').classList.remove('hidden');
+                }, 800);
+            }, 3000);
+        };
 
-<div class="section-title">🏛️ GOVERNANCE CLASSIFIED</div>
-<div class="card-container"><div class="teal-card gov-card"><img src="IMG_20260319_163412_254.jpg" alt="UPSC Governance Notes"><div class="gov-text"><b>GS Paper 2 Dossier</b><p style="margin:0;font-size:11px;color:#555;">Governance Notes & Theory</p><a href="governance.pdf" class="btn-action">📄 OPEN PDF</a></div></div></div>
+        function initQuiz() {
+            // वॉइस वेलकम यहाँ शिफ्ट किया गया है ताकि यूजर क्लिक के बाद आवाज आए (Browser Policy)
+            const msg = new SpeechSynthesisUtterance("Welcome to ONLY HINDI IAS");
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
 
-<div class="section-title">✨ MORE FEATURES</div>
-<div class="features-grid">
-    <div class="feature-card">🏅<p>Exams</p></div>
-    <div class="feature-card">💡<p>Gyan Bindu</p></div>
-    <a href="https://ncert.nic.in/" class="feature-card">📖<p style="color:#0088cc;">NCERT Books</p></a>
-</div>
+            document.getElementById('home-dashboard').classList.add('hidden');
+            document.getElementById('quiz-panel').classList.remove('hidden');
+            renderQ();
+        }
 
-<div class="section-title">🤝 CONNECT WITH US</div>
-<div class="comm-grid">
-    <a href="https://t.me/mission968" class="comm-card" style="border-bottom:3px solid #0088cc;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"><p style="color:#0088cc;">Telegram</p></a>
-    <a href="https://wa.me/919685026772" class="comm-card" style="border-bottom:3px solid #25d366;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"><p style="color:#25d366;">WhatsApp</p></a>
-</div>
+        function renderQ() {
+            const d = quizRepo[idx];
+            document.getElementById('q-count').innerText = `${idx + 1}/${quizRepo.length}`;
+            document.getElementById('bar').style.width = `${((idx + 1) / quizRepo.length) * 100}%`;
+            document.getElementById('q-text').innerText = d.q;
+            document.getElementById('exp-panel').classList.add('hidden');
+            
+            const grid = document.getElementById('opt-grid');
+            grid.innerHTML = '';
+            
+            d.options.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = "opt-card text-left p-5 rounded-2xl font-bold text-slate-700 bg-white shadow-sm";
+                b.innerHTML = `<span class="bg-slate-100 px-3 py-1 rounded-lg mr-3 text-[9px] text-slate-400">${String.fromCharCode(65+i)}</span> ${o}`;
+                b.onclick = () => select(i, b);
+                grid.appendChild(b);
+            });
+        }
 
-<div class="section-title">🌟 STUDENTS FEEDBACK</div>
-<div style="padding:0 15px;">
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Very very very nice 👍👍 ⭐⭐⭐⭐⭐"</p><b>- Sonam</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"very nice ⭐⭐⭐⭐⭐"</p><b>- Harish</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"नील सर आपकी वेबसाइट और ग्रुप से पढ़ाई में बहुत मदद मिलती है 🥰♥️🙏"</p><b>- Pushpa Raj</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत ही यूज़फुल है 🥰"</p><b>- Komal</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"ONLY HINDI IAS की वेबसाइट बहुत ही सरल और उपयोगी है। सर आपके नोट्स से UPSC की तैयारी बहुत आसान हो गई!"</p><b>- Priya Singh</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"बहुत-बहुत धन्यवाद 🙏हमें upsc सामग्री प्रदान करने के लिए शुक्रिया 👍"</p><b>- Aditi Singh</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"Aapka content saral, spasht aur poori tarah UPSC-oriented hai. Dhanyavaad 🙏"</p><b>- Muskan</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"super h"</p><b>- Abhi</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"यह बेबसाइट बहुत अच्छी है धन्यवाद"</p><b>- आराधना यादव</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--primary-teal);"><p style="font-size:13px;font-style:italic;">"useful site thanks"</p><b>- Mohan</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"Thanku ye bhot achha h study k liye 🙏🏻⭐⭐⭐⭐⭐"</p><b>- Kajal</b></div>
-    <div class="teal-card" style="text-align:left;padding:15px;margin-bottom:10px;border-left:4px solid var(--premium-gold);"><p style="font-size:13px;font-style:italic;">"यह वेबसाइट बहुत अच्छी है, नोट्स और क्विज़ दोनों ही बहुत मददगार हैं! ⭐⭐⭐⭐⭐"</p><b>- Sanjana</b></div>
+        function select(s, b) {
+            const c = quizRepo[idx].correct;
+            const btns = document.querySelectorAll('.opt-card');
+            btns.forEach(x => x.disabled = true);
 
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScyij3uscJI2L36ZM6xKM3Y78V0oJmzWDE4BVPrzOW1vnkIog/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--premium-gold);padding:12px;border-radius:12px;display:block;margin:10px auto;box-sizing:border-box;">⭐ वेबसाइट को रेटिंग दें (RATINGS)</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfRiKQFP2WemSN9G2LGGt4Vk_qKwqDMYGbWKcCLiXucVPtWuw/viewform" target="_blank" class="btn-action" style="width:100%;text-align:center;background:var(--white);color:var(--primary-teal);border:2px dashed var(--primary-teal);padding:12px;border-radius:12px;displ
+            if(s === c) {
+                b.classList.add('correct'); score++;
+                document.getElementById('top-score').innerText = `SCORE: ${score}`;
+            } else {
+                b.classList.add('wrong');
+                btns[c].classList.add('correct');
+            }
+
+            document.getElementById('exp-text').innerText = quizRepo[idx].exp;
+            document.getElementById('exp-panel').classList.remove('hidden');
+        }
+
+        function handleStep() {
+            idx++;
+            if(idx < quizRepo.length) renderQ();
+            else showFinal();
+        }
+
+        function showFinal() {
+            document.getElementById('quiz-panel').classList.add('hidden');
+            document.getElementById('result-hub').classList.remove('hidden');
+            document.getElementById('final-res').innerText = `${score}/${quizRepo.length}`;
+        }
+    </script>
+</body>
+</html>
